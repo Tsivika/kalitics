@@ -1,0 +1,79 @@
+{% extends "base-frontend.html.twig" %}
+
+{% block body %}
+  <div class="container">
+   <div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
+    <div class="card card0 border-0">
+        <div class="row d-flex">
+            <div class="col-lg-6">
+                <div class="card1 pb-5" id="image-login">                    
+                    <div class="row px-3 justify-content-center mt-4 mb-5 border-line"> 
+                    	<img src="{{ asset('frontend/images/hiboo_connexion.png')}}" class="image" style="width:100%; height:96%"> </div>
+                </div> 
+            </div>
+            <div class="col-lg-6 ">
+                <p style="margin-bottom:30px ">
+                	<h3>Connexion <span class="text-green">Hiboo</span></h3>
+                	Connectez-vous afin de profiter pleinement de vos réunions
+                </p>
+                    <!-- Email Address -->
+                    <div class="input-group col-lg-12 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-envelope text-muted"></i>
+                            </span>
+                        </div>
+                        <input id="email" type="email" name="email" placeholder="Email Address" class="form-control bg-white border-left-0 border-md">
+                    </div>
+						
+                     <div class="input-group col-lg-12 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-lock text-muted"></i>
+                            </span>
+                        </div>
+                        <input id="password" type="password" name="password" placeholder="Password" class="form-control bg-white border-left-0 border-md">
+                    </div>
+
+                    <div class="row " style="margin-bottom:20px">
+	                    <div class="col-lg-6 ">
+	                    	<a href="signup.html" class="text-danger ml-2"> Mot de passe oublié ? </a>
+	                    </div>
+	                    <div class="col-lg-6 ">
+	                    	Pas de compte ? <a href="#" class="link">Inscrivez vous</a>
+	                    </div>
+                    </div>
+                    
+                    <div style="margin-top: 60px;font-size: 12px;padding: 10px;">
+					En me connectant, j'accepte votre <a href="#" class="link">Politique de confidentialité</a> et <a href="#" class="link">les Conditions de service.</a>
+				    </div>
+					 <div class="form-group col-lg-12 mx-auto mb-0">
+					 	
+                        <a href="#" class="btn  btn-large py-2 login">
+                            <span class="font-weight-bold">Se connecter</span>
+                        </a>
+                    </div>
+					 
+                    
+                    
+                   
+            </div>
+        </div>
+        
+    </div>
+</div>
+</div>
+
+<div class="world-globe">
+    <h3 class="text-center">Ils nous font confiance </h3>
+    <div class="row rectangle text-center">
+	      <div class="col-md-3 rectangle-logo"><img  class="img-fluid"    src="{{ asset('frontend/images/AccorHotelssvg_lu.png') }}"></div>
+		  <div class="col-md-3  rectangle-logo"><img  class="img-fluid"    src="{{ asset('frontend/images/uber-eats-logo-png_lw.png') }}"></div>
+		  <div class="col-md-3  rectangle-logo"><img  class="img-fluid"   src="{{ asset('frontend/images/AccorHotelssvg_lu.png') }}"></div>
+		  <div class="col-md-3  rectangle-logo"><img  class="img-fluid"  width="200px" height="60px"src="{{ asset('frontend/images/Uber_logo_2018_ly.png') }}"></div>
+    </div> 
+</div>
+<br><br>
+
+
+{% endblock %}

@@ -1,3 +1,17 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+frontend:
+  resource: '../config/routes/frontend/routes.yaml'
+  prefix: /
+  trailing_slash_on_root: false
+
+#security_login:
+#  path: /connexion
+#  controller: App\Controller\SecurityController::login
+
+#security_logout:
+#  path: /logout
+#  controller: App\Controller\SecurityController::logout
+
+#backend:
+#  resource: '../config/routes/backend/routes.yaml'
+#  prefix: /gestion
+#  trailing_slash_on_root: false
