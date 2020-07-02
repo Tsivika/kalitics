@@ -1,9 +1,9 @@
 # page d'accueil du site public
-frontend_accueil:
-  path: /
-  controller: App\Controller\FrontEnd\AccueilController::index
+#frontend_accueil:
+#  path: /
+#  controller: App\Controller\FrontEnd\AccueilController::index
 
 # page connexion
-frontend_connexion:
-  path: /connexion
-  controller: App\Controller\FrontEnd\LoginController::index
+#frontend_connexion:
+#  path: /connexion
+#  controller: App\Controller\FrontEnd\LoginController::index
