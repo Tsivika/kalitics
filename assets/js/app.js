@@ -11,9 +11,7 @@ global.$ = global.jQuery = $;
 import '../css/app.css';
 import './jquery.min';
 import './bootstrap.bundle';
+import '../externes/jquery.easing/jquery.easing.min';
 import './hiboo';
 import './carousel';
-
-// Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
-// import $ from 'jquery';
 

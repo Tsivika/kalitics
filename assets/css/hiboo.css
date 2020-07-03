@@ -13,16 +13,24 @@
 	background-color:rgba(0,201,174,1);
 	color:white;
 	margin-top:0px;
+    font-family: "GalanoGrotesqueAltRegular";
+    letter-spacing: 0px;
+    font-size: 16px;
+    opacity: 1;
 }
-.signup{
+.signup {
 	
 	background-color:rgba(0,201,174,1);
 	color:white;
 	
 }
-.signin{
+.signin {
 	
-	margin-top:0px
+	margin-top:0px;
+    font-family: "GalanoGrotesqueAltRegular";
+    letter-spacing: 0px;
+    font-size: 16px;
+    opacity: 1;
 }
 
 .text-green { 
@@ -53,20 +61,29 @@ font-style: normal;
 font-weight: normal;
 font-size: 60px;
 color: rgba(0,201,174,1);
-font-family: GalanoGrotesque ;
+font-family: GalanoGrotesqueAltMedium ;
 z-index: 1;
 }
 .masthead h2 {
-	font-family: GalanoGrotesque ;
- font-style: normal;
-font-weight: lighter;
-color: rgba(6,41,68,1);
-z-index: 1;
+	font-family: GalanoGrotesqueAltRegular ;
+    font-style: normal;
+    font-weight: lighter;
+    font-size: 55px;
+    color: rgba(6,41,68,1);
+    z-index: 1;
 }
 .site-heading{
 	z-index: 1;
 }
- 
+.site-heading .btn{
+    background-color: #FF5A5F !important;
+    font-family: GalanoGrotesqueAltRegular;
+    font-size: 18px;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    opacity: 1;
+}
+
 .world-globe h3{
 	
 	color:rgba(0,201,174,1);
@@ -3179,6 +3196,16 @@ z-index: 1;
 		top: 0px;
 		overflow: visible;
 	}
+    .encart_home_head {
+        font-family: GalanoGrotesqueAltMedium;
+        letter-spacing: 0px;
+        opacity: 1;
+    }
+    .encart_home_body {
+        font-family: GalanoGrotesqueAltRegular !important;
+        letter-spacing: 0px;
+        opacity: 1;
+    }
 	#Facile {
 		left: 0px;
 		top: 0px;
@@ -3187,7 +3214,7 @@ z-index: 1;
 		width: 65px;
 		white-space: nowrap;
 		text-align: left;
-		font-family: GalanoGrotesque ☞;
+		/*font-family: GalanoGrotesque ☞;*/
 		font-style: normal;
 		font-weight: normal;
 		font-size: 24px;
@@ -3201,7 +3228,7 @@ z-index: 1;
 		width: 176px;
 		height: 75px;
 		text-align: left;
-		font-family: GalanoGrotesque-Regular ☞;
+		/*font-family: "GalanoGrotesqueAltRegular";*/
 		font-style: normal;
 		font-weight: normal;
 		font-size: 16px;
@@ -3263,7 +3290,7 @@ z-index: 1;
 		width: 77px;
 		white-space: nowrap;
 		text-align: left;
-		font-family: GalanoGrotesque ☞;
+		/*font-family: GalanoGrotesque ☞;*/
 		font-style: normal;
 		font-weight: normal;
 		font-size: 24px;
@@ -3277,7 +3304,7 @@ z-index: 1;
 		width: 176px;
 		height: 75px;
 		text-align: left;
-		font-family: GalanoGrotesque-Regular ☞;
+		/*font-family: GalanoGrotesque-Regular ☞;*/
 		font-style: normal;
 		font-weight: normal;
 		font-size: 16px;
@@ -3363,7 +3390,7 @@ z-index: 1;
 		width: 125px;
 		white-space: nowrap;
 		text-align: left;
-		font-family: GalanoGrotesque ☞;
+		/*font-family: GalanoGrotesque ☞;*/
 		font-style: normal;
 		font-weight: normal;
 		font-size: 24px;
@@ -3377,7 +3404,7 @@ z-index: 1;
 		width: 170px;
 		height: 81px;
 		text-align: left;
-		font-family: GalanoGrotesque-Regular ☞;
+		/*font-family: GalanoGrotesque-Regular ☞;*/
 		font-style: normal;
 		font-weight: normal;
 		font-size: 16px;
@@ -3439,7 +3466,7 @@ z-index: 1;
 		width: 90px;
 		white-space: nowrap;
 		text-align: left;
-		font-family: GalanoGrotesque ☞;
+		/*font-family: GalanoGrotesque ☞;*/
 		font-style: normal;
 		font-weight: normal;
 		font-size: 24px;
@@ -3453,7 +3480,7 @@ z-index: 1;
 		width: 176px;
 		height: 81px;
 		text-align: left;
-		font-family: GalanoGrotesque-Regular ☞;
+		/*font-family: GalanoGrotesque-Regular ☞;*/
 		font-style: normal;
 		font-weight: normal;
 		font-size: 16px;
@@ -3539,7 +3566,7 @@ z-index: 1;
 		width: 146px;
 		white-space: nowrap;
 		text-align: left;
-		font-family: GalanoGrotesque ☞;
+		/*font-family: GalanoGrotesque ☞;*/
 		font-style: normal;
 		font-weight: normal;
 		font-size: 24px;
@@ -3553,7 +3580,7 @@ z-index: 1;
 		width: 359px;
 		height: 50px;
 		text-align: left;
-		font-family: GalanoGrotesque-Regular ☞;
+		/*font-family: GalanoGrotesque-Regular ☞;*/
 		font-style: normal;
 		font-weight: normal;
 		font-size: 16px;
@@ -6648,4 +6675,24 @@ z-index: 1;
 	padding-left: 5.5px;
 }
 
- 
+@font-face {
+    font-family: 'GalanoGrotesqueAltRegular';
+    src: url('../fonts/galano_Grotesque/GalanoGrotesqueAlt-Regular.eot') format('embedded-opentype'), url('../fonts/galano_Grotesque/GalanoGrotesqueAlt-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'GalanoGrotesqueAltMedium';
+    src: url('../fonts/galano_Grotesque/GalanoGrotesqueAlt-Medium.eot') format('embedded-opentype'), url('../fonts/galano_Grotesque/GalanoGrotesqueAlt-Medium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: #062944;
+    opacity: 1;
+    letter-spacing: 0px;
+    font-size: 18px;
+    font-family: GalanoGrotesqueAltRegular ;
+}
