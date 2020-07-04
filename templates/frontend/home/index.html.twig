@@ -1197,6 +1197,23 @@
 			<div class="col-md-3  rectangle-logo"><img alt=""  class="img-fluid"  width="200px" height="60px" src="{{ asset('frontend/images/Uber_logo_2018_ly.png') }}"></div>
 		</div>
 	</section>
+
+	<section id="contact" class="world-globe">
+		<h3 class="text-center encart_home_head">Nous contacter</h3>
+		{% include 'frontend/contact/index.html.twig' %}
+		<br><br>
+		<h1>Toastr with FontAwesome Icons</h1>
+		<ul class="icons-ul">
+			<li><i class="icon-li icon-ok"></i>Embedded icon using the &lt;i&gt; tag</li>
+			<li><i class="icon-li icon-ok"></i>Doesn't work with background-image</li>
+			<li><i class="icon-li icon-ok"></i>We can use the :before psuedo class</li>
+			<li><i class="icon-li icon-ok"></i>Works in IE8+, FireFox 21+, Chrome 26+, Safari 5.1+, most mobile browsers</li>
+			<li><i class="icon-li icon-ok"></i>See <a href="http://caniuse.com/#search=before">CanIUse.com</a> for browser support</li>
+		</ul>
+		<button class="btn btn-primary" id="tryMe">Try Me</button>
+	</section>
+
+
 <br><br>
 
 {% endblock %}

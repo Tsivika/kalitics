@@ -14,4 +14,6 @@ import './bootstrap.bundle';
 import '../externes/jquery.easing/jquery.easing.min';
 import './hiboo';
 import './carousel';
+import './toastr.min';
+import './toastr';
 
