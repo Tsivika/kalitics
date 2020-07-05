@@ -1,0 +1,63 @@
+version: "3.5"
+
+services:
+    front:
+        restart: always
+        image: nginx
+        volumes:
+            - ./:/var/www:ro
+            - ./var/nginx:/var/log/nginx:rw
+            # http://symfony.com/doc/current/setup/web_server_configuration.html#nginx
+            - ./docker/front/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+        ports:
+            - 80:80
+            
+    engine:
+        restart: always
+        container_name: ezyordfront
+        build:
+            context: .
+        env_file:
+            - .env.local
+        networks:
+            - default # this network
+        volumes:
+            - $HOME/.composer:/.composer:rw,cached
+            - $HOME/.ssh:/root/.ssh:rw,cached
+            - .:/var/www:rw,cached
+            - ./docker/engine/php.ini:/usr/local/etc/php/conf.d/custom.ini:ro
+            - ./var/sessions/engine:/root:rw
+        environment:
+            PHP_IDE_CONFIG: serverName=ezyord
+
+    database:
+        restart: always
+        image: mysql:5.7
+        environment:
+            - MYSQL_ROOT_HOST=%
+            - MYSQL_DATABASE=haboo
+            - MYSQL_USER=root
+            - MYSQL_PASSWORD=root
+            - MYSQL_ROOT_PASSWORD=root
+            - TZ=Europe/Paris
+        volumes:
+            - ./var/data:/var/lib/mysql:rw
+            - ./var/dumps:/var/dumps:rw
+            - ./var/sessions/mysql:/root:rw
+        ports:
+            - 3306:3306 #DISABLE ON PROD
+
+    redis:
+        restart: always
+        image: redis:3.2.8
+
+    mailcatcher:
+        restart: always
+        image: schickling/mailcatcher
+        ports:
+            - 1080:1080
+            - 1025:1025 #DISABLE ON PROD
+
+networks:
+    default: # this network
+        driver: bridge

@@ -1,7 +1,7 @@
-frontend:
-  resource: '../config/routes/frontend/routes.yaml'
-  prefix: /
-  trailing_slash_on_root: false
+#frontend:
+#  resource: '../config/routes/frontend/routes.yaml'
+#  prefix: /
+#  trailing_slash_on_root: false
 
 #security_login:
 #  path: /connexion
