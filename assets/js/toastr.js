@@ -1,52 +1,31 @@
-$(function() {
+import toastr from './toastr.min';
 
     function Toast(type, css, msg) {
-        this.type = type;
+        this.type = type; // info - warning - success - error
         this.css = css;
-        this.msg = 'This is positioned in the ' + msg + '. You can also style the icon any way you like.';
+        this.msg =  msg ;
     }
 
-    var toasts = [
-        new Toast('error', 'toast-bottom-full-width', 'This is positioned in the bottom full width. You can also style the icon any way you like.'),
-        new Toast('info', 'toast-top-full-width', 'top full width'),
-        new Toast('warning', 'toast-top-left', 'This is positioned in the top left. You can also style the icon any way you like.'),
-        new Toast('success', 'toast-top-right', 'top right'),
-        new Toast('warning', 'toast-bottom-right', 'bottom right'),
-        new Toast('error', 'toast-bottom-left', 'bottom left')
-    ];
-
-    toastr.options.positionClass = 'toast-top-full-width';
-    toastr.options.extendedTimeOut = 0; //1000;
-    toastr.options.timeOut = 1000;
-    toastr.options.fadeOut = 250;
-    toastr.options.fadeIn = 250;
-
-    var i = 0;
-
-    $('#tryMe').click(function () {
-        $('#tryMe').prop('disabled', true);
-        delayToasts();
-    });
-
-    function delayToasts() {
-        if (i === toasts.length) { return; }
-        var delay = i === 0 ? 0 : 2100;
-        window.setTimeout(function () { showToast(); }, delay);
-
-        // re-enable the button
-        if (i === toasts.length-1) {
-            window.setTimeout(function () {
-                $('#tryMe').prop('disabled', false);
-                i = 0;
-            }, delay + 1000);
-        }
+    toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": true,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
     }
 
-    function showToast() {
-        var t = toasts[i];
+    export default function showToast(type, msg) {
+        var t = new Toast(type, 'toast-bottom-right', msg);
         toastr.options.positionClass = t.css;
         toastr[t.type](t.msg);
-        i++;
-        delayToasts();
     }
-})

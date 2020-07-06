@@ -9,32 +9,37 @@
                         </div>
                     </div>
                     <div class="col-lg-6" >
-                        <div style="margin:20px 0px 25px 15px; ">
-                            <h3 class="encart_home_head">Contacter <span class="text-green">Hiboo</span></h3>
-                            <span class="encart_home_body">Une question ? Remplissez ce formulaire et nous vous répondrons dans les plus brefs délais.</span>
-                        </div>
-                        <!-- Email Address -->
-                        <div class="input-group col-lg-12 mb-4">
-                            <input id="name" type="text" name="name" placeholder="Nom" class="form-control bg-white  border-md">
-                        </div>
-
-                        <div class="input-group col-lg-12 mb-4">
-                            <input id="email" type="email" name="email" placeholder="Email" class="form-control bg-white  border-md">
-                        </div>
-                        <div class="input-group col-lg-12 mb-4">
-                            <textarea id="message" rows="6" name="message" placeholder="Message" class="form-control bg-white  border-md"></textarea>
-                        </div>
-
-                        <div class="row " style="margin-bottom:20px">
-                            <div class="col-lg-6 ">
-                                captcha
+                        {{ form_start(form, {'attr':{'id':'form_contact'}}) }}
+                            <div style="margin:20px 0px 25px 15px; ">
+                                <h3 class="encart_home_head">Contacter <span class="text-green">Hiboo</span></h3>
+                                <span class="encart_home_body">Une question ? Remplissez ce formulaire et nous vous répondrons dans les plus brefs délais.</span>
                             </div>
-                            <div class="col-lg-6 ">
-                                <a href="#" class="btn  btn-large py-2 login">
-                                    <span class="font-weight-bold">Envoyer</span>
-                                </a>
+
+                            <div class="input-group col-lg-12 mb-4">
+{#                                <input id="name" type="text" name="name" placeholder="Nom" class="form-control bg-white  border-md">#}
+                                {{ form_widget(form.name) }}
                             </div>
-                        </div>
+
+                            <div class="input-group col-lg-12 mb-4">
+{#                                <input id="email" type="email" name="email" placeholder="Email" class="form-control bg-white  border-md">#}
+                                {{ form_widget(form.email) }}
+                            </div>
+                            <div class="input-group col-lg-12 mb-4">
+{#                                <textarea id="message" rows="6" name="message" placeholder="Message" class="form-control bg-white  border-md"></textarea>#}
+                                {{ form_widget(form.message) }}
+                            </div>
+
+                            <div class="row " style="margin-bottom:20px">
+                                <div class="col-lg-6 ">
+                                    captcha
+                                </div>
+                                <div class="col-lg-6 ">
+                                    <button type="submit" class="btn  btn-large py-2 login">
+                                        <span class="font-weight-bold">Envoyer</span>
+                                    </button>
+                                </div>
+                            </div>
+                        {{ form_end(form) }}
                     </div>
                 </div>
             </div>
