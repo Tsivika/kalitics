@@ -37,7 +37,10 @@ class ContactController extends AbstractController
      */
     public function sendMessageContact(Request $request)
     {
-        $this->em->saveContact($request);
+        $data = json_decode($request->getContent(), true);
+        $this->em->saveContact($data);
+        $this->em->sendEmail($data);
+
         $msg = 'Merci de nous avoir contacter. Votre message est envoyé au responsable.';
 
         return new JsonResponse([

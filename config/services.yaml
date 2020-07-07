@@ -29,5 +29,12 @@ services:
             - { name: doctrine.event_subscriber, connection: default }
         calls:
             - [ setAnnotationReader, [ "@annotation_reader" ] ]
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+
+    App\Email\Email:
+        alias: App\Email\SwiftMailerEmail
+
+    App\Email\Handler\SymfonyMailerHandler:
+        tags: ['messenger.message_handler']
+
+    App\Email\Handler\SwiftMailerHandler:
+        tags: ['messenger.message_handler']

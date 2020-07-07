@@ -76,6 +76,8 @@ function sendMessageContact()
 			message:message
 		})
 			.then(function (response) {
+				$('#preloader').removeClass('d-none');
+				$('#preloader').fadeOut(700);
 				$('#contact_name').val('');
 				$('#contact_email').val('');
 				$('#contact_message').val('');
