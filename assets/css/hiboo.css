@@ -6767,3 +6767,34 @@ section {
     80%,
     90% {
         stroke: #ffa700; } }
+
+.circle_step_active{
+    margin:10px;
+    width:44px;
+    height:44px;
+    border-radius:100%;
+    background-color:#FF5A5F;
+    color:#fff;
+    text-align:center;
+    font-size:15px;
+    font-weight: bold;
+    font-family: "GalanoGrotesqueAltMedium";
+    overflow:hidden;
+}
+.circle_step{
+    margin:10px;
+    width:40px;
+    height:40px;
+    border-radius:100%;
+    border: solid 1px #FF5A5F;
+    color:#FF5A5F;
+    background-color: #ffffff;
+    text-align:center;
+    font-size:15px;
+    font-weight: bold;
+    font-family: "GalanoGrotesqueAltMedium";
+    overflow:hidden;
+}
+
+.circle_step.one-line{line-height:40px;}
+.circle_step_active.one-line{line-height:40px;}

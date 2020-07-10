@@ -28,10 +28,6 @@ class ContactHandler extends Handler
      */
     function onSuccess()
     {
-        $data = $this->form->getData();
-//        dd($data);
     }
-
-
 }
 

@@ -1,0 +1,11 @@
+{% use 'bootstrap_4_layout.html.twig' %}
+
+{% block _meetingParticipant_participants_entry_widget %}
+    <div class="row">
+        <div class="col-6">
+            <div class="input-group col-lg-10 mb-4">
+                {{ form_widget(form.email) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

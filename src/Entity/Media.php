@@ -30,16 +30,27 @@ class Media
      */
     private $filename;
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string|null
+     */
     public function getFile(): ?string
     {
         return $this->file;
     }
 
+    /**
+     * @param string $file
+     *
+     * @return $this
+     */
     public function setFile(string $file): self
     {
         $this->file = $file;
@@ -47,11 +58,19 @@ class Media
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getFilename(): ?string
     {
         return $this->filename;
     }
 
+    /**
+     * @param string $filename
+     *
+     * @return $this
+     */
     public function setFilename(string $filename): self
     {
         $this->filename = $filename;

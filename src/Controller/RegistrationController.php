@@ -2,8 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Meeting;
 use App\Entity\User;
+use App\Form\Handler\RegisterHandler;
+use App\Form\Handler\RegisterUserMeetingHandler;
+use App\Form\MeetingParticipantType;
+use App\Form\MeetingType;
 use App\Form\RegistrationFormType;
+use App\Manager\RegisterManager;
 use App\Security\EmailVerifier;
 use App\Security\LoginFormAuthenticator;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -23,14 +29,17 @@ class RegistrationController extends AbstractController
      */
     private $emailVerifier;
 
+    private $em;
+
     /**
      * RegistrationController constructor.
      *
      * @param EmailVerifier $emailVerifier
      */
-    public function __construct(EmailVerifier $emailVerifier)
+    public function __construct(EmailVerifier $emailVerifier, RegisterManager $em)
     {
         $this->emailVerifier = $emailVerifier;
+        $this->em = $em;
     }
 
     /**
@@ -40,43 +49,36 @@ class RegistrationController extends AbstractController
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
-            $user->setPassword(
-                $passwordEncoder->encodePassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                )
-            );
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
-
-            // generate a signed url and email it to the user
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
-                (new TemplatedEmail())
-                    ->from(new Address('fanilo@hightao-mg.com', 'Fanilo'))
-                    ->to($user->getEmail())
-                    ->subject('Please Confirm your Email')
-                    ->htmlTemplate('registration/confirmation_email.html.twig')
-            );
-            // TODO  send an email
-
-            return $guardHandler->authenticateUserAndHandleSuccess(
-                $user,
-                $request,
-                $authenticator,
-                'main'
-            );
+        $handler = new RegisterHandler($form, $request, $passwordEncoder, $guardHandler, $authenticator, $user, $this->emailVerifier, $this->em);
+        if ($handler->process()) {
+            return new Response('Ajouter');
         }
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/register-user-meeting", name="register_user_meeting")
+     *
+     * @param Request $request
+     */
+    public function registerUserMeeting(Request $request)
+    {
+        $user = $this->em->find(1);
+        $meeting = new Meeting();
+        $formUserMeeting = $this->createForm(MeetingParticipantType::class, $meeting);
+        $handler = new RegisterUserMeetingHandler($formUserMeeting, $request, $user, $this->em);
+        if ($handler->process()) {
+            return new Response('Ajouter');
+        }
+
+        return $this->render('registration/register_user_meeting.html.twig', [
+            'form' => $formUserMeeting->createView(),
+        ]);
+    }
+
 
     /**
      * @Route("/verify/email", name="app_verify_email")

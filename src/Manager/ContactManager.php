@@ -22,9 +22,10 @@ class ContactManager extends BaseManager
     private $bus;
 
     /**
-     * CategoryManager constructor.
+     * ContactManager constructor.
+     *
      * @param EntityManagerInterface $em
-     * @param ValidatorInterface $validator
+     * @param ValidatorInterface     $validator
      */
     public function __construct(EntityManagerInterface $em, ValidatorInterface $validator, ContactEmail $mailer, MessageBusInterface $bus)
     {
