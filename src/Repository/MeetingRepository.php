@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Meeting;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -17,6 +18,21 @@ class MeetingRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Meeting::class);
+    }
+
+    public function getUserMeetingList(User $user)
+    {
+        $query = $this->createQueryBuilder('m');
+        $query = $query
+            ->andWhere('m.user = :user')
+            ->setParameter('user', $user);
+
+        $query = $query
+            ->getQuery()
+            ->getResult()
+        ;
+
+        return $query;
     }
 
     // /**

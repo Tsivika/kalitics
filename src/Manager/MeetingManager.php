@@ -36,4 +36,9 @@ class MeetingManager extends BaseManager
             ['id' => 'DESC']
         );
     }
+
+    public function getUserMeetingList(User $user)
+    {
+        return $this->repository->getUserMeetingList($user);
+    }
 }

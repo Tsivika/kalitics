@@ -1,0 +1,54 @@
+{% extends 'base-espace-client.html.twig' %}
+
+{% block body %}
+    <div class="row mt-4">
+        <div>
+            <button type="submit" class="btn  btn-large py-2 login">
+                <span class="font-weight-bold">Ajouter une réunion</span>
+            </button>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <table class="table table-hover table-bordered table-striped verticle-middle dataTable_1" id="dataTable_1">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Heure de début</th>
+                <th></th>
+                <th>Sujet</th>
+                <th>Identifiant de réunion</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for row in meetings %}
+                <tr>
+                    <th>{{ row.id }}</th>
+                    <td>{{ row.date|date("d/m/yy") }} à  {{ row.date|date("g:i") }}</td>
+                    <td>+info</td>
+                    <td>{{ row.subject }}</td>
+                    <td>{{ row.identifiant }}</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-10">
+                                <button>Copie le lien</button>
+                            </div>
+                            <div class="col-2">Del</div>
+                            <div class="col-2">Param</div>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            $('#dataTable_1').DataTable();
+        } );
+    </script>
+{% endblock %}

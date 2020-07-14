@@ -24,6 +24,7 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/js/app.js')
+    .addEntry('espaceClient', './assets/js/espace-client.js')
     .copyFiles({
         from: './assets/js',
         to: '/js/[path][name].[ext]'
