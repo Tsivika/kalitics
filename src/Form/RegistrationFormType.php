@@ -78,7 +78,7 @@ class RegistrationFormType extends AbstractType
                     new Length([
                         'min' => 6,
                         'minMessage' => 'Votre mot de passe doit être supérieur à {{ limit }} caractères',
-                        'max' => 4096,
+                        'max' => 100,
                     ]),
                 ],
                 'invalid_message' => 'Les 2 mots de passe ne sont pas identiques.',
@@ -86,7 +86,7 @@ class RegistrationFormType extends AbstractType
                 'required' => true,
                 'first_options'  => ['label' => false, 'attr' => [
                     'placeholder' => 'Mot de passe',
-                    'class' => 'form-control bg-white mb-4 border-md encart_home_body',
+                    'class' => 'form-control bg-white border-md encart_home_body',
                     ]],
                 'second_options' => ['label' => false, 'attr' => ['placeholder' => 'Confirmer votre mot de passe',
                     'class' => 'form-control bg-white border-md encart_home_body',]],

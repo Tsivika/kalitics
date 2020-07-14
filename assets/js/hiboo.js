@@ -61,7 +61,9 @@ $(document).ready(function() {
 	});
 
 	sendMessageContact();
+	startTunnel();
 });
+
 
 function sendMessageContact()
 {

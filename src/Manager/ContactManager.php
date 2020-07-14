@@ -6,7 +6,6 @@ namespace App\Manager;
 use App\Email\ContactEmail;
 use App\Entity\Contact;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -17,8 +16,14 @@ class ContactManager extends BaseManager
      */
     private $em;
 
+    /**
+     * @var ContactEmail
+     */
     private $mailer;
 
+    /**
+     * @var MessageBusInterface
+     */
     private $bus;
 
     /**
@@ -35,6 +40,9 @@ class ContactManager extends BaseManager
         $this->bus = $bus;
     }
 
+    /**
+     * @param $data
+     */
     public function saveContact($data)
     {
         $contact = new Contact();
@@ -46,6 +54,10 @@ class ContactManager extends BaseManager
         $this->saveOrUpdate($contact);
     }
 
+    /**
+     * @param $data
+     * @return \Symfony\Component\Messenger\Envelope
+     */
     public function sendEmail($data)
     {
         return $this->bus->dispatch($this->mailer->sendEmailMessage($data));

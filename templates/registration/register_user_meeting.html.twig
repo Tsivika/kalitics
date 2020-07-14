@@ -9,17 +9,16 @@
         <div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
             <div class="card card0 border-0">
                 <div class="row">
-                    <div class="col-8 ml-3">
-                        <div class="row encart_home_body small" >
-                            <div class="col-4">
-                                <div class="circle_step_active one-line float-left" >1</div> Infos personnelles
-                            </div>
-                            <div class="col-4">
-                                <div class="circle_step_active one-line float-left" >2</div> Inviter des participants
-                            </div>
-                            <div class="col-4">
-                                <div class="circle_step one-line float-left" >3</div> Je lance ma réunion
-                            </div>
+                    <div class="col-12 ml-3">
+                        <div class="wrap_step" >
+                            <div class="circle_step_active one-line float-left" >1</div>
+                            <div class="">Infos personnelles</div>
+                            <div class="line_step"></div>
+                            <div class="circle_step_active one-line float-left" >2</div>
+                            <div class="">Inviter des participants</div>
+                            <div class="line_step"></div>
+                            <div class="circle_step one-line float-left" >3</div>
+                            <div class="">Je lance ma réunion</div>
                         </div>
                     </div>
                 </div>
@@ -32,7 +31,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6 ">
-                        {{ form_start(form) }}
+                        {{ form_start(form, { 'attr': {'onsubmit': 'return ajaxSubmitTunnel(this)'}}) }}
                         <p style="margin-bottom:30px ">
                             <h3 class="encart_home_head">Utilisez <span class="text-green">Hiboo!</span> à plusieurs</h3>
                             <span class="encart_home_body my-4">
@@ -40,22 +39,23 @@
                             </span>
                         </p>
 
-                        <div class="form-group col-lg-12 mx-auto" style="margin-top: 20px">
-                            <div class="participant-data-proto-wrapper border"
+                        <div class="form-group col-lg-12 mx-auto" style="margin-top: 10px">
+                            <div class="participant-data-proto-wrapper "
                                  data-prototype="{{ form_widget(form.participants.vars.prototype)|e('html_attr') }}"
                                  data-index="{{ form.participants|length }}">
+
                             </div>
-                            <div class="row">
-                                <div class="col-12 text-right">
-                                    <div class="d-flex justify-content-end">
-                                        <button class="btn mb-1 btn-success" id="add_participant" title="Ajouter participant">
-                                            Nouveau participant <span class="btn-icon-right"><i class="fa fa-plus"></i></span>
-                                        </button>
-                                    </div>
+                            <div class="row mt-1 mb-5">
+                                <div class="" style="margin-top: 10px">
+                                    <button class="btn mb-1 btn-success mt-3 ml-1" id="add_participant" title="Ajouter participant">
+                                        <span class="btn-icon-right encart_home_body"><i class="fa fa-plus"></i> Ajouter participant </span>
+                                    </button>
                                 </div>
                             </div>
+
+
                             <button type="submit" class="btn  btn-large py-2 login">
-                                <span class="font-weight-bold">Continuer</span>
+                                <span class="font-weight-bold encart_home_body">Continuer</span>
                             </button>
                         </div>
                         {{ form_end(form) }}

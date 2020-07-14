@@ -16,6 +16,5 @@ import './hiboo';
 import './carousel';
 import './toastr.min';
 import './toastr';
-import './tunnel';
 import './meeting';
 

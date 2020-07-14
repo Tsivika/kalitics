@@ -16,12 +16,12 @@ class MeetingParticipantType extends AbstractType
             ->add('participants', CollectionType::class, [
                 'label' => false,
                 'entry_type' => ParticipantType::class,
-                'block_name' => 'participants_entry',
+                'block_prefix' => 'participants_entry',
                 'prototype' => true,
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,
-                'required' => false,
+                'required' => true,
             ])
         ;
     }

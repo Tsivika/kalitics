@@ -3,9 +3,9 @@ import * as $ from 'jquery';
 (function ($) {
     $(document).ready(function() {
         var $wrapper = $('.participant-data-proto-wrapper');
-        $(document).on('click', '.remove_stop', function(e) {
+        $(document).on('click', '.remove_participant', function(e) {
             e.preventDefault();
-            $(this).closest('.stop-proto-wrapper')
+            $(this).closest('.participant-proto-wrapper')
                 .fadeOut()
                 .remove();
         });
