@@ -35,11 +35,6 @@ class Meeting
     private $date;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $duration;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $password;
@@ -60,9 +55,19 @@ class Meeting
     private $user;
 
     /**
-     * @ORM\OneToMany(targetEntity=Participant::class, mappedBy="meeting", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=Participant::class, mappedBy="meeting", cascade={"persist", "remove"})
      */
     private $participants;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $durationH;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $durationM;
 
     /**
      * Meeting constructor.
@@ -136,26 +141,6 @@ class Meeting
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
-
-        return $this;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getDuration(): ?int
-    {
-        return $this->duration;
-    }
-
-    /**
-     * @param int $duration
-     *
-     * @return $this
-     */
-    public function setDuration(int $duration): self
-    {
-        $this->duration = $duration;
 
         return $this;
     }
@@ -277,6 +262,30 @@ class Meeting
                 $participant->setMeeting(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDurationH(): ?int
+    {
+        return $this->durationH;
+    }
+
+    public function setDurationH(?int $durationH): self
+    {
+        $this->durationH = $durationH;
+
+        return $this;
+    }
+
+    public function getDurationM(): ?int
+    {
+        return $this->durationM;
+    }
+
+    public function setDurationM(?int $durationM): self
+    {
+        $this->durationM = $durationM;
 
         return $this;
     }

@@ -1,40 +1,48 @@
 {% extends 'base-espace-client.html.twig' %}
 
+{% block title %}{{ title }}{% endblock %}
+
 {% block body %}
     <div class="row mt-4">
         <div>
-            <button type="submit" class="btn  btn-large py-2 login">
-                <span class="font-weight-bold">Ajouter une réunion</span>
-            </button>
+            <a class="btn  btn-large py-2 login" href="{{ path('app_espace_client_meeting_add') }}" role="button">Ajouter une réunion</a>
         </div>
     </div>
-    <div class="row mt-4">
-        <table class="table table-hover table-bordered table-striped verticle-middle dataTable_1" id="dataTable_1">
+    <div class="row mt-5">
+        {#<p>
+            <button class="js-inputcopybtn" style="vertical-align:top;">Copy Textarea</button>
+            <input type="text" class="js-copyInput" style="border: none" value="andriamifidy niryririr">
+        </p>#}
+        <table class="table table-hover table-striped verticle-middle dataTable_meeting" id="dataTable_meeting">
             <thead>
-            <tr>
-                <th>#</th>
-                <th>Heure de début</th>
-                <th></th>
-                <th>Sujet</th>
-                <th>Identifiant de réunion</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for row in meetings %}
                 <tr>
-                    <th>{{ row.id }}</th>
-                    <td>{{ row.date|date("d/m/yy") }} à  {{ row.date|date("g:i") }}</td>
-                    <td>+info</td>
+                    <td class="encart_home_head text-green">Heure de début</td>
+                    <th></th>
+                    <td class="encart_home_head">Sujet</td>
+                    <td class="encart_home_head">Identifiant de réunion</td>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="list-meetings">
+            {% for row in meetings|reverse %}
+                <tr id="meeting_{{ row.id }}">
+                    <td>{{ row.date|date("d/m/yy") }} à  {{ row.date|date("H:i") }}</td>
+                    <td><a class="detail_meeting" href="#" data-meeting="{{ row.id }}" >+info</a></td>
                     <td>{{ row.subject }}</td>
                     <td>{{ row.identifiant }}</td>
                     <td>
-                        <div class="row">
-                            <div class="col-10">
-                                <button>Copie le lien</button>
-                            </div>
-                            <div class="col-2">Del</div>
-                            <div class="col-2">Param</div>
+                        <div class="actions">
+{#                            <input type="text"  value="{{ row.identifiant }}">#}
+                            <button class="btn-icon-right btn btn-danger encart_home_body"
+                                    type="button"
+                                    data-target="#link-meeting">
+                                Copier lien <i class="fa fa-files-o" aria-hidden="true"></i>
+                            </button>
+                            <a href="{{ path('app_espace_client_meeting_edit', {'id':row.id}) }}"><i class="fa fa-cog" aria-hidden="true"></i></a>
+{#                            <a href="{{ path('app_epsace_client_meeting_delete', {'id':row.id}) }}" data-meeting="{{ row.id }}" class="delete_meeting">#}
+                             <a href="#" data-meeting="{{ row.id }}" class="delete_meeting">
+                                <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+                            </a>
                         </div>
                     </td>
                 </tr>
@@ -42,13 +50,8 @@
             </tbody>
         </table>
     </div>
-
 {% endblock %}
+
 {% block javascripts %}
     {{ parent() }}
-    <script>
-        $(document).ready(function() {
-            $('#dataTable_1').DataTable();
-        } );
-    </script>
 {% endblock %}

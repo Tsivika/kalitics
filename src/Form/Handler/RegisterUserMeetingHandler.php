@@ -47,7 +47,6 @@ class RegisterUserMeetingHandler extends Handler
         $meeting->setSubject('');
         $meeting->setDescription('');
         $meeting->setDate(new DateTime('now'));
-        $meeting->setDuration(0);
         $meeting->setIdentifiant($identifiant[0]);
         $meeting->setUser($this->user);
         $meeting->setLink($identifiant[0]);
