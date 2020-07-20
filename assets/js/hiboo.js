@@ -1,8 +1,15 @@
+import showToast from "./toastr";
+const routes = require('../../public/js/fos_js_routes.json');
+import Routing from '../../vendor/friendsofsymfony/jsrouting-bundle/Resources/public/js/router.min.js';
+import axios from 'axios';
+
+Routing.setRoutingData(routes);
+
 $(document).ready(function() {
-  $('#media').carousel({
-    pause: true,
-    interval: false,
-  });
+	$('#media').carousel({
+		pause: true,
+		interval: false,
+	});
 
 	$(".card-tarif").mouseenter(function(){
 		$(this).addClass('active');
@@ -12,12 +19,12 @@ $(document).ready(function() {
 	});
 
 	$(".card-tarif").mouseleave(function(){
-	   $(this).removeClass('active'); 
-       $(this).find(".fa-check-circle").css("color","rgba(0,201,174,1)");
-       $(this).find(".start").css("color","white");	  
-       $(this).find(".start").css("color","white");
-	   $(this).find(".start").css("background-color","rgba(0,201,174,1)");	   
-  });
+		$(this).removeClass('active');
+		$(this).find(".fa-check-circle").css("color","rgba(0,201,174,1)");
+		$(this).find(".start").css("color","white");
+		$(this).find(".start").css("color","white");
+		$(this).find(".start").css("background-color","rgba(0,201,174,1)");
+	});
 
 	$('a[href*="#"]:not([href="#"])').on('click', function() {
 		if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
@@ -53,7 +60,36 @@ $(document).ready(function() {
 		}
 	});
 
+	sendMessageContact();
+	startTunnel();
 });
+
+
+function sendMessageContact()
+{
+	$(document).on('submit','#form_contact', function(e){
+		e.preventDefault();
+		var name = $('#contact_name').val();
+		var email = $('#contact_email').val();
+		var message = $('#contact_message').val();
+		axios.post(Routing.generate('app_send_message_contact'), {
+			name: name,
+			email:email,
+			message:message
+		})
+			.then(function (response) {
+				$('#preloader').removeClass('d-none');
+				$('#preloader').fadeOut(700);
+				$('#contact_name').val('');
+				$('#contact_email').val('');
+				$('#contact_message').val('');
+				showToast('success', response.data.msg)
+			})
+			.catch(function (error) {
+				showToast('error', error)
+			});
+	});
+}
   
  
 ///////////////////////////////////////

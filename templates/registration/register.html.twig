@@ -1,0 +1,93 @@
+{% extends 'base-frontend.html.twig' %}
+
+{% block title %}S'inscrire sur Hiboo!{% endblock %}
+
+{% block body %}
+
+    <div id="tunnel_2">
+        <div class="container">
+            <div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
+                <div class="card card0 border-0">
+                    <div class="row">
+                        <div class="col-12 ml-3">
+                            <div class="wrap_step" >
+                                <div class="circle_step_active one-line float-left" >1</div>
+                                <div class="">Infos personnelles</div>
+                                <div class="line_step"></div>
+                                <div class="circle_step one-line float-left" >2</div>
+                                <div class="">Inviter des participants</div>
+                                <div class="line_step"></div>
+                                <div class="circle_step one-line float-left" >3</div>
+                                <div class="">Je lance ma réunion</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row d-flex">
+                        <div class="col-lg-6">
+                            <div class="card1 pb-5" id="image-login">
+                                <div class="row px-3 justify-content-center mt-4 mb-5 border-line">
+                                    <img src="{{ asset('build/images/hiboo_connexion.png')}}" class="image" style="width:100%; height:96%"> </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 ">
+                            {{ form_start(registrationForm, { 'attr': {'onsubmit': 'return ajaxSubmitTunnel(this)'}}) }}
+                            <p style="margin-bottom:30px ">
+                            <h3 class="encart_home_head">Bienvenue sur <span class="text-green">Hiboo!</span></h3>
+                            <span class="encart_home_body my-4">
+                                    Veuillez renseigner votre nom, prénom et créer votre mot de passe pour créer votre compte.
+                                </span>
+                            </p>
+                            <p>
+                                {% for flashError in app.flashes('verify_email_error') %}
+                            <div class="alert alert-danger encart_home_body" role="alert">{{ flashError }}</div>
+                            {% endfor %}
+                            </p>
+                            <div class="input-group col-lg-10 ">
+                                {{ form_row(registrationForm.name) }}
+                            </div>
+                            <div class="input-group col-lg-10">
+                                {{ form_row(registrationForm.firstname) }}
+                            </div>
+                            <div class="input-group col-lg-10">
+                                {{ form_row(registrationForm.email) }}
+                            </div>
+                            <div class="input-group col-lg-10">
+                                {{ form_row(registrationForm.password) }}
+                            </div>
+                            <div class="input-group col-lg-10">
+                                {{ form_row(registrationForm.language) }}
+                            </div>
+                            <div class="input-group col-lg-10">
+                                {{ form_widget(registrationForm.agreeTerms) }}
+                                <span class="encart_home_body small ml-2">{{ form_label(registrationForm.agreeTerms) }}</span>
+                            </div>
+
+                            <div class="encart_home_body" style="font-size: 12px;padding: 10px;">
+                                En me connectant, j'accepte votre <a href="#" class="link">Politique de confidentialité</a> et <a href="#" class="link">les Conditions de service.</a>
+                            </div>
+                            <div class="form-group col-lg-12 mx-auto" style="margin-top: 20px">
+                                <input type="hidden" name="_csrf_token"
+                                       value="{{ csrf_token('authenticate') }}"
+                                >
+                                <button type="submit" class="btn  btn-large py-2 login">
+                                    <span class="font-weight-bold">Continuer</span>
+                                </button>
+                            </div>
+                            {{ form_end(registrationForm) }}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="world-globe">
+        {% include 'shared/partenaire.html.twig' %}
+    </div>
+    <br><br>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('build/js/tunnel.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}{% endblock %}</title>
+
+    {% block stylesheets %}
+		{{ encore_entry_link_tags('espaceClient') }}
+    {% endblock %}
+
+</head>
+
+<body>
+
+  {% include 'shared/menu-espace-client.html.twig' %}
+
+  <div class="container pt-4"><section class="my-4 wrapper_espc">{% block body %}{% endblock %}</section></div><br><br>
+
+  {% include 'shared/footer.html.twig' %}
+
+  {% block javascripts %}
+      {{ encore_entry_script_tags('espaceClient') }}
+  {% endblock %}
+   
+</body>
+</html>

@@ -6690,8 +6690,123 @@ z-index: 1;
 
 .navbar-light .navbar-nav .nav-link {
     color: #062944;
-    opacity: 1;
     letter-spacing: 0px;
     font-size: 18px;
     font-family: GalanoGrotesqueAltRegular ;
 }
+.navbar-light {
+    opacity: 1;
+    background-color: #F7F8F9;
+    border-bottom: solid 1px #06294426;
+}
+section {
+    padding-top: 50px;
+}
+
+#preloader {
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99999999999;
+    background: #fff; }
+
+.loader {
+    position: absolute;
+    width: 5rem;
+    height: 10rem;
+    top: 50%;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%); }
+
+.circular {
+    animation: rotate 2s linear infinite;
+    height: 100%;
+    transform-origin: center center;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto; }
+
+.path {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+    animation: dash 1.5s ease-in-out infinite, color 6s ease-in-out infinite;
+    stroke-linecap: round; }
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg); } }
+
+@keyframes dash {
+    0% {
+        stroke-dasharray: 1, 200;
+        stroke-dashoffset: 0; }
+    50% {
+        stroke-dasharray: 89, 200;
+        stroke-dashoffset: -3.5rem; }
+    100% {
+        stroke-dasharray: 89, 200;
+        stroke-dashoffset: -12.4rem; } }
+
+@keyframes color {
+    100%,
+    0% {
+        stroke: #d62d20; }
+    40% {
+        stroke: #0057e7; }
+    66% {
+        stroke: #008744; }
+    80%,
+    90% {
+        stroke: #ffa700; } }
+
+.wrap_step{
+    font-family: "GalanoGrotesqueAltRegular";
+    font-size: smaller;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.line_step{
+    width: 100px;
+    text-align: right;
+    border-top:dotted 2px #FF5A5F;
+    margin-left: 25px;
+}
+.circle_step{
+    margin:10px;
+    width:40px;
+    height:40px;
+    border-radius:100%;
+    border: solid 1px #FF5A5F;
+    color:#FF5A5F;
+    background-color: #ffffff;
+    text-align:center;
+    font-size:15px;
+    font-weight: bold;
+    font-family: "GalanoGrotesqueAltMedium";
+    overflow:hidden;
+}
+.circle_step_active{
+    margin:10px;
+    width:44px;
+    height:44px;
+    border-radius:100%;
+    background-color:#FF5A5F;
+    color:#fff;
+    text-align:center;
+    font-size:15px;
+    font-weight: bold;
+    font-family: "GalanoGrotesqueAltMedium";
+    overflow:hidden;
+}
+.circle_step.one-line{line-height:42px;}
+.circle_step_active.one-line{line-height:48px;}

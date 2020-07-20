@@ -1,0 +1,110 @@
+{% extends 'base-frontend.html.twig' %}
+
+{% block title %}Se connecter à Hiboo!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
+            <div class="card card0 border-0">
+                <div class="row d-flex">
+                    <div class="col-lg-6">
+                        <div class="card1 pb-5" id="image-login">
+                            <div class="row px-3 justify-content-center mt-4 mb-5 border-line">
+                                <img src="{{ asset('frontend/images/hiboo_connexion.png')}}" class="image" style="width:100%; height:96%"> </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 ">
+                        <form method="post">
+                            <p style="margin-bottom:30px ">
+                                <h3 class="encart_home_head">Connexion <span class="text-green">Hiboo</span></h3>
+                                <span class="encart_home_body">
+                                    Connectez-vous afin de profiter pleinement de vos réunions
+                                </span>
+                            </p>
+                            <p>
+                                {% if error %}
+                                    <div class="alert alert-danger encart_home_body">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                                {% endif %}
+
+                                {% if app.user %}
+                                    <div class="mb-3 encart_home_body small">
+                                        Vous êtes connecté en tan que {{ app.user.username }}, <a href="{{ path('app_logout') }}">Se déconnecter</a>
+                                    </div>
+                                {% endif %}
+                            </p>
+                            <!-- Email Address -->
+                            <div class="input-group col-lg-12 mb-4" style="padding-left: 0px !important;">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                        <i class="fa fa-envelope text-muted"></i>
+                                    </span>
+                                </div>
+                                <input type="email"
+                                       value="{{ last_username }}"
+                                       placeholder="Adresse mail"
+                                       name="email"
+                                       id="inputEmail"
+                                       class="form-control bg-white border-left-0 border-md encart_home_body"
+                                       required autofocus>
+                            </div>
+
+                            <div class="input-group col-lg-12 mb-4" style="padding-left: 0px !important;">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                        <i class="fa fa-lock text-muted"></i>
+                                    </span>
+                                </div>
+                                <input type="password"
+                                       name="password"
+                                       id="inputPassword"
+                                       placeholder="Mot de passe"
+                                       class="form-control bg-white border-left-0 border-md encart_home_body"
+                                       required>
+                            </div>
+
+                            <div class="row encart_home_body " style="font-size: 12px; margin-bottom:20px">
+                                {#<div class="checkbox mb-3 col-lg-4">
+                                    <label>
+                                        <input type="checkbox" name="_remember_me"> me souvenir de moi
+                                    </label>
+                                </div>#}
+                                <div class="col-lg-6">
+                                    <a href="signup.html" class="text-danger ml-2"> Mot de passe oublié ? </a>
+                                </div>
+                                <div class="col-lg-6">
+                                    Pas de compte ? <a href="{{ path('app_register') }}" class="link">Inscrivez vous</a>
+                                </div>
+                            </div>
+
+                            <div class="encart_home_body" style="margin-top: 60px;font-size: 12px;padding: 10px;">
+                                En me connectant, j'accepte votre <a href="#" class="link">Politique de confidentialité</a> et <a href="#" class="link">les Conditions de service.</a>
+                            </div>
+                            <div class="form-group col-lg-12 mx-auto mb-0">
+                                <input type="hidden" name="_csrf_token"
+                                       value="{{ csrf_token('authenticate') }}"
+                                >
+                                <button type="submit" class="btn  btn-large py-2 login">
+                                    <span class="font-weight-bold">Se connecter</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="world-globe">
+        <h3 class="text-center">Ils nous font confiance </h3>
+        <div class="row rectangle text-center">
+            <div class="col-md-3 rectangle-logo"><img  class="img-fluid"    src="{{ asset('frontend/images/AccorHotelssvg_lu.png') }}"></div>
+            <div class="col-md-3  rectangle-logo"><img  class="img-fluid"    src="{{ asset('frontend/images/uber-eats-logo-png_lw.png') }}"></div>
+            <div class="col-md-3  rectangle-logo"><img  class="img-fluid"   src="{{ asset('frontend/images/AccorHotelssvg_lu.png') }}"></div>
+            <div class="col-md-3  rectangle-logo"><img  class="img-fluid"  width="200px" height="60px"src="{{ asset('frontend/images/Uber_logo_2018_ly.png') }}"></div>
+        </div>
+    </div>
+    <br><br>
+
+
+{% endblock %}

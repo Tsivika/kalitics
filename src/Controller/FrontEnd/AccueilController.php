@@ -2,6 +2,7 @@
 
 namespace App\Controller\FrontEnd;
 
+use App\Form\ContactType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,9 +17,12 @@ class AccueilController extends AbstractController
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return $this->render("frontend/home/index.html.twig");
-    }
+        $form = $this->createForm(ContactType::class);
 
+        return $this->render("frontend/home/index.html.twig", [
+            'form' => $form->createView(),
+        ]);
+    }
 }

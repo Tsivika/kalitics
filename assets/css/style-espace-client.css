@@ -1,0 +1,97 @@
+#menu_espc {
+    margin-top: 50px;
+    background: #062944 0% 0% no-repeat padding-box;
+    opacity: 1;
+    letter-spacing: 0px;
+    max-height: 60px;
+    font-family: "GalanoGrotesqueAltRegular";
+}
+#menu_espc .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+.item-link {
+    margin: 15px 50px 15px 0px;
+
+}
+.item-link a:hover {
+    padding-bottom: 5px;
+    border:solid 2px #00C9AE;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    text-decoration: none;
+}
+.item-link:nth-child(6) {
+    flex:2;
+    text-align: right;
+}
+#menu_espc a {
+    color: #ffffff;
+}
+.wrapper_espc {
+    font-family: "GalanoGrotesqueAltRegular";
+}
+.dropdown-menu a {
+    color: #212529 !important;
+}
+.dropdown-menu a:hover {
+    color: #ffffff !important;
+    background: #062944 0% 0% no-repeat padding-box;
+}
+td .actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+td a {
+    color: #00C9AE;
+}
+td a:hover {
+    text-decoration: none;
+}
+.wrap_input {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-bottom: 15px;
+}
+.item-input-label {
+    min-width: 300px;
+}
+
+hr {
+    margin-top: 35px;
+    margin-bottom: 35px;
+}
+
+/*** date pikcer bootstrap material ***/
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://fonts.gstatic.com/s/materialicons/v53/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format('woff2');
+}
+
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+}
+.logo_small{
+    width: 184px;
+    height: 46px;
+    background-image:url("../images/logo_small.png") ;
+}
