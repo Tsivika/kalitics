@@ -1,0 +1,27 @@
+<?php
+
+namespace App\Manager;
+
+use App\Entity\Subscription;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+
+class SubscriptionManager extends BaseManager
+{
+    /**
+     * @var EntityManagerInterface
+     */
+    private $em;
+
+    /**
+     * SubscriptionManager constructor.
+     *
+     * @param EntityManagerInterface $em
+     * @param ValidatorInterface     $validator
+     */
+    public function __construct(EntityManagerInterface $em, ValidatorInterface $validator)
+    {
+        parent::__construct($em, Subscription::class, $validator);
+        $this->em = $em;
+    }
+}

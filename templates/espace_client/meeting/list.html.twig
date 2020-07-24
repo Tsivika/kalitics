@@ -19,6 +19,7 @@
                     <td class="encart_home_head text-green">Heure de début</td>
                     <th></th>
                     <td class="encart_home_head">Sujet</td>
+                    <td class="encart_home_head text-center">Statut</td>
                     <td class="encart_home_head">Identifiant de réunion</td>
                     <th></th>
                 </tr>
@@ -27,19 +28,27 @@
             {% for row in meetings|reverse %}
                 <tr id="meeting_{{ row.id }}">
                     <td>{{ row.date|date("d/m/yy") }} à  {{ row.date|date("H:i") }}</td>
-                    <td><a class="detail_meeting" href="#" data-meeting="{{ row.id }}" >+info</a></td>
+                    <td><a class="detail_meeting" href="#" data-meeting="{{ row.id }}">+info</a></td>
                     <td>{{ row.subject }}</td>
+                    <td class="text-center">
+                        <span class="d-none">{{ row.status }}</span>
+                        {% if row.status %}
+                            <span data-toggle="tooltip" title="Réunion déjà faite!"><i class="fa fa-lock text-danger"></i></span>
+                        {% else %}
+                            <i class="fa fa-unlock-alt text-info "></i>
+                        {% endif %}
+                    </td>
                     <td>{{ row.identifiant }}</td>
                     <td>
                         <div class="actions">
 {#                            <input type="text"  value="{{ row.identifiant }}">#}
                             <button class="btn-icon-right btn btn-danger encart_home_body"
                                     type="button"
+                                    {{ row.status ? 'disabled="disabled"' : '' }}
                                     data-target="#link-meeting">
                                 Copier lien <i class="fa fa-files-o" aria-hidden="true"></i>
                             </button>
                             <a href="{{ path('app_espace_client_meeting_edit', {'id':row.id}) }}"><i class="fa fa-cog" aria-hidden="true"></i></a>
-{#                            <a href="{{ path('app_epsace_client_meeting_delete', {'id':row.id}) }}" data-meeting="{{ row.id }}" class="delete_meeting">#}
                              <a href="#" data-meeting="{{ row.id }}" class="delete_meeting">
                                 <i class="fa fa-trash text-danger" aria-hidden="true"></i>
                             </a>

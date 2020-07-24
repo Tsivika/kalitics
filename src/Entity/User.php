@@ -74,11 +74,33 @@ class User implements UserInterface
     private $meetings;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $pdp;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Subscription::class, inversedBy="users")
+     */
+    private $subscriptionUser;
+
+    /**
+     * @ORM\OneToMany(targetEntity=UserSubscription::class, mappedBy="user")
+     */
+    private $userSubscriptions;
+
+    /**
+     * @ORM\OneToMany(targetEntity=CodePromo::class, mappedBy="user")
+     */
+    private $codePromos;
+
+    /**
      * User constructor.
      */
     public function __construct()
     {
         $this->meetings = new ArrayCollection();
+        $this->userSubscriptions = new ArrayCollection();
+        $this->codePromos = new ArrayCollection();
     }
 
     /**
@@ -335,6 +357,92 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($meeting->getUser() === $this) {
                 $meeting->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getPdp(): ?string
+    {
+        return $this->pdp;
+    }
+
+    public function setPdp(?string $pdp): self
+    {
+        $this->pdp = $pdp;
+
+        return $this;
+    }
+
+    public function getSubscriptionUser(): ?Subscription
+    {
+        return $this->subscriptionUser;
+    }
+
+    public function setSubscriptionUser(?Subscription $subscriptionUser): self
+    {
+        $this->subscriptionUser = $subscriptionUser;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserSubscription[]
+     */
+    public function getUserSubscriptions(): Collection
+    {
+        return $this->userSubscriptions;
+    }
+
+    public function addUserSubscription(UserSubscription $userSubscription): self
+    {
+        if (!$this->userSubscriptions->contains($userSubscription)) {
+            $this->userSubscriptions[] = $userSubscription;
+            $userSubscription->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserSubscription(UserSubscription $userSubscription): self
+    {
+        if ($this->userSubscriptions->contains($userSubscription)) {
+            $this->userSubscriptions->removeElement($userSubscription);
+            // set the owning side to null (unless already changed)
+            if ($userSubscription->getUser() === $this) {
+                $userSubscription->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CodePromo[]
+     */
+    public function getCodePromos(): Collection
+    {
+        return $this->codePromos;
+    }
+
+    public function addCodePromo(CodePromo $codePromo): self
+    {
+        if (!$this->codePromos->contains($codePromo)) {
+            $this->codePromos[] = $codePromo;
+            $codePromo->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCodePromo(CodePromo $codePromo): self
+    {
+        if ($this->codePromos->contains($codePromo)) {
+            $this->codePromos->removeElement($codePromo);
+            // set the owning side to null (unless already changed)
+            if ($codePromo->getUser() === $this) {
+                $codePromo->setUser(null);
             }
         }
 

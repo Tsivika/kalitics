@@ -205,13 +205,24 @@
         </div>
         <div id="menu_espc">
             <div class="container">
-                <div class="item-link"><a href="{{ path('app_espace_client_meeting_list') }}">Réunions</a></div>
-                <div class="item-link"><a href="">Profil</a></div>
+                {% set path_subscription = 'app_espace_client_subscription_list' %}
+                {% if is_granted('ROLE_ADMIN') %}
+                    {% set path_subscription = 'app_espace_admin_subscription_list' %}
+                {% endif %}
+
+                <div class="item-link"><a href="{{ path('app_homePage') }}">Accueil</a></div>
+                {% if not is_granted('ROLE_ADMIN') %}
+                    <div class="item-link"><a href="{{ path('app_espace_client_meeting_list') }}">Réunions</a></div>
+                {% endif %}
+                <div class="item-link"><a href="{{ path('app_espace_client_profil_edit') }}">Profil</a></div>
                 <div class="item-link"><a href="">Pramètres</a></div>
                 <div class="item-link"><a href="">Guide</a></div>
-                <div class="item-link"><a href="">Abonnement</a></div>
-{#                <div class="item-link"><a href="">Bonjour, {{ app.user.firstname }}</a></div>#}
-                <div class="dropdown item-link">
+                <div class="item-link"><a href="{{ path(path_subscription) }}">Abonnement</a></div>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <div class="item-link"><a href="{{ path('app_espace_admin_codePromo_list') }}">Coupons</a></div>
+                    <div class="item-link"><a href="">Paiement</a></div>
+                {% endif %}
+                <div class="dropdown item-link" style="flex: 2; text-align: right">
                     <a class=" dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown">
                         Bonjour, {{ app.user.firstname }}
                     </a>

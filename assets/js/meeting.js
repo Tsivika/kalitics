@@ -1,7 +1,7 @@
 import * as $ from 'jquery';
 import showToast from "./toastr";
 import customDatatable from "./datatable/custom_datatable";
-import { simpleSwalAlert, confirmSwalAlert } from "./tools";
+import { simpleSwalAlert, confirmSwalAlert, confirmSwalAlertSubscription } from "./tools";
 
 const routes = require('../../public/js/fos_js_routes.json');
 import Routing from '../../vendor/friendsofsymfony/jsrouting-bundle/Resources/public/js/router.min.js';

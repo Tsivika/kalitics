@@ -1,0 +1,30 @@
+{% extends 'base-espace-client.html.twig' %}
+{% block title %}{{ title }}{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="row mt-4">
+            <div>
+                <span class="text-green">Coupons de réductions</span>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <table class="table table-hover table-striped verticle-middle dataTable_meeting" id="dataTable_meeting">
+                <thead>
+                <tr>
+                    <td class="encart_home_head text-green">Réduction</td>
+                    <td class="encart_home_head">Titre</td>
+                    <td class="encart_home_head">Code</td>
+                    <td class="encart_home_head">Date de création</td>
+                    <td class="encart_home_head">Etat</td>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody id="list-meetings">
+                </tbody>
+            </table>
+        </div>
+        <div class="row my-5">
+            qdf
+        </div>
+    </div>
+{% endblock %}

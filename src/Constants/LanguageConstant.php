@@ -7,7 +7,7 @@ namespace App\Constants;
 class LanguageConstant
 {
     /**
-     * Languages used for agency
+     * Languages used for user
      */
     public const _LANGUAGES_ = [
         'Français' => 'fr',

@@ -1,0 +1,90 @@
+{% extends 'base-espace-client.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+
+    <div class="row mt-4 justify-content-center ">
+        <div class="col-lg-6 text-center ">
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-lg-12 ">
+            <a href="{{ path('app_espace_client_profil_edit') }}" class="text-green"> Mon profil </a>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-lg-12 ">
+            {{ form_start(form) }}
+            <div class="input-group wrap_input ">
+                <div class="item-input-label">
+                    <img src="{{ asset(twig_asset_image_directory ~ pdp) }}"  class="rounded-circle" alt="Cinque Terre" width="160" height="160">
+                    <div class="input-group wrap_input mt-3" style="justify-content: space-between; max-width: 160px;">
+                        <div class="item-input ">
+                            {{ form_widget(form.pdp) }}
+                            {{ form_errors(form.pdp) }}
+
+                        </div>
+                        <div class="item-input " ><a href="" class="text-danger small">Supprimer</a>  </div>
+                    </div>
+                </div>
+                <div class="item-input encart_home_head"><h1>{{ form.name.vars.value }} {{ form.firstname.vars.value }}</h1> </div>
+            </div>
+            <div class="input-group wrap_input">
+                <div class="item-input-label">{{ form_label(form.name) }}</div>
+                <div class="item-input">{{ form_widget(form.name) }}</div>
+                <div class="item-input" style="flex: 2; text-align: right; "><a href="javascript:document.getElementById('profil_name').focus()" class="text-green">Modifier</a> </div>
+            </div>
+            <div class="input-group wrap_input ">
+                <div class="item-input-label">{{ form_label(form.firstname) }}</div>
+                <div class="item-input">{{ form_widget(form.firstname) }}</div>
+                <div class="item-input" style="flex: 2; text-align: right; "><a href="javascript:document.getElementById('profil_firstname').focus()" class="text-green">Modifier</a> </div>
+            </div>
+            <div class="input-group wrap_input">
+                <div class="item-input-label">{{ form_label(form.email) }}</div>
+                <div class="item-input">{{ form_widget(form.email) }}</div>
+                <div class="item-input" style="flex: 2; text-align: right; "><a href="javascript:document.getElementById('profil_email').focus()" class="text-green">Modifier</a> </div>
+            </div>
+            <div class="input-group wrap_input">
+                <div class="item-input-label">{{ form_label(form.password) }}</div>
+                <div class="item-input">{{ form_widget(form.password) }}</div>
+                <div class="item-input" style="flex: 2; text-align: right; "><a href="javascript:document.getElementById('profil_password').focus()" class="text-green">Modifier</a> </div>
+            </div>
+
+            {% if not is_granted('ROLE_ADMIN') %}
+                <hr>
+                <div class="input-group wrap_input">
+                    <div class="item-input-label">Abonnement</div>
+                    <div class="item-input">
+                        {{ subscription ? subscription.title : 'Aucun' }}
+                    </div>
+                    <div class="item-input ml-5" >
+                        <a class="btn  text-center btn-danger" href="{{ path('app_espace_client_subscription_list') }}">Changer d'abonnement</a>
+                    </div>
+                </div>
+            {% endif %}
+            <hr>
+            <div class="input-group wrap_input">
+                <div class="item-input-label">{{ form_label(form.language) }}</div>
+                <div class="item-input">{{ form_widget(form.language) }}</div>
+                <div class="item-input" style="flex: 2; text-align: right; "><a href="javascript:document.getElementById('profil_language').focus()" class="text-green">Modifier</a> </div>
+            </div>
+            <div class="input-group wrap_input mt-5">
+                <button type="submit" class="btn  btn-large py-2 login">
+                    <span class="font-weight-bold">Enregistrer</span>
+                </button>
+            </div>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+{% endblock %}

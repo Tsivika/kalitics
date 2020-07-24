@@ -2,6 +2,16 @@
 
 {% form_theme form 'form/theme/the_hiboo.html.twig' %}
 
+{% import _self as formMacros %}
+{% macro printParticipantsRow(participant) %}
+    <div class="flex-column my-1 ml-1">
+        <div class="input-group participant-proto-wrapper">
+            {{ form_widget(participant.email) }}
+            <a class="remove_participant btn btn-danger ml-1 encart_home_body text-white small"><span class="fa fa-close"></span></a>
+        </div>
+    </div>
+{% endmacro %}
+
 {% block title %}{{ title }}{% endblock %}
 
 {% block body %}
@@ -71,6 +81,9 @@
                          data-prototype="{{ form_widget(form.participants.vars.prototype)|e('html_attr') }}"
                          data-index="{{ form.participants|length }}" >
                     </div>
+                    {% for participant in form.participants %}
+                        {{ formMacros.printParticipantsRow(participant) }}
+                    {% endfor %}
                     <div class="row mt-1 mb-5">
                         <div class="" style="margin-top: 10px">
                             <button class="btn mb-1 btn-success mt-3 ml-1" id="add_participant" title="Ajouter participant">
@@ -86,8 +99,8 @@
                 <button type="submit" class="btn  btn-large py-2 login">
                     <span class="font-weight-bold">{{title}}</span>
                 </button>
-                <button type="reset" class="btn  btn-large py-2 login">
-                    <span class="font-weight-bold">Annuler</span>
+                <button type="reset" class="btn  btn-large py-2 btn-outline-danger signin">
+                    <span class="font-weight-bold ">Annuler</span>
                 </button>
             </div>
             {{ form_end(form) }}

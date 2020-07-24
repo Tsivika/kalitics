@@ -89,7 +89,15 @@ class MeetingController extends AbstractController
         $form = $this->createForm(MeetingType::class, $meetingEntity);
         $handler = new MeetingHandler($form, $request, $this->getUser(), $this->em);
         if ($handler->process()) {
-            return $this->redirectToRoute('app_espace_client_meeting_list');
+            if ($meeting) {
+                return $this->redirectToRoute('app_espace_client_meeting_list');
+            } else {
+                $theMeeting = $this->em->getUserLastMeeting($this->getUser());
+                return $this->render('espace_client/meeting/add_confirmation.html.twig', [
+                    'link' => $theMeeting->getIdentifiant(),
+                    'title' => 'Bravo, vous venez de créer une réunion',
+                ]);
+            }
         }
 
         return $this->render('espace_client/meeting/add.html.twig', [

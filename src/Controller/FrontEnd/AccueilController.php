@@ -3,6 +3,7 @@
 namespace App\Controller\FrontEnd;
 
 use App\Form\ContactType;
+use App\Manager\SubscriptionManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,12 +18,14 @@ class AccueilController extends AbstractController
      *
      * @return Response
      */
-    public function index(Request $request)
+    public function index(Request $request, SubscriptionManager $subscriptionManager)
     {
         $form = $this->createForm(ContactType::class);
+        $subscriptions = $subscriptionManager->findAll();
 
         return $this->render("frontend/home/index.html.twig", [
             'form' => $form->createView(),
+            'subscriptions' => $subscriptions,
         ]);
     }
 }

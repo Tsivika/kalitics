@@ -83,9 +83,9 @@ Encore
         'window.jQuery': 'jquery',
     })
 
-    // uncomment if you use API Platform Admin (composer req api-admin)
+    // uncomment if you use API Platform Admin (composer req api-espace_admin)
     //.enableReactPreset()
-    //.addEntry('admin', './assets/js/admin.js')
+    //.addEntry('espace_admin', './assets/js/espace_admin.js')
 ;
 
 module.exports = Encore.getWebpackConfig();
