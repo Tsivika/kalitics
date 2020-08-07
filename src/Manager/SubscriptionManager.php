@@ -24,4 +24,14 @@ class SubscriptionManager extends BaseManager
         parent::__construct($em, Subscription::class, $validator);
         $this->em = $em;
     }
+
+    /**
+     * @return object|null
+     */
+    public function getFreeSubscription()
+    {
+        return $this->repository->findOneBy(
+            ['mode' => 'free']
+        );
+    }
 }

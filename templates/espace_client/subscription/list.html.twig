@@ -14,7 +14,11 @@
             <div class="row text-center">
                 {% for row in subscriptions %}
                     <div class="col-md-4 mb-5">
-                        <div class="card card-tarif" id="tarif{{ row.id }}">
+                        {% set active = '' %}
+                        {% if userSubscription and userSubscription.id == row.id %}
+                            {% set active = 'active' %}
+                        {% endif %}
+                        <div class="card card-tarif {{ active }}" id="tarif{{ row.id }}">
                             <div class="card-body text-center">
                                 <h5 class="card-title text-center encart_home_head">{{ row.title }}</h5>
                                 <p class="text-justify encart_home_body"><i class="fa fa-check-circle" aria-hidden="true"></i> Durée de réunion {{ row.durationMeeting}} </p>
@@ -48,6 +52,16 @@
                                 </div>
                             </div>
                         </div>
+                        {% if row.mode != 'free' and userSubscription and userSubscription.id == row.id %}
+                            <div class="mt-5">
+                                <button class="btn-icon-right btn btn-danger encart_home_body"
+                                        type="button"
+                                        id="subscription_deactive"
+                                >
+                                    Desactiver mon abonnement
+                                </button>
+                            </div>
+                        {% endif %}
                     </div>
                 {% endfor %}
             </div>

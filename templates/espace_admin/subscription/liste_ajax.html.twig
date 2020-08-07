@@ -33,7 +33,7 @@
                             Gratuit
                         {% endif %}
                     </h5>
-                    <button role="button" href="{{ path('app_espace_admin_subscription_edit', {'id':row.id}) }}" class="btn start encart_home_body">Modifier</button>
+                    <a role="button" href="{{ path('app_espace_admin_subscription_edit', {'id':row.id}) }}" class="btn start encart_home_body">Modifier</a>
                     {% if row.getUsers|length >= 1 %}
                         <span data-toggle="tooltip" title="On ne peut pas supprimer un abonnement en cours d'utilisation.">
                                     <button

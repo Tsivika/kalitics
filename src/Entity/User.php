@@ -69,7 +69,7 @@ class User implements UserInterface
     private $subscription;
 
     /**
-     * @ORM\OneToMany(targetEntity=Meeting::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=Meeting::class, mappedBy="user", cascade={"remove"})
      */
     private $meetings;
 

@@ -29,8 +29,10 @@ Encore
         from: './assets/js',
         to: '/js/[path][name].[ext]'
     })
-    //.addEntry('page1', './assets/js/page1.js')
-    //.addEntry('page2', './assets/js/page2.js')
+    .copyFiles({
+        from: './assets/css',
+        to: '/css/[path][name].[ext]'
+    })
 
     .cleanupOutputBeforeBuild()
 

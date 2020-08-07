@@ -7,3 +7,5 @@ import './jquery.min';
 import './bootstrap.bundle';
 import './meeting';
 import './subscription';
+import './coupon';
+import './profil';

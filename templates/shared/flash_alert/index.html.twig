@@ -1,0 +1,13 @@
+{% import 'shared/flash_alert/macro_flash_alert.html.twig' as macro_flash %}
+
+{% for message in app.session.flashBag.get('success') %}
+    {{ macro_flash.show_flash_message('success', message) }}
+{% endfor %}
+
+{% for message in app.session.flashBag.get('error') %}
+    {{ macro_flash.show_flash_message('danger', message) }}
+{% endfor %}
+
+{% for message in app.session.flashBag.get('danger') %}
+    {{ macro_flash.show_flash_message('danger', message) }}
+{% endfor %}

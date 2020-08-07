@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Manager\UserManager;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 
@@ -72,14 +73,10 @@ class ProfilController extends AbstractController
      *     methods={"get"})
      *
      */
-    public function subscriptionChoice(Subscription $subscription, SubscriptionManager $subscriptionManager)
+    public function userSubscriptionChoice(Subscription $subscription, SubscriptionManager $subscriptionManager)
     {
-        $user = $this->getUser();
-        $user->setSubscriptionUser($subscription);
-        $this->em->save($user);
-
+        $userSubscription = $this->em->userSubscriptionChoice($this->getUser(), $subscription);
         $subscriptions = $subscriptionManager->findAll();
-        $userSubscription = $user->getSubscriptionUser();
 
         return new JsonResponse([
             'listHtml' => $this->renderView('espace_client/subscription/list_ajax.html.twig', [
@@ -91,5 +88,55 @@ class ProfilController extends AbstractController
             'success' => true,
         ]);
 
+    }
+
+    /**
+     * @Route("/subscription_deactive",
+     *     name="app_espace_client_profil_subscription_deactive",
+     *     options={"expose"=true},
+     *     methods={"get"})
+     *
+     * @param SubscriptionManager $subscriptionManager
+     *
+     * @return JsonResponse
+     */
+    public function userSubscriptionDeactive(SubscriptionManager $subscriptionManager)
+    {
+        $userSubscription = $this->em->userSubscriptionDeactive($this->getUser(), $subscriptionManager);
+        $subscriptions = $subscriptionManager->findAll();
+
+        return new JsonResponse([
+            'listHtml' => $this->renderView('espace_client/subscription/list_ajax.html.twig', [
+                'subscriptions' => $subscriptions,
+                'userSubscription' => $userSubscription,
+            ]),
+            'body' => "<p>Votre abonnement est basculé automatiquement vers un abonnement gratuit.</p>",
+            'footer' => '<span>Consulter notre <a href="" class="text-green"> Politique de confidentialité</a></span>',
+            'success' => true,
+        ]);
+    }
+
+
+    /**
+     * @Route("/delete/{id}",
+     *     name="app_espace_client_profil_delete",
+     *     options={"expose"=true},
+     *     methods={"get"})
+     *
+     * @param User $user
+     *
+     * @return JsonResponse
+     */
+    public function userDeleteProfil(User $user, TokenStorageInterface $tokenStorage)
+    {
+
+        $tokenStorage->setToken(null);
+        $this->em->delete($user);
+
+        return new JsonResponse([
+            'body' => "<p>Votre compte est bien supprimé sur Hiboo.</p>",
+            'footer' => '<span>Consulter notre <a href="" class="text-green"> Politique de confidentialité</a></span>',
+            'success' => true,
+        ]);
     }
 }

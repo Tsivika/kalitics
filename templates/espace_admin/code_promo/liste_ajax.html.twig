@@ -1,0 +1,61 @@
+<table class="table table-hover table-striped verticle-middle dataTable_coupon" id="dataTable_coupon">
+    <thead>
+    <tr>
+        <td class="encart_home_head ">#</td>
+        <td class="encart_home_head text-green">Réduction</td>
+        <td class="encart_home_head">Titre</td>
+        <td class="encart_home_head">Code</td>
+        <td class="encart_home_head">Date de création</td>
+        <td class="encart_home_head text-center">Etat</td>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for row in codePromos %}
+        <tr>
+            <td class="encart_home_body ">{{ row.id }}</td>
+            <td class="encart_home_body text-green">-{{ row.reduction }}%</td>
+            <td class="encart_home_body">{{ row.name }}</td>
+            <td class="encart_home_body">
+                <span class="d-none">{{ row.code }}</span>
+                <input class="input_copy" type="text" id="linkInput_{{ row.id }}" value="{{ row.code }}" readonly>
+            </td>
+            <td class="encart_home_body">{{ row.createdAt|date("m/d/Y") }}</td>
+            <td class="encart_home_body text-center small">
+                <span class="d-none">{{ row.status }}</span>
+                <div class="custom-control custom-switch">
+                    {% if row.status %}
+                        <input type="checkbox" checked
+                               class="custom-control-input coupon_switch"
+                               id="coupon_{{ row.id }}"
+                               name="coupon_{{ row.id }}"
+                               data-coupon_switch="{{ row.id }}"
+                        >
+                        <label class="custom-control-label" for="coupon_{{ row.id }}"></label>
+                    {% else %}
+                        <input type="checkbox"
+                               class="custom-control-input coupon_switch"
+                               id="coupon_{{ row.id }}"
+                               name="coupon_{{ row.id }}"
+                               data-coupon_switch="{{ row.id }}"
+                        >
+                        <label class="custom-control-label" for="coupon_{{ row.id }}"></label>
+                    {% endif %}
+                </div>
+            </td>
+            <td align="center">
+                <button class="btn-icon-right btn btn-danger encart_home_body"
+                        type="button"
+                        style="font-size: 12px; padding: 1px 10px"
+                        onclick="return copyToPaste({{ row.id }});"
+                        data-target="#link-coupon">
+                    Copier le coupon <i class="fa fa-files-o" aria-hidden="true"></i>
+                </button>
+                <a href="" data-coupon="{{ row.id }}" class="delete_coupon">
+                    <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

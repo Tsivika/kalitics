@@ -1,7 +1,7 @@
 import * as $ from 'jquery';
 import showToast from "./toastr";
 import customDatatable from "./datatable/custom_datatable";
-import { simpleSwalAlert, confirmSwalAlert, confirmSwalAlertSubscription } from "./tools";
+import { simpleSwalAlert, confirmSwalAlertMeeting, confirmSwalAlertSubscription } from "./tools";
 
 const routes = require('../../public/js/fos_js_routes.json');
 import Routing from '../../vendor/friendsofsymfony/jsrouting-bundle/Resources/public/js/router.min.js';
@@ -18,22 +18,40 @@ Routing.setRoutingData(routes);
                 .fadeOut()
                 .remove();
         });
+
         $(document).on('click', '#add_participant', function(e) {
             e.preventDefault();
-            // Get the data-prototype explained earlier
-            var prototype = $wrapper.data('prototype');
-            // get the new index
-            var index = $wrapper.data('index');
-            // Replace '__name__' in the prototype's HTML to
-            // instead be a number based on how many items we have
-            var newForm = prototype.replace(/__name__/g, index);
-            // increase the index with one for the next item
-            $wrapper.data('index', index + 1);
-            // Display the form in the page before the "new" link
-            $(this).before(newForm);
+            let count = $('.participant-proto-wrapper').length;
+            var nbr_participant = $('.participants').data('nbr_participant');
+
+            if (parseInt(nbr_participant) === count) {
+
+                simpleSwalAlert('Vous avez atteint le nombre maximum de participants.', '');
+
+                return;
+            } else {
+                var prototype = $wrapper.data('prototype');
+                var index = $wrapper.data('index');
+                var newForm = prototype.replace(/__name__/g, index);
+                $wrapper.data('index', index + 1);
+                $(this).before(newForm);
+
+                return;
+            }
         });
 
-        //DataTable list Meeting
+        $(document).on('blur', '#meeting_durationM', function(e) {
+            e.preventDefault();
+            let durationM = $('.durationM').val();
+            let durationInput = $(this).val()
+
+            if (durationInput > parseInt(durationM)) {
+                simpleSwalAlert('La durée de votre réunion est de :' + durationM, '');
+                $(this).focus();
+                $(this).val('20');
+            }
+        });
+
         customDatatable('#dataTable_meeting');
         detailMeeting();
         deleteMeeting();
@@ -41,16 +59,16 @@ Routing.setRoutingData(routes);
 
     function deleteMeeting()
     {
-        $('.delete_meeting').on('click', function (e) {
+        $(document).on('click', '.delete_meeting', function(e) {
             var meeting = $(this).data('meeting');
             var url = Routing.generate('app_epsace_client_meeting_delete', {'id':meeting});
             e.preventDefault();
-            confirmSwalAlert('de vouloir supprimer cette réunion', url, meeting);
+            confirmSwalAlertMeeting('de vouloir supprimer cette réunion', url, meeting);
         });
     }
 
     function detailMeeting() {
-        $('.detail_meeting').on('click', function (e) {
+        $(document).on('click', '.detail_meeting', function(e) {
             var meeting = $(this).data('meeting');
             var url = Routing.generate('app_espace_client_meeting_detail', {'id':meeting});
             e.preventDefault();
@@ -63,22 +81,5 @@ Routing.setRoutingData(routes);
                 });
         });
     }
-
-        // Copy link List meeting
-    /*var copyInputBtn = document.querySelector('.js-inputcopybtn');
-
-    copyInputBtn.addEventListener('click', function(event) {
-        var copyInput = document.querySelector('.js-copyInput');
-        copyInput.focus();
-        copyInput.select();
-
-        try {
-            var successful = document.execCommand('copy');
-            var msg = successful ? 'successful' : 'unsuccessful';
-            showToast('success', 'Copie ok');
-        } catch (err) {
-            showToast('error', 'Copie OK');
-        }
-    });*/
 
 })(jQuery);

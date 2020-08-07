@@ -34,6 +34,7 @@ export default function customDatatable(id) {
                 }
             }
         },
+        "order": [[ 0, "desc" ]],
     };
 
     $(id).dataTable(options);

@@ -6,14 +6,7 @@
 
     <div class="row mt-4 justify-content-center ">
         <div class="col-lg-6 text-center ">
-            {% for message in app.flashes('success') %}
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ message }}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            {% endfor %}
+            {% include 'shared/flash_alert/index.html.twig' %}
         </div>
     </div>
     <div class="row mt-4">
@@ -76,6 +69,13 @@
                 <div class="item-input-label">{{ form_label(form.language) }}</div>
                 <div class="item-input">{{ form_widget(form.language) }}</div>
                 <div class="item-input" style="flex: 2; text-align: right; "><a href="javascript:document.getElementById('profil_language').focus()" class="text-green">Modifier</a> </div>
+            </div>
+            <hr>
+            <div class="input-group wrap_input">
+                <div class="item-input-label">Etat de mon compte</div>
+                <div class="item-input"></div>
+                <div class="item-input" style="flex: 2; text-align: right; ">
+                    <a href="#" class="text-green delete_profil" data-profil="{{ app.user.id }}">Supprimer mon compte</a> </div>
             </div>
             <div class="input-group wrap_input mt-5">
                 <button type="submit" class="btn  btn-large py-2 login">
