@@ -37,17 +37,19 @@
                                     <p class="text-justify encart_home_body"><i class="fa fa-check-circle" aria-hidden="true"></i> Rappel automatique des réunions par mail  </p>
                                 {% endif %}
                                 <h5 class=" encart_home_head">
+                                    {% set choicePopup = '' %}
                                     {% if row.price|length > 0 %}
                                         {{ row.price }} €
                                     {% else %}
                                         Gratuit
+                                        {% set choicePopup = 'subsciprition_choice' %}
                                     {% endif %}
                                 </h5>
                                 <div class="subscription_choice_{{ row.id }}">
                                     {% if userSubscription and userSubscription.id == row.id %}
                                         <button type="button" class="btn btn-secondary encart_home_body ">Actuel</button>
                                     {% else %}
-                                        <button data-subscription="{{ row.id }}" class="btn start encart_home_body subsciprition_choice">Séléctionner</button>
+                                        <a href="{{ path('app_espace_client_profil_subscription_pre_payment', {'id':row.id}) }}" role="button" data-subscription="{{ row.id }}" class="btn start encart_home_body {{ choicePopup }}">Séléctionner</a>
                                     {% endif %}
                                 </div>
                             </div>

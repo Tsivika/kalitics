@@ -1,4 +1,6 @@
-{% extends 'base-frontend.html.twig' %}
+{% extends 'base-espace-client.html.twig' %}
+
+{% import 'shared/step_head/step.html.twig' as macro_step %}
 
 {% form_theme form 'form/theme/the_hiboo.html.twig' %}
 
@@ -10,16 +12,7 @@
             <div class="card card0 border-0">
                 <div class="row">
                     <div class="col-12 ml-3">
-                        <div class="wrap_step" >
-                            <div class="circle_step_active one-line float-left" >1</div>
-                            <div class="">Infos personnelles</div>
-                            <div class="line_step"></div>
-                            <div class="circle_step_active one-line float-left" >2</div>
-                            <div class="">Inviter des participants</div>
-                            <div class="line_step"></div>
-                            <div class="circle_step one-line float-left" >3</div>
-                            <div class="">Je lance ma réunion</div>
-                        </div>
+                        {{ macro_step.show_step_head(0, 'register', 2) }}
                     </div>
                 </div>
                 <div class="row d-flex">
@@ -32,6 +25,7 @@
                     </div>
                     <div class="col-lg-6 ">
                         {{ form_start(form, { 'attr': {'onsubmit': 'return ajaxSubmitTunnel(this)'}}) }}
+                        <input type="hidden" data-nbr_participant="{{ userSubscription ? userSubscription.numberParticipant : 0 }}" class="participants">
                         <p style="margin-bottom:30px ">
                             <h3 class="encart_home_head">Utilisez <span class="text-green">Hiboo!</span> à plusieurs</h3>
                             <span class="encart_home_body my-4">

@@ -8,4 +8,6 @@ import './bootstrap.bundle';
 import './meeting';
 import './subscription';
 import './coupon';
+import './guide';
 import './profil';
+import './payment_stripe';

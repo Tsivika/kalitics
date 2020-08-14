@@ -94,6 +94,16 @@ class User implements UserInterface
     private $codePromos;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $address;
+
+    /**
+     * @ORM\Column(type="string", length=150, nullable=true)
+     */
+    private $entreprise;
+
+    /**
      * User constructor.
      */
     public function __construct()
@@ -445,6 +455,30 @@ class User implements UserInterface
                 $codePromo->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(?string $address): self
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getEntreprise(): ?string
+    {
+        return $this->entreprise;
+    }
+
+    public function setEntreprise(?string $entreprise): self
+    {
+        $this->entreprise = $entreprise;
 
         return $this;
     }

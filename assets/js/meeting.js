@@ -2,10 +2,10 @@ import * as $ from 'jquery';
 import showToast from "./toastr";
 import customDatatable from "./datatable/custom_datatable";
 import { simpleSwalAlert, confirmSwalAlertMeeting, confirmSwalAlertSubscription } from "./tools";
+import axios from 'axios';
+import Routing from '../../vendor/friendsofsymfony/jsrouting-bundle/Resources/public/js/router.min.js';
 
 const routes = require('../../public/js/fos_js_routes.json');
-import Routing from '../../vendor/friendsofsymfony/jsrouting-bundle/Resources/public/js/router.min.js';
-import axios from 'axios';
 
 Routing.setRoutingData(routes);
 

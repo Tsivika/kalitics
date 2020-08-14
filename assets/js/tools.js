@@ -56,32 +56,6 @@ export function confirmSwalAlertMeeting(msg, url, id) {
     })
 }
 
-export function confirmSwalAlertSubscription(msg, url, id) {
-    Swal.fire({
-        title: 'Vous êtes sur ?',
-        text: msg,
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Oui, Choisir !',
-        cancelButtonText: 'Annuler',
-    }).then((result) => {
-        if (result.value) {
-            axios.get(url)
-                .then(function (response) {
-                    $('#list-subscription').html(response.data.listHtml);
-                    simpleSwalAlert(response.data.body, response.data.footer);
-                    cardTarif();
-                })
-                .catch(function (error) {
-                    simpleSwalAlert('Une erreur s\'est produite.', response.data.footer);
-                    cardTarif();
-                });
-        }
-    })
-}
-
 export function confirmSwalAlertSubscriptionDelete(msg, url, id) {
     Swal.fire({
         title: 'Vous êtes sur ?',
@@ -194,4 +168,93 @@ export function simpleSwalAlert(message, footer) {
         confirmButtonColor: '#FF5A5F',
         footer: footer
     });
+}
+
+export function simpleSwalAlertSuccess(message, footer) {
+    Swal.fire({
+        title: 'Félicitation',
+        type: 'success',
+        html: message,
+        confirmButtonText: 'Ok',
+        confirmButtonColor: '#FF5A5F',
+        footer: footer
+    });
+}
+
+export function confirmSwalAlertSubscription(msg, url, id) {
+    Swal.fire({
+        title: 'Vous êtes sur ?',
+        text: msg,
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui, Choisir !',
+        cancelButtonText: 'Annuler',
+    }).then((result) => {
+        if (result.value) {
+            axios.get(url)
+                .then(function (response) {
+                    $('#list-subscription').html(response.data.listHtml);
+                    simpleSwalAlert(response.data.body, response.data.footer);
+                    cardTarif();
+                })
+                .catch(function (error) {
+                    simpleSwalAlert('Une erreur s\'est produite.', response.data.footer);
+                    cardTarif();
+                });
+        }
+    })
+}
+
+export function confirmSwalAlertCategoryDelete(msg, url, id) {
+    Swal.fire({
+        title: 'Vous êtes sur ?',
+        text: msg,
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui, supprimer !',
+        cancelButtonText: 'Annuler',
+    }).then((result) => {
+        if (result.value) {
+            axios.get(url)
+                .then(function (response) {
+                    simpleSwalAlert(response.data.body, response.data.footer);
+                    $('#list-category').html(response.data.listHtml);
+                    customDatatable('#dataTable_category');
+                })
+                .catch(function (error) {
+                    simpleSwalAlert('Une erreur s\'est produite.', response.data.footer);
+                    customDatatable('#dataTable_category');
+                });
+        }
+    })
+}
+
+export function confirmSwalAlertGuideDelete(msg, url, id) {
+    Swal.fire({
+        title: 'Vous êtes sur ?',
+        text: msg,
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui, supprimer !',
+        cancelButtonText: 'Annuler',
+    }).then((result) => {
+        if (result.value) {
+            axios.get(url)
+                .then(function (response) {
+                    simpleSwalAlert(response.data.body, response.data.footer);
+                    $('#list-guide').html(response.data.listHtml);
+                    customDatatable('#dataTable_guide');
+                })
+                .catch(function (error) {
+                    simpleSwalAlert('Une erreur s\'est produite.', response.data.footer);
+                    customDatatable('#dataTable_guide');
+                });
+        }
+    })
 }

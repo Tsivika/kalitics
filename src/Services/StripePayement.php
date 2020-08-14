@@ -33,9 +33,8 @@ class StripePayement
     public function createCustomer($email, $token)
     {
         try {
-
             $customer = \Stripe\Customer::create(array(
-                "email" => $email,//"paying.user@example.com"
+                "email" => $email,
                 "source" => $token,
             ));
         } catch (\Stripe\Error\ApiConnection $e) {

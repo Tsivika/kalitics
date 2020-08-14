@@ -3,8 +3,10 @@
 
 namespace App\Form\Handler;
 
+use App\Entity\Subscription;
 use App\Entity\User;
 use App\Manager\RegisterManager;
+use App\Manager\SubscriptionManager;
 use App\Security\EmailVerifier;
 use App\Security\LoginFormAuthenticator;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -41,6 +43,7 @@ class RegisterHandler extends Handler
      */
     private $emailVerifier;
 
+    private $subscriptionManager;
     /**
      * @var RegisterManager
      */
@@ -58,7 +61,7 @@ class RegisterHandler extends Handler
      * @param EmailVerifier                 $emailVerifier
      * @param RegisterManager               $em
      */
-    public function __construct(FormInterface $form, Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator, User $user, EmailVerifier $emailVerifier, RegisterManager $em)
+    public function __construct(FormInterface $form, Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator, User $user, EmailVerifier $emailVerifier, RegisterManager $em, SubscriptionManager $subscriptionManager)
     {
         $this->form = $form;
         $this->request = $request;
@@ -68,6 +71,7 @@ class RegisterHandler extends Handler
         $this->user = $user;
         $this->emailVerifier = $emailVerifier;
         $this->em = $em;
+        $this->subscriptionManager = $subscriptionManager;
     }
 
     /**
@@ -81,6 +85,7 @@ class RegisterHandler extends Handler
                 $this->form->get('password')->getData()
             )
         );
+        $this->user->setSubscriptionUser($this->subscriptionManager->getFreeSubscription());
         $this->em->save($this->user);
 
         // generate a signed url and email it to the user

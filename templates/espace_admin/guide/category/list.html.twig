@@ -1,0 +1,50 @@
+{% extends 'base-espace-client.html.twig' %}
+{% block title %}{{ title }}{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="row mt-4 mb-2">
+            <div>
+                <span class="text-green">Catégories Guide</span>
+            </div>
+        </div>
+
+
+        <div class="jumbotron">
+            {{ form_start(form, { 'attr': {'id':'form_category'}}) }}
+            <div class="mb-3">Créer une nouvelle catégorie</div>
+            <div class="wrap_horizontal">
+
+                <div class="items">{{ form_widget(form.title) }}</div>
+                <button class="btn btn-success">Ajouter catégorie</button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+
+
+        <div class="row mt-5" id="list-category">
+            <table class="table table-hover table-striped verticle-middle dataTable_category" id="dataTable_category">
+                <thead>
+                <tr>
+                    <td class="encart_home_head ">-</td>
+                    <td class="encart_home_head text-green">Nom catégorie</td>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for row in categories %}
+                    <tr>
+                        <td class="encart_home_body ">{{ row.id }} </td>
+                        <td class="encart_home_body ">{{ row.title }}</td>
+                        <td align="center">
+                            <a href="" data-category="{{ row.id }}" class="delete_category">
+                                <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+{% endblock %}

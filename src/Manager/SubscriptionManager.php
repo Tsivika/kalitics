@@ -34,4 +34,16 @@ class SubscriptionManager extends BaseManager
             ['mode' => 'free']
         );
     }
+
+    /**
+     * @return object[]
+     */
+    public function getPayingSubscription()
+    {
+        return $this->repository->findBy(
+            ['mode' => 'paying'],
+            ['price' => 'ASC']
+        );
+    }
+
 }

@@ -1,0 +1,119 @@
+{% extends 'base-espace-client.html.twig' %}
+
+{% import 'shared/step_head/step.html.twig' as macro_step %}
+
+{% block title %}Paiement abonnement!{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 mx-auto">
+            <div class="card card0 border-0">
+                <div class="row">
+                    <div class="col-12 ml-3">
+                        {{ macro_step.show_step_head(1, 'payment', 1) }}
+                    </div>
+                </div>
+                <div class="row d-flex">
+                    <div class="col-lg-6">
+                        <div class="card1 pb-5" id="image-login">
+                            <div class="row px-3 justify-content-center mt-4 mb-5 border-line">
+                                <img src="{{ asset('build/images/hiboo_connexion.png')}}" class="image" style="width:100%; height:96%"> </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 ">
+                        <p style="margin-bottom:30px ">
+                        <h3 class="encart_home_body">Paiement</h3>
+                        <span class="encart_home_body my-4">
+                                    Merci de sélectionner un abonnement:
+                                </span>
+                        </p>
+                        {{ form_start(form, {'attr': {'class': 'container-fluid inner','id' : 'subscribe-form', 'novalidate':'novalidate'}}) }}
+                        <div class="input-group col-lg-12 mb-3 ">
+{#                            {{ form_widget(form.subscription) }}#}
+                            {#{% for key, child in form.subscription %}
+                                <div>
+                                    {{ form_widget(child) }}
+                                </div>
+                            {% endfor %}#}
+                            <div class="form-check">
+                                <input type="radio" id="user_account_subscription_2" name="user_account[subscription]" required="required" class="form-check-input projet" value="2">
+                                <label class="form-check-label required" for="user_account_subscription_2">{{ subscriptionPaying.0.title }} ({{ subscriptionPaying.0.price }}€/mois)</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" id="user_account_subscription_3" name="user_account[subscription]" required="required" class="form-check-input entreprise" value="3">
+                                <label class="form-check-label required" for="user_account_subscription_3">{{ subscriptionPaying.1.title }} ({{ subscriptionPaying.1.price }}€/mois)</label>
+                            </div>
+                        </div>
+                        {{ form_label(form.codePromo) }}
+                        <div class="input-group col-lg-12 mb-2 ">
+                            {{ form_widget(form.codePromo) }}
+                            <button class="btn btn-success btn-large ml-1" id="btnCodePromo" style="background-color: #00C9AE">Ajouter</button>
+                        </div>
+                        {% set tva =  (subscripbiontChoice.price * 20)/100 %}
+                        {% set ttc =   subscripbiontChoice.price + tva %}
+
+                        <div class=" col-lg-12 mt-2">
+                            <div class="float-left ">HT:</div>
+                            <div class="float-right ">{{ subscripbiontChoice.price|number_format(2) }}€</div>
+                            <div style="" class="clearfix"></div>
+                        </div>
+                        <div class=" col-lg-12">
+                            <div class="float-left ">TVA:</div>
+                            <div class="float-right ">{{ tva|number_format(2) }}€</div>
+                            <div style="" class="clearfix"></div>
+                        </div>
+                        <div class=" col-lg-12 mb-2 ">
+                            <div class="float-left ">TTC:</div>
+                            <div class="float-right ">{{ ttc|number_format(2) }}€</div>
+                            <div style="" class="clearfix"></div>
+                        </div>
+
+                        <div class="input-group col-lg-12 mb-2 ">
+                            {{ form_widget(form.name) }} <div class="mx-1"></div>
+                            {{ form_widget(form.firstname) }}
+                        </div>
+                        <div class="input-group col-lg-12 mb-2 ">
+                            {{ form_widget(form.entreprise) }} <div class="mx-1"></div>
+                            {{ form_widget(form.email, {'attr': {'class':'email-user'}}) }}
+                        </div>
+                        <div class="input-group col-lg-12 mb-2 ">
+                            {{ form_widget(form.address) }}
+                        </div>
+                        <div class="col-lg-12 text-right">
+                            <a href="javascript:void(0)" id="btn-payement-stripe"
+                               class="btn btn-success btn-large ml-1 "  style="background-color: #00C9AE">Valider le paiement</a>
+{#                            <button class="btn btn-success btn-large ml-1" style="background-color: #00C9AE">Valider le paiement</button>#}
+                        </div>
+
+                        <input type="hidden" id="token-stripe" name="token-stripe">
+                        <input type="hidden" id="subscription-next-id" name="subscription-next-id">
+                        <input type="hidden" id="reduction" name="reduction" value="0">
+                        <input type="hidden" id="total-paid" name="total-paid">
+                        <input type="hidden" id="hiboo_projet" value="{{ subscriptionPaying.0.price }}">
+                        <input type="hidden" id="hiboo_entreprise" value="{{ subscriptionPaying.1.price }}">
+
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="world-globe">
+        {% include 'shared/partenaire.html.twig' %}
+    </div>
+    <br><br>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://checkout.stripe.com/v3/checkout.js"></script>
+    <script>
+        var icon = '{{ app.request.getSchemeAndHttpHost()~asset('apple-touch-icon.png') }}';
+        var keyStripe = "{{ stripe_publishable_key }}";
+        var type = "{{ type }}";
+    </script>
+{#    <script src="{{ asset('build/js/payment_stripe.js') }}"></script>#}
+{% endblock %}

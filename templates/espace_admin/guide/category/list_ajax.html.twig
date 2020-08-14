@@ -1,0 +1,22 @@
+<table class="table table-hover table-striped verticle-middle dataTable_category" id="dataTable_category">
+    <thead>
+    <tr>
+        <td class="encart_home_head ">-</td>
+        <td class="encart_home_head text-green">Nom catégorie</td>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for row in categories %}
+        <tr>
+            <td class="encart_home_body ">{{ row.id }} </td>
+            <td class="encart_home_body">{{ row.title }}</td>
+            <td align="center">
+                <a href="" data-category="{{ row.id }}" class="delete_category">
+                    <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

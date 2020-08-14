@@ -20,17 +20,17 @@ class Guide
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $title;
+    private $question;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $description;
+    private $response;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="guides")
      */
-    private $type;
+    private $category;
 
     /**
      * @return int|null
@@ -43,19 +43,19 @@ class Guide
     /**
      * @return string|null
      */
-    public function getTitle(): ?string
+    public function getQuestion(): ?string
     {
-        return $this->title;
+        return $this->question;
     }
 
     /**
-     * @param string $title
+     * @param string $question
      *
      * @return $this
      */
-    public function setTitle(string $title): self
+    public function setQuestion(string $question): self
     {
-        $this->title = $title;
+        $this->question = $question;
 
         return $this;
     }
@@ -63,39 +63,39 @@ class Guide
     /**
      * @return string|null
      */
-    public function getDescription(): ?string
+    public function getResponse(): ?string
     {
-        return $this->description;
+        return $this->response;
     }
 
     /**
-     * @param string $description
+     * @param string $response
      *
      * @return $this
      */
-    public function setDescription(string $description): self
+    public function setResponse(string $response): self
     {
-        $this->description = $description;
+        $this->response = $response;
 
         return $this;
     }
 
     /**
-     * @return string|null
+     * @return Category|null
      */
-    public function getType(): ?string
+    public function getCategory(): ?Category
     {
-        return $this->type;
+        return $this->category;
     }
 
     /**
-     * @param string $type
+     * @param Category|null $category
      *
      * @return $this
      */
-    public function setType(string $type): self
+    public function setCategory(?Category $category): self
     {
-        $this->type = $type;
+        $this->category = $category;
 
         return $this;
     }
