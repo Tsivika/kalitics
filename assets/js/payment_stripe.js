@@ -5,58 +5,63 @@ const routes = require('../../public/js/fos_js_routes.json');
 
 Routing.setRoutingData(routes);
 
-try {
-    var handler = StripeCheckout.configure({
-        key: keyStripe,
-        image: icon,
-        locale: 'auto',
-        token: function (token, args) {
-            $('input#token-stripe').val(token.id);
+var stripe = Stripe('pk_test_51H84neKvOQA5MGqY35NRBUYhZbeU7MxUg1mMxznzVqa7txtKg8fDLwfSyOMzQy23hDOtMK0cs7xG8u74yzbglt5C00alOB3VI2');
+var elements = stripe.elements();
 
-            $('div#modal-confirmation-abonnement').modal('show');
-            setTimeout(function(){
-                $('#subscribe-form').submit();
-            }, 1000);
-
-        }
-    });
-} catch (e) {
-    console.error('StripeCheckout is not defined');
+var style = {
+    base: {
+        iconColor: '#c4f0ff',
+        color: '#495057',
+        fontWeight: 500,
+        fontFamily: 'Roboto, Open Sans, Segoe UI, sans-serif',
+        fontSize: '16px',
+        fontSmoothing: 'antialiased',
+        ':-webkit-autofill': {
+            color: '#fce883',
+        },
+        '::placeholder': {
+            color: '#cccccc',
+        },
+    },
+    invalid: {
+        iconColor: '#ff00ff',
+        color: '#FF5A5F',
+    },
 }
+var card = elements.create('card', {style: style});
+card.mount('#card-element');
 
-try {
-    $("#btn-payement-stripe").on("click", function (e) {
-        var form    = $('#subscribe-form').serialize();
+card.addEventListener("change", (event) => {
+    let displayError = document.getElementById("card-errors")
+    if(event.error){
+        displayError.textContent = event.error.message;
+    }else{
+        displayError.textContent = "";
+    }
+});
 
-        axios.post(Routing.generate('app_espace_client_profil_subscription_pre_payment', {'id': type}), {
-            data: form
-        })
-            .then(function (response) {
-                if (response.success) {
-                    handler.open({
-                        name: 'Hiboo',
-                        description: '',
-                        zipCode: false,
-                        amount: checkPrice(),
-                        currency: 'EUR',
-                        allowRememberMe: false,
-                        email: $('.email-user').val()
-                    });
-                    $("input#total-paid").val(checkPrixByCountry() / 100);
-                    $('input#subscription-next-id').val($(" input[type='radio']:checked").val());
+var form = document.getElementById('payment-form');
+form.addEventListener('submit', function (event) {
+    event.preventDefault();
 
-                } else {
-                    // simpleSwalAlert(response.data, '')
-                    console.log(response.data)
-                }
-            })
-            .catch(function (error) {
-                simpleSwalAlert(error, '');
-            });
-        e.preventDefault();
-    })
-} catch (e) {
-    console.error('btn-payement-stripe is null');
+    stripe.createToken(card).then(function (result) {
+            if (result.error) {
+                var errorElement = document.getElementById('card-errors');
+                errorElement.textContent = result.error.message;
+            } else {
+                stripeTokenHandler(result.token);
+            }
+        });
+});
+
+function stripeTokenHandler(token) {
+    var form = document.getElementById('payment-form');
+    var hiddenInput = document.createElement('input');
+    hiddenInput.setAttribute('type', 'hidden');
+    hiddenInput.setAttribute('name', 'stripeToken');
+    hiddenInput.setAttribute('value', token.id);
+    form.appendChild(hiddenInput);
+    form.submit();
 }
 
 var getPrice = function (amount, reduction) {
@@ -68,9 +73,9 @@ var getPrice = function (amount, reduction) {
     totalReduction =   parseInt(reduction) * parseInt(amount) / 100;
     price = (parseInt(amount) - totalReduction) * 100;
 
-
     return price;
 }
+
 var checkPrice = function () {
     var projet = $('#hiboo_projet').val();
     var entreprise = $('#hiboo_entreprise').val();

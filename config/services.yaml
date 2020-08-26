@@ -46,3 +46,7 @@ services:
     App\Services\ImageUploader:
         arguments:
             $targetDirectory: '%image_directory%'
+
+    App\Services\StripePayement:
+        arguments:
+            $stripe: '%stripe.api.key%'

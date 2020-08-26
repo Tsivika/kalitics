@@ -62,6 +62,11 @@ class UserSubscription
      */
     private $codePromo;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Subscription::class, inversedBy="userSubscriptions")
+     */
+    private $subscription;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -171,6 +176,18 @@ class UserSubscription
     public function setCodePromo(?CodePromo $codePromo): self
     {
         $this->codePromo = $codePromo;
+
+        return $this;
+    }
+
+    public function getSubscription(): ?Subscription
+    {
+        return $this->subscription;
+    }
+
+    public function setSubscription(?Subscription $subscription): self
+    {
+        $this->subscription = $subscription;
 
         return $this;
     }

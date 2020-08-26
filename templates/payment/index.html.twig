@@ -24,26 +24,15 @@
                     <div class="col-lg-6 ">
                         <p style="margin-bottom:30px ">
                         <h3 class="encart_home_body">Paiement</h3>
-                        <span class="encart_home_body my-4">
-                                    Merci de sélectionner un abonnement:
-                                </span>
+                        <span class="encart_home_body my-4">Merci de sélectionner un abonnement:</span>
                         </p>
-                        {{ form_start(form, {'attr': {'class': 'container-fluid inner','id' : 'subscribe-form', 'novalidate':'novalidate'}}) }}
+                        {{ form_start(form, {'attr': {'class': 'container-fluid inner','id' : 'payment-form'}, 'action':path('app_espace_client_profil_subscription_pre_payment', {'id':type}), 'method':'post'}) }}
                         <div class="input-group col-lg-12 mb-3 ">
-{#                            {{ form_widget(form.subscription) }}#}
-                            {#{% for key, child in form.subscription %}
+                            {% for key, child in form.subscription %}
                                 <div>
                                     {{ form_widget(child) }}
                                 </div>
-                            {% endfor %}#}
-                            <div class="form-check">
-                                <input type="radio" id="user_account_subscription_2" name="user_account[subscription]" required="required" class="form-check-input projet" value="2">
-                                <label class="form-check-label required" for="user_account_subscription_2">{{ subscriptionPaying.0.title }} ({{ subscriptionPaying.0.price }}€/mois)</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="radio" id="user_account_subscription_3" name="user_account[subscription]" required="required" class="form-check-input entreprise" value="3">
-                                <label class="form-check-label required" for="user_account_subscription_3">{{ subscriptionPaying.1.title }} ({{ subscriptionPaying.1.price }}€/mois)</label>
-                            </div>
+                            {% endfor %}
                         </div>
                         {{ form_label(form.codePromo) }}
                         <div class="input-group col-lg-12 mb-2 ">
@@ -65,10 +54,19 @@
                         </div>
                         <div class=" col-lg-12 mb-2 ">
                             <div class="float-left ">TTC:</div>
-                            <div class="float-right ">{{ ttc|number_format(2) }}€</div>
+                            <div class="float-right" id="total_ttc">{{ ttc|number_format(2) }}€</div>
                             <div style="" class="clearfix"></div>
                         </div>
-
+                        <div class=" col-lg-12 mb-2 box_reduction d-none">
+                            <div class="float-left ">REDUCTION:</div>
+                            <div class="float-right" id="montant_reduction"></div>
+                            <div style="" class="clearfix"></div>
+                        </div>
+                        <div class=" col-lg-12 mb-2 ">
+                            <div class="float-left font-weight-bold">TOTAL A PAYER:</div>
+                            <div class="float-right font-weight-bold" id="total_payer">{{ ttc|number_format(2) }}€</div>
+                            <div style="" class="clearfix"></div>
+                        </div>
                         <div class="input-group col-lg-12 mb-2 ">
                             {{ form_widget(form.name) }} <div class="mx-1"></div>
                             {{ form_widget(form.firstname) }}
@@ -77,19 +75,16 @@
                             {{ form_widget(form.entreprise) }} <div class="mx-1"></div>
                             {{ form_widget(form.email, {'attr': {'class':'email-user'}}) }}
                         </div>
-                        <div class="input-group col-lg-12 mb-2 ">
-                            {{ form_widget(form.address) }}
-                        </div>
-                        <div class="col-lg-12 text-right">
-                            <a href="javascript:void(0)" id="btn-payement-stripe"
-                               class="btn btn-success btn-large ml-1 "  style="background-color: #00C9AE">Valider le paiement</a>
-{#                            <button class="btn btn-success btn-large ml-1" style="background-color: #00C9AE">Valider le paiement</button>#}
+                        <div class="input-group col-lg-12 mb-2 "> {{ form_widget(form.address) }}</div>
+                        <div class="input-group col-lg-12 mt-5 mb-2 "><strong>Carte bancaire</strong></div>
+                        <div class=" mb-2 stripes" id="card-element" ></div>
+                        <div class=" mb-2" id="card-errors role="alert"></div>
+                        <div class="col-lg-12 mt-5 text-right">
+                            <button class="btn btn-success btn-large ml-1" style="background-color: #00C9AE">Valider le paiement</button>
                         </div>
 
-                        <input type="hidden" id="token-stripe" name="token-stripe">
-                        <input type="hidden" id="subscription-next-id" name="subscription-next-id">
                         <input type="hidden" id="reduction" name="reduction" value="0">
-                        <input type="hidden" id="total-paid" name="total-paid">
+                        <input type="hidden" id="total-paid" name="total-paid" value="{{ ttc|number_format(2) }}">
                         <input type="hidden" id="hiboo_projet" value="{{ subscriptionPaying.0.price }}">
                         <input type="hidden" id="hiboo_entreprise" value="{{ subscriptionPaying.1.price }}">
 
@@ -105,15 +100,4 @@
         {% include 'shared/partenaire.html.twig' %}
     </div>
     <br><br>
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-    <script src="https://checkout.stripe.com/v3/checkout.js"></script>
-    <script>
-        var icon = '{{ app.request.getSchemeAndHttpHost()~asset('apple-touch-icon.png') }}';
-        var keyStripe = "{{ stripe_publishable_key }}";
-        var type = "{{ type }}";
-    </script>
-{#    <script src="{{ asset('build/js/payment_stripe.js') }}"></script>#}
 {% endblock %}

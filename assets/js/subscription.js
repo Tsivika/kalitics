@@ -62,7 +62,15 @@ Routing.setRoutingData(routes);
             })
                 .then(function (response) {
                     if (response.data.result ==true) {
+                        let total_ttc = document.getElementById('total_ttc').innerHTML;;
+                        let montant_reduction = (parseFloat(total_ttc) * response.data.reduction)/100;
+                        let total_a_payer = parseFloat(total_ttc).toPrecision(3) - parseFloat(montant_reduction).toPrecision(3);
                         simpleSwalAlertSuccess('Ce code promo vous offre une remise de ' + response.data.reduction + '% sur le paiement de votre abonnement', '');
+                        $('.box_reduction').removeClass('d-none');
+                        $('.box_reduction').fadeIn("slow");
+                        $('#montant_reduction').text(response.data.reduction + '% (' + parseFloat(montant_reduction.toPrecision(3)) + '€)') ;
+                        $('#total_payer').text(parseFloat(total_a_payer.toPrecision(4)));
+                        $('#total-paid').val(parseFloat(total_a_payer.toPrecision(4)));
                         $('#reduction').val(response.data.reduction);
                     } else {
                         simpleSwalAlert('Code invalide ou code qui n\'existe pas.', '');

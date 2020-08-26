@@ -104,6 +104,11 @@ class User implements UserInterface
     private $entreprise;
 
     /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $stripeToken;
+
+    /**
      * User constructor.
      */
     public function __construct()
@@ -479,6 +484,18 @@ class User implements UserInterface
     public function setEntreprise(?string $entreprise): self
     {
         $this->entreprise = $entreprise;
+
+        return $this;
+    }
+
+    public function getStripeToken(): ?string
+    {
+        return $this->stripeToken;
+    }
+
+    public function setStripeToken(?string $stripeToken): self
+    {
+        $this->stripeToken = $stripeToken;
 
         return $this;
     }

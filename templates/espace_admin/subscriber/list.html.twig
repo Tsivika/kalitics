@@ -1,0 +1,37 @@
+{% extends 'base-espace-client.html.twig' %}
+{% block title %}{{ title }}{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="row mt-4 mb-2">
+            <div>
+                <span class="text-green">Les abonnés</span>
+            </div>
+        </div>
+
+        <div class="row mt-5" id="list-subscriber">
+            <table class="table table-hover table-striped verticle-middle dataTable_sub" id="dataTable_sub">
+                <thead>
+                <tr>
+                    <td class="encart_home_head text-green">Nom</td>
+                    <td class="encart_home_head text-green">Prénom</td>
+                    <td class="encart_home_head text-green">email</td>
+                    <td class="encart_home_head text-green">Détail abonnement</td>
+
+                </tr>
+                </thead>
+                <tbody>
+                {% for row in subscribers %}
+                    <tr>
+                        <td class="encart_home_body ">{{ row.name }} </td>
+                        <td class="encart_home_body ">{{ row.firstname }}</td>
+                        <td class="encart_home_body ">{{ row.email }}</td>
+                        <td class="encart_home_body "> - </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+{% endblock %}
+

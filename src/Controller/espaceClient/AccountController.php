@@ -5,9 +5,12 @@ namespace App\Controller\espaceClient;
 use App\Entity\Subscription;
 use App\Form\Handler\AccountHandler;
 use App\Form\UserAccountType;
+use App\Manager\AccountManager;
 use App\Manager\SubscriptionManager;
 use App\Manager\UserManager;
 use App\Repository\CodePromoRepository;
+use App\Services\StripePayement;
+use phpDocumentor\Reflection\Types\This;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -97,13 +100,13 @@ class AccountController extends AbstractController
      *
      * @return Response
      */
-    public function userSubscriptionPrePayment(Request $request, Subscription $subscription, SubscriptionManager $subscriptionManager)
+    public function userSubscriptionPrePayment(Request $request, Subscription $subscription, SubscriptionManager $subscriptionManager, StripePayement $stripe, AccountManager $accountManager)
     {
         $form = $this->createForm(UserAccountType::class, $this->getUser());
         $subPaying = $subscriptionManager->getPayingSubscription();
-        $handler = new AccountHandler($form, $request, $this->em);
+        $handler = new AccountHandler($form, $request, $accountManager, $stripe);
         if ($handler->process()) {
-            dd('ato');
+            return $this->redirectToRoute('app_espace_client_subscription_list');
         }
 
         return $this->render('payment/index.html.twig', [

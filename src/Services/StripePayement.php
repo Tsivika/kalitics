@@ -2,8 +2,14 @@
 
 namespace App\Services;
 
+use Stripe\Stripe;
 use Symfony\Component\Config\Definition\Exception\Exception;
 
+/**
+ * Class StripePayement
+ *
+ * @package App\Services
+ */
 class StripePayement
 {
     /**
@@ -16,211 +22,132 @@ class StripePayement
      *
      * @param $stripe
      */
-    public function __construct($stripe)
+    public function __construct(string $stripe)
     {
         $this->stripe = $stripe;
-        \Stripe\Stripe::setApiKey($this->stripe['secret_key']);
+        \Stripe\Stripe::setApiKey($this->stripe);
     }
 
     /**
-     * Create customer
+     * @return false|\Stripe\Customer
      *
-     * @param               $email
-     * @param \Stripe\Token $token
-     *
-     * @return \Stripe\Customer
+     * @throws \Stripe\Exception\ApiErrorException
      */
-    public function createCustomer($email, $token)
+    public function createCustomer($userMail, $stripeToken)
     {
         try {
-            $customer = \Stripe\Customer::create(array(
-                "email" => $email,
-                "source" => $token,
-            ));
+            $customer = \Stripe\Customer::create([
+                'description' => 'Paiement abonnement sur Hiboo',
+                'email' => $userMail,
+                'source' => $stripeToken //$_post['stripeToken']
+            ]);
         } catch (\Stripe\Error\ApiConnection $e) {
             echo $e->getMessage();
+            return false;
 
         } catch (Exception $e) {
             echo $e->getMessage();
+            return false;
         }
 
         return $customer;
     }
 
     /**
-     * @param       $subscription
-     * @param       $plan
-     * @param null  $coupon
+     * @return false|\Stripe\Price
      *
      * @throws \Stripe\Exception\ApiErrorException
      */
-    public function changeSubscription($subscription, $plan, $coupon = null)
+    public function createProduct($nameProduct, $interval, $priceProduct)
     {
         try {
-            $subscription = \Stripe\Subscription::retrieve($subscription->id);
-            $subscription->plan = $plan;
-            $subscription->prorate = false;
-            if($coupon){
-                $subscription->coupon = $coupon->id;
-            }
-            $subscription->save();
-            if($coupon){
-                $cpn = \Stripe\Coupon::retrieve($coupon->id);
-                $cpn->delete();
-            }
+            $product = \Stripe\Product::create([
+                'name' => $nameProduct,
+                'type' => 'service',
+            ]);
         } catch (\Stripe\Error\ApiConnection $e) {
             echo $e->getMessage();
+            return false;
 
-        } catch
-        (Exception $e) {
+        } catch (Exception $e) {
             echo $e->getMessage();
+            return false;
         }
+
+        try {
+            $price = \Stripe\Price::create([
+                'nickname' => 'Abonnement ' . $nameProduct,
+                'product' => $product->id,
+                'unit_amount' => $priceProduct*100,
+                'currency' => 'eur',
+                'recurring' => [
+                    'interval' => $interval, // month
+                    'usage_type' => 'licensed',
+                ],
+            ]);
+        } catch (\Stripe\Error\ApiConnection $e) {
+            echo $e->getMessage();
+            return false;
+
+        } catch (Exception $e) {
+            echo $e->getMessage();
+            return false;
+        }
+
+        return $price;
     }
 
     /**
-     * @param $subscription
-     *
+     * @param $customer
+     * @param $price
+     * @param $coupon
+     * @return false|\Stripe\Subscription
      * @throws \Stripe\Exception\ApiErrorException
      */
-    public function pauseSubcription($subscription)
+    public function createSubscription($customer, $price, $coupon = null)
     {
-        try {
-            $subscription = \Stripe\Subscription::retrieve($subscription->id);
-
-
-        } catch (\Stripe\Error\ApiConnection $e) {
-            echo $e->getMessage();
-
-        } catch
-        (Exception $e) {
-            echo $e->getMessage();
-        }
-    }
-
-    /**
-     * @param       $customer
-     * @param       $plan
-     * @param       $trialTimeStap
-     * @param null $coupon
-     *
-     * @return \Stripe\Subscription
-     *
-     * @throws \Stripe\Exception\ApiErrorException
-     */
-    public function createSubscription($customer, $plan, $trialTimeStap, $coupon = null)
-    {
-
         try {
             if (is_null($coupon)) {
-                if($trialTimeStap == 0)
-                    $sub = \Stripe\Subscription::create(array(
-                        "customer" => $customer->id,
-                        "plan" => $plan
-                    ));
-                else
-                    $sub = \Stripe\Subscription::create(array(
-                        "customer" => $customer->id,
-                        "plan" => $plan,
-                        "trial_end" => (int)$trialTimeStap
-                    ));
+                $subscription = \Stripe\Subscription::create([
+                    'customer' => $customer->id,
+                    'items' => [
+                        ['price' => $price->id]
+                    ],
+                ]);
             } else {
-                if($trialTimeStap == 0)
-                    $sub =  \Stripe\Subscription::create(array(
-                        "customer" => $customer->id,
-                        "plan" => $plan,
-                        "coupon" => $coupon->id
-                    ));
-                else
-                    $sub =  \Stripe\Subscription::create(array(
-                        "customer" => $customer->id,
-                        "plan" => $plan,
-                        "coupon" => $coupon->id,
-                        "trial_end" => (int)$trialTimeStap
-                    ));
-                // delete coupon afert subscription
-                $cpn = \Stripe\Coupon::retrieve($coupon->id);
-                $cpn->delete();
+                $subscription = \Stripe\Subscription::create([
+                    'customer' => $customer->id,
+                    'items' => [
+                        ['price' => $price->id]
+                    ],
+                    'coupon' => $coupon->id,
+                ]);
             }
-
-            return $sub;
-
         } catch (\Stripe\Error\ApiConnection $e) {
             echo $e->getMessage();
-
-        } catch
-        (Exception $e) {
-            echo $e->getMessage();
-        }
-    }
-
-
-    /**
-     *Charge account
-     *
-     * @param \Stripe\Customer  $customer
-     * @param                   $amount
-     * @param string            $currency
-     */
-    public function charge(\Stripe\Customer $customer, $amount, $currency = 'EUR')
-    {
-        try {
-            \Stripe\Charge::create(array(
-                'customer' => $customer->id,
-                'amount' => $amount,
-                'currency' => $currency,
-            ));
-
-        } catch (\Stripe\Error\ApiConnection $e) {
-            echo $e->getMessage();
-
-        } catch (Exception $e) {
-            echo $e->getMessage();
-        }
-    }
-
-    /**
-     * @param $id
-     * @param $interval
-     * @param $amount
-     *
-     * @return bool
-     *
-     * @throws \Stripe\Exception\ApiErrorException
-     */
-    public function plan($id, $interval, $amount)
-    {
-        try {
-            \Stripe\Plan::create(array(
-                    "amount" => $amount * 100,
-                    "interval" => "month",
-                    "interval_count" => $interval,
-                    "name" => $id,
-                    "currency" => "eur",
-                    "id" => $id)
-            );
-        } catch (\Stripe\Error\ApiConnection $e) {
             return false;
 
         } catch (Exception $e) {
+            echo $e->getMessage();
             return false;
         }
+
+        return $subscription;
     }
 
     /**
      * @param string $percent
-     *
-     * @return bool|\Stripe\Coupon
-     *
+     * @return false|\Stripe\Coupon
      * @throws \Stripe\Exception\ApiErrorException
      */
-    public function coupon($percent = "0")
+    public function createCoupon($percent = "0", $name)
     {
         try {
-            $coupon = \Stripe\Coupon::create(array(
-                "id" => "coupons",
-                "duration" => "once",
-                "percent_off" => $percent,
-            ));
+            $coupon = \Stripe\Coupon::create([
+                'id' => $name,
+                'duration' => 'once',
+                'percent_off' => $percent,
+            ]);
         } catch (\Stripe\Error\ApiConnection $e) {
             echo $e->getMessage();
             return false;
@@ -233,98 +160,4 @@ class StripePayement
         return $coupon;
     }
 
-    /**
-     * @param $id
-     *
-     * @return bool
-     *
-     * @throws \Stripe\Exception\ApiErrorException
-     */
-    public function deletePlan($id){
-
-        try {
-            $plans =  \Stripe\Plan::all();
-            foreach ($plans['data'] as $plan){
-                if($plan['id'] == $id){
-                    $plan = \Stripe\Plan::retrieve($id);
-                    $plan->delete();
-                }
-            }
-            return true;
-        } catch (\Stripe\Error\ApiConnection $e) {
-            return false;
-        } catch (Exception $e) {
-            return false;
-        }
-    }
-
-    /**
-     * Cancel current subscription
-     *
-     * @return bool
-     */
-    public function cancel($id)
-    {
-        try {
-            $sub = \Stripe\Subscription::retrieve($id);
-            $sub->cancel(array('at_period_end' => true));
-        } catch (\Stripe\Error\ApiConnection $e) {
-            echo $e->getMessage();
-            return false;
-
-        } catch (Exception $e) {
-            echo $e->getMessage();
-            return false;
-        }
-    }
-
-    /**
-     * @return bool|\Stripe\Collection
-     *
-     * @throws \Stripe\Exception\ApiErrorException
-     */
-    public function getAllCustomer()
-    {
-
-        try {
-            $customers = \Stripe\Customer::all();
-        } catch (\Stripe\Error\ApiConnection $e) {
-            echo $e->getMessage();
-            return false;
-
-        } catch (Exception $e) {
-            echo $e->getMessage();
-            return false;
-        }
-        return $customers;
-    }
-
-    /**
-     * @param $id
-     *
-     * @return bool|\Stripe\Customer
-     */
-    public function getCustomer($id)
-    {
-
-        try {
-            $customer = \Stripe\Customer::retrieve($id);
-        } catch (\Stripe\Error\ApiConnection $e) {
-            echo $e->getMessage();
-            return false;
-
-        } catch (Exception $e) {
-            echo $e->getMessage();
-            return false;
-        }
-        return $customer;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getStripe()
-    {
-        return $this->stripe;
-    }
 }

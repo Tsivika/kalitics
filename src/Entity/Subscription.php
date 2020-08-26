@@ -74,9 +74,15 @@ class Subscription
      */
     private $users;
 
+    /**
+     * @ORM\OneToMany(targetEntity=UserSubscription::class, mappedBy="subscription")
+     */
+    private $userSubscriptions;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->userSubscriptions = new ArrayCollection();
     }
 
     /**
@@ -312,6 +318,37 @@ class Subscription
             // set the owning side to null (unless already changed)
             if ($user->getSubscriptionUser() === $this) {
                 $user->setSubscriptionUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserSubscription[]
+     */
+    public function getUserSubscriptions(): Collection
+    {
+        return $this->userSubscriptions;
+    }
+
+    public function addUserSubscription(UserSubscription $userSubscription): self
+    {
+        if (!$this->userSubscriptions->contains($userSubscription)) {
+            $this->userSubscriptions[] = $userSubscription;
+            $userSubscription->setSubscription($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserSubscription(UserSubscription $userSubscription): self
+    {
+        if ($this->userSubscriptions->contains($userSubscription)) {
+            $this->userSubscriptions->removeElement($userSubscription);
+            // set the owning side to null (unless already changed)
+            if ($userSubscription->getSubscription() === $this) {
+                $userSubscription->setSubscription(null);
             }
         }
 

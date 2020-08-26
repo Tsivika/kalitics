@@ -15,6 +15,7 @@ Routing.setRoutingData(routes);
     $(document).ready(function() {
         customDatatable('#dataTable_category');
         customDatatable('#dataTable_guide');
+        customDatatable('#dataTable_sub');
         categoryAddAjax();
         categoryDelete();
         guideAddAjax();
