@@ -23,10 +23,6 @@
     border-right: none;
     text-decoration: none;
 }
-.item-link:nth-child(6) {
-    flex:2;
-    text-align: right;
-}
 #menu_espc a {
     color: #ffffff;
 }
@@ -57,6 +53,7 @@ td a:hover {
     flex-wrap: wrap;
     justify-content: flex-start;
     margin-bottom: 15px;
+    align-items: center;
 }
 .item-input-label {
     min-width: 300px;
@@ -94,4 +91,139 @@ hr {
     width: 184px;
     height: 46px;
     background-image:url("../images/logo_small.png") ;
+}
+.image-profil {
+    border:solid 1px #00C9AE;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+}
+img .image-profil {
+    border:solid 1px #00C9AE;
+    width: 160px;
+    height: auto;
+    border-radius: 50%;
+}
+.wrap_horizontal
+{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+.input_copy {
+    /*font-size: 12px !important;*/
+    padding: 10px !important;
+    /*width: 190px;*/
+    border:none;
+}
+.accordion-panel {
+    font-family: "GalanoGrotesqueAltRegular";
+}
+.accordion-panel .accordion {
+    padding-top: 0px;
+}
+.accordion-panel .accordion dt {
+    display: block;
+    padding-bottom: 3px;
+    color: #555;
+    cursor: pointer;
+    position: relative;
+    user-select: none;
+    border-bottom: solid 1px #ccc;
+}
+.accordion-panel .accordion dd {
+    height: 0;
+    overflow: hidden;
+    transition: height .35s ease-out;
+    margin-left: 0;
+    margin-bottom: 20px;
+    background: #F4F4F4;
+}
+.accordion-panel .accordion .content {
+    padding: 5px 0px 5px 0px;
+    overflow: auto;
+}
+.accordion-panel .plus-icon {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    position: relative;
+    transition: transform 0.35s ease-out;
+    position: absolute;
+    right: 35px;
+    top: 50%;
+    margin-top: -12px;
+}
+.accordion-panel .plus-icon:before,
+.accordion-panel .plus-icon:after {
+    content: '';
+    background: #6bbf49;
+    position: absolute;
+}
+.accordion-panel .plus-icon:before {
+    width: 2px;
+    height: 15px;
+    margin-left: -0.5px;
+    left: 50%;
+}
+.accordion-panel .plus-icon:after {
+    width: 15px;
+    height: 2px;
+    margin-top: -0.5px;
+    top: 50%;
+    opacity: 1;
+    transition: opacity 0.35s ease-out;
+}
+.accordion-panel .is-open .plus-icon {
+    transform: rotate(90deg);
+}
+.accordion-panel .is-open .plus-icon:after {
+    opacity: 0;
+}
+.accordion-panel .hidden {
+    display: none;
+}
+.accordion-panel .open-btn,
+.accordion-panel .close-btn {
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    width: 90px;
+}
+.accordion-panel .buttons-wrapper {
+    position: relative;
+}
+.accordion-panel .buttons-wrapper .plus-icon {
+    position: absolute;
+    right: 10px;
+    top: 12px;
+}
+
+.StripeElement {
+    box-sizing: border-box;
+
+    height: 40px;
+
+    padding: 10px 12px;
+
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background-color: white;
+
+    box-shadow: 0 1px 3px 0 #e6ebf1;
+    -webkit-transition: box-shadow 150ms ease;
+    transition: box-shadow 150ms ease;
+}
+
+.StripeElement--focus {
+    box-shadow: 0 1px 3px 0 #cfd7df;
+}
+
+.StripeElement--invalid {
+    border-color: #fa755a;
+}
+
+.StripeElement--webkit-autofill {
+    background-color: #fefde5 !important;
 }

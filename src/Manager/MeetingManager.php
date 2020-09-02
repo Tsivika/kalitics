@@ -73,4 +73,16 @@ class MeetingManager extends BaseManager
             'footer' => '<span>Consulter notre <a href="" class="text-green"> Politique de confidentialité</a></span>',
         ];
     }
+
+    /**
+     * @param $entity
+     *
+     * @return object[]
+     */
+    public function deleteMeeting($entity, User $user)
+    {
+        $this->delete($entity);
+
+        return $this->getUserMeetingList($user);
+    }
 }

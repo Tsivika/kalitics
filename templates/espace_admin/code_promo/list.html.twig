@@ -1,0 +1,126 @@
+{% extends 'base-espace-client.html.twig' %}
+{% block title %}{{ title }}{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="row mt-4 mb-2">
+            <div>
+                <span class="text-green">Coupons de réductions</span>
+            </div>
+        </div>
+
+
+        <div class="jumbotron">
+            {{ form_start(form, { 'attr': {'id':'form_coupon'}}) }}
+            <div class="mb-3">Créer un coupon de réduction</div>
+            <div class="wrap_horizontal">
+
+                <div class="items">{{ form_widget(form.name) }}</div>
+                <div class="items">{{ form_widget(form.reduction) }}</div>
+                <div class="items">{{ form_widget(form.code) }}</div>
+                <div class="items">{{ form_widget(form.status) }}</div>
+                <button class="btn btn-success">Ajouter un coupon</button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+
+
+        <div class="row mt-5" id="list-coupons">
+
+            <table class="table table-hover table-striped verticle-middle dataTable_coupon" id="dataTable_coupon">
+                <thead>
+                <tr>
+                    <td class="encart_home_head ">-</td>
+                    <td class="encart_home_head text-green">Réduction</td>
+                    <td class="encart_home_head">Titre</td>
+                    <td class="encart_home_head">Code</td>
+                    <td class="encart_home_head">Date de création</td>
+                    <td class="encart_home_head text-center">Etat</td>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for row in codePromos %}
+                    <tr>
+                        <td class="encart_home_body ">{{ row.id }} </td>
+                        <td class="encart_home_body text-green">-{{ row.reduction }}%</td>
+                        <td class="encart_home_body">{{ row.name }}</td>
+                        <td class="encart_home_body">
+                            <span class="d-none">{{ row.code }}</span>
+                            <input class="input_copy" type="text" id="linkInput_{{ row.id }}" value="{{ row.code }}" readonly>
+                        </td>
+                        <td class="encart_home_body">{{ row.createdAt|date("m/d/Y") }}</td>
+                        <td class="encart_home_body text-center small">
+                            <span class="d-none">{{ row.status }}</span>
+                            <div class="custom-control custom-switch">
+                                {% if row.status %}
+                                    <input type="checkbox" checked
+                                           class="custom-control-input coupon_switch"
+                                           id="coupon_{{ row.id }}"
+                                           name="coupon_{{ row.id }}"
+                                           data-coupon_switch="{{ row.id }}"
+                                    >
+                                    <label class="custom-control-label" for="coupon_{{ row.id }}"></label>
+                                {% else %}
+                                    <input type="checkbox"
+                                           class="custom-control-input coupon_switch"
+                                           id="coupon_{{ row.id }}"
+                                           name="coupon_{{ row.id }}"
+                                           data-coupon_switch="{{ row.id }}"
+                                    >
+                                    <label class="custom-control-label" for="coupon_{{ row.id }}"></label>
+                                {% endif %}
+                            </div>
+                        </td>
+                        <td align="center">
+                            <button class="btn-icon-right btn btn-danger encart_home_body"
+                                    type="button"
+                                    style="font-size: 12px; padding: 1px 10px"
+                                    onclick="return copyToPaste({{ row.id }});"
+                                    data-target="#link-coupon">
+                                Copier le coupon <i class="fa fa-files-o" aria-hidden="true"></i>
+                            </button>
+                            <a href="" data-coupon="{{ row.id }}" class="delete_coupon">
+                                <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <link href="{{ asset('build/css/toastr.min.css') }}" rel="stylesheet"/>
+    <script src="{{ asset('build/js/toastr.min.js') }}"></script>
+    <script>
+        function copyToPaste(id) {
+            var copyText = document.getElementById("linkInput_" + id);
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);
+            document.execCommand("copy");
+
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "2000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            };
+
+            toastr["success"]("Code coupon copié.")
+        }
+    </script>
+{% endblock %}

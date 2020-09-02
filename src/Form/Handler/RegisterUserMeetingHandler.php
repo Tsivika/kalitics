@@ -38,6 +38,7 @@ class RegisterUserMeetingHandler extends Handler
      */
     function onSuccess()
     {
+        $path = $baseurl = $this->request->getScheme() . '://' . $this->request->getHttpHost() . $this->request->getBasePath();
         $uuid = Uuid::uuid4();
         $idRandom = explode('-',$uuid->toString());
         $identifiant = array_reverse($idRandom);
@@ -46,10 +47,11 @@ class RegisterUserMeetingHandler extends Handler
 
         $meeting->setSubject('');
         $meeting->setDescription('');
+        $meeting->setDurationM(20);
         $meeting->setDate(new DateTime('now'));
         $meeting->setIdentifiant($identifiant[0]);
         $meeting->setUser($this->user);
-        $meeting->setLink($identifiant[0]);
+        $meeting->setLink($path.'/p/'.$identifiant[0]);
 
         $this->em->save($meeting);
     }

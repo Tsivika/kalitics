@@ -31,6 +31,11 @@ class Media
     private $filename;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $thumbnail;
+
+    /**
      * @return int|null
      */
     public function getId(): ?int
@@ -74,6 +79,18 @@ class Media
     public function setFilename(string $filename): self
     {
         $this->filename = $filename;
+
+        return $this;
+    }
+
+    public function getThumbnail(): ?string
+    {
+        return $this->thumbnail;
+    }
+
+    public function setThumbnail(?string $thumbnail): self
+    {
+        $this->thumbnail = $thumbnail;
 
         return $this;
     }

@@ -1,4 +1,6 @@
 import showToast from "./toastr";
+import {cardTarif} from "./tools";
+
 const routes = require('../../public/js/fos_js_routes.json');
 import Routing from '../../vendor/friendsofsymfony/jsrouting-bundle/Resources/public/js/router.min.js';
 import axios from 'axios';
@@ -11,20 +13,7 @@ $(document).ready(function() {
 		interval: false,
 	});
 
-	$(".card-tarif").mouseenter(function(){
-		$(this).addClass('active');
-		$(this).find(".fa-check-circle").css("color","white");
-		$(this).find(".start").css("background-color","white");
-		$(this).find(".start").css("color","rgba(0,201,174,1)");
-	});
-
-	$(".card-tarif").mouseleave(function(){
-		$(this).removeClass('active');
-		$(this).find(".fa-check-circle").css("color","rgba(0,201,174,1)");
-		$(this).find(".start").css("color","white");
-		$(this).find(".start").css("color","white");
-		$(this).find(".start").css("background-color","rgba(0,201,174,1)");
-	});
+	cardTarif();
 
 	$('a[href*="#"]:not([href="#"])').on('click', function() {
 		if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
@@ -59,11 +48,9 @@ $(document).ready(function() {
 			}
 		}
 	});
-
 	sendMessageContact();
 	startTunnel();
 });
-
 
 function sendMessageContact()
 {

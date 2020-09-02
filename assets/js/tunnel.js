@@ -33,7 +33,6 @@ function ajaxSubmitTunnel(el) {
         success: function (data) {
             scrollToSection('#tunnel_2');
             tunnel.html(data.html);
-
         }
     });
 

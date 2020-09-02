@@ -29,8 +29,10 @@ Encore
         from: './assets/js',
         to: '/js/[path][name].[ext]'
     })
-    //.addEntry('page1', './assets/js/page1.js')
-    //.addEntry('page2', './assets/js/page2.js')
+    .copyFiles({
+        from: './assets/css',
+        to: '/css/[path][name].[ext]'
+    })
 
     .cleanupOutputBeforeBuild()
 
@@ -83,9 +85,9 @@ Encore
         'window.jQuery': 'jquery',
     })
 
-    // uncomment if you use API Platform Admin (composer req api-admin)
+    // uncomment if you use API Platform Admin (composer req api-espace_admin)
     //.enableReactPreset()
-    //.addEntry('admin', './assets/js/admin.js')
+    //.addEntry('espace_admin', './assets/js/espace_admin.js')
 ;
 
 module.exports = Encore.getWebpackConfig();

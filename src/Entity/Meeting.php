@@ -25,7 +25,7 @@ class Meeting
     private $subject;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $description;
 
@@ -70,11 +70,17 @@ class Meeting
     private $durationM;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $status;
+
+    /**
      * Meeting constructor.
      */
     public function __construct()
     {
         $this->participants = new ArrayCollection();
+        $this->status = 0;
     }
 
     /**
@@ -118,7 +124,7 @@ class Meeting
      *
      * @return $this
      */
-    public function setDescription(string $description): self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
 
@@ -286,6 +292,18 @@ class Meeting
     public function setDurationM(?int $durationM): self
     {
         $this->durationM = $durationM;
+
+        return $this;
+    }
+
+    public function getStatus(): ?bool
+    {
+        return $this->status;
+    }
+
+    public function setStatus(bool $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

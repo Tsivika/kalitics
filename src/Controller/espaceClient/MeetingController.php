@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\RouterInterface;
 
 /**
  * @Route("/espace_client/meeting")
@@ -58,7 +59,7 @@ class MeetingController extends AbstractController
      *
      * @return JsonResponse
      */
-    public function detail(Request $request, Meeting $meeting)
+    public function meetingDetail(Request $request, Meeting $meeting)
     {
 //        $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
         $content = $this->em->detailMeeting($meeting);
@@ -76,26 +77,46 @@ class MeetingController extends AbstractController
      * @Route("/add", name="app_espace_client_meeting_add")
      * @Route("/edit/{id}", name="app_espace_client_meeting_edit")
      *
-     * @param Request $request
-     * @param Meeting|null $meeting
+     * @param Request       $request
+     * @param Meeting|null  $meeting
      * @return Response
      */
-    public function meetingAdd(Request $request, Meeting $meeting = null)
+    public function meetingAdd(Request $request, RouterInterface $router, Meeting $meeting = null)
     {
         $meetingEntity = $meeting ?? new Meeting();
         $title = $meeting ? 'Modifier la réunion' : 'Ajouter une réunion';
         $mode = $meeting ?? false;
+        $userSubscription = $this->getUser()->getSubscriptionUser();
 
         $form = $this->createForm(MeetingType::class, $meetingEntity);
-        $handler = new MeetingHandler($form, $request, $this->getUser(), $this->em);
-        if ($handler->process()) {
-            return $this->redirectToRoute('app_espace_client_meeting_list');
+        $handler = new MeetingHandler($form, $request, $this->getUser(), $this->em, $router);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $meetingInput = $form->getData();
+            $restriction = $handler->restriction($meetingInput);
+            if (is_bool($restriction)) {
+                $handler->onSuccess();
+                if ($meeting) {
+                    return $this->redirectToRoute('app_espace_client_meeting_list');
+                } else {
+                    $theMeeting = $this->em->getUserLastMeeting($this->getUser());
+
+                    return $this->render('espace_client/meeting/add_confirmation.html.twig', [
+                        'link' => $theMeeting->getLink(),
+                        'title' => 'Bravo, vous venez de créer une réunion',
+                    ]);
+                }
+            } else {
+                $this->addFlash('error', $restriction);
+            }
         }
 
         return $this->render('espace_client/meeting/add.html.twig', [
             'title' => $title,
             'mode' => $mode,
             'form' => $form->createView(),
+            'userSubscription' => $userSubscription,
         ]);
     }
 
@@ -109,11 +130,14 @@ class MeetingController extends AbstractController
      *
      * @return JsonResponse
      */
-    public function deleteMeeting(Meeting $meeting)
+    public function meetingDelete(Meeting $meeting)
     {
-        $this->em->delete($meeting);
+        $meetings = $this->em->deleteMeeting($meeting, $this->getUser());
 
         return new JsonResponse( [
+            'listHtml' => $this->renderView('espace_client/meeting/liste_ajax.html.twig', [
+                'meetings' => $meetings,
+            ]),
             'body' => "<p>La réunion est bien supprimée.</p>",
             'footer' => '<span>Consulter notre <a href="" class="text-green"> Politique de confidentialité</a></span>',
             'success' => true,

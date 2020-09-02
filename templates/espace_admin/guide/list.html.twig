@@ -1,0 +1,91 @@
+{% extends 'base-espace-client.html.twig' %}
+{% block title %}{{ title }}{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="row mt-4 mb-2">
+            <div>
+                <span class="text-green">Les Guides</span>
+            </div>
+        </div>
+
+
+        <div class="jumbotron">
+            {{ form_start(form, { 'attr': {'id':'form_guide'}}) }}
+            <div class="mb-3">Ajouter nouvelle guide</div>
+            <div class="wrap_horizontal">
+
+                <div class="items">{{ form_widget(form.question) }}</div>
+                <div class="items">{{ form_widget(form.response) }}</div>
+                <div class="items">{{ form_widget(form.category) }}</div>
+                <button class="btn btn-success">Ajouter guide</button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+        {#<div class="mt-5" id="list-guide">
+            <div class="accordion-panel">
+                <div class="buttons-wrapper">
+                    <i class="plus-icon"></i>
+                    <div class="open-btn">
+                        Open all
+                    </div>
+                    <div class="close-btn hidden">
+                        Close all
+                    </div>
+                </div>
+
+                <dl class="accordion">
+                    <dt>item 1 <i class="plus-icon"></i></dt>
+                    <dd>
+                        <div class="content">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                        </div>
+                    </dd>
+                    <dt>item 2 <i class="plus-icon"></i></dt>
+                    <dd>
+                        <div class="content">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+                                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        </div>
+                    </dd>
+                    <dt>item 3 <i class="plus-icon"></i></dt>
+                    <dd>
+                        <div class="content">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+                                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+        </div>#}
+        <div class="row mt-5" id="list-guide">
+            <table class="table table-hover table-striped verticle-middle dataTable_guide" id="dataTable_guide">
+                <thead>
+                <tr>
+                    <td class="encart_home_head ">-</td>
+                    <td class="encart_home_head text-green">Question</td>
+                    <td class="encart_home_head text-green">Reponse</td>
+                    <td class="encart_home_head text-green">Catégorie</td>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for row in guides %}
+                    <tr>
+                        <td class="encart_home_body ">{{ row.id }} </td>
+                        <td class="encart_home_body ">{{ row.question }}</td>
+                        <td class="encart_home_body ">{{ row.response }}</td>
+                        <td class="encart_home_body ">{{ row.category.title }}</td>
+                        <td align="center">
+                            <a href="" data-guide="{{ row.id }}" class="delete_guide">
+                                <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+{% endblock %}
+

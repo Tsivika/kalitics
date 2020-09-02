@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SubscriptionRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -23,7 +25,7 @@ class Subscription
     private $title;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=150)
      */
     private $duration;
 
@@ -33,12 +35,12 @@ class Subscription
     private $mode;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=150)
      */
     private $duration_meeting;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=150, nullable=true)
      */
     private $numberParticipant;
 
@@ -63,9 +65,25 @@ class Subscription
     private $reminderMeeting;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $price;
+
+    /**
+     * @ORM\OneToMany(targetEntity=User::class, mappedBy="subscriptionUser")
+     */
+    private $users;
+
+    /**
+     * @ORM\OneToMany(targetEntity=UserSubscription::class, mappedBy="subscription")
+     */
+    private $userSubscriptions;
+
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+        $this->userSubscriptions = new ArrayCollection();
+    }
 
     /**
      * @return int|null
@@ -96,19 +114,19 @@ class Subscription
     }
 
     /**
-     * @return int|null
+     * @return string|null
      */
-    public function getDuration(): ?int
+    public function getDuration(): ?string
     {
         return $this->duration;
     }
 
     /**
-     * @param int $duration
+     * @param string $duration
      *
      * @return $this
      */
-    public function setDuration(int $duration): self
+    public function setDuration(?string $duration): self
     {
         $this->duration = $duration;
 
@@ -128,7 +146,7 @@ class Subscription
      *
      * @return $this
      */
-    public function setMode(string $mode): self
+    public function setMode(?string $mode): self
     {
         $this->mode = $mode;
 
@@ -136,19 +154,19 @@ class Subscription
     }
 
     /**
-     * @return int|null
+     * @return string|null
      */
-    public function getDurationMeeting(): ?int
+    public function getDurationMeeting(): ?string
     {
         return $this->duration_meeting;
     }
 
     /**
-     * @param int $duration_meeting
+     * @param string $duration_meeting
      *
      * @return $this
      */
-    public function setDurationMeeting(int $duration_meeting): self
+    public function setDurationMeeting(?string $duration_meeting): self
     {
         $this->duration_meeting = $duration_meeting;
 
@@ -156,19 +174,19 @@ class Subscription
     }
 
     /**
-     * @return int|null
+     * @return string|null
      */
-    public function getNumberParticipant(): ?int
+    public function getNumberParticipant(): ?string
     {
         return $this->numberParticipant;
     }
 
     /**
-     * @param int $numberParticipant
+     * @param string $numberParticipant
      *
      * @return $this
      */
-    public function setNumberParticipant(int $numberParticipant): self
+    public function setNumberParticipant(?string $numberParticipant): self
     {
         $this->numberParticipant = $numberParticipant;
 
@@ -268,9 +286,71 @@ class Subscription
      *
      * @return $this
      */
-    public function setPrice(int $price): self
+    public function setPrice(?int $price): self
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->setSubscriptionUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->contains($user)) {
+            $this->users->removeElement($user);
+            // set the owning side to null (unless already changed)
+            if ($user->getSubscriptionUser() === $this) {
+                $user->setSubscriptionUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserSubscription[]
+     */
+    public function getUserSubscriptions(): Collection
+    {
+        return $this->userSubscriptions;
+    }
+
+    public function addUserSubscription(UserSubscription $userSubscription): self
+    {
+        if (!$this->userSubscriptions->contains($userSubscription)) {
+            $this->userSubscriptions[] = $userSubscription;
+            $userSubscription->setSubscription($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserSubscription(UserSubscription $userSubscription): self
+    {
+        if ($this->userSubscriptions->contains($userSubscription)) {
+            $this->userSubscriptions->removeElement($userSubscription);
+            // set the owning side to null (unless already changed)
+            if ($userSubscription->getSubscription() === $this) {
+                $userSubscription->setSubscription(null);
+            }
+        }
 
         return $this;
     }

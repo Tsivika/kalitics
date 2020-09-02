@@ -4,6 +4,10 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+    image_directory: '%kernel.project_dir%/public/uploads/images/'
+    asset_image_directory: 'uploads/images/'
+    stripe.api.key: '%env(resolve:STRIPE_API_KEY)%'
+    stripe.public.key: '%env(resolve:STRIPE_PUBLIC_KEY)%'
 
 services:
     # default configuration for services in *this* file
@@ -38,3 +42,11 @@ services:
 
     App\Email\Handler\SwiftMailerHandler:
         tags: ['messenger.message_handler']
+
+    App\Services\ImageUploader:
+        arguments:
+            $targetDirectory: '%image_directory%'
+
+    App\Services\StripePayement:
+        arguments:
+            $stripe: '%stripe.api.key%'

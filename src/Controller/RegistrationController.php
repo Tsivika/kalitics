@@ -10,6 +10,7 @@ use App\Form\MeetingParticipantType;
 use App\Form\RegistrationFormType;
 use App\Manager\MeetingManager;
 use App\Manager\RegisterManager;
+use App\Manager\SubscriptionManager;
 use App\Manager\UserManager;
 use App\Security\EmailVerifier;
 use App\Security\LoginFormAuthenticator;
@@ -59,11 +60,11 @@ class RegistrationController extends AbstractController
      *
      * @return Response
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator): Response
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator, SubscriptionManager $subscriptionManager): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
-        $handler = new RegisterHandler($form, $request, $passwordEncoder, $guardHandler, $authenticator, $user, $this->emailVerifier, $this->em);
+        $handler = new RegisterHandler($form, $request, $passwordEncoder, $guardHandler, $authenticator, $user, $this->emailVerifier, $this->em, $subscriptionManager);
         if ($handler->process()) {
             return $this->forward('App\Controller\RegistrationController::registerUserMeeting');
         }
@@ -91,6 +92,7 @@ class RegistrationController extends AbstractController
     public function registerUserMeeting(Request $request)
     {
         $user = $this->getUser();
+        $userSubscription = $user->getSubscriptionUser();
         if (!$user) {
             throw new Exception("Vous n'avez pas accès à cette page");
         }
@@ -105,6 +107,7 @@ class RegistrationController extends AbstractController
 
         $response = $this->render('registration/register_user_meeting.html.twig', [
             'form' => $formUserMeeting->createView(),
+            'userSubscription' => $userSubscription,
         ]);
 
         if ($request->isXmlHttpRequest()){

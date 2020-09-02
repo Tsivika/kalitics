@@ -1,0 +1,54 @@
+{% extends 'base-espace-client.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+
+    <div class="row mt-4 justify-content-center ">
+        <div class="col-lg-6 text-center ">
+            {% include 'shared/flash_alert/index.html.twig' %}
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-lg-12 ">
+            <span class="text-green"> Guide </span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-10 ">
+                <div class="accordion-panel">
+                    {#<div class="buttons-wrapper">
+                        <i class="plus-icon"></i>
+                        <div class="open-btn">
+                            Tout
+                        </div>
+                        <div class="close-btn hidden">
+                            Tout
+                        </div>
+                    </div>#}
+
+                    {% for rowCat in categories %}
+                        <div class="my-5">
+                            <strong>{{ rowCat.title }}</strong><br>
+                            <p>
+                                {% for rowGuide in rowCat.getGuides %}
+                                    <dl class="accordion">
+                                        <dt class="encart_home_head">{{ rowGuide.question }} <i class="plus-icon"></i></dt>
+                                        <dd>
+                                            <div class="content encart_home_body">
+                                                <p> {{ rowGuide.response}} </p>
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                {% endfor %}
+                            </p>
+                        </div>
+                    {% endfor %}
+
+                    </div>
+                </div>
+
+        </div>
+    </div>
+
+{% endblock %}

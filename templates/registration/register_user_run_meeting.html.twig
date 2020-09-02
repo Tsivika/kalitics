@@ -1,5 +1,7 @@
 {% extends 'base-frontend.html.twig' %}
 
+{% import 'shared/step_head/step.html.twig' as macro_step %}
+
 {% block title %}Lancer réunion!{% endblock %}
 
 {% block body %}
@@ -8,16 +10,7 @@
             <div class="card card0 border-0">
                 <div class="row">
                     <div class="col-12 ml-3">
-                        <div class="wrap_step" >
-                            <div class="circle_step_active one-line float-left" >1</div>
-                            <div class="">Infos personnelles</div>
-                            <div class="line_step"></div>
-                            <div class="circle_step_active one-line float-left" >2</div>
-                            <div class="">Inviter des participants</div>
-                            <div class="line_step"></div>
-                            <div class="circle_step_active one-line float-left" >3</div>
-                            <div class="">Je lance ma réunion</div>
-                        </div>
+                        {{ macro_step.show_step_head(0, 'register', 3) }}
                     </div>
                 </div>
                 <div class="row d-flex">
@@ -46,7 +39,7 @@
                             <a class="btn  btn-large py-2 login">
                                 <span class="encart_home_body text-white">Lancer la réunion</span>
                             </a>
-                            <a class="btn btn-outline-danger btn-sm signin" href="">
+                            <a class="btn btn-outline-danger btn-sm signin" href="{{ path('app_espace_client_meeting_list') }}">
                                 <span class="encart_home_body ">Voir mon compte</span>
                             </a>
                         </div>

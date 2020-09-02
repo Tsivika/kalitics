@@ -1,0 +1,26 @@
+<table class="table table-hover table-striped verticle-middle dataTable_guide" id="dataTable_guide">
+    <thead>
+    <tr>
+        <td class="encart_home_head ">-</td>
+        <td class="encart_home_head text-green">Question</td>
+        <td class="encart_home_head text-green">Reponse</td>
+        <td class="encart_home_head text-green">Catégorie</td>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for row in guides %}
+        <tr>
+            <td class="encart_home_body ">{{ row.id }} </td>
+            <td class="encart_home_body ">{{ row.question }}</td>
+            <td class="encart_home_body ">{{ row.response }}</td>
+            <td class="encart_home_body ">{{ row.category.title }}</td>
+            <td align="center">
+                <a href="" data-guide="{{ row.id }}" class="delete_guide">
+                    <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

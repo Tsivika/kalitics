@@ -2,20 +2,39 @@
 
 {% form_theme form 'form/theme/the_hiboo.html.twig' %}
 
+{% import _self as formMacros %}
+{% macro printParticipantsRow(participant) %}
+    <div class="flex-column my-1 ml-1">
+        <div class="input-group participant-proto-wrapper">
+            {{ form_widget(participant.email) }}
+            <a class="remove_participant btn btn-danger ml-1 encart_home_body text-white small"><span class="fa fa-close"></span></a>
+        </div>
+    </div>
+{% endmacro %}
+
 {% block title %}{{ title }}{% endblock %}
 
 {% block body %}
     <div class="row mt-4">
-    <div class="col-lg-12 ">
-        <a href="{{ path('app_espace_client_meeting_list') }}" class="text-green"> Mes réunions </a> > {{title}}
-    </div>
+        <div class="col-lg-12 ">
+            <a href="{{ path('app_espace_client_meeting_list') }}" class="text-green"> Mes réunions </a> > {{title}}
+        </div>
     </div>
     <div class="row mt-5">
         <div class="col-lg-12 ">
             {{ form_start(form) }}
+            <input type="hidden" data-nbr_participant="{{ userSubscription ? userSubscription.numberParticipant : 0 }}" class="participants">
+            <input type="hidden" value="{{ userSubscription ? userSubscription.durationMeeting : 0 }}" class="durationM">
             <h5 class="encart_home_head mb-4">
                 {{title}} {% if mode %} - #{{ mode.subject }}{% endif %}
             </h5>
+
+            <div class="row mt-4 justify-content-center ">
+                <div class="col-lg-6 text-center ">
+                    {% include 'shared/flash_alert/index.html.twig' %}
+                </div>
+            </div>
+
             <div class="input-group wrap_input ">
                 <div class="item-input-label">{{ form_label(form.subject) }}</div>
                 <div class="item-input">{{ form_widget(form.subject) }}</div>
@@ -36,14 +55,29 @@
             </div>
 
             <div class="input-group wrap_input">
-                <div class="item-input-label">Durée de la réunion</div>
+                <div class="item-input-label">
+                    Durée de la réunion
+                    <i class="fa fa-info-circle text-info" style="font-size: 20px"
+                       data-toggle="tooltip"
+                       data-placement="top"
+                       data-html="true"
+                       title="{{ userSubscription ? '<div class=\'\' >Selon votre abonnement, la durée de la réunion est:<br>
+                            <span class=\'text-success\'>' ~ userSubscription.durationMeeting ~ '</span></div>' : '' }}"
+                    ></i>
+                </div>
                 <div class="item-input">
                     <div style="display: flex; justify-content: flex-start; align-items: center">
-                        <span class="">{{ form_widget(form.durationH) }}</span>
+                        <span class="">
+                            {% if userSubscription.mode == 'free' %}
+                                {{ form_widget(form.durationH, {'attr':{'disabled':'disabled'}}) }}
+                            {% else %}
+                                {{ form_widget(form.durationH) }}
+                            {% endif %}
+                        </span>
                         <span class="">h</span>
                         <div style="width: 10px;">  </div>
                         <span class="">{{ form_widget(form.durationM) }}</span>
-                        <span class="">min</span>
+                        <span class="mr-3">min</span>
                     </div>
                 </div>
             </div>
@@ -62,15 +96,26 @@
             </div>
             <hr>
             <h5 class="encart_home_head mb-4">Inviter des participants</h5>
+
             <div class="input-group wrap_input">
                 <div class="item-input-label">
                     Ajouter un participant
+                    <i class="fa fa-info-circle text-info" style="font-size: 20px"
+                       data-toggle="tooltip"
+                       data-placement="top"
+                       data-html="true"
+                       title="Le nombre de participant que vous pouvez ajouter est:<br>
+                            <span class='text-success'>{{ userSubscription.numberParticipant }}</span>"
+                    ></i>
                 </div>
                 <div class="item-input" >
                     <div class="participant-data-proto-wrapper"
                          data-prototype="{{ form_widget(form.participants.vars.prototype)|e('html_attr') }}"
                          data-index="{{ form.participants|length }}" >
                     </div>
+                    {% for participant in form.participants %}
+                        {{ formMacros.printParticipantsRow(participant) }}
+                    {% endfor %}
                     <div class="row mt-1 mb-5">
                         <div class="" style="margin-top: 10px">
                             <button class="btn mb-1 btn-success mt-3 ml-1" id="add_participant" title="Ajouter participant">
@@ -86,8 +131,8 @@
                 <button type="submit" class="btn  btn-large py-2 login">
                     <span class="font-weight-bold">{{title}}</span>
                 </button>
-                <button type="reset" class="btn  btn-large py-2 login">
-                    <span class="font-weight-bold">Annuler</span>
+                <button type="reset" class="btn  btn-large py-2 btn-outline-danger signin">
+                    <span class="font-weight-bold ">Annuler</span>
                 </button>
             </div>
             {{ form_end(form) }}
