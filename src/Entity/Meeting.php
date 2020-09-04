@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTime;
 use App\Repository\MeetingRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -12,6 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Meeting
 {
+    Use TimestampableEntityTrait;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -73,6 +76,16 @@ class Meeting
      * @ORM\Column(type="boolean")
      */
     private $status;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $passwordModerator;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $state;
 
     /**
      * Meeting constructor.
@@ -204,7 +217,7 @@ class Meeting
      *
      * @return $this
      */
-    public function setLink(string $link): self
+    public function setLink(?string $link): self
     {
         $this->link = $link;
 
@@ -304,6 +317,46 @@ class Meeting
     public function setStatus(bool $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getPasswordModerator(): ?string
+    {
+        return $this->passwordModerator;
+    }
+
+    public function setPasswordModerator(?string $passwordModerator): self
+    {
+        $this->passwordModerator = $passwordModerator;
+
+        return $this;
+    }
+
+    /**
+     * @return DateTime|null
+     */
+    public function getCreatedAt(): ?DateTime
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @return DateTime|null
+     */
+    public function getUpdatedAt(): ?DateTime
+    {
+        return $this->updatedAt;
+    }
+
+    public function getState(): ?int
+    {
+        return $this->state;
+    }
+
+    public function setState(?int $state): self
+    {
+        $this->state = $state;
 
         return $this;
     }

@@ -109,6 +109,11 @@ class User implements UserInterface
     private $stripeToken;
 
     /**
+     * @ORM\OneToMany(targetEntity=Parameter::class, mappedBy="user")
+     */
+    private $parameters;
+
+    /**
      * User constructor.
      */
     public function __construct()
@@ -116,6 +121,7 @@ class User implements UserInterface
         $this->meetings = new ArrayCollection();
         $this->userSubscriptions = new ArrayCollection();
         $this->codePromos = new ArrayCollection();
+        $this->parameters = new ArrayCollection();
     }
 
     /**
@@ -496,6 +502,37 @@ class User implements UserInterface
     public function setStripeToken(?string $stripeToken): self
     {
         $this->stripeToken = $stripeToken;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Parameter[]
+     */
+    public function getParameters(): Collection
+    {
+        return $this->parameters;
+    }
+
+    public function addParameter(Parameter $parameter): self
+    {
+        if (!$this->parameters->contains($parameter)) {
+            $this->parameters[] = $parameter;
+            $parameter->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParameter(Parameter $parameter): self
+    {
+        if ($this->parameters->contains($parameter)) {
+            $this->parameters->removeElement($parameter);
+            // set the owning side to null (unless already changed)
+            if ($parameter->getUser() === $this) {
+                $parameter->setUser(null);
+            }
+        }
 
         return $this;
     }

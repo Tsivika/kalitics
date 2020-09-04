@@ -9,10 +9,6 @@
         </div>
     </div>
     <div class="row mt-5" id="list-meetings">
-        {#<p>
-            <button class="js-inputcopybtn" style="vertical-align:top;">Copy Textarea</button>
-            <input type="text" class="js-copyInput" style="border: none" value="andriamifidy niryririr">
-        </p>#}
 
         <table class="table table-hover table-striped verticle-middle dataTable_meeting" id="dataTable_meeting">
             <thead>
@@ -54,7 +50,7 @@
                                     data-target="#link-meeting">
                                 Copier lien <i class="fa fa-files-o" aria-hidden="true"></i>
                             </button>
-                            <a href="{{ path('app_espace_client_meeting_edit', {'id':row.id}) }}"><i class="fa fa-cog" aria-hidden="true"></i></a>
+{#                            <a href="{{ path('app_espace_client_meeting_edit', {'id':row.id}) }}"><i class="fa fa-cog" aria-hidden="true"></i></a>#}
                             <a href="#" data-meeting="{{ row.id }}" class="delete_meeting">
                                 <i class="fa fa-trash text-danger" aria-hidden="true"></i>
                             </a>
