@@ -56,6 +56,4 @@ class UserManager extends BaseManager
 
         return $user->getSubscriptionUser();
     }
-
-
 }

@@ -49,14 +49,5 @@ class AccountHandler extends Handler
         ];
 
         $this->em->subscribe($userDetail, $userAccount);
-
-       /* $customer = $this->stripe->createCustomer($userEmail, $stripeToken);
-        $product = $this->stripe->createProduct('Haboo Projet', 'month');
-        $coupon = $this->stripe->createCoupon(15, 'coupon_de_bienvenue');
-        $subscription = $this->stripe->createSubscription($customer, $product, $coupon);*/
-
-        /*dump($dataRequest);
-        dump($dataUser);
-        die();*/
     }
 }

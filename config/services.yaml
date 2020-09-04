@@ -8,6 +8,8 @@ parameters:
     asset_image_directory: 'uploads/images/'
     stripe.api.key: '%env(resolve:STRIPE_API_KEY)%'
     stripe.public.key: '%env(resolve:STRIPE_PUBLIC_KEY)%'
+    app.bbb_secret: 'jl262Jl4dVslTkH9C65AZoHnTzVXxstzfjlyd1MLwg'
+    app.bbb_server_base_url: 'https://meet-dev.hiboo.live/bigbluebutton/'
 
 services:
     # default configuration for services in *this* file

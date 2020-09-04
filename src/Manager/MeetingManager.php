@@ -3,13 +3,19 @@
 
 namespace App\Manager;
 
-
-use App\Entity\Meeting;
-use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use App\Entity\Meeting;
+use App\Entity\User;
+use App\bbb\src\BigBlueButton;
+use App\bbb\src\Parameters\EndMeetingParameters;
+use App\bbb\src\Parameters\GetMeetingInfoParameters;
 
+/**
+ * Class MeetingManager
+ * @package App\Manager
+ */
 class MeetingManager extends BaseManager
 {
     /**
@@ -27,6 +33,17 @@ class MeetingManager extends BaseManager
     {
         parent::__construct($em, Meeting::class, $validator);
         $this->em = $em;
+    }
+
+    /**
+     * @return object[]
+     */
+    public function getToUpdateMeeting()
+    {
+        return $this->repository->findBy(
+            ['status' => 0],
+            ['createdAt' => 'DESC']
+        );
     }
 
     /**
@@ -84,5 +101,57 @@ class MeetingManager extends BaseManager
         $this->delete($entity);
 
         return $this->getUserMeetingList($user);
+    }
+
+    /**
+     * @param Meeting $meeting
+     * @param $url
+     * @param $secret
+     * @return bool
+     */
+    public function endMeeting(Meeting $meeting, $url, $secret)
+    {
+        $bbb = new BigBlueButton($url, $secret);
+        $endMeetingParams = new EndMeetingParameters($meeting->getId(), $meeting->getPasswordModerator());
+        $response = $bbb->endMeeting($endMeetingParams);
+
+        if ($response->getReturnCode() == 'FAILED') {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * State = 0 => en attente, State = 1 => en cours State = 1 => terminé
+     *
+     * @param Meeting $meeting
+     * @param         $url
+     * @param         $secret
+     *
+     * @return string
+     */
+    public function getInfoMeeting(Meeting $meeting, $url, $secret)
+    {
+        $bbb = new BigBlueButton($url, $secret);
+
+        $getMeetingInfoParams = new GetMeetingInfoParameters($meeting->getId(), $meeting->getPasswordModerator());
+        $response = $bbb->getMeetingInfo($getMeetingInfoParams);
+        switch ($response->getReturnCode()) {
+            case 'FAILED':
+                $state = 2;
+                break;
+            case 'SUCCESS':
+                switch ($response->getRawXml()->running) {
+                    case 'false':
+                        $state = 0;
+                        break;
+                    case 'true':
+                        $state = 1;
+                        break;
+                }
+        }
+
+        return $state;
     }
 }

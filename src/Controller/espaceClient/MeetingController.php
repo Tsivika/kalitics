@@ -7,6 +7,7 @@ use App\Entity\Meeting;
 use App\Form\Handler\MeetingHandler;
 use App\Form\MeetingType;
 use App\Manager\MeetingManager;
+use App\Manager\ParameterManager;
 use phpDocumentor\Reflection\Types\This;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -14,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 
 /**
  * @Route("/espace_client/meeting")
@@ -28,12 +30,30 @@ class MeetingController extends AbstractController
     private $em;
 
     /**
+     * @var ContainerBagInterface
+     */
+    private $params;
+
+    /**
+     * @var mixed
+     */
+    private $urlBbb;
+
+    /**
+     * @var mixed
+     */
+    private $secretBbb;
+
+    /**
      * MeetingController constructor.
      * @param MeetingManager $em
      */
-    public function __construct(MeetingManager $em)
+    public function __construct(MeetingManager $em, ContainerBagInterface $params)
     {
         $this->em = $em;
+        $this->params = $params;
+        $this->urlBbb = $this->params->get('app.bbb_server_base_url');
+        $this->secretBbb = $this->params->get('app.bbb_secret');
     }
 
     /**
@@ -79,9 +99,12 @@ class MeetingController extends AbstractController
      *
      * @param Request       $request
      * @param Meeting|null  $meeting
+     *
      * @return Response
+     *
+     * @throws \Exception
      */
-    public function meetingAdd(Request $request, RouterInterface $router, Meeting $meeting = null)
+    public function meetingAdd(Request $request, RouterInterface $router, ParameterManager $paramManager, Meeting $meeting = null)
     {
         $meetingEntity = $meeting ?? new Meeting();
         $title = $meeting ? 'Modifier la réunion' : 'Ajouter une réunion';
@@ -97,6 +120,7 @@ class MeetingController extends AbstractController
             $restriction = $handler->restriction($meetingInput);
             if (is_bool($restriction)) {
                 $handler->onSuccess();
+                $handler->createMeeting($paramManager, $this->urlBbb, $this->secretBbb);
                 if ($meeting) {
                     return $this->redirectToRoute('app_espace_client_meeting_list');
                 } else {
@@ -132,6 +156,7 @@ class MeetingController extends AbstractController
      */
     public function meetingDelete(Meeting $meeting)
     {
+        $this->em->endMeeting($meeting, $this->urlBbb, $this->secretBbb);
         $meetings = $this->em->deleteMeeting($meeting, $this->getUser());
 
         return new JsonResponse( [

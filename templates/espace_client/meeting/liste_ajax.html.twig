@@ -1,6 +1,7 @@
 <table class="table table-hover table-striped verticle-middle dataTable_meeting" id="dataTable_meeting">
     <thead>
     <tr>
+        <td class="encart_home_head">#</td>
         <td class="encart_home_head text-green">Heure de début</td>
         <th></th>
         <td class="encart_home_head">Sujet</td>
@@ -12,6 +13,7 @@
     <tbody>
     {% for row in meetings|reverse %}
         <tr id="meeting_{{ row.id }}">
+            <td>{{ row.id }}</td>
             <td>{{ row.date|date("d/m/yy") }} à  {{ row.date|date("H:i") }}</td>
             <td><a class="detail_meeting" href="#" data-meeting="{{ row.id }}">+info</a></td>
             <td>{{ row.subject }}</td>
@@ -29,14 +31,14 @@
             </td>
             <td>
                 <div class="actions">
-                    <button class="btn-icon-right btn btn-danger encart_home_body"
+                    <button class="btn-icon-right btn btn-danger encart_home_body mr-2"
                             type="button"
                             onclick="return copyToPaste({{ row.id }});"
                             {{ row.status ? 'disabled="disabled"' : '' }}
                             data-target="#link-meeting">
                         Copier lien <i class="fa fa-files-o" aria-hidden="true"></i>
                     </button>
-                    <a href="{{ path('app_espace_client_meeting_edit', {'id':row.id}) }}"><i class="fa fa-cog" aria-hidden="true"></i></a>
+{#                    <a href="{{ path('app_espace_client_meeting_edit', {'id':row.id}) }}"><i class="fa fa-cog" aria-hidden="true"></i></a>#}
                     <a href="#" data-meeting="{{ row.id }}" class="delete_meeting">
                         <i class="fa fa-trash text-danger" aria-hidden="true"></i>
                     </a>

@@ -227,3 +227,49 @@ img .image-profil {
 .StripeElement--webkit-autofill {
     background-color: #fefde5 !important;
 }
+
+.box_param {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+.item_param {
+    margin: 10px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border:solid 1px #ffffff;
+    box-shadow: 0px 0px 10px #0000001A;
+    border-radius: 6px;
+    opacity: 1;
+    max-width: 256px;
+    max-height: 175px;
+    color: #062944;
+}
+
+.head_text_param {
+    text-align: center;
+    font-family: GalanoGrotesqueAltMedium ;
+    font-size: 18px;
+    letter-spacing: 0px;
+    opacity: 1;
+    margin-top: 20px;
+}
+
+.body_text_param {
+     text-align: center;
+     font-family: "GalanoGrotesqueAltRegular";
+     font-size: 14px;
+     letter-spacing: 0px;
+     opacity: 1;
+     margin-top: 15px;
+    padding: 0px 10px;
+ }
+
+.item_param:hover {
+    background-color: #00C9AE;
+    color: #ffffff ;
+}
+.item_param.active {
+    background-color: #00C9AE;
+    color: #ffffff ;
+}

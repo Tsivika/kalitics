@@ -55,6 +55,7 @@ Routing.setRoutingData(routes);
         customDatatable('#dataTable_meeting');
         detailMeeting();
         deleteMeeting();
+        deleteMeetingBo();
     });
 
     function deleteMeeting()
@@ -62,6 +63,16 @@ Routing.setRoutingData(routes);
         $(document).on('click', '.delete_meeting', function(e) {
             var meeting = $(this).data('meeting');
             var url = Routing.generate('app_epsace_client_meeting_delete', {'id':meeting});
+            e.preventDefault();
+            confirmSwalAlertMeeting('de vouloir supprimer cette réunion', url, meeting);
+        });
+    }
+
+    function deleteMeetingBo()
+    {
+        $(document).on('click', '.delete_meeting_bo', function(e) {
+            var meeting = $(this).data('meeting');
+            var url = Routing.generate('app_espace_admin_meeting_delete', {'id':meeting});
             e.preventDefault();
             confirmSwalAlertMeeting('de vouloir supprimer cette réunion', url, meeting);
         });
