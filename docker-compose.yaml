@@ -11,14 +11,14 @@ services:
             - ./docker/front/nginx.conf:/etc/nginx/conf.d/default.conf:ro
         ports:
             - 80:80
-            
+
     engine:
         restart: always
-        container_name: ezyordfront
+        container_name: hibooengine
         build:
             context: .
         env_file:
-            - .env.local
+            - .env
         networks:
             - default # this network
         volumes:
@@ -28,24 +28,24 @@ services:
             - ./docker/engine/php.ini:/usr/local/etc/php/conf.d/custom.ini:ro
             - ./var/sessions/engine:/root:rw
         environment:
-            PHP_IDE_CONFIG: serverName=ezyord
+            PHP_IDE_CONFIG: serverName=hiboo
 
     database:
         restart: always
         image: mysql:5.7
         environment:
             - MYSQL_ROOT_HOST=%
-            - MYSQL_DATABASE=haboo
-            - MYSQL_USER=root
-            - MYSQL_PASSWORD=root
-            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_DATABASE=hiboo
+            - MYSQL_USER=hiboouser
+            - MYSQL_PASSWORD=X0145Hiboo
+            - MYSQL_ROOT_PASSWORD=R0145Hiboo
             - TZ=Europe/Paris
         volumes:
             - ./var/data:/var/lib/mysql:rw
             - ./var/dumps:/var/dumps:rw
             - ./var/sessions/mysql:/root:rw
-        ports:
-            - 3306:3306 #DISABLE ON PROD
+        expose:
+            - "3306"
 
     redis:
         restart: always
