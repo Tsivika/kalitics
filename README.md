@@ -1,4 +1,4 @@
-Ezyord Docker Orchestrator
+Hiboo Docker Orchestrator
 ==========================
 
 Docker global deployment
@@ -17,7 +17,7 @@ Install symfony vendors:
 $ docker-compose exec engine composer install
 ```
 
-Then, update db schema and load fixtures:
+Then, update db schema:
 ```bash
 $ docker-compose exec engine bin/console doctrine:schema:update --force
 ```
@@ -29,7 +29,7 @@ Launch install :
 $ docker-compose exec engine yarn install
 ```
 
-Build angular app, execute:
+Build encore webpack app, execute:
 
 ```bash
 $ docker-compose exec engine yarn encore dev
