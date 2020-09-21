@@ -15,15 +15,5 @@
 /var/sessions/*
 !var/sessions/.gitkeep
 !var/SymfonyRequirements.php
-!/var/tokens/
 /vendor/
 /web/bundles/
-composer.phar
-/web/medias/*
-!/web/medias/customers/.gitkeep
-!/web/medias/teachers/.gitkeep
-/courses/*
-/courses_correction/*
-/documents/*
-/web/app_dev.php
-/app/config/config_dev.yml
