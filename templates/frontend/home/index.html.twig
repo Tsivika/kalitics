@@ -10,7 +10,7 @@
 			</svg>
 		</div>
 	</div>
- <!-- Page Header -->
+	<!-- Page Header -->
 	<header class="masthead">
 		<div class="container">
 			<div id="Groupe_52">
@@ -901,12 +901,17 @@
 					<h2>la communication </br>vidéo facile !</h2>
 					<div class ="row">
 						<div class="col-lg-3 pl-0 pr-0" >
-							<input type="email" class="form-control " placeholder="Entrez votre adresse email" id="reunion-email">
+							<input type="email"
+								   class="form-control "
+								   placeholder="Entrez votre adresse email"
+								   id="reunion-email"
+							>
 						</div>
 						<div class="col-lg-3 pl-1 pr-1" >
-							<button class ="btn btn-danger">je crée ma réunion</button>
+							<button class ="btn btn-danger" id="btn-reunion-email">je crée ma réunion</button>
 						</div>
 					</div>
+					<div id="erro-reunion-email"></div>
 				</div>
 			</div>
 
@@ -1024,7 +1029,7 @@
 			</div>
 		</div>
 	</div>
-     
+
 	<section id="guide" class="container world-globe" style="max-width: 1700px !important;">
 		<h3 class="text-center encart_home_head">Comment ça marche </h3>
 		<h6 class="text-center encart_home_body"> Création d'une réunion : </h6>
@@ -1060,7 +1065,7 @@
 				</a>
 			</div>
 		</div>
-    </section>
+	</section>
 
 	<section id="testmoniaux">
 		<p><h3 class="text-center text-danger encart_home_body"> Leur avis compte ! </h3></p>
@@ -1070,48 +1075,48 @@
 					<div class="carousel-inner w-100" role="listbox">
 						<div class="carousel-item row no-gutters active">
 							{% for i in 0..3 %}
-							<div class="col-md-3 float-left">
-								<div class="card   bg-transparent border-0 w-100">
-									<div class="card-body row">
-										<div class="col-sm-3">
-											<img src="{{ asset('frontend/images/Ellipse_19.png') }}" alt="" class="rounded-circle img-fluid"/>
-										</div>
-										<div class="col-sm-9 text-justify">
-											<h6 class="encart_home_head">Craig Holmes</h6>
-											<small class="encart_home_body">Cras justo odio, dapibus ac facilisis in, egestas eget quam.</small><br>
-											<span class="fa fa-star checked"></span>
-											<span class="fa fa-star checked"></span>
-											<span class="fa fa-star checked"></span>
-											<span class="fa fa-star"></span>
-											<span class="fa fa-star"></span>
+								<div class="col-md-3 float-left">
+									<div class="card   bg-transparent border-0 w-100">
+										<div class="card-body row">
+											<div class="col-sm-3">
+												<img src="{{ asset('frontend/images/Ellipse_19.png') }}" alt="" class="rounded-circle img-fluid"/>
+											</div>
+											<div class="col-sm-9 text-justify">
+												<h6 class="encart_home_head">Craig Holmes</h6>
+												<small class="encart_home_body">Cras justo odio, dapibus ac facilisis in, egestas eget quam.</small><br>
+												<span class="fa fa-star checked"></span>
+												<span class="fa fa-star checked"></span>
+												<span class="fa fa-star checked"></span>
+												<span class="fa fa-star"></span>
+												<span class="fa fa-star"></span>
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
 							{% endfor %}
 						</div>
-{#						<div class="carousel-item row no-gutters active">#}
-{#							{% for i in 0..3 %}#}
-{#								<div class="col-md-3 float-left">#}
-{#									<div class="card   bg-transparent border-0 w-100">#}
-{#										<div class="card-body row">#}
-{#											<div class="col-sm-3">#}
-{#												<img src="{{ asset('frontend/images/Ellipse_19.png') }}" alt="" class="rounded-circle img-fluid"/>#}
-{#											</div>#}
-{#											<div class="col-sm-9 text-justify">#}
-{#												<h6 class="encart_home_head">Craig Holmes</h6>#}
-{#												<small class="encart_home_body">Cras justo odio, dapibus ac facilisis in, egestas eget quam.</small><br>#}
-{#												<span class="fa fa-star checked"></span>#}
-{#												<span class="fa fa-star checked"></span>#}
-{#												<span class="fa fa-star checked"></span>#}
-{#												<span class="fa fa-star"></span>#}
-{#												<span class="fa fa-star"></span>#}
-{#											</div>#}
-{#										</div>#}
-{#									</div>#}
-{#								</div>#}
-{#							{% endfor %}#}
-{#						</div>#}
+						{#						<div class="carousel-item row no-gutters active">#}
+						{#							{% for i in 0..3 %}#}
+						{#								<div class="col-md-3 float-left">#}
+						{#									<div class="card   bg-transparent border-0 w-100">#}
+						{#										<div class="card-body row">#}
+						{#											<div class="col-sm-3">#}
+						{#												<img src="{{ asset('frontend/images/Ellipse_19.png') }}" alt="" class="rounded-circle img-fluid"/>#}
+						{#											</div>#}
+						{#											<div class="col-sm-9 text-justify">#}
+						{#												<h6 class="encart_home_head">Craig Holmes</h6>#}
+						{#												<small class="encart_home_body">Cras justo odio, dapibus ac facilisis in, egestas eget quam.</small><br>#}
+						{#												<span class="fa fa-star checked"></span>#}
+						{#												<span class="fa fa-star checked"></span>#}
+						{#												<span class="fa fa-star checked"></span>#}
+						{#												<span class="fa fa-star"></span>#}
+						{#												<span class="fa fa-star"></span>#}
+						{#											</div>#}
+						{#										</div>#}
+						{#									</div>#}
+						{#								</div>#}
+						{#							{% endfor %}#}
+						{#						</div>#}
 					</div>
 					<a class="carousel-control-prev" href="#recipeCarousel" role="button" data-slide="prev">
 						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -1162,11 +1167,14 @@
 								{% endif %}
 							</h5>
 							<div class="subscription_choice_{{ row.id }}">
-								{% set path_destination = 'app_espace_client_meeting_list' %}
-								{% if row.mode =='paying' %}
-									{% set path_destination = 'app_espace_client_meeting_list' %}
+								{#								{{ app.session.set('test', 1) }}#}
+								{#								{{ app.session.remove('test') }}#}
+								{#								{{ dump(app.session.get('test')) }}#}
+								{% set path_destination = path('app_espace_client_meeting_list') %}
+								{% if row.mode == 'paying' %}
+									{% set path_destination = path('app_espace_client_profil_subscription_pre_payment', {'id':row.id}) %}
 								{% endif %}
-								<a role="button" href="{{ path(path_destination) }}" class="btn start encart_home_body">Demarrer</a>
+								<a role="button" href="{{ path_destination }}" class="btn start encart_home_body">Demarrer</a>
 							</div>
 						</div>
 					</div>
@@ -1198,6 +1206,6 @@
 	</section>
 
 
-<br><br>
+	<br><br>
 
 {% endblock %}

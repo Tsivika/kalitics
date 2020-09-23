@@ -15,6 +15,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface
 {
+    Use TimestampableEntityTrait;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

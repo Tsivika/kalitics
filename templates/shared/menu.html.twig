@@ -93,11 +93,13 @@
                     <li class="nav-item sign">
                         {% if app.user == null %}
                             <a class="btn  btn-sm login text-center" href="{{ path('app_login') }}">Se Connecter</a>
+                            <a class="btn btn-outline-danger btn-sm signin" href="{{ path('app_register') }}">Je m'inscrit</a>
                         {% else%}
                             <a class="btn  btn-sm login text-center" href="{{ path('app_logout') }}">Se déconnecter</a>
+                            <a class="btn btn-outline-danger btn-sm signin" href="{{ path('app_espace_client_meeting_list') }}">Tableau de bord</a>
                         {% endif %}
 
-                        <a class="btn btn-outline-danger btn-sm signin" href="{{ path('app_register') }}">Je m'inscrit</a>
+
                     </li>
                 </ul>
             </div>

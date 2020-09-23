@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use phpDocumentor\Reflection\Types\This;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -32,14 +33,19 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
     private $urlGenerator;
     private $csrfTokenManager;
     private $passwordEncoder;
+    /**
+     * @var SessionInterface
+     */
+    private $session;
 
-    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder, RouterInterface $router)
+    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder, RouterInterface $router, SessionInterface $session)
     {
         $this->entityManager = $entityManager;
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordEncoder = $passwordEncoder;
         $this->router = $router;
+        $this->session = $session;
     }
 
     public function supports(Request $request)
@@ -101,10 +107,15 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
 //
 //        return new RedirectResponse($this->router->generate('app_espace_client_meeting_list'));
         $rolesTab = $token->getUser()->getRoles();
+        $this->session->remove('prePayment');
 
         if (in_array('ROLE_ADMIN', $rolesTab, true)) {
-            $redirection = new RedirectResponse($this->router->generate('app_espace_admin_subscription_list'));
+            $redirection = new RedirectResponse($this->router->generate('app_espace_admin_dashbord'));
         } elseif(in_array('ROLE_USER', $rolesTab, true)) {
+            $previewPage = $request->request->get('_target_path');
+            if (!empty($previewPage)) {
+                return new RedirectResponse($previewPage);
+            }
             $redirection = new RedirectResponse($this->router->generate('app_espace_client_meeting_list'));
         }
 

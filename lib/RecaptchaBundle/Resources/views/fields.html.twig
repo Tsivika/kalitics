@@ -1,0 +1,34 @@
+{% block recaptcha_submit_widget %}
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script>
+
+        function {{ id }}RecaptchaSubmit(token) {
+            let elem = document.getElementById('{{ id }}');
+            while (elem.parentElement !== null) {
+                if (elem.tagName === 'FORM') {
+                    /*let url = '{{ path('app_send_message_contact') }}';
+                    let name = $('#contact_name').val();
+                    let email = $('#contact_email').val();
+                    let message = $('#contact_message').val();
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: $('#contact_captcha').serializeArray(),
+                        success : function(text){
+                            console.log('dd');
+                        }
+                    });*/
+
+                    elem.submit();
+
+                    break;
+                }
+                elem = elem.parentElement;
+            }
+        }
+    </script>
+
+    {% set label = button %}
+    {% set attr = attr | merge({class: 'g-recaptcha', 'data-sitekey': key, 'data-callback': id ~ 'RecaptchaSubmit'}) %}
+    {% block submit_widget %}{% endblock %}
+{% endblock %}

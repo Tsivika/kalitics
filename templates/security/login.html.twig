@@ -15,22 +15,25 @@
                     </div>
                     <div class="col-lg-6 ">
                         <form method="post">
+                            <input type="hidden" name="_target_path" value="{{ redirect }}"/>
+
                             <p style="margin-bottom:30px ">
-                                <h3 class="encart_home_head">Connexion <span class="text-green">Hiboo</span></h3>
-                                <span class="encart_home_body">
+                            <h3 class="encart_home_head">Connexion <span class="text-green">Hiboo</span></h3>
+                            <span class="encart_home_body">
+{#                                    {{ dump(app.session.get('test')) }}#}
                                     Connectez-vous afin de profiter pleinement de vos réunions
                                 </span>
                             </p>
                             <p>
                                 {% if error %}
-                                    <div class="alert alert-danger encart_home_body">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                                {% endif %}
+                            <div class="alert alert-danger encart_home_body">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                            {% endif %}
 
-                                {% if app.user %}
-                                    <div class="mb-3 encart_home_body small">
-                                        Vous êtes connecté en tan que {{ app.user.username }}, <a href="{{ path('app_logout') }}">Se déconnecter</a>
-                                    </div>
-                                {% endif %}
+                            {% if app.user %}
+                                <div class="mb-3 encart_home_body small">
+                                    Vous êtes connecté en tan que {{ app.user.username }}, <a href="{{ path('app_logout') }}">Se déconnecter</a>
+                                </div>
+                            {% endif %}
                             </p>
                             <!-- Email Address -->
                             <div class="input-group col-lg-12 mb-4" style="padding-left: 0px !important;">

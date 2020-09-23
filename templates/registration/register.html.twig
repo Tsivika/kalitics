@@ -42,7 +42,7 @@
                                 {{ form_row(registrationForm.firstname) }}
                             </div>
                             <div class="input-group col-lg-10">
-                                {{ form_row(registrationForm.email) }}
+                                {{ form_row(registrationForm.email, { 'value': preUser }) }}
                             </div>
                             <div class="input-group col-lg-10">
                                 {{ form_row(registrationForm.password) }}

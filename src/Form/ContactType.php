@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use Hiboo\RecaptchaBundle\Type\RecaptchaSubmitType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -39,6 +40,9 @@ class ContactType extends AbstractType
                     'class' => 'form-control bg-white  border-md',
                 ]
             ])
+            /*->add('captchaSubmit', RecaptchaSubmitType::class, [
+                'label' => 'Envoyer'
+            ])*/
         ;
     }
 

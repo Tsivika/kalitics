@@ -41,6 +41,64 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
     /**
+     * selects users registered over the last 03 months
+     *
+     * @return int|mixed|string
+     */
+    public function lastRegistered()
+    {
+        $now = new \DateTime("today");
+        $date = new \DateTime("today");
+        $date->sub(new \DateInterval("P90D" ));
+
+        $query = $this->createQueryBuilder('u');
+        $query = $query
+            ->select('count(u.id) as nbr', 'u.createdAt')
+            ->andWhere('u.createdAt >= :date1')
+            ->andWhere('u.createdAt <= :date2')
+            ->setParameter('date1', $date)
+            ->setParameter('date2', $now)
+            ->groupBy('u.createdAt')
+            ->orderBy('u.createdAt', 'ASC' )
+        ;
+
+        $query = $query
+            ->getQuery()
+            ->getResult()
+        ;
+
+        return $query;
+    }
+
+    /**
+     * @return int|mixed|string
+     */
+    public function statUserSubscription()
+    {
+        $now = new \DateTime("today");
+        $date = new \DateTime("today");
+        $date->sub(new \DateInterval("P90D" ));
+
+        $query = $this->createQueryBuilder('u');
+        $query = $query
+            ->select('count(u.id) as nbr', 's.title')
+            ->leftJoin('u.subscriptionUser', 's')
+            ->andWhere('s.id = u.subscriptionUser')
+            ->andWhere('u.createdAt >= :date1')
+            ->andWhere('u.createdAt <= :date2')
+            ->setParameter('date1', $date)
+            ->setParameter('date2', $now)
+            ->groupBy( 's.title')
+        ;
+
+        $query = $query
+            ->getQuery()
+            ->getResult()
+        ;
+
+        return $query;
+    }
+    /**
      * @return int|mixed|string
      */
     /*public function getSubscribers()

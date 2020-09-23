@@ -17,3 +17,33 @@
 !var/SymfonyRequirements.php
 /vendor/
 /web/bundles/
+
+/.env.local
+/.env.local.php
+/.env.*.local
+/.env
+
+/public/.htaccess
+/public/frontend/
+/public/bundles/
+/public/uploads/
+
+###> intellij/idea ###
+/.php_cs.cache
+/.idea
+/.settings
+###< intellij/idea ###
+
+###> symfony/webpack-encore-bundle ###
+/node_modules/
+npm-debug.log
+yarn-error.log
+/public/build/
+###< symfony/webpack-encore-bundle ###
+
+composer.lock
+symfony.lock
+
+###> symfony/web-server-bundle ###
+/.web-server-pid
+###< symfony/web-server-bundle ###

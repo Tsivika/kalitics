@@ -13,9 +13,12 @@ use App\Services\StripePayement;
 use phpDocumentor\Reflection\Types\This;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 /**
  * @Route("/account")
@@ -29,14 +32,20 @@ class AccountController extends AbstractController
      * @var UserManager
      */
     private $em;
+    /**
+     * @var SessionInterface
+     */
+    private $session;
 
     /**
      * ProfilController constructor.
      * @param UserManager $em
      */
-    public function __construct(UserManager $em)
+    public function __construct(UserManager $em, RouterInterface $router, SessionInterface $session)
     {
         $this->em = $em;
+        $this->router = $router;
+        $this->session = $session;
     }
 
     /**
@@ -102,6 +111,13 @@ class AccountController extends AbstractController
      */
     public function userSubscriptionPrePayment(Request $request, Subscription $subscription, SubscriptionManager $subscriptionManager, StripePayement $stripe, AccountManager $accountManager)
     {
+        if ($this->getUser() === null) {
+            $redirection = new RedirectResponse($this->router->generate('app_espace_client_profil_subscription_pre_payment', ['id' => $subscription->getId()]));
+            $segment = $redirection->getTargetUrl();
+            $this->session->set('prePayment', $segment);
+
+            return $this->redirectToRoute('app_login');
+        }
         $form = $this->createForm(UserAccountType::class, $this->getUser());
         $subPaying = $subscriptionManager->getPayingSubscription();
         $handler = new AccountHandler($form, $request, $accountManager, $stripe);

@@ -3,30 +3,42 @@
 namespace App\Controller;
 
 use App\Entity\Meeting;
+use App\Entity\Subscription;
 use App\Entity\User;
+use App\Form\Handler\AccountHandler;
 use App\Form\Handler\RegisterHandler;
 use App\Form\Handler\RegisterUserMeetingHandler;
 use App\Form\MeetingParticipantType;
 use App\Form\RegistrationFormType;
+use App\Form\UserAccountType;
+use App\Manager\AccountManager;
 use App\Manager\MeetingManager;
 use App\Manager\RegisterManager;
 use App\Manager\SubscriptionManager;
 use App\Manager\UserManager;
 use App\Security\EmailVerifier;
 use App\Security\LoginFormAuthenticator;
+use App\Services\StripePayement;
 use phpDocumentor\Reflection\Types\This;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
+/**
+ * Class RegistrationController
+ * @package App\Controller
+ */
 class RegistrationController extends AbstractController
 {
     /**
@@ -38,20 +50,51 @@ class RegistrationController extends AbstractController
      * @var RegisterManager
      */
     private $em;
+    /**
+     * @var SessionInterface
+     */
+    private $session;
+    /**
+     * @var RouterInterface
+     */
+    private $router;
 
     /**
      * RegistrationController constructor.
      * @param EmailVerifier   $emailVerifier
      * @param RegisterManager $em
      */
-    public function __construct(EmailVerifier $emailVerifier, RegisterManager $em)
+    public function __construct(EmailVerifier $emailVerifier, RegisterManager $em, SessionInterface $session, RouterInterface $router)
     {
         $this->emailVerifier = $emailVerifier;
         $this->em = $em;
+        $this->session = $session;
+        $this->router = $router;
+    }
+
+    /**
+     * @Route("/put_session_create_user/{email}",
+     *     name="app_pre_register_user",
+     *     options={"expose"=true},
+     *     methods={"get"})
+     *
+     * @param $email
+     *
+     * @return JsonResponse
+     */
+    public function putSessionCreateUser($email)
+    {
+        $this->session->set('preCreateUser', $email);
+
+        return new JsonResponse( [
+            'success' => true,
+            'urlRedirect' => $this->router->generate('app_register')
+        ]);
     }
 
     /**
      * @Route("/register", name="app_register")
+     * @Route("/register/{subscription}", name="app_register")
      *
      * @param Request                       $request
      * @param UserPasswordEncoderInterface  $passwordEncoder
@@ -60,17 +103,27 @@ class RegistrationController extends AbstractController
      *
      * @return Response
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator, SubscriptionManager $subscriptionManager): Response
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator, SubscriptionManager $subscriptionManager, $subscription = null): Response
     {
+
+        $pathPrePayment= $this->session->get('prePayment');
+        $preUser = $this->session->get('preCreateUser') ?? '';
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
-        $handler = new RegisterHandler($form, $request, $passwordEncoder, $guardHandler, $authenticator, $user, $this->emailVerifier, $this->em, $subscriptionManager);
+        $handler = new RegisterHandler($form, $request, $passwordEncoder, $guardHandler, $authenticator, $user, $this->emailVerifier, $this->em, $subscriptionManager, $pathPrePayment);
         if ($handler->process()) {
+            if ($pathPrePayment !== null) {
+                return $this->forward('App\Controller\RegistrationController::paymentSubscriber', [
+                    'id' => substr($pathPrePayment, -1)
+                ]);
+            }
+
             return $this->forward('App\Controller\RegistrationController::registerUserMeeting');
         }
 
         $response = $this->render('registration/register.html.twig', [
             'registrationForm' => $handler->getForm()->createView(),
+            'preUser' => $preUser,
         ]);
 
         if ($request->isXmlHttpRequest()){
@@ -82,6 +135,42 @@ class RegistrationController extends AbstractController
         return $response;
     }
 
+    /**
+     * @Route("/payment_subscriber/{id}", name="app_register_payment_subscriber")
+     *
+     * @param Request               $request
+     * @param Subscription          $subscription
+     * @param SubscriptionManager   $subscriptionManager
+     * @param StripePayement        $stripe
+     * @param AccountManager        $accountManager
+     *
+     * @return RedirectResponse|Response
+     */
+    public function paymentSubscriber(Request $request, Subscription $subscription, SubscriptionManager $subscriptionManager, StripePayement $stripe, AccountManager $accountManager)
+    {
+        $form = $this->createForm(UserAccountType::class, $this->getUser());
+        $subPaying = $subscriptionManager->getPayingSubscription();
+        $handler = new AccountHandler($form, $request, $accountManager, $stripe);
+        if ($handler->process()) {
+            return $this->redirectToRoute('app_espace_client_subscription_list');
+        }
+
+        $response = $this->render('payment/index.html.twig', [
+            'subscripbiontChoice' => $subscription,
+            'subscriptionPaying' => $subPaying,
+            'user' => $this->getUser(),
+            'form' => $form->createView(),
+            'type' => $subscription->getId()
+        ]);
+
+        if ($request->isXmlHttpRequest()){
+            return new JsonResponse([
+                'html' => $response->getContent()
+            ]);
+        }
+
+        return $response;
+    }
     /**
      * @Route("/register-user-meeting", name="register_user_meeting")
      *

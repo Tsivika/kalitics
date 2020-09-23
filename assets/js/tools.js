@@ -56,6 +56,31 @@ export function confirmSwalAlertMeeting(msg, url, id) {
     })
 }
 
+export function confirmSwalAlertCreateMeeting(msg, url) {
+    Swal.fire({
+        // title: 'Vous êtes sur ?',
+        html: msg,
+        type: 'success',
+        showCancelButton: true,
+        confirmButtonColor: '#00C9AE',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Confirmer',
+        cancelButtonText: 'Annuler',
+    }).then((result) => {
+        if (result.value) {
+            axios.get(url)
+                .then(function (response) {
+                    if (response.data.success) {
+                        window.location.replace(response.data.urlRedirect);
+                    }
+                })
+                .catch(function (error) {
+                    simpleSwalAlert('Une erreur s\'est produite.', response.data.footer);
+                });
+        }
+    })
+}
+
 export function confirmSwalAlertSubscriptionDelete(msg, url, id) {
     Swal.fire({
         title: 'Vous êtes sur ?',
@@ -151,7 +176,7 @@ export function confirmSwalAlertProfilDelete(msg, url) {
                     simpleSwalAlert(response.data.body, response.data.footer);
                     setTimeout(function(){
                         window.location.href = "/login";
-                        }, 3000);
+                    }, 3000);
                 })
                 .catch(function (error) {
                     simpleSwalAlert('Une erreur s\'est produite.', '');

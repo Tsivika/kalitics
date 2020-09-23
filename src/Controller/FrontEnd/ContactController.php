@@ -29,7 +29,7 @@ class ContactController extends AbstractController
      * @Route("/send_message_contact",
      *  name="app_send_message_contact",
      *  options={"expose" = true},
-     *  methods={"POST"})
+     *  methods={"post", "get"})
      *
      * @param Request $request
      *
@@ -37,7 +37,9 @@ class ContactController extends AbstractController
      */
     public function sendMessageContact(Request $request)
     {
+//        dump($request->getContent());
         $data = json_decode($request->getContent(), true);
+//        dd($data);
         $this->em->saveContact($data);
         $this->em->sendEmail($data);
 

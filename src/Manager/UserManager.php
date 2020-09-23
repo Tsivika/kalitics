@@ -2,6 +2,7 @@
 
 namespace App\Manager;
 
+use DateTime;
 use App\Entity\Subscription;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
@@ -55,5 +56,41 @@ class UserManager extends BaseManager
         $this->saveOrUpdate($user);
 
         return $user->getSubscriptionUser();
+    }
+
+    /**
+     * @return false|string
+     * @throws \Exception
+     */
+    public function statUserSubscriber()
+    {
+        $lineData = '';
+        $subscribers =  $this->repository->lastRegistered();
+        foreach ($subscribers as $row) {
+            $d = ($row['createdAt'] instanceof \DateTime)
+                ? \DateTimeImmutable::createFromMutable($row['createdAt'])
+                : new \DateTimeImmutable($row['createdAt']);
+            $lineData .= "{ y:'".$d->format('Y-m-d')."', item1:".$row["nbr"]."},";
+        }
+        $lineData = substr($lineData, 0, -1);
+
+        return $lineData;
+    }
+
+    /**
+     * @return false|string
+     *
+     * @throws \Exception
+     */
+    public function getStatUserSubscription()
+    {
+        $donutData = '';
+        $userSubscription =  $this->repository->statUserSubscription();
+        foreach ($userSubscription as $row) {
+            $donutData .= "{ label:'".$row["title"]."', value:".$row["nbr"]."},";
+        }
+        $donutData = substr($donutData, 0, -1);
+
+        return $donutData;
     }
 }

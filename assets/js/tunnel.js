@@ -2,15 +2,15 @@ $(document).on('eventhandler', function () {
     startTunnel()
 });
 
+function startTunnel() {
+    $('#tunnel_2').fadeIn();
+    scrollToSection('#tunnel_2');
+}
+
 function scrollToSection(sectionId) {
     $([document.documentElement, document.body]).stop(true, false).animate({
         scrollTop: $(sectionId).offset().top
     }, 1000);
-}
-
-function startTunnel() {
-    $('#tunnel_2').fadeIn();
-    scrollToSection('#tunnel_2');
 }
 
 function ajaxSubmitTunnel(el) {

@@ -15,17 +15,54 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class MeetingRepository extends ServiceEntityRepository
 {
+    /**
+     * MeetingRepository constructor.
+     *
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Meeting::class);
     }
 
+    /**
+     * @param User $user
+     *
+     * @return int|mixed|string
+     */
     public function getUserMeetingList(User $user)
     {
         $query = $this->createQueryBuilder('m');
         $query = $query
             ->andWhere('m.user = :user')
             ->setParameter('user', $user);
+
+        $query = $query
+            ->getQuery()
+            ->getResult()
+        ;
+
+        return $query;
+    }
+
+    /**
+     * @return int|mixed|string
+     */
+    public function statMeeting()
+    {
+        $now = new \DateTime("today");
+        $date = new \DateTime("today");
+        $date->sub(new \DateInterval("P90D" ));
+
+        $query = $this->createQueryBuilder('m');
+        $query = $query
+            ->select('count(m.id) as nbr', 'm.state')
+            ->andWhere('m.createdAt >= :date1')
+            ->andWhere('m.createdAt <= :date2')
+            ->setParameter('date1', $date)
+            ->setParameter('date2', $now)
+            ->groupBy('m.state')
+        ;
 
         $query = $query
             ->getQuery()

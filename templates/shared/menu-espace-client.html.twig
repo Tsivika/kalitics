@@ -102,7 +102,7 @@
         </nav>
     </div>#}
 
-{# ***** ***** ***** *** #}
+    {# ***** ***** ***** *** #}
 
     <div class="fixed-top navbar-light">
         <div class="container">
@@ -206,19 +206,19 @@
         <div id="menu_espc">
             <div class="container">
                 {% set path_subscription = 'app_espace_client_subscription_list' %}
+                {% set path_meeting = 'app_espace_client_meeting_list' %}
                 {% if is_granted('ROLE_ADMIN') %}
                     {% set path_subscription = 'app_espace_admin_subscription_list' %}
+                    {% set path_meeting = 'app_espace_admin_meeting_list' %}
                 {% endif %}
 
-                <div class="item-link"><a href="{{ path('app_homePage') }}">Accueil</a></div>
-                {% if not is_granted('ROLE_ADMIN') %}
-                    <div class="item-link"><a href="{{ path('app_espace_client_meeting_list') }}">Réunions</a></div>
-                {% endif %}
+                <div class="item-link"><a href="{{ path('app_homePage') }}">Vers le site</a></div>
+                <div class="item-link"><a href="{{ path(path_meeting) }}">Réunions</a></div>
                 <div class="item-link"><a href="{{ path('app_espace_client_profil_edit') }}">Profil</a></div>
-                <div class="item-link"><a href="">Pramètres</a></div>
+                <div class="item-link"><a href="{{ path('app_espace_client_parameter_add') }}">Pramètres</a></div>
                 {% if is_granted('ROLE_ADMIN') %}
                     <div class="dropdown item-link">
-                            <a class=" dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown">Guide</a>
+                        <a class=" dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown">Guide</a>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="{{ path('app_espace_admin_guide_list') }}">Guide</a>
                             <a class="dropdown-item" href="{{ path('app_espace_admin_category_guide') }}">Catégorie</a>

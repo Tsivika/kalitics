@@ -1,0 +1,110 @@
+{% extends 'base-espace-client.html.twig' %}
+{% block title %}{{ title }}{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="row mt-4 mb-2">
+            <div>
+                <span class="text-green">Informations</span>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row mt-5">
+                <div class="col-lg-4">
+                    <h5 class="card-title">Nouveaux inscrits</h5>
+                    <div class="card">
+                        <div class="card-body">
+                            <div id="morris-line-chart"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <h5 class="card-title">Statut des réunions</h5>
+                    <div class="card">
+                        <div class="card-body">
+
+                            <div id="morris-bar-chart"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <h5 class="card-title">Abonnements</h5>
+                    <div class="card">
+                        <div class="card-body">
+                            <div id="morris-donut-chart"></div>
+                            <div id="legend" class="donut-legend"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('build/js/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('build/js/raphael.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('build/js/morris.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('build/js/dashbord.js') }}"></script>
+<script>
+    // Morris Line
+    let line = new Morris.Line({
+        element: 'morris-line-chart',
+        resize: true,
+        data: [
+            {{ subscribers|raw }}
+        ],
+        xkey: 'y',
+        ykeys: ['item1'],
+        xLabels: 'month',
+        labels: ['Inscrits'],
+        gridLineColor: 'transparent',
+        lineColors: ['#00C9AE'],
+        lineWidth: 1,
+        hideHover: 'auto',
+    });
+
+    // Morris donut chart
+    var Data= [
+        {{ userSubscriptions|raw }}
+    ];
+    var total = 62;
+    var browsersChart = Morris.Donut({
+        element: 'morris-donut-chart',
+        data: Data,
+        resize: true,
+        colors: ['#065b4b', '#00c9ae', '#98e5d6'],
+        formatter: function (value, data) {
+            return Math.floor(value/total*100) + '%';
+        }
+    });
+
+    browsersChart.options.data.forEach(function(label, i) {
+        var legendItem = $('<span></span>').text( label['label'] + " ( " +label['value'] + " abos )" ).prepend('<br><span>&nbsp;</span>');
+        legendItem.find('span')
+            .css('backgroundColor', browsersChart.options.colors[i])
+            .css('width', '20px')
+            .css('display', 'inline-block')
+            .css('margin', '5px');
+        $('#legend').append(legendItem)
+    });
+
+    // Morris bar chart
+    Morris.Bar({
+        element: 'morris-bar-chart',
+        data: [
+            {{ meetings|raw }}
+        ],
+        xkey: 'y',
+        ykeys: ['0', '1', '2'],
+        labels: ['En attente', 'En Cours', 'Terminée'],
+        barColors: ['#00C9AE', '#ffaa2b', '#dc3545'],
+        hideHover: 'auto',
+        gridLineColor: 'transparent',
+        resize: true
+    });
+</script>
+
+{% endblock %}
+
