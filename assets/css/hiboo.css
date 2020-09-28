@@ -15,8 +15,9 @@
     margin-top:0px;
     font-family: "GalanoGrotesqueAltRegular";
     letter-spacing: 0px;
-    font-size: 16px;
+    font-size: 15px;
     opacity: 1;
+    padding:10px 40px;
 }
 .signup {
 
@@ -27,10 +28,11 @@
 .signin {
 
     margin-top:0px;
-    font-family: "GalanoGrotesqueAltRegular";
+    font-family: GalanoGrotesqueAltRegular ;
     letter-spacing: 0px;
-    font-size: 16px;
+    font-size: 15px;
     opacity: 1;
+    padding:10px 40px;
 }
 
 .text-green {
@@ -45,10 +47,9 @@ header.masthead {
     background-attachment: scroll;
     background-image: none;
     background-size: auto;
-
-    background-attachment: scroll;
     position: relative;
-    background-size: cover;}
+    /*background-size: cover;*/
+}
 
 .masthead {
     padding-top: calc(6rem + 140px);
@@ -6703,9 +6704,16 @@ li  {
 .navbar-light .navbar-nav .nav-link {
     color: #062944;
     letter-spacing: 0px;
-    font-size: 18px;
+    font-size: 15px;
     font-family: GalanoGrotesqueAltRegular ;
 }
+@media (min-width: 992px) {
+    .navbar-expand-lg .navbar-nav .nav-link {
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+}
+
 .navbar-light {
     opacity: 1;
     background-color: #F7F8F9;
@@ -6822,3 +6830,6 @@ section {
 }
 .circle_step.one-line{line-height:42px;}
 .circle_step_active.one-line{line-height:48px;}
+.align_picto_avantage {
+    line-height: 0.9em;
+}
