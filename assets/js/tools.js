@@ -185,6 +185,29 @@ export function confirmSwalAlertProfilDelete(msg, url) {
     })
 }
 
+export function confirmSwalAlertProfilChangeRole(msg, url) {
+    Swal.fire({
+        title: 'Attention !',
+        text: msg,
+        type: 'error',
+        showCancelButton: true,
+        confirmButtonColor: '#FF5A5F',
+        cancelButtonColor: '#00C9AE',
+        confirmButtonText: 'Valider',
+        cancelButtonText: 'Annuler',
+    }).then((result) => {
+        if (result.value) {
+            axios.get(url)
+                .then(function (response) {
+                    simpleSwalAlert(response.data.body, response.data.footer);
+                })
+                .catch(function (error) {
+                    simpleSwalAlert('Une erreur s\'est produite.', '');
+                });
+        }
+    })
+}
+
 export function simpleSwalAlert(message, footer) {
     Swal.fire({
         title: '<div class="logo_small"></div>',

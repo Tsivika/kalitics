@@ -38,6 +38,16 @@
 .text-green {
     color: rgba(0,201,174,1);
 }
+.text-red {
+    color: #FF5A5F;
+}
+.background-red {
+    background-color: #FF5A5F;
+    color: #ffffff;
+}
+.background-red :hover{
+    color: #ffffff;
+}
 a.link { color: rgba(0,201,174,1) !important; }
 
 header.masthead {
@@ -177,7 +187,7 @@ header.masthead {
     border-radius: 50%;
     width: 30px;
     height: 30px;
-    cursor: pointer
+    cursor: pointer;
 }
 
 .twitter {
@@ -384,12 +394,11 @@ li  {
 }
 .footer-red-underline
 {
-    text-decoration: underline red 3px ;
-
+    border-bottom: solid 3px red;
 }
 .footer-blue-underline
 {
-    text-decoration: underline blue 3px;
+    border-bottom: solid 3px blue;
 }
 .footer-form{
     margin-bottom:30px;
@@ -399,13 +408,12 @@ li  {
 
 }
 .rectangle{
-
     background-color: #ccfff8;
     margin-top: 30px;
+    display: flex;
 }
 .rectangle-logo{
-    margin-top:25px;
-    margin-bottom:25px;
+    margin: auto;
 }
 
 /* carousel */

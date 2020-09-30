@@ -15,8 +15,8 @@
                     <td class="encart_home_head text-green">Nom</td>
                     <td class="encart_home_head text-green">Prénom</td>
                     <td class="encart_home_head text-green">email</td>
+                    <td class="encart_home_head text-green">Role</td>
                     <td class="encart_home_head text-green">Détail abonnement</td>
-
                 </tr>
                 </thead>
                 <tbody>
@@ -25,6 +25,21 @@
                         <td class="encart_home_body ">{{ row.name }} </td>
                         <td class="encart_home_body ">{{ row.firstname }}</td>
                         <td class="encart_home_body ">{{ row.email }}</td>
+                        <td class="encart_home_body ">
+                            <select
+                                    id="change-roles"
+                                    name="roles"
+                                    class="form-control form-control-sm"
+                                    data-id_profil = {{ row.id }}
+                            >
+                                {% set role_user = '' %}
+                                {% if 'ROLE_ADMIN' in row.roles %}
+                                    {% set role_user = 'selected' %}
+                                {% endif %}
+                                <option value="ROLE_USER" {{ role_user }}>User</option>
+                                <option value="ROLE_ADMIN" {{ role_user }}>Administrateur</option>
+                            </select>
+                        </td>
                         <td class="encart_home_body "> - </td>
                     </tr>
                 {% endfor %}

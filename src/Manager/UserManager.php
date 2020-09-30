@@ -93,4 +93,13 @@ class UserManager extends BaseManager
 
         return $donutData;
     }
+
+    public function changeRole(User $user, $role)
+    {
+        $roles[] = $role;
+        $user->setRoles($roles);
+        $this->saveOrUpdate($user);
+
+        return $user;
+    }
 }

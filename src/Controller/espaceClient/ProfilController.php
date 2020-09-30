@@ -40,9 +40,11 @@ class ProfilController extends AbstractController
     /**
      * @Route("/edit/", name="app_espace_client_profil_edit")
      *
-     * @param User $user
+     * @param Request                       $request
+     * @param UserPasswordEncoderInterface  $passwordEncoder
+     * @param ImageUploader                 $imageUploader
      *
-     * @return Response
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
     public function edit(Request $request, UserPasswordEncoderInterface $passwordEncoder, ImageUploader $imageUploader)
     {
@@ -79,6 +81,27 @@ class ProfilController extends AbstractController
 
         return new JsonResponse([
             'body' => "<p>Votre compte est bien supprimé sur Hiboo.</p>",
+            'footer' => '<span>Consulter notre <a href="" class="text-green"> Politique de confidentialité</a></span>',
+            'success' => true,
+        ]);
+    }
+
+    /**
+     * @Route("/change_role/{id}/{role}",
+     *     name="app_espace_client_profil_change_role",
+     *     options={"expose"=true},
+     *     methods={"get"})
+     *
+     * @param User $user
+     *
+     * @return JsonResponse
+     */
+    public function userChangeRole(User $user, $role)
+    {
+        $this->em->changeRole($user, $role);
+
+        return new JsonResponse([
+            'body' => "<p>Mis à jour fait.</p>",
             'footer' => '<span>Consulter notre <a href="" class="text-green"> Politique de confidentialité</a></span>',
             'success' => true,
         ]);

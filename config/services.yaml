@@ -52,3 +52,7 @@ services:
     App\Services\StripePayement:
         arguments:
             $stripe: '%stripe.api.key%'
+
+    ReCaptcha\ReCaptcha:
+        arguments:
+            - '%env(GOOGLE_RECAPTCHA_SECRET_KEY)%'

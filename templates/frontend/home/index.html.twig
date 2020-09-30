@@ -13,7 +13,7 @@
 	<!-- Page Header -->
 	<header class="masthead">
 		<div class="container">
-			<div id="Groupe_52">
+			{#<div id="Groupe_52">
 				<div id="Groupe_51">
 					<svg class="Trac_113" viewBox="0.55 -0.004 734.524 290.123">
 						<path id="Trac_113" d="M 172.8631134033203 167.6045074462891 C 240.4868469238281 167.6045074462891 300.4710388183594 199.0113372802734 338.3856201171875 247.3947906494141 C 348.5715942382812 260.4102478027344 356.4940490722656 274.8404235839844 363.2846984863281 290.1194152832031 C 394.6915283203125 218.2515563964844 468.257080078125 167.6045074462891 553.9892578125 167.6045074462891 C 621.6129150390625 167.6045074462891 681.59716796875 199.0113372802734 719.51171875 247.3947906494141 C 725.170654296875 254.7513580322266 730.2636108398438 262.6737976074219 735.0736694335938 270.8791809082031 C 686.690185546875 117.5233535766602 544.93505859375 4.345589637756348 374.6025085449219 0.1014240011572838 C 202.5722808837891 -3.859797477722168 54.30943298339844 104.5079116821289 0.5500011444091797 257.8637390136719 C 37.61571884155273 203.8213806152344 100.7123107910156 167.6045074462891 172.8631134033203 167.6045074462891 Z">
@@ -880,7 +880,7 @@
 						</path>
 					</svg>
 				</div>
-			</div>
+			</div>#}
 			<div id="facebook" class="home-icon">
 				<span class="fa fa-facebook "></span>
 			</div>
@@ -1064,71 +1064,142 @@
 					<span class="carousel-control-next-icon" aria-hidden="true"></span>
 					<span class="sr-only">Next</span>
 				</a>
+				<div class="btnPlay">
+					<a href=""><img src="{{ asset('build/images/play-button.svg') }}"></a>
+				</div>
 				<div class="degradePrev"></div>
 				<div class="degradeNext"></div>
 			</div>
 		</div>
 	</section>
 
-	<section id="testmoniaux">
+	<section id="testmoniaux" class="container-fluid text-center"  style="max-width: 1700px !important;" >
 		<p><h3 class="text-center text-danger encart_home_body"> Leur avis compte ! </h3></p>
 		<div class="rectangle">
 			<div class="container text-center my-3" style="max-width: 1700px !important;">
-				<div id="recipeCarousel" class="carousel slide w-100" data-ride="carousel">
+				{#<div id="recipeCarousel" class="carousel slide w-100" data-ride="carousel">
 					<div class="carousel-inner w-100" role="listbox">
 						<div class="carousel-item row no-gutters active">
 							{% for i in 0..3 %}
-								<div class="col-md-3 float-left">
-									<div class="card   bg-transparent border-0 w-100">
+								<div class="col-md-3 float-left py-4">
+									<div class="card bg-transparent border-0 w-100">
 										<div class="card-body row">
 											<div class="col-sm-3">
 												<img src="{{ asset('frontend/images/Ellipse_19.png') }}" alt="" class="rounded-circle img-fluid"/>
 											</div>
 											<div class="col-sm-9 text-justify">
-												<h6 class="encart_home_head">Craig Holmes</h6>
-												<small class="encart_home_body">Cras justo odio, dapibus ac facilisis in, egestas eget quam.</small><br>
+												<h4 class="encart_home_head mb-3">
+													Craig Holmes
+													<span style=" font-size: 30px" class="fa fa-quote-right text-white"></span>
+												</h4>
+												<span class="encart_home_body" style="font-size: 15px;">Cras justo odio, dapibus ac facilisis in, egestas eget quam.</span><br>
 												<span class="fa fa-star checked"></span>
 												<span class="fa fa-star checked"></span>
 												<span class="fa fa-star checked"></span>
 												<span class="fa fa-star"></span>
 												<span class="fa fa-star"></span>
+
 											</div>
 										</div>
 									</div>
 								</div>
 							{% endfor %}
 						</div>
-						{#						<div class="carousel-item row no-gutters active">#}
-						{#							{% for i in 0..3 %}#}
-						{#								<div class="col-md-3 float-left">#}
-						{#									<div class="card   bg-transparent border-0 w-100">#}
-						{#										<div class="card-body row">#}
-						{#											<div class="col-sm-3">#}
-						{#												<img src="{{ asset('frontend/images/Ellipse_19.png') }}" alt="" class="rounded-circle img-fluid"/>#}
-						{#											</div>#}
-						{#											<div class="col-sm-9 text-justify">#}
-						{#												<h6 class="encart_home_head">Craig Holmes</h6>#}
-						{#												<small class="encart_home_body">Cras justo odio, dapibus ac facilisis in, egestas eget quam.</small><br>#}
-						{#												<span class="fa fa-star checked"></span>#}
-						{#												<span class="fa fa-star checked"></span>#}
-						{#												<span class="fa fa-star checked"></span>#}
-						{#												<span class="fa fa-star"></span>#}
-						{#												<span class="fa fa-star"></span>#}
-						{#											</div>#}
-						{#										</div>#}
-						{#									</div>#}
-						{#								</div>#}
-						{#							{% endfor %}#}
-						{#						</div>#}
+						#}
+				<div class=" bd-example">
+					<div id="carouselExampleCaptions" class="carousel slide multi-item-carousel " data-ride="carousel">
+						<div class="carousel-inner">
+							<div class="carousel-item active">
+								<div class="item__third">
+									<div class="card bg-transparent border-0 w-100">
+										<div class="card-body row py-5">
+											<div class="col-sm-3">
+												<img src="{{ asset('frontend/images/Ellipse_19.png') }}" alt="" class="rounded-circle img-fluid"/>
+											</div>
+											<div class="col-sm-9 text-justify">
+												<h4 class="encart_home_head mb-3">
+													<div class="float-left">Craig Holmes</div>
+													<div class="float-left">
+														<span style=" font-size: 40px" class="fa fa-quote-right text-white ml-5"></span>
+													</div>
+													<div style="clear: both"></div>
+												</h4>
+												<span class="encart_home_body" style="font-size: 15px;">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Cras justo odio, dapibus ac facilisis in, egestas eget quam.</span><br>
+												<span class="fa fa-star checked"></span>
+												<span class="fa fa-star checked"></span>
+												<span class="fa fa-star checked"></span>
+												<span class="fa fa-star"></span>
+												<span class="fa fa-star"></span>
+
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="carousel-item">
+								<div class="item__third">
+									<div class="card bg-transparent border-0 w-100">
+										<div class="card-body row py-5">
+											<div class="col-sm-3">
+												<img src="{{ asset('frontend/images/Ellipse_19.png') }}" alt="" class="rounded-circle img-fluid"/>
+											</div>
+											<div class="col-sm-9 text-justify">
+												<h4 class="encart_home_head mb-3">
+													<div class="float-left">Craig Holmes</div>
+													<div class="float-left">
+														<span style=" font-size: 40px" class="fa fa-quote-right text-white ml-5"></span>
+													</div>
+													<div style="clear: both"></div>
+												</h4>
+												<span class="encart_home_body" style="font-size: 15px;">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Cras justo odio, dapibus ac facilisis in, egestas eget quam.</span><br>
+												<span class="fa fa-star checked"></span>
+												<span class="fa fa-star checked"></span>
+												<span class="fa fa-star checked"></span>
+												<span class="fa fa-star"></span>
+												<span class="fa fa-star"></span>
+
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="carousel-item">
+								<div class="item__third">
+									<div class="card bg-transparent border-0 w-100">
+										<div class="card-body row py-5">
+											<div class="col-sm-3">
+												<img src="{{ asset('frontend/images/Ellipse_19.png') }}" alt="" class="rounded-circle img-fluid"/>
+											</div>
+											<div class="col-sm-9 text-justify">
+												<h4 class="encart_home_head mb-3">
+													<div class="float-left">Craig Holmes</div>
+													<div class="float-left">
+														<span style=" font-size: 40px" class="fa fa-quote-right text-white ml-5"></span>
+													</div>
+													<div style="clear: both"></div>
+												</h4>
+												<span class="encart_home_body" style="font-size: 15px;">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Cras justo odio, dapibus ac facilisis in, egestas eget quam.</span><br>
+												<span class="fa fa-star checked"></span>
+												<span class="fa fa-star checked"></span>
+												<span class="fa fa-star checked"></span>
+												<span class="fa fa-star"></span>
+												<span class="fa fa-star"></span>
+
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="sr-only">Previous</span>
+						</a>
+						<a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="sr-only">Next</span>
+						</a>
 					</div>
-					<a class="carousel-control-prev" href="#recipeCarousel" role="button" data-slide="prev">
-						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-						<span class="sr-only">Previous</span>
-					</a>
-					<a class="carousel-control-next" href="#recipeCarousel" role="button" data-slide="next">
-						<span class="carousel-control-next-icon" aria-hidden="true"></span>
-						<span class="sr-only">Next</span>
-					</a>
 				</div>
 			</div>
 		</div>
@@ -1193,21 +1264,8 @@
 	</section>
 
 	<section id="partenaires" class="world-globe">
-		<h3 class="text-center encart_home_head">Ils nous font confiance </h3>
-		<div class="row rectangle text-center">
-			<div class="col-md-3 rectangle-logo"><img alt=""  class="img-fluid"    src="{{ asset('frontend/images/AccorHotelssvg_lu.png') }}"></div>
-			<div class="col-md-3  rectangle-logo"><img alt=""  class="img-fluid"    src="{{ asset('frontend/images/uber-eats-logo-png_lw.png') }}"></div>
-			<div class="col-md-3  rectangle-logo"><img alt=""  class="img-fluid"   src="{{ asset('frontend/images/AccorHotelssvg_lu.png') }}"></div>
-			<div class="col-md-3  rectangle-logo"><img alt=""  class="img-fluid"  width="200px" height="60px" src="{{ asset('frontend/images/Uber_logo_2018_ly.png') }}"></div>
-		</div>
+		{{ include('shared/partenaire.html.twig') }}
 	</section>
-
-	<section id="contact" class="world-globe">
-		<h3 class="text-center encart_home_head">Nous contacter</h3>
-		{% include 'frontend/contact/index.html.twig' %}
-		<br><br>
-	</section>
-
 
 	<br><br>
 

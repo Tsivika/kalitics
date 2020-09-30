@@ -1,7 +1,8 @@
 import showToast from "./toastr";
 import {
 	cardTarif,
-	confirmSwalAlertCreateMeeting
+	confirmSwalAlertCreateMeeting,
+	simpleSwalAlert
 } from "./tools";
 
 const routes = require('../../public/js/fos_js_routes.json');
@@ -58,15 +59,25 @@ $(document).ready(function() {
 		var email = $('#reunion-email').val();
 		var msg = '<p>Bienvenue! Merci de confirmer votre adresse e-mail ci-dessous afin de commencer l\'inscription.</p><p><strong>' + email + '</strong></p>';
 		var url = Routing.generate('app_pre_register_user', {'email':email});
+		var validEmail = validateEmail(email);
 		if (email === '') {
-			$('#erro-reunion-email').text('mail vide');
+			simpleSwalAlert('Veuillez renseigner votre email', '');
+			$('#reunion-email').focus();
+		} else if (validEmail === false) {
+			simpleSwalAlert('Veuillez renseigner une adresse mail valide.', '');
+			$('#reunion-email').focus();
+		} else {
+			confirmSwalAlertCreateMeeting(msg, url);
 		}
-
-		confirmSwalAlertCreateMeeting(msg, url);
 	});
 
 });
+function validateEmail(email)
+{
+	var re = /\S+@\S+\.\S+/;
 
+	return re.test(email);
+}
 function sendMessageContact()
 {
 	$(document).on('submit','#contact_captcha', function(e){

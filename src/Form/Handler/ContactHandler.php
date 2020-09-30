@@ -28,6 +28,10 @@ class ContactHandler extends Handler
      */
     function onSuccess()
     {
+        $param = $this->form->getData();
+        $this->em->saveOrUpdate($param);
+
+        return true;
     }
 }
 

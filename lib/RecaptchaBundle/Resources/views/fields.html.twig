@@ -6,21 +6,7 @@
             let elem = document.getElementById('{{ id }}');
             while (elem.parentElement !== null) {
                 if (elem.tagName === 'FORM') {
-                    /*let url = '{{ path('app_send_message_contact') }}';
-                    let name = $('#contact_name').val();
-                    let email = $('#contact_email').val();
-                    let message = $('#contact_message').val();
-                    $.ajax({
-                        type: "POST",
-                        url: url,
-                        data: $('#contact_captcha').serializeArray(),
-                        success : function(text){
-                            console.log('dd');
-                        }
-                    });*/
-
                     elem.submit();
-
                     break;
                 }
                 elem = elem.parentElement;
