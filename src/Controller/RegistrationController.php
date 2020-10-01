@@ -6,6 +6,7 @@ use App\Entity\Meeting;
 use App\Entity\Subscription;
 use App\Entity\User;
 use App\Form\Handler\AccountHandler;
+use App\Form\Handler\MeetingHandler;
 use App\Form\Handler\RegisterHandler;
 use App\Form\Handler\RegisterUserMeetingHandler;
 use App\Form\MeetingParticipantType;
@@ -13,6 +14,7 @@ use App\Form\RegistrationFormType;
 use App\Form\UserAccountType;
 use App\Manager\AccountManager;
 use App\Manager\MeetingManager;
+use App\Manager\ParameterManager;
 use App\Manager\RegisterManager;
 use App\Manager\SubscriptionManager;
 use App\Manager\UserManager;
@@ -23,6 +25,7 @@ use phpDocumentor\Reflection\Types\This;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -50,26 +53,46 @@ class RegistrationController extends AbstractController
      * @var RegisterManager
      */
     private $em;
+
     /**
      * @var SessionInterface
      */
     private $session;
+
     /**
      * @var RouterInterface
      */
     private $router;
 
     /**
+     * @var ContainerBagInterface
+     */
+    private $params;
+
+    /**
+     * @var mixed
+     */
+    private $urlBbb;
+
+    /**
+     * @var mixed
+     */
+    private $secretBbb;
+
+    /**
      * RegistrationController constructor.
      * @param EmailVerifier   $emailVerifier
      * @param RegisterManager $em
      */
-    public function __construct(EmailVerifier $emailVerifier, RegisterManager $em, SessionInterface $session, RouterInterface $router)
+    public function __construct(EmailVerifier $emailVerifier, RegisterManager $em, SessionInterface $session, RouterInterface $router, ContainerBagInterface $params)
     {
         $this->emailVerifier = $emailVerifier;
         $this->em = $em;
         $this->session = $session;
         $this->router = $router;
+        $this->params = $params;
+        $this->urlBbb = $this->params->get('app.bbb_server_base_url');
+        $this->secretBbb = $this->params->get('app.bbb_secret');
     }
 
     /**
@@ -178,19 +201,26 @@ class RegistrationController extends AbstractController
      *
      * @return JsonResponse|Response
      */
-    public function registerUserMeeting(Request $request)
+    public function registerUserMeeting(Request $request, RouterInterface $router, ParameterManager $paramManager, MeetingManager $meetingManager)
     {
         $user = $this->getUser();
         $userSubscription = $user->getSubscriptionUser();
+
         if (!$user) {
             throw new Exception("Vous n'avez pas accès à cette page");
         }
+
         $meeting = new Meeting();
         $formUserMeeting = $this->createForm(MeetingParticipantType::class, $meeting, [
             'action' => $this->generateUrl('register_user_meeting')
         ]);
-        $handler = new RegisterUserMeetingHandler($formUserMeeting, $request, $user, $this->em);
-        if ($handler->process()) {
+
+        $handler = new MeetingHandler($formUserMeeting, $request, $this->getUser(), $meetingManager, $router);
+        $handlerUserMeeting = new RegisterUserMeetingHandler($formUserMeeting, $request, $user, $this->em);
+        $formUserMeeting->handleRequest($request);
+        if ($formUserMeeting->isSubmitted() && $formUserMeeting->isValid()) {
+            $handlerUserMeeting->onSuccess();
+            $handler->createMeeting($paramManager, $this->urlBbb, $this->secretBbb);
             return $this->forward('App\Controller\RegistrationController::registerUserRunMeeting');
         }
 

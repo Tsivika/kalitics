@@ -1,9 +1,3 @@
-import { simpleSwalAlert } from "./tools";
-import Routing from '../../vendor/friendsofsymfony/jsrouting-bundle/Resources/public/js/router.min.js';
-import axios from 'axios';
-const routes = require('../../public/js/fos_js_routes.json');
-
-Routing.setRoutingData(routes);
 
 var stripe = Stripe('pk_test_51H84neKvOQA5MGqY35NRBUYhZbeU7MxUg1mMxznzVqa7txtKg8fDLwfSyOMzQy23hDOtMK0cs7xG8u74yzbglt5C00alOB3VI2');
 var elements = stripe.elements();

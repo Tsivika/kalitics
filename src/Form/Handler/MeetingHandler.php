@@ -52,7 +52,6 @@ class MeetingHandler extends Handler
      */
     function onSuccess()
     {
-        $path = $this->request->getScheme() . '://' . $this->request->getHttpHost() . $this->request->getBasePath();
         $uuid = Uuid::uuid4();
         $idRandom = explode('-',$uuid->toString());
         $identifiant = array_reverse($idRandom);
@@ -78,6 +77,7 @@ class MeetingHandler extends Handler
     {
         $meetingUser = $this->em->getUserLastMeeting($this->user);
         $paramUser = $paramManager->getParamUser($this->user);
+        $baseurl = $this->request->getScheme() . '://' . $this->request->getHttpHost() . $this->request->getBasePath();
         if (empty($paramUser) ) {
             $paramManager->setDefaultParam($this->user);
             $paramUser = $paramManager->getParamUser($this->user);
@@ -90,7 +90,7 @@ class MeetingHandler extends Handler
         $createMeetingParams->setAttendeePassword($meetingUser->getPassword());
         $createMeetingParams->setModeratorPassword($pwdModerator);
         $createMeetingParams->setDuration($duration);
-        $createMeetingParams->setLogoutUrl('http://127.0.0.1/');
+        $createMeetingParams->setLogoutUrl($baseurl);
         $createMeetingParams->setMaxParticipants(count($meetingUser->getParticipants()));
 
         if ($paramUser->getRecordAuto()) {
