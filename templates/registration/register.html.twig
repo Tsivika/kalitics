@@ -17,19 +17,18 @@
                     </div>
                     <div class="row d-flex">
                         <div class="col-lg-6">
-                            <div class="card1 pb-5" id="image-login">
-                                <div class="row px-3 justify-content-center mt-4 mb-5 border-line">
-                                    <img src="{{ asset('build/images/hiboo_connexion.png')}}" class="image" style="width:100%; height:96%"> </div>
+                            <div class="card1" id="image-login">
+                                <div class="row justify-content-center">
+                                    <img src="{{ asset('build/images/hiboo_connexion.png')}}" class="image" style="width:100%; height:96%">
+                                </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 ">
+                        <div class="col-lg-6 box-shadow-login pl-4">
                             {{ form_start(registrationForm, { 'attr': {'onsubmit': 'return ajaxSubmitTunnel(this)'}}) }}
-                            <p style="margin-bottom:30px ">
-                            <h3 class="encart_home_head">Bienvenue sur <span class="text-green">Hiboo!</span></h3>
-                            <span class="encart_home_body my-4">
+                            <h1 class="encart_home_head pt-1 ml-2">Bienvenue sur <span class="text-green">Hiboo!</span></h1>
+                            <div class="encart_home_body my-2 ml-2">
                                     Veuillez renseigner votre nom, prénom et créer votre mot de passe pour créer votre compte.
-                                </span>
-                            </p>
+                                </div>
                             <p>
                                 {% for flashError in app.flashes('verify_email_error') %}
                             <div class="alert alert-danger encart_home_body" role="alert">{{ flashError }}</div>
@@ -47,22 +46,21 @@
                             <div class="input-group col-lg-10">
                                 {{ form_row(registrationForm.password) }}
                             </div>
-                            <div class="input-group col-lg-10">
-                                {{ form_row(registrationForm.language) }}
-                            </div>
-                            <div class="input-group col-lg-10">
-                                {{ form_widget(registrationForm.agreeTerms) }}
-                                <span class="encart_home_body small ml-2">{{ form_label(registrationForm.agreeTerms) }}</span>
-                            </div>
+                            <div class="input-group ">
+                                <div class="wrap_step small ml-3 mt-2 ">
+                                    <span>{{ form_widget(registrationForm.agreeTerms) }}</span>
+                                    En me connectant, j'accepte votre <a href="#" class="link ml-1 mr-1" > Politique de confidentialité</a> et <a href="#" class="link ml-1">les Conditions de service.</a>
+                                </div>
 
-                            <div class="encart_home_body" style="font-size: 12px;padding: 10px;">
-                                En me connectant, j'accepte votre <a href="#" class="link">Politique de confidentialité</a> et <a href="#" class="link">les Conditions de service.</a>
+                                <span class="encart_home_body small ml-2">
+
+                                </span>
                             </div>
                             <div class="form-group col-lg-12 mx-auto" style="margin-top: 20px">
                                 <input type="hidden" name="_csrf_token"
                                        value="{{ csrf_token('authenticate') }}"
                                 >
-                                <button type="submit" class="btn  btn-large py-2 login">
+                                <button type="submit" class="btn  btn-large login" style="padding: 9px 90px">
                                     <span class="font-weight-bold">Continuer</span>
                                 </button>
                             </div>

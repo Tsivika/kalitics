@@ -6,6 +6,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "bigbluebutton/bigbluebutton-api-php": "~2.0.0",
+        "google/recaptcha": "^1.2",
         "friendsofsymfony/jsrouting-bundle": "^2.6",
         "gedmo/doctrine-extensions": "^2.4",
         "ramsey/uuid": "^4.0",

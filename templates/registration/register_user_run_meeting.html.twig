@@ -15,13 +15,13 @@
                 </div>
                 <div class="row d-flex">
                     <div class="col-lg-6">
-                        <div class="card1 pb-5" id="image-login">
-                            <div class="row px-3 justify-content-center mt-4 mb-5 border-line">
+                        <div class="card1" id="image-login">
+                            <div class="row justify-content-center">
                                 <img src="{{ asset('build/images/photo_reunion.png')}}" class="image" style="width:100%; height:96%">
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 encart_home_body">
+                    <div class="col-lg-6 encart_home_body box-shadow-login pl-4">
                         <p style="margin-bottom:20px">
                             <h3 class="encart_home_head">Commencer la<span class="text-green"> réunion!</span></h3>
                             <span class="my-4">
@@ -32,14 +32,14 @@
                             Voici votre lien <span class="text-green">réunhiboo</span> personnel!
                         </p>
                         <p>
-                            <span class="text-danger">{{ link }}</span>
+                            <span class="text-red">{{ link }}</span>
                         </p>
 
                         <div class="form-group col-lg-12 mx-auto" style="margin-top: 100px">
-                            <a href="{{ link }}" target="_blank" class="btn btn-large py-2 login">
+                            <a href="{{ link }}" target="_blank" class="btn btn-large py-3 px-5 login">
                                 <span role="button" class="encart_home_body text-white">Lancer la réunion</span>
                             </a>
-                            <a class="btn btn-outline-danger btn-sm signin" href="{{ path('app_espace_client_meeting_list') }}">
+                            <a class="btn btn-outline-danger text-red btn-sm signin py-3 px-5" href="{{ path('app_espace_client_meeting_list') }}">
                                 <span class="encart_home_body ">Voir mon compte</span>
                             </a>
                         </div>

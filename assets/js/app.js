@@ -9,6 +9,7 @@ const $ = require('jquery');
 global.$ = global.jQuery = $;
 
 import '../css/app.css';
+import '../plugins/slick/slick.min';
 import './jquery.min';
 import './bootstrap.bundle';
 import '../externes/jquery.easing/jquery.easing.min';

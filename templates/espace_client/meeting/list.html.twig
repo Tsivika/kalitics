@@ -9,15 +9,15 @@
         </div>
     </div>
     <div class="row mt-5" id="list-meetings">
-
         <table class="table table-hover table-striped verticle-middle dataTable_meeting" id="dataTable_meeting">
             <thead>
                 <tr>
-                    <td class="encart_home_head">#</td>
                     <td class="encart_home_head text-green">Heure de début</td>
                     <th></th>
                     <td class="encart_home_head">Sujet</td>
-                    <td class="encart_home_head text-center">Statut</td>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <td class="encart_home_head text-center">Statut</td>
+                    {% endif %}
                     <td class="encart_home_head">Lien de la réunion</td>
                     <th></th>
                 </tr>
@@ -25,18 +25,19 @@
             <tbody>
             {% for row in meetings|reverse %}
                 <tr id="meeting_{{ row.id }}">
-                    <td>{{ row.id }}</td>
                     <td>{{ row.date|date("d/m/yy") }} à  {{ row.date|date("H:i") }}</td>
                     <td><a class="detail_meeting" href="#" data-meeting="{{ row.id }}">+info</a></td>
                     <td>{{ row.subject }}</td>
-                    <td class="text-center">
-                        <span class="d-none">{{ row.status }}</span>
-                        {% if row.status %}
-                            <span data-toggle="tooltip" title="Réunion déjà faite!"><i class="fa fa-lock text-danger"></i></span>
-                        {% else %}
-                            <i class="fa fa-unlock-alt text-info "></i>
-                        {% endif %}
-                    </td>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <td class="text-center">
+                            <span class="d-none">{{ row.status }}</span>
+                            {% if row.status %}
+                                <span data-toggle="tooltip" title="Réunion déjà faite!"><i class="fa fa-lock text-danger"></i></span>
+                            {% else %}
+                                <i class="fa fa-unlock-alt text-info "></i>
+                            {% endif %}
+                        </td>
+                    {% endif %}
                     <td class="link_identifiant">
                         <span class="d-none">{{ row.link }}</span>
                         <input class="input_copy" type="text" id="linkInput_{{ row.id }}" value="{{ row.link }}" readonly>

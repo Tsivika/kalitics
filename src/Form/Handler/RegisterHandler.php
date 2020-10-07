@@ -85,6 +85,7 @@ class RegisterHandler extends Handler
                 $this->form->get('password')->getData()
             )
         );
+        $this->user->setLanguage('fr');
         $this->user->setSubscriptionUser($this->subscriptionManager->getFreeSubscription());
         $this->em->save($this->user);
 

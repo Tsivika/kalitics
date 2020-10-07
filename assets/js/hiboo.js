@@ -71,7 +71,43 @@ $(document).ready(function() {
 		}
 	});
 
+
+	$('.slick-center').slick({
+		prevArrow: $('.pic-prev'),
+		nextArrow: $('.pic-next'),
+		infinite: true,
+		dots: false,
+		arrows: true,
+		draggable: true,
+		autoplay: true,
+		autoplaySpeed: 2000,
+		swipe: true,
+		touchMove: false,
+		centerMode: true,
+		centerPadding: '12%',
+		slidesToShow: 3,
+		slidesToScroll: 1,
+		lazyLoad: 'progressive',
+		responsive: [
+			{
+				breakpoint: 992,
+				settings: {
+					slidesToShow: 3,
+					slidesToScroll: 1
+				}
+			},
+			{
+				breakpoint: 500,
+				settings: {
+					slidesToShow: 1,
+					slidesToScroll: 1,
+					centerMode: false
+				}
+			},
+		]
+	});
 });
+
 function validateEmail(email)
 {
 	var re = /\S+@\S+\.\S+/;

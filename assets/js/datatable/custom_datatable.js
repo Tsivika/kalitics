@@ -16,12 +16,13 @@ export default function customDatatable(id) {
             "sLoadingRecords": "Chargement en cours...",
             "sZeroRecords": "Aucun &eacute;l&eacute;ment &agrave; afficher",
             "sEmptyTable": "Aucune donn&eacute;e disponible dans le tableau",
-            "oPaginate": {
+            /*"oPaginate": {
                 "sFirst": "Premier",
                 "sPrevious": "Pr&eacute;c&eacute;dent",
                 "sNext": "Suivant",
                 "sLast": "Dernier"
-            },
+            },*/
+            "sPaginationType": "numbers",
             "oAria": {
                 "sSortAscending": ": activer pour trier la colonne par ordre croissant",
                 "sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"

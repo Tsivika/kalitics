@@ -25,26 +25,26 @@ class RegistrationFormType extends AbstractType
             ->add('name', TextType::class, [
                 'label' => false,
                 'attr' => [
-                    'class' => 'form-control bg-white border-md encart_home_body',
+                    'class' => 'form-control bg-white border-md encart_home_body py-3 pr-5',
                     'placeholder' => 'Nom de famille',
                 ]
             ])
             ->add('firstname', TextType::class, [
                 'label' => false,
                 'attr' => [
-                    'class' => 'form-control bg-white border-md encart_home_body',
+                    'class' => 'form-control bg-white border-md encart_home_body py-3 pr-5',
                     'placeholder' => 'Prénom',
                 ]
             ])
             ->add('email', EmailType::class, [
                 'label' => false,
                 'attr' => [
-                    'class' => 'form-control bg-white border-md encart_home_body',
+                    'class' => 'form-control bg-white border-md encart_home_body py-3 pr-5',
                     'placeholder' => 'Adresse mail',
                 ]
             ])
             ->add('agreeTerms', CheckboxType::class, [
-                'label' => 'J\'accepte les CGU Hiboo',
+                'label' => false,
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
@@ -52,22 +52,7 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('language', ChoiceType::class,
-                [
-                    'label' => false,
-                    'choices' => LanguageConstant::_LANGUAGES_,
-                    'multiple' => false,
-                    'expanded' => false,
-                    'placeholder' => ':. Choix Langue .:',
-                    'attr' => [
-                        'class' => 'form-control bg-white border-md encart_home_body',
-                    ],
-                    'constraints' => [
-                        new NotBlank([
-                            'message' => 'Veuillez choisir au moins une langue.',
-                        ]),
-                    ],
-                ])
+
             ->add('password', RepeatedType::class, [
                 'label' => false,
                 'type' => PasswordType::class,
@@ -86,11 +71,27 @@ class RegistrationFormType extends AbstractType
                 'required' => true,
                 'first_options'  => ['label' => false, 'attr' => [
                     'placeholder' => 'Mot de passe',
-                    'class' => 'form-control bg-white border-md encart_home_body',
+                    'class' => 'form-control bg-white border-md encart_home_body py-3 pr-5',
                     ]],
                 'second_options' => ['label' => false, 'attr' => ['placeholder' => 'Confirmer votre mot de passe',
-                    'class' => 'form-control bg-white border-md encart_home_body',]],
+                    'class' => 'form-control bg-white border-md encart_home_body py-3 pr-5',]],
             ])
+            /*->add('language', ChoiceType::class,
+                [
+                    'label' => false,
+                    'choices' => LanguageConstant::_LANGUAGES_,
+                    'multiple' => false,
+                    'expanded' => false,
+                    'placeholder' => ':. Choix Langue .:',
+                    'attr' => [
+                        'class' => 'form-control bg-white border-md encart_home_body',
+                    ],
+                    'constraints' => [
+                        new NotBlank([
+                            'message' => 'Veuillez choisir au moins une langue.',
+                        ]),
+                    ],
+                ])*/
         ;
     }
 

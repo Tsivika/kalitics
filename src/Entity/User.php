@@ -318,7 +318,7 @@ class User implements UserInterface
      *
      * @return $this
      */
-    public function setLanguage(string $language): self
+    public function setLanguage(?string $language): self
     {
         $this->language = $language;
 
