@@ -5,7 +5,7 @@ import {
 } from "./tools";
 const routes = require('../../public/js/fos_js_routes.json');
 import Routing from '../../vendor/friendsofsymfony/jsrouting-bundle/Resources/public/js/router.min.js';
-import customDatatable from "./datatable/custom_datatable";
+import { customDatatable } from "./datatable/custom_datatable";
 import axios from "axios";
 import showToast from "./toastr";
 Routing.setRoutingData(routes);

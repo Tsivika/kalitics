@@ -7,6 +7,7 @@ use App\Repository\MeetingRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=MeetingRepository::class)
@@ -63,11 +64,15 @@ class Meeting
     private $participants;
 
     /**
+     * @Assert\PositiveOrZero(message="L'heure ne peu pas être négative.")
+     *
      * @ORM\Column(type="integer", nullable=true)
      */
     private $durationH;
 
     /**
+     * @Assert\PositiveOrZero(message="La minute ne peu pas être négative.")
+     *
      * @ORM\Column(type="integer", nullable=true)
      */
     private $durationM;

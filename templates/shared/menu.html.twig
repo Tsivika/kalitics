@@ -1,5 +1,5 @@
-<section id="header" sty>
-    <nav class="navbar navbar-expand-lg navbar-light  fixed-top" id="mainNav">
+<section id="header" >
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
         <div class="container-fluid">
 
             <a class="navbar-brand" href="{{ path('app_homePage') }}">
@@ -73,19 +73,19 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#guide">Guide</a>
+                        <a class="nav-link" href="{{ path('app_homePage') ~ '#guide' }}">Guide</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#testmoniaux">Testmoniaux</a>
+                        <a class="nav-link" href="{{ path('app_homePage') ~ '#testmoniaux' }}">Testmoniaux</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#mission">Mission</a>
+                        <a class="nav-link" href="{{ path('app_homePage') ~ '#mission' }}">Mission</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#tarifs">Tarifs</a>
+                        <a class="nav-link" href="{{ path('app_homePage') ~ '#tarifs' }}">Tarifs</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#partenaires">Partenaires</a>
+                        <a class="nav-link" href="{{ path('app_homePage') ~ '#partenaires' }}">Partenaires</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_contact') }}">Contact</a>
@@ -97,7 +97,7 @@
                             <a class="btn  btn-lg login text-center" href="{{ path('app_login') }}">Se connecter</a>
                             <a class="btn btn-outline-danger btn-lg signin" href="{{ path('app_register') }}">Je m'inscris</a>
                         {% else%}
-                            <a class="btn  btn-sm login text-center" href="{{ path('app_logout') }}">Se déconnecter</a>
+                            <a class="btn  btn-sm login text-center" href="{{ path('app_logout') }}">Déconnexion</a>
                             <a class="btn btn-outline-danger btn-sm signin" href="{{ path('app_espace_client_meeting_list') }}">Tableau de bord</a>
                         {% endif %}
                     </li>

@@ -1,6 +1,6 @@
 import * as $ from 'jquery';
 import showToast from "./toastr";
-import customDatatable from "./datatable/custom_datatable";
+import { customDatatable, customDatatableMeeting } from "./datatable/custom_datatable";
 import { simpleSwalAlert, confirmSwalAlertMeeting, confirmSwalAlertSubscription } from "./tools";
 import axios from 'axios';
 import Routing from '../../vendor/friendsofsymfony/jsrouting-bundle/Resources/public/js/router.min.js';
@@ -52,7 +52,8 @@ Routing.setRoutingData(routes);
             }
         });
 
-        customDatatable('#dataTable_meeting');
+        customDatatableMeeting('#dataTable_meeting');
+
         detailMeeting();
         deleteMeeting();
         deleteMeetingBo();

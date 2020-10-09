@@ -106,6 +106,19 @@ $(document).ready(function() {
 			},
 		]
 	});
+
+	$(window).scroll(function() {
+		if ($(this).scrollTop() > 100) {
+			$('#mainNav').removeClass('navbar-dark');
+			$('.back-to-top').fadeIn('slow');
+			$('#mainNav').addClass('navbar-light');
+		} else {
+			$('.back-to-top').fadeOut('slow');
+			$('#mainNav').removeClass('navbar-light');
+			$('#mainNav').addClass('navbar-dark');
+		}
+	});
+
 });
 
 function validateEmail(email)

@@ -24,7 +24,7 @@ class MeetingType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Sujet',
                     'class' => 'form-control bg-white encart_home_body',
-                    'style' => 'border: none',
+                    'style' => 'width:340px',
                 ]
             ])
             ->add('description', TextareaType::class, [
@@ -35,7 +35,6 @@ class MeetingType extends AbstractType
                     'class' => 'form-control bg-white encart_home_body',
                     'rows' => 3,
                     'cols' => 30,
-                    'style' => 'border: none',
                 ]
             ])
             ->add('date', DateType::class, [
@@ -52,8 +51,8 @@ class MeetingType extends AbstractType
                 'label' => 'h',
                 'required' => false,
                 'attr' => [
-                    'class' => 'form-control bg-white border-left-0 border-right-0 border-top-0 encart_home_body',
-                    'style' => 'width:59px;',
+                    'class' => 'form-control bg-white mr-2 encart_home_body',
+                    'style' => 'width:76px;',
                     'placeholder' => '00',
                 ]
             ])
@@ -61,18 +60,18 @@ class MeetingType extends AbstractType
                 'label' => 'min',
                 'required' => false,
                 'attr' => [
-                    'class' => 'form-control bg-white border-left-0 border-right-0 border-top-0 encart_home_body',
-                    'style' => 'width:59px;',
+                    'class' => 'form-control bg-white mr-2 encart_home_body',
+                    'style' => 'width:76px;',
                     'placeholder' => '00',
                 ]
             ])
             ->add('password', TextType::class, [
                 'label' => 'Mot de passe requis pour accéder à la réunion',
-                'required' => false,
+                'required' => true,
                 'attr' => [
                     'placeholder' => 'Mot de passe',
                     'class' => 'form-control bg-white encart_home_body',
-                    'style' => 'border: none; width:120px;',
+                    'style' => 'width:120px;',
                 ]
             ])
             ->add('participants', CollectionType::class, [

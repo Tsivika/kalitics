@@ -1,5 +1,5 @@
 import Swal from '../plugins/sweetalert/js/sweetalert2.min';
-import customDatatable from "./datatable/custom_datatable";
+import { customDatatable, customDatatableMeeting } from "./datatable/custom_datatable";
 import '../plugins/sweetalert/css/sweetalert2.min.css';
 const routes = require('../../public/js/fos_js_routes.json');
 import Routing from '../../vendor/friendsofsymfony/jsrouting-bundle/Resources/public/js/router.min.js';
@@ -46,11 +46,11 @@ export function confirmSwalAlertMeeting(msg, url, id) {
                 .then(function (response) {
                     simpleSwalAlert(response.data.body, response.data.footer);
                     $('#list-meetings').html(response.data.listHtml);
-                    customDatatable('#dataTable_meeting');
+                    customDatatableMeeting('#dataTable_meeting');
                 })
                 .catch(function (error) {
                     simpleSwalAlert('Une erreur s\'est produite.', response.data.footer);
-                    customDatatable('#dataTable_meeting');
+                    customDatatableMeeting('#dataTable_meeting');
                 });
         }
     })

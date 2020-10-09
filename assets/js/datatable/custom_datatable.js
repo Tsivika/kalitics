@@ -3,7 +3,7 @@ require('../../plugins/tables/js/jquery.dataTables.min');
 require('../../plugins/tables/js/datatable/dataTables.bootstrap4.min');
 require('../../plugins/tables/js/datatable-init/datatable-basic.min');
 
-export default function customDatatable(id) {
+export function customDatatable(id) {
     let options = {
         "language": {
             "sProcessing": "Traitement en cours...",
@@ -16,12 +16,12 @@ export default function customDatatable(id) {
             "sLoadingRecords": "Chargement en cours...",
             "sZeroRecords": "Aucun &eacute;l&eacute;ment &agrave; afficher",
             "sEmptyTable": "Aucune donn&eacute;e disponible dans le tableau",
-            /*"oPaginate": {
+            "oPaginate": {
                 "sFirst": "Premier",
                 "sPrevious": "Pr&eacute;c&eacute;dent",
                 "sNext": "Suivant",
                 "sLast": "Dernier"
-            },*/
+            },
             "sPaginationType": "numbers",
             "oAria": {
                 "sSortAscending": ": activer pour trier la colonne par ordre croissant",
@@ -39,4 +39,32 @@ export default function customDatatable(id) {
     };
 
     $(id).dataTable(options);
+}
+
+export function customDatatableMeeting(id) {
+    $(id).DataTable( {
+
+        dom: 'Bfrtip',
+        pagingType: 'numbers',
+        info: false,
+        language: {
+            search: "Rechercher&nbsp;:"
+        },
+        buttons: [
+            {
+                extend: 'print',
+                customize: function ( win ) {
+                    $(win.document.body)
+                        .css( 'font-size', '10pt' )
+                        .prepend(
+                            '<img src="http://datatables.net/media/images/logo-fade.png" style="position:absolute; top:0; left:0;" />'
+                        );
+
+                    $(win.document.body).find( 'table' )
+                        .addClass( 'compact' )
+                        .css( 'font-size', 'inherit' );
+                }
+            }
+        ]
+    } );
 }

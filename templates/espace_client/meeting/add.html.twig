@@ -15,7 +15,7 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block body %}
-    <div class="row mt-4">
+    <div class="row">
         <div class="col-lg-12 ">
             <a href="{{ path('app_espace_client_meeting_list') }}" class="text-green"> Mes réunions </a> > {{title}}
         </div>
@@ -57,7 +57,7 @@
             <div class="input-group wrap_input">
                 <div class="item-input-label">
                     Durée de la réunion
-                    <i class="fa fa-info-circle text-info" style="font-size: 20px"
+                    <i class="fa fa-info-circle" style="font-size: 20px; color: #00C9AE"
                        data-toggle="tooltip"
                        data-placement="top"
                        data-html="true"
@@ -74,23 +74,26 @@
                                 {{ form_widget(form.durationH) }}
                             {% endif %}
                         </span>
-                        <span class="">h</span>
-                        <div style="width: 10px;">  </div>
+                        <span class="mr-4 encart_home_body">h</span>
                         <span class="">{{ form_widget(form.durationM) }}</span>
-                        <span class="mr-3">min</span>
+                        <span class="mr-3 encart_home_body">min</span>
                     </div>
+                </div>
+                <div>
+                    {{ form_errors(form.durationH) }}
+                    {{ form_errors(form.durationM) }}
                 </div>
             </div>
             <hr>
             <h5 class="encart_home_head mb-4">Réunion publique ou privée</h5>
-            <div class="input-group wrap_input">
-                <div class="item-input-label">
+            <div class="input-group wrap_input ">
+                <div class="item-input-label ">
                     Mot de passe de la réunhiboo
                 </div>
                 <div class="item-input" >
-                    <div class="row">
-                        <div class="col-9">{{form_label(form.password)}}</div>
-                        <div class="col-3">{{ form_widget(form.password) }}</div>
+                    <div class="" style="display: flex; align-items: center">
+                        <div class="mr-3 mt-2">{{form_label(form.password)}}</div>
+                        <div class="">{{ form_widget(form.password) }}</div>
                     </div>
                 </div>
             </div>
@@ -100,7 +103,7 @@
             <div class="input-group wrap_input">
                 <div class="item-input-label">
                     Ajouter un participant
-                    <i class="fa fa-info-circle text-info" style="font-size: 20px"
+                    <i class="fa fa-info-circle" style="font-size: 20px; color: #00C9AE"
                        data-toggle="tooltip"
                        data-placement="top"
                        data-html="true"
@@ -118,8 +121,8 @@
                     {% endfor %}
                     <div class="row mt-1 mb-5">
                         <div class="" style="margin-top: 10px">
-                            <button class="btn mb-1 btn-success mt-3 ml-1" id="add_participant" title="Ajouter participant">
-                                <span class="btn-icon-right encart_home_body"><i class="fa fa-plus"></i> Ajouter participant </span>
+                            <button class="btn  btn-large py-2 login mb-1 mt-3 ml-1" id="add_participant" title="Ajouter participant">
+                                <span class="btn-icon-right encart_home_body"> Ajouter </span>
                             </button>
                         </div>
                     </div>
@@ -127,11 +130,11 @@
 
             </div>
             <hr>
-            <div class="form-group col-lg-12 mx-auto" style="margin-top: 20px">
+            <div class="form-group col-lg-12 mx-auto form-add" style="margin-top: 20px">
                 <button type="submit" class="btn  btn-large py-2 login">
                     <span class="font-weight-bold">{{title}}</span>
                 </button>
-                <button type="reset" class="btn  btn-large py-2 btn-outline-danger signin">
+                <button type="reset" class="btn btn-outline-danger py-2 px-5 btn-outline-danger signin">
                     <span class="font-weight-bold ">Annuler</span>
                 </button>
             </div>
