@@ -1,0 +1,82 @@
+{% extends 'base-espace-client.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+    <div class="wrap_step" style="justify-content: space-between;">
+        <div class="">
+            <span class="text-green">Gestions des avis</span>
+        </div>
+        <div class="float-right border">
+            <a class="btn  btn-large py-2 px-4 login" href="{{ path('app_espace_admin_testimonial_add') }}" role="button">Créer un avis</a>
+        </div>
+    </div>
+    <div class="row mt-5" id="list-testimonials">
+
+        <table class="table table-hover table-striped verticle-middle dataTable_testimonial" id="dataTable_testimonial" width="99%">
+            <thead>
+            <tr>
+                <td class="encart_home_head ">Nom</td>
+                <td class="encart_home_head" style="width: 64%">Extrait</td>
+                <td class="encart_home_head ">Note</td>
+                <td class=""></td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for row in testimonials|reverse %}
+                <tr id="testimonial_{{ row.id }}">
+                    <td><span class="encart_home_body">{{ row.name }}</span></td>
+                    <td class=""><span class="encart_home_body"> {{ row.content|striptags|slice(0, 70) ~ '...' }} </span></td>
+                    <td><span class="encart_home_body">{{ row.score }}</span></td>
+                    <td>
+                        <div class="actions">
+                            <a href="{{ path('app_espace_admin_testimonial_edit', {'id' : row.id}) }}"
+                               role="button"
+                               class="btn-icon-right btn btn-danger encart_home_body px-5"
+                            >
+                                Modifier
+                            </a>
+                            <a href="#" data-testimonial="{{ row.id }}" class="delete_testimonial">
+                                <i class="fa fa-trash text-dark" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <link href="{{ asset('build/css/toastr.min.css') }}" rel="stylesheet"/>
+    <script src="{{ asset('build/js/toastr.min.js') }}"></script>
+    <script>
+        function copyToPaste(id) {
+            var copyText = document.getElementById("linkInput_" + id);
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);
+            document.execCommand("copy");
+
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "2000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            };
+
+            toastr["success"]("Lien de la réunion copié.")
+        }
+    </script>
+{% endblock %}

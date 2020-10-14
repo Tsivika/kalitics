@@ -1,6 +1,7 @@
 {
     "devDependencies": {
         "@symfony/webpack-encore": "^0.30.0",
+        "copy-webpack-plugin": "^6.2.1",
         "core-js": "^3.0.0",
         "regenerator-runtime": "^0.13.2",
         "webpack-notifier": "^1.6.0"
@@ -16,6 +17,7 @@
     "dependencies": {
         "axios": "^0.19.2",
         "datatables.net-dt": "^1.10.21",
-        "jquery": "^3.5.1"
+        "jquery": "^3.5.1",
+        "tinymce": "^5.5.1"
     }
 }

@@ -7030,14 +7030,19 @@ img{ max-width: 100%; max-height: 100%; }
 /* *** ** */
 
 /* *** customize datatable ** */
-#list-meetings .page-item.active .page-link {
+#list-meetings .page-item.active .page-link,
+#list-testimonials .page-item.active .page-link,
+#list-video-guide .page-item.active .page-link {
     z-index: 1;
     color: #fff;
     background-color: #00C9AE;
     border:none;
     border-radius: 100%;
 }
-#list-meetings .page-link {
+#list-meetings .page-link,
+#list-testimonials .page-link,
+#list-video-guide .page-link
+{
       position: relative;
       display: block;
       padding: .5rem .75rem;
@@ -7046,7 +7051,10 @@ img{ max-width: 100%; max-height: 100%; }
       color: #062944;
       border: none !important;
   }
-#list-meetings .page-link:hover {
+#list-meetings .page-link:hover,
+#list-testimonials .page-link:hover,
+#list-video-guide .page-link:hover
+{
     z-index: 2;
     color: #ffffff;
     text-decoration: none;

@@ -121,9 +121,10 @@
                     <div class="item-link"><a href="{{ path('app_espace_admin_dashbord') }}">Accueil</a></div>
                 {% endif %}
                 <div class="item-link"><a href="{{ path(path_meeting) }}">Réunions</a></div>
-                <div class="item-link"><a href="{{ path('app_espace_client_profil_edit') }}">Profil</a></div>
-                <div class="item-link"><a href="{{ path('app_espace_client_parameter_add') }}">Paramètre</a></div>
                 {% if is_granted('ROLE_ADMIN') %}
+                    <div class="item-link"><a href="{{ path('app_espace_admin_testimonial_list') }}">Avis</a></div>
+                    <div class="item-link"><a href="{{ path('app_espace_admin_partner_list') }}">Partenaire</a></div>
+                    <div class="item-link"><a href="{{ path('app_espace_admin_video_guide_list') }}">Vidéos</a></div>
                     <div class="dropdown item-link">
                         <a class=" dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown">Guide</a>
                         <div class="dropdown-menu">
@@ -140,6 +141,8 @@
                         </div>
                     </div>
                 {% else %}
+                    <div class="item-link"><a href="{{ path('app_espace_client_profil_edit') }}">Profil</a></div>
+                    <div class="item-link"><a href="{{ path('app_espace_client_parameter_add') }}">Paramètre</a></div>
                     <div class="item-link"><a href="{{ path('app_espace_client_guide_list') }}">Guide</a></div>
                     <div class="item-link"><a href="{{ path(path_subscription) }}">Abonnement</a></div>
                 {% endif %}

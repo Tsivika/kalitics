@@ -306,3 +306,81 @@ export function confirmSwalAlertGuideDelete(msg, url, id) {
         }
     })
 }
+
+export function confirmSwalAlertTestimonial(msg, url, id) {
+    Swal.fire({
+        title: 'Vous êtes sur ?',
+        text: msg,
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Supprimer !',
+        cancelButtonText: 'Annuler',
+    }).then((result) => {
+        if (result.value) {
+            axios.get(url)
+                .then(function (response) {
+                    simpleSwalAlert(response.data.body, response.data.footer);
+                    $('#list-testimonials').html(response.data.listHtml);
+                    customDatatableMeeting('#dataTable_testimonial');
+                })
+                .catch(function (error) {
+                    simpleSwalAlert('Une erreur s\'est produite.', response.data.footer);
+                    customDatatableMeeting('#dataTable_testimonial');
+                });
+        }
+    })
+}
+
+export function confirmSwalAlertPartner(msg, url, id) {
+    Swal.fire({
+        title: 'Vous êtes sur ?',
+        text: msg,
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Supprimer !',
+        cancelButtonText: 'Annuler',
+    }).then((result) => {
+        if (result.value) {
+            axios.get(url)
+                .then(function (response) {
+                    simpleSwalAlert(response.data.body, response.data.footer);
+                    $('#list-partner').html(response.data.listHtml);
+                    customDatatableMeeting('#dataTable_partner');
+                })
+                .catch(function (error) {
+                    simpleSwalAlert('Une erreur s\'est produite.', response.data.footer);
+                    customDatatableMeeting('#dataTable_partner');
+                });
+        }
+    })
+}
+
+export function confirmSwalAlertVideoGuide(msg, url, id) {
+    Swal.fire({
+        title: 'Vous êtes sur ?',
+        text: msg,
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Supprimer !',
+        cancelButtonText: 'Annuler',
+    }).then((result) => {
+        if (result.value) {
+            axios.get(url)
+                .then(function (response) {
+                    simpleSwalAlert(response.data.body, response.data.footer);
+                    $('#list-video-guide').html(response.data.listHtml);
+                    customDatatableMeeting('#dataTable_video_guide');
+                })
+                .catch(function (error) {
+                    simpleSwalAlert('Une erreur s\'est produite.', response.data.footer);
+                    customDatatableMeeting('#dataTable_video_guide');
+                });
+        }
+    })
+}

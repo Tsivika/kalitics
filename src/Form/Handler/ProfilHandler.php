@@ -28,6 +28,9 @@ class ProfilHandler extends Handler
      */
     protected $em;
 
+    /**
+     * @var ImageUploader
+     */
     private $imageUploader;
 
     /**

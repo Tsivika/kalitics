@@ -1,0 +1,32 @@
+<table class="table table-hover table-striped verticle-middle dataTable_testimonial" id="dataTable_testimonial" width="99%">
+    <thead>
+    <tr>
+        <td class="encart_home_head ">Nom</td>
+        <td class="encart_home_head" style="width: 64%">Extrait</td>
+        <td class="encart_home_head ">Note</td>
+        <td class=""></td>
+    </tr>
+    </thead>
+    <tbody>
+    {% for row in testimonials|reverse %}
+        <tr id="testimonial_{{ row.id }}">
+            <td><span class="encart_home_body">{{ row.name }}</span></td>
+            <td class=""><span class="encart_home_body"> {{ row.content[:70] ~ '...' }} </span></td>
+            <td><span class="encart_home_body">{{ row.score }}</span></td>
+            <td>
+                <div class="actions">
+                    <a href="{{ path('app_espace_admin_testimonial_edit', {'id' : row.id}) }}"
+                       role="button"
+                       class="btn-icon-right btn btn-danger encart_home_body px-5"
+                    >
+                        Modifier
+                    </a>
+                    <a href="#" data-testimonial="{{ row.id }}" class="delete_testimonial">
+                        <i class="fa fa-trash text-dark" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

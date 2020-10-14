@@ -1,0 +1,28 @@
+<table class="table table-hover table-striped verticle-middle dataTable_partner" id="dataTable_partner" width="99%">
+    <thead>
+    <tr>
+        <td class="encart_home_head" style="width: 75%">Nom</td>
+        <td class=""></td>
+    </tr>
+    </thead>
+    <tbody>
+    {% for row in partners|reverse %}
+        <tr id="testimonial_{{ row.id }}">
+            <td><span class="encart_home_body">{{ row.name }}</span></td>
+            <td>
+                <div class="actions">
+                    <a href="{{ path('app_espace_admin_partner_edit', {'id' : row.id}) }}"
+                       role="button"
+                       class="btn-icon-right btn btn-danger encart_home_body px-5"
+                    >
+                        Modifier
+                    </a>
+                    <a href="#" data-partner="{{ row.id }}" class="delete_partner">
+                        <i class="fa fa-trash text-dark" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
