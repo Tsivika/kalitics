@@ -27,6 +27,11 @@ class VideoGuide
      */
     private $url;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $pdc;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,6 +57,18 @@ class VideoGuide
     public function setUrl(string $url): self
     {
         $this->url = $url;
+
+        return $this;
+    }
+
+    public function getPdc(): ?string
+    {
+        return $this->pdc;
+    }
+
+    public function setPdc(string $pdc): self
+    {
+        $this->pdc = $pdc;
 
         return $this;
     }

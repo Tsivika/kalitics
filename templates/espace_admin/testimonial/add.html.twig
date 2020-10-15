@@ -41,7 +41,11 @@
             <hr>
             <div class="input-group wrap_input ">
                 <div class="item-input-label">{{ form_label(form.content) }}</div>
-                <div class="item-input">{{ form_widget(form.content) }}</div>
+                <div class="item-input">
+                    {{ form_widget(form.content) }}
+                    {#<br>
+                    Il vous reste <span id="carac_reste_textarea_1"></span> caractères.#}
+                </div>
             </div>
 
             <div class="form-group col-lg-12 mx-auto mt-5">

@@ -49,12 +49,14 @@ class PartnerHandler extends Handler
     {
         $imageFile = $this->form->get('pdc')->getData();
         $name = $this->form->get('name')->getData();
+        $webSite = $this->form->get('webSite')->getData();
 
         if ($imageFile) {
             $imageFileName = $this->imageUploader->upload($imageFile);
             $this->partner->setPdc($imageFileName);
         }
         $this->partner->setName($name);
+        $this->partner->setWebSite($webSite);
 
         $this->em->saveOrUpdate($this->partner);
 

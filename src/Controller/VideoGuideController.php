@@ -6,6 +6,7 @@ use App\Entity\VideoGuide;
 use App\Form\Handler\VideoGuideHandler;
 use App\Form\VideoGuideType;
 use App\Manager\VideoGuideManager;
+use App\Services\ImageUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -44,11 +45,11 @@ class VideoGuideController extends AbstractController
      *
      * @return Response
      */
-    public function addVideoGuide(Request $request, VideoGuide $videoGuide = null)
+    public function addVideoGuide(Request $request, ImageUploader $imageUploader, VideoGuide $videoGuide = null)
     {
         $videoGuideEntity = $videoGuide ?? new VideoGuide();
         $form = $this->createForm(VideoGuideType::class, $videoGuideEntity);
-        $handler = new VideoGuideHandler($form, $request, $this->em);
+        $handler = new VideoGuideHandler($form, $request, $this->em, $imageUploader, $videoGuideEntity);
         $title = $videoGuide ? 'Modifier vidéo' : 'Ajouter une vidéo';
 
         if ($handler->process()) {

@@ -16,7 +16,8 @@
         <table class="table table-hover table-striped verticle-middle dataTable_partner" id="dataTable_partner" width="99%">
             <thead>
             <tr>
-                <td class="encart_home_head" style="width: 75%">Nom</td>
+                <td class="encart_home_head" style="width: 50%">Nom</td>
+                <td class="encart_home_head" style="width: 25%">Site web</td>
                 <td class=""></td>
             </tr>
             </thead>
@@ -24,6 +25,7 @@
             {% for row in partners|reverse %}
                 <tr id="testimonial_{{ row.id }}">
                     <td><span class="encart_home_body">{{ row.name }}</span></td>
+                    <td><span class="encart_home_body">{{ row.webSite }}</span></td>
                     <td>
                         <div class="actions">
                             <a href="{{ path('app_espace_admin_partner_edit', {'id' : row.id}) }}"

@@ -1032,169 +1032,11 @@
 	</div>
 
 	<section id="guide" class="container world-globe" style="max-width: 1700px !important;">
-		<h3 class="text-center encart_home_head mb-3">Comment ça marche </h3>
-		<h5 class="text-center encart_home_body">Création d'une réunion : </h5>
-		<div class=" bd-example">
-			<div id="carouselExampleCaptions" class="carousel slide multi-item-carousel " data-ride="carousel">
-				<div class="carousel-inner">
-					<div class="carousel-item active">
-						<div class="item__third">
-							<img src="{{ asset('frontend/images/photo-1520333789090-1afc82db53@2x.png') }}" class="d-block w-100 slide-img" alt="">
-							<div class="carousel-caption d-none d-md-block"></div>
-						</div>
-					</div>
-					<div class="carousel-item">
-						<div class="item__third">
-							<img src="{{ asset('frontend/images/photo-1571826867433-29518cc0b0.png') }}" class="d-block w-100 slide-img" alt="">
-							<div class="carousel-caption d-none d-md-block"></div>
-						</div>
-					</div>
-					<div class="carousel-item">
-						<div class="item__third">
-							<img src="{{ asset('frontend/images/photo-1448932223592-d1fc686e76.png') }}" class="d-block w-100 slide-img" alt="">
-							<div class="carousel-caption d-none d-md-block"></div>
-						</div>
-					</div>
-				</div>
-				<a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
-					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-					<span class="sr-only">Previous</span>
-				</a>
-				<a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
-					<span class="carousel-control-next-icon" aria-hidden="true"></span>
-					<span class="sr-only">Next</span>
-				</a>
-				<div class="btnPlay">
-					<a href=""><img src="{{ asset('build/images/play-button.svg') }}"></a>
-				</div>
-				<div class="degradePrev"></div>
-				<div class="degradeNext"></div>
-			</div>
-		</div>
-		{#<div class="slick-center-wrap">
-			<a href="javascript:;" title="上一張" class="pic-prev">prev</a>
-			<a href="javascript:;" title="下一張" class="pic-next">next</a>
-			<ul class="slick-center">
-
-				<div>
-					<img src="{{ asset('frontend/images/photo-1448932223592-d1fc686e76.png') }}" class="d-block w-100 slide-img" alt="">
-				</div>
-				<div>
-					<img src="{{ asset('frontend/images/photo-1571826867433-29518cc0b0.png') }}" class="d-block w-100 slide-img" alt="">
-				</div>
-				<div>
-					<img src="{{ asset('frontend/images/photo-1520333789090-1afc82db53@2x.png') }}" class="d-block w-100 slide-img" alt="">
-				</div>
-				<div>
-					<img src="{{ asset('frontend/images/photo-1571826867433-29518cc0b0.png') }}" class="d-block w-100 slide-img" alt="">
-				</div>
-			</ul>
-		</div>#}
+		{% include 'frontend/home/guide.html.twig' %}
 	</section>
 
 	<section id="testmoniaux" class="container-fluid text-center"  style="max-width: 1700px !important;" >
-		<p><h3 class="text-center text-danger encart_home_body"> Leur avis compte ! </h3></p>
-		<div class="rectangle">
-			<div class="container text-center my-3" style="max-width: 1700px !important;">
-
-				<div class=" bd-example">
-					<div id="carouselExampleCaptions" class="carousel slide multi-item-carousel " data-ride="carousel">
-						<div class="carousel-inner">
-							<div class="carousel-item active">
-								<div class="item__third">
-									<div class="card bg-transparent border-0 w-100">
-										<div class="card-body row py-5">
-											<div class="col-sm-3">
-												<img src="{{ asset('frontend/images/Ellipse_19.png') }}" alt="" class="rounded-circle img-fluid"/>
-											</div>
-											<div class="col-sm-9 text-justify">
-												<h4 class="encart_home_head mb-3">
-													<div class="float-left">Craig Holmes</div>
-													<div class="float-left">
-														<span style=" font-size: 40px" class="fa fa-quote-right text-white ml-5"></span>
-													</div>
-													<div style="clear: both"></div>
-												</h4>
-												<span class="encart_home_body" style="font-size: 15px;">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Cras justo odio, dapibus ac facilisis in, egestas eget quam.</span><br>
-												<span class="fa fa-star checked"></span>
-												<span class="fa fa-star checked"></span>
-												<span class="fa fa-star checked"></span>
-												<span class="fa fa-star"></span>
-												<span class="fa fa-star"></span>
-
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="carousel-item">
-								<div class="item__third">
-									<div class="card bg-transparent border-0 w-100">
-										<div class="card-body row py-5">
-											<div class="col-sm-3">
-												<img src="{{ asset('frontend/images/Ellipse_19.png') }}" alt="" class="rounded-circle img-fluid"/>
-											</div>
-											<div class="col-sm-9 text-justify">
-												<h4 class="encart_home_head mb-3">
-													<div class="float-left">Craig Holmes</div>
-													<div class="float-left">
-														<span style=" font-size: 40px" class="fa fa-quote-right text-white ml-5"></span>
-													</div>
-													<div style="clear: both"></div>
-												</h4>
-												<span class="encart_home_body" style="font-size: 15px;">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Cras justo odio, dapibus ac facilisis in, egestas eget quam.</span><br>
-												<span class="fa fa-star checked"></span>
-												<span class="fa fa-star checked"></span>
-												<span class="fa fa-star checked"></span>
-												<span class="fa fa-star"></span>
-												<span class="fa fa-star"></span>
-
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="carousel-item">
-								<div class="item__third">
-									<div class="card bg-transparent border-0 w-100">
-										<div class="card-body row py-5">
-											<div class="col-sm-3">
-												<img src="{{ asset('frontend/images/Ellipse_19.png') }}" alt="" class="rounded-circle img-fluid"/>
-											</div>
-											<div class="col-sm-9 text-justify">
-												<h4 class="encart_home_head mb-3">
-													<div class="float-left">Craig Holmes</div>
-													<div class="float-left">
-														<span style=" font-size: 40px" class="fa fa-quote-right text-white ml-5"></span>
-													</div>
-													<div style="clear: both"></div>
-												</h4>
-												<span class="encart_home_body" style="font-size: 15px;">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Cras justo odio, dapibus ac facilisis in, egestas eget quam.</span><br>
-												<span class="fa fa-star checked"></span>
-												<span class="fa fa-star checked"></span>
-												<span class="fa fa-star checked"></span>
-												<span class="fa fa-star"></span>
-												<span class="fa fa-star"></span>
-
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
-							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-							<span class="sr-only">Previous</span>
-						</a>
-						<a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
-							<span class="carousel-control-next-icon" aria-hidden="true"></span>
-							<span class="sr-only">Next</span>
-						</a>
-					</div>
-				</div>
-			</div>
-		</div>
-
+		{% include 'frontend/home/testimonial.html.twig' %}
 	</section>
 
 	{#		slick begin#}
@@ -1257,9 +1099,6 @@
 								{% endif %}
 							</h5>
 							<div class="subscription_choice_{{ row.id }}">
-								{#								{{ app.session.set('test', 1) }}#}
-								{#								{{ app.session.remove('test') }}#}
-								{#								{{ dump(app.session.get('test')) }}#}
 								{% set path_destination = path('app_espace_client_meeting_list') %}
 								{% if row.mode == 'paying' %}
 									{% set path_destination = path('app_espace_client_profil_subscription_pre_payment', {'id':row.id}) %}
@@ -1286,4 +1125,21 @@
 	<br><br>
 
 
+{% endblock %}
+{% block javascripts %}
+	{{ parent() }}
+	<script>
+		$(document).ready(function() {
+			let $videoSrc;
+			$('.video-btn').click(function() {
+				$videoSrc = $(this).data( "src" );
+			});
+			$('#myModal').on('shown.bs.modal', function (e) {
+				$("#video").attr('src',$videoSrc + "?autoplay=1&amp;modestbranding=1&amp;showinfo=0" );
+			})
+			$('#myModal').on('hide.bs.modal', function (e) {
+				$("#video").attr('src',$videoSrc);
+			})
+		});
+	</script>
 {% endblock %}

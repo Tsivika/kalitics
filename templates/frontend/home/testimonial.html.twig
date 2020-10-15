@@ -1,0 +1,51 @@
+<p><h3 class="text-center text-danger encart_home_body"> Leur avis compte ! </h3></p>
+<div class="rectangle">
+    <div class="container text-center my-3" style="max-width: 1700px !important;">
+        <div class=" bd-example">
+            <div id="carouselExampleCaptions" class="carousel slide multi-item-carousel " data-ride="carousel">
+                <div class="carousel-inner">
+                    {% for key, row in testimonials %}
+                        <div {% if loop.index0 == 0 %} class="carousel-item active" {% else %} class="carousel-item" {% endif %}">
+                            <div class="item__third">
+                                <div class="card bg-transparent border-0 w-100">
+                                    <div class="card-body row py-5">
+                                        <div class="col-sm-3">
+                                            <img src="{{ asset('uploads/images/' ~ row.pdc) }}" alt="" class="rounded-circle img-fluid"/>
+                                        </div>
+                                        <div class="col-sm-9 text-justify">
+                                            <h4 class="encart_home_head mb-3">
+                                                <div class="float-left">{{ row.name }}</div>
+                                                <div class="float-left">
+                                                    <span style=" font-size: 40px" class="fa fa-quote-right text-white ml-5"></span>
+                                                </div>
+                                                <div style="clear: both"></div>
+                                            </h4>
+                                            <span class="encart_home_body" style="font-size: 15px;">
+                                                {{ row.content|raw }}
+                                            </span><br>
+                                            {% for i in 1 .. 5 %}
+                                                {% if i <= row.score %}
+                                                    <span class="fa fa-star checked"></span>
+                                                {% else %}
+                                                    <span class="fa fa-star"></span>
+                                                {% endif%}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

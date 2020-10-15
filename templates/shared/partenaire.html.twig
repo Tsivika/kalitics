@@ -1,7 +1,10 @@
 <h3 class="text-center encart_home_head">Ils nous font confiance </h3>
 <div class="rectangle text-center py-5">
-    <div class="col-md-3 rectangle-logo  "><img  class="img-fluid"    src="{{ asset('frontend/images/AccorHotelssvg_lu.png') }}"></div>
-    <div class="col-md-3 rectangle-logo  "><img  class="img-fluid"    src="{{ asset('frontend/images/uber-eats-logo-png_lw.png') }}"></div>
-    <div class="col-md-3 rectangle-logo  "><img  class="img-fluid"   src="{{ asset('frontend/images/AccorHotelssvg_lu.png') }}"></div>
-    <div class="col-md-3 rectangle-logo  "><img  class="img-fluid"  width="200px" height="60px" src="{{ asset('frontend/images/Uber_logo_2018_ly.png') }}"></div>
+    {% for row in partners %}
+        <div class="col-md-3 rectangle-logo">
+                <a href="{{ row.webSite }}" target="_blank">
+                    <img  class="img-fluid" src="{{ asset('uploads/images/' ~ row.pdc) }}">
+                </a>
+        </div>
+    {% endfor %}
 </div>

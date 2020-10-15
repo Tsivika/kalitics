@@ -4,9 +4,11 @@ namespace App\Form;
 
 use App\Entity\VideoGuide;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class VideoGuideType extends AbstractType
 {
@@ -28,6 +30,25 @@ class VideoGuideType extends AbstractType
                     'placeholder' => 'Lien',
                     'style' => 'width:450px',
                 ]
+            ])
+            ->add('pdc', FileType::class, [
+                'label' => 'Image de couverture',
+                'attr' => [
+                    'accept' => 'image/jpeg, image/jpg, image/png',
+                ],
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => [
+                            'image/jpg',
+                            'image/jpeg',
+                            'image/png',
+                        ],
+                        'mimeTypesMessage' => 'fichiers : jpg, jpeg, png sont valides',
+                    ])
+                ],
             ])
         ;
     }

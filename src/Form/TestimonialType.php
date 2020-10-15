@@ -33,9 +33,10 @@ class TestimonialType extends AbstractType
             ])
             ->add('content', TextareaType::class, [
                 'label' => 'Contenu',
+                'required' => false,
                 'attr' => [
                     'class' => 'form-control bg-white encart_home_body ',
-                    'placeholder' => 'Avis',
+                    'placeholder' => 'Avis (maxi : 200 caractères)',
                 ]
             ])
             ->add('image', FileType::class, [

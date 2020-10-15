@@ -50,7 +50,7 @@ class TestimonialHandler extends Handler
         $imageFile = $this->form->get('image')->getData();
         $name = $this->form->get('name')->getData();
         $score = $this->form->get('score')->getData();
-        $content = $this->form->get('content')->getData();
+        $content = $this->form->get('content')->getData() ?? '';
 
         if ($imageFile) {
             $imageFileName = $this->imageUploader->upload($imageFile);

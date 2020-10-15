@@ -4,6 +4,7 @@
 namespace App\Form\Handler;
 
 
+use App\Entity\VideoGuide;
 use App\Manager\VideoGuideManager;
 use App\Services\ImageUploader;
 use Symfony\Component\Form\FormInterface;
@@ -17,17 +18,25 @@ use Symfony\Component\HttpFoundation\Request;
 class VideoGuideHandler extends Handler
 {
     /**
+     * @var ImageUploader
+     */
+    private $imageUploader;
+
+    private $videoGuide;
+    /**
      * VideoGuideHandler constructor.
      *
      * @param FormInterface     $form
      * @param Request           $request
      * @param VideoGuideManager $em
      */
-    public function __construct(FormInterface $form, Request $request, VideoGuideManager $em)
+    public function __construct(FormInterface $form, Request $request, VideoGuideManager $em, ImageUploader $imageUploader, VideoGuide $videoGuide)
     {
         $this->form = $form;
         $this->request = $request;
         $this->em = $em;
+        $this->imageUploader = $imageUploader;
+        $this->videoGuide = $videoGuide;
     }
 
     /**
@@ -35,8 +44,18 @@ class VideoGuideHandler extends Handler
      */
     function onSuccess()
     {
-        $param = $this->form->getData();
-        $this->em->saveOrUpdate($param);
+        $titre = $this->form->get('titre')->getData();
+        $imageFile = $this->form->get('pdc')->getData();
+        $url = $this->form->get('url')->getData();
+
+        if ($imageFile) {
+            $imageFileName = $this->imageUploader->upload($imageFile);
+            $this->videoGuide->setPdc($imageFileName);
+        }
+        $this->videoGuide->setTitre($titre);
+        $this->videoGuide->setUrl($url);
+
+        $this->em->saveOrUpdate($this->videoGuide);
 
         return true;
     }

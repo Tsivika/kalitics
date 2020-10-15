@@ -23,6 +23,14 @@ class PartnerType extends AbstractType
                     'style' => 'width:400px',
                 ]
             ])
+            ->add('webSite', TextType::class, [
+                'label' => 'Site web',
+                'attr' => [
+                    'class' => 'form-control bg-white encart_home_body',
+                    'placeholder' => 'Site web (ex: http://google.com)',
+                    'style' => 'width:400px',
+                ]
+            ])
             ->add('pdc', FileType::class, [
                 'label' => 'Image de couverture',
                 'attr' => [

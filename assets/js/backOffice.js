@@ -1,4 +1,5 @@
 import {
+    simpleSwalAlert,
     confirmSwalAlertTestimonial,
     confirmSwalAlertPartner,
     confirmSwalAlertVideoGuide
@@ -9,6 +10,11 @@ import { customDatatableMeeting } from "./datatable/custom_datatable";
 
 Routing.setRoutingData(routes);
 
+import tinymce from "tinymce";
+import 'tinymce/themes/silver/theme';
+import 'tinymce/plugins/paste';
+import 'tinymce/plugins/link';
+
 (function ($) {
     $(document).ready(function() {
         customDatatableMeeting('#dataTable_testimonial');
@@ -18,6 +24,77 @@ Routing.setRoutingData(routes);
         deletePartner();
         deleteVideoGuide();
     });
+
+    tinymce.init({
+        selector: "textarea",
+        init_instance_callback: function (editor) {
+            editor.on('keypress', function (e) {
+                if (getStats('testimonial_content').chars >= 200) {
+                    simpleSwalAlert('Nombre de caractères autorisé pour le contenu : 200 maxi', '');
+                }
+            });
+        },
+        branding: false,
+        height: 300,
+        width: 660,
+        plugins: 'link',
+        toolbar1: "bold italic underline | alignleft aligncenter alignright alignjustify",
+        toolbar2: "cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image media code | insertdatetime preview | forecolor backcolor",
+        menubar: false,
+        toolbar_items_size: 'small',
+        style_formats: [{
+            title: 'Bold text',
+            inline: 'b'
+        }, {
+            title: 'Red text',
+            inline: 'span',
+            styles: {
+                color: '#ff0000'
+            }
+        }, {
+            title: 'Red header',
+            block: 'h1',
+            styles: {
+                color: '#ff0000'
+            }
+        }, {
+            title: 'Example 1',
+            inline: 'span',
+            classes: 'example1'
+        }, {
+            title: 'Example 2',
+            inline: 'span',
+            classes: 'example2'
+        }, {
+            title: 'Table styles'
+        }, {
+            title: 'Table row 1',
+            selector: 'tr',
+            classes: 'tablerow1'
+        }],
+
+        templates: [{
+            title: 'Test template 1',
+            content: 'Test 1'
+        }, {
+            title: 'Test template 2',
+            content: 'Test 2'
+        }],
+        content_css: [
+            '//fast.fonts.net/cssapi/e6dc9b99-64fe-4292-ad98-6974f93cd2a2.css',
+            '//www.tinymce.com/css/codepen.min.css'
+        ],
+
+    });
+
+    function getStats(id) {
+        let body = tinymce.get(id).getBody(), text = tinymce.trim(body.innerText || body.textContent);
+
+        return {
+            chars: text.length,
+            words: text.split(/[\w\u2019\'-]+/).length
+        };
+    }
 
     function deleteTestimonial()
     {

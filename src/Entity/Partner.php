@@ -27,6 +27,11 @@ class Partner
      */
     private $pdc;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $webSite;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,6 +57,18 @@ class Partner
     public function setPdc(?string $pdc): self
     {
         $this->pdc = $pdc;
+
+        return $this;
+    }
+
+    public function getWebSite(): ?string
+    {
+        return $this->webSite;
+    }
+
+    public function setWebSite(?string $webSite): self
+    {
+        $this->webSite = $webSite;
 
         return $this;
     }

@@ -7032,7 +7032,9 @@ img{ max-width: 100%; max-height: 100%; }
 /* *** customize datatable ** */
 #list-meetings .page-item.active .page-link,
 #list-testimonials .page-item.active .page-link,
-#list-video-guide .page-item.active .page-link {
+#list-video-guide .page-item.active .page-link,
+#list-partner .page-item.active .page-link
+{
     z-index: 1;
     color: #fff;
     background-color: #00C9AE;
@@ -7041,7 +7043,8 @@ img{ max-width: 100%; max-height: 100%; }
 }
 #list-meetings .page-link,
 #list-testimonials .page-link,
-#list-video-guide .page-link
+#list-video-guide .page-link,
+#list-partner .page-link
 {
       position: relative;
       display: block;
@@ -7054,6 +7057,7 @@ img{ max-width: 100%; max-height: 100%; }
 #list-meetings .page-link:hover,
 #list-testimonials .page-link:hover,
 #list-video-guide .page-link:hover
+#list-partner .page-link:hover
 {
     z-index: 2;
     color: #ffffff;
@@ -7064,3 +7068,17 @@ img{ max-width: 100%; max-height: 100%; }
 }
 /* *** ** */
 
+.itemsContainer {
+    float:left;
+    position:relative;
+}
+.itemsContainer:hover .play{display:block}
+.play{
+    top:30%;
+    position: absolute;
+    display:none;
+    align-items: center;
+    text-align: center;
+    margin-left: 47%;
+    z-index:100;
+}
