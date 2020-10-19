@@ -23,7 +23,7 @@ Routing.setRoutingData(routes);
 
     function profilChangeRole()
     {
-        $(document).on('click', '#change-roles', function(e) {
+        $(document).on('change', '#change-roles', function(e) {
             var role = $(this).val();
             var id_profil = $(this).data('id_profil');
             console.log(id_profil);
