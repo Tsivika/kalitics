@@ -75,6 +75,14 @@ class MeetingManager extends BaseManager
         );
     }
 
+    public function meetingByIdentifiant($identifiant)
+    {
+        return $this->repository->findOneBy(
+            ['identifiant' => $identifiant],
+            ['id' => 'DESC']
+        );
+    }
+
     /**
      * @param User $user
      * @return mixed

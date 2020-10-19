@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Meeting;
+use App\Entity\Partner;
 use App\Entity\Subscription;
 use App\Entity\User;
 use App\Form\Handler\AccountHandler;
@@ -15,6 +16,7 @@ use App\Form\UserAccountType;
 use App\Manager\AccountManager;
 use App\Manager\MeetingManager;
 use App\Manager\ParameterManager;
+use App\Manager\PartnerManager;
 use App\Manager\RegisterManager;
 use App\Manager\SubscriptionManager;
 use App\Manager\UserManager;
@@ -80,11 +82,21 @@ class RegistrationController extends AbstractController
     private $secretBbb;
 
     /**
-     * RegistrationController constructor.
-     * @param EmailVerifier   $emailVerifier
-     * @param RegisterManager $em
+     * @var
      */
-    public function __construct(EmailVerifier $emailVerifier, RegisterManager $em, SessionInterface $session, RouterInterface $router, ContainerBagInterface $params)
+    private $partners;
+
+    /**
+     * RegistrationController constructor.
+     *
+     * @param EmailVerifier         $emailVerifier
+     * @param RegisterManager       $em
+     * @param SessionInterface      $session
+     * @param RouterInterface       $router
+     * @param ContainerBagInterface $params
+     * @param PartnerManager        $partnerManager
+     */
+    public function __construct(EmailVerifier $emailVerifier, RegisterManager $em, SessionInterface $session, RouterInterface $router, ContainerBagInterface $params, PartnerManager $partnerManager)
     {
         $this->emailVerifier = $emailVerifier;
         $this->em = $em;
@@ -93,6 +105,7 @@ class RegistrationController extends AbstractController
         $this->params = $params;
         $this->urlBbb = $this->params->get('app.bbb_server_base_url');
         $this->secretBbb = $this->params->get('app.bbb_secret');
+        $this->partners = $partnerManager->findAll();
     }
 
     /**
@@ -147,6 +160,7 @@ class RegistrationController extends AbstractController
         $response = $this->render('registration/register.html.twig', [
             'registrationForm' => $handler->getForm()->createView(),
             'preUser' => $preUser,
+            'partners' => $this->partners,
         ]);
 
         if ($request->isXmlHttpRequest()){
@@ -194,12 +208,18 @@ class RegistrationController extends AbstractController
 
         return $response;
     }
+
     /**
      * @Route("/register-user-meeting", name="register_user_meeting")
      *
-     * @param Request $request
+     * @param Request           $request
+     * @param RouterInterface   $router
+     * @param ParameterManager  $paramManager
+     * @param MeetingManager    $meetingManager
      *
      * @return JsonResponse|Response
+     *
+     * @throws \Exception
      */
     public function registerUserMeeting(Request $request, RouterInterface $router, ParameterManager $paramManager, MeetingManager $meetingManager)
     {
@@ -227,6 +247,7 @@ class RegistrationController extends AbstractController
         $response = $this->render('registration/register_user_meeting.html.twig', [
             'form' => $formUserMeeting->createView(),
             'userSubscription' => $userSubscription,
+            'partners' => $this->partners,
         ]);
 
         if ($request->isXmlHttpRequest()){
@@ -248,15 +269,17 @@ class RegistrationController extends AbstractController
      */
     public function registerUserRunMeeting(Request $request, MeetingManager $manager)
     {
+        $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
         $user = $this->getUser();
         if (!$user) {
             throw new Exception("Vous n'avez pas accès à cette page");
         }
         $meeting = $manager->getUserLastMeeting($this->getUser());
-        $link = $meeting->getLink();
+        $identifiant = $meeting->getIdentifiant();
 
         $response = $this->render('registration/register_user_run_meeting.html.twig', [
-            'link' => $link,
+            'link' => $baseurl.'/reunion/'.$identifiant,
+            'partners' => $this->partners,
         ]);
 
         if ($request->isXmlHttpRequest()){

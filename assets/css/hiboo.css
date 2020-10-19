@@ -98,17 +98,17 @@ header.masthead {
 .masthead h1 {
 
     font-style: normal;
-    font-weight: normal;
-    font-size: 60px;
+    font-weight: lighter;
+    font-size: 100px;
     color: rgba(0,201,174,1);
-    font-family: GalanoGrotesqueAltMedium ;
+    font-family: GalanoGrotesque ;
     z-index: 1;
 }
 .masthead h2 {
-    font-family: GalanoGrotesqueAltRegular ;
+    font-family: GalanoGrotesque ;
     font-style: normal;
     font-weight: lighter;
-    font-size: 55px;
+    font-size: 66px;
     color: rgba(6,41,68,1);
     z-index: 1;
 }
@@ -117,7 +117,7 @@ header.masthead {
 }
 .site-heading .btn{
     background-color: #FF5A5F !important;
-    font-family: GalanoGrotesqueAltRegular;
+    font-family: GalanoGrotesque;
     font-size: 18px;
     letter-spacing: 0px;
     color: #FFFFFF;
@@ -3235,8 +3235,9 @@ li  {
     overflow: visible;
 }
 .encart_home_head {
-    font-family: GalanoGrotesqueAltMedium;
+    font-family: GalanoGrotesque;
     letter-spacing: 0px;
+    font-weight: 600;
     opacity: 1;
 }
 .encart_home_body {
@@ -6776,7 +6777,6 @@ li  {
     color: #062944;
     font-family: GalanoGrotesqueAltRegular ;
 }
-
 
 section {
     padding-top: 50px;

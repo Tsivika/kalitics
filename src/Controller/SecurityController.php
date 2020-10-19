@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Manager\PartnerManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -17,13 +18,13 @@ class SecurityController extends AbstractController
 
     public function __construct(SessionInterface $session)
     {
-
         $this->session = $session;
     }
+
     /**
      * @Route("/login", name="app_login")
      */
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login(AuthenticationUtils $authenticationUtils, PartnerManager $partnerManager): Response
     {
 //         if ($this->getUser()) {
 //             return $this->redirectToRoute('target_path');
@@ -39,6 +40,7 @@ class SecurityController extends AbstractController
             'last_username' => $lastUsername,
             'error' => $error,
             'redirect' => $path,
+            'partners' => $partnerManager->findAll(),
         ]);
     }
 
