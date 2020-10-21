@@ -7,7 +7,12 @@
 
     color:rgba(0,201,174,1);
 }
-
+section p {
+    color: #062944;
+}
+.h5, h5 {
+    color: #062944;
+}
 .login{
 
     background-color:rgba(0,201,174,1);
@@ -65,7 +70,7 @@
 }
 
 .text-green {
-    color: rgba(0,201,174,1);
+    color: rgba(0,201,174,1) !important;
 }
 .text-red {
     color: #FF5A5F;

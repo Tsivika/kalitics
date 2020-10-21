@@ -101,7 +101,7 @@
   margin-left: 47%;
 }
 .checked {
-  color: orange;
+  color: orange !important;
 }
 
 #recipeCarousel .carousel-control-prev,

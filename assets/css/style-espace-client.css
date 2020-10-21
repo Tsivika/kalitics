@@ -27,7 +27,7 @@
     color: #ffffff;
 }
 .wrapper_espc {
-    font-family: "GalanoGrotesqueAltRegular";
+    font-family: "GalanoGrotesque";
 }
 .dropdown-menu a {
     color: #212529 !important;
@@ -281,5 +281,67 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
     margin: 2px 0;
     white-space: nowrap;
     justify-content: center !important;
+}
+.list_meeting_head {
+    border-bottom: solid 1px #062944;
+    font-family: GalanoGrotesque;
+    padding-bottom: 13px;
+    margin-bottom: 13px;
+    text-align: left;
+    letter-spacing: 0px;
+    color: #062944;
+    opacity: 1;
+}
+.list_meeting_head a:hover{
+    text-decoration: none;
+    color: #062944;
+}
+.list_meeting_border_radius {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 0px 6px #0000001A;
+    border-radius: 5px;
+    height: 50px;
+    font-family: GalanoGrotesque;
+    letter-spacing: 0px;
+    color: #062944;
+    opacity: 1;
+}
+.list_pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.list_pagination .pagination {
+    display: flex;
+    justify-content: center;
+}
+
+.list_pagination .pagination .first,
+.list_pagination .pagination .previous,
+.list_pagination .pagination .next,
+.list_pagination .pagination .last
+{
+    display: none;
+}
+
+.list_pagination .pagination .current{
+    display: block;
+    width: 32px;
+    height: 32px;
+    margin: auto 20px;
+    background: #00C9AE 0% 0% no-repeat padding-box;
+    border-radius: 50%;
+    font: normal normal normal 18px/28px GalanoGrotesque;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    opacity: 1;
+}
+
+.list_pagination .pagination .page{
+    margin: auto 20px;
+    font: normal normal normal 18px/28px GalanoGrotesque;
+    letter-spacing: 0px;
+    color: #062944;
+    opacity: 1;
 }
 

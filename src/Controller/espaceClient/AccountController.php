@@ -6,6 +6,7 @@ use App\Entity\Subscription;
 use App\Form\Handler\AccountHandler;
 use App\Form\UserAccountType;
 use App\Manager\AccountManager;
+use App\Manager\PartnerManager;
 use App\Manager\SubscriptionManager;
 use App\Manager\UserManager;
 use App\Repository\CodePromoRepository;
@@ -109,7 +110,7 @@ class AccountController extends AbstractController
      *
      * @return Response
      */
-    public function userSubscriptionPrePayment(Request $request, Subscription $subscription, SubscriptionManager $subscriptionManager, StripePayement $stripe, AccountManager $accountManager)
+    public function userSubscriptionPrePayment(Request $request, Subscription $subscription, SubscriptionManager $subscriptionManager, StripePayement $stripe, AccountManager $accountManager, PartnerManager $partnerManager)
     {
         if ($this->getUser() === null) {
             $redirection = new RedirectResponse($this->router->generate('app_espace_client_profil_subscription_pre_payment', ['id' => $subscription->getId()]));
@@ -130,7 +131,8 @@ class AccountController extends AbstractController
             'subscriptionPaying' => $subPaying,
             'user' => $this->getUser(),
             'form' => $form->createView(),
-            'type' => $subscription->getId()
+            'type' => $subscription->getId(),
+            'partners' => $partnerManager->findAll(),
         ]);
     }
 

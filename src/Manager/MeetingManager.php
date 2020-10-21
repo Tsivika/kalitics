@@ -15,11 +15,6 @@ use BigBlueButton\Parameters\EndMeetingParameters;
 use BigBlueButton\Parameters\GetMeetingInfoParameters;
 use BigBlueButton\Parameters\CreateMeetingParameters;
 use BigBlueButton\Parameters\JoinMeetingParameters;
-//use App\bbb\src\BigBlueButton;
-//use App\bbb\src\Parameters\EndMeetingParameters;
-//use App\bbb\src\Parameters\GetMeetingInfoParameters;
-//use App\bbb\src\Parameters\CreateMeetingParameters;
-//use App\bbb\src\Parameters\JoinMeetingParameters;
 
 /**
  * Class MeetingManager

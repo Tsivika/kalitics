@@ -8,6 +8,7 @@ use App\Form\Handler\MeetingHandler;
 use App\Form\MeetingType;
 use App\Manager\MeetingManager;
 use App\Manager\ParameterManager;
+use Knp\Component\Pager\PaginatorInterface;
 use phpDocumentor\Reflection\Types\This;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -59,13 +60,20 @@ class MeetingController extends AbstractController
     /**
      * @Route("/", name="app_espace_client_meeting_list")
      */
-    public function meetingList()
+    public function meetingList(Request $request, PaginatorInterface $paginator)
     {
-        $meetings = $this->em->getUserMeetingList($this->getUser());
-
+        $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+        $result = $this->em->getUserMeetingList($this->getUser());
+        $meetings = $paginator->paginate(
+            $result,
+            $request->query->getInt('page', 1),
+            10
+        );
+        $meetings->setSortableTemplate('shared/sortable_link.html.twig');
         return $this->render('espace_client/meeting/list.html.twig', [
             'meetings' => $meetings,
             'title' => 'Liste de mes réunions',
+            'baseUrl' => $baseurl,
         ]);
     }
 
@@ -110,6 +118,9 @@ class MeetingController extends AbstractController
         $title = $meeting ? 'Modifier la réunion' : 'Ajouter une réunion';
         $mode = $meeting ?? false;
         $userSubscription = $this->getUser()->getSubscriptionUser();
+        if ($userSubscription === null) {
+            return $this->redirectToRoute('app_espace_client_subscription_list');
+        }
 
         $form = $this->createForm(MeetingType::class, $meetingEntity);
         $handler = new MeetingHandler($form, $request, $this->getUser(), $this->em, $router);
@@ -125,9 +136,10 @@ class MeetingController extends AbstractController
                     return $this->redirectToRoute('app_espace_client_meeting_list');
                 } else {
                     $theMeeting = $this->em->getUserLastMeeting($this->getUser());
+                    $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
 
                     return $this->render('espace_client/meeting/add_confirmation.html.twig', [
-                        'link' => $theMeeting->getLink(),
+                        'link' => $baseurl.'/reunion/'.$theMeeting->getIdentifiant(),
                         'title' => 'Bravo, vous venez de créer une réunion',
                     ]);
                 }

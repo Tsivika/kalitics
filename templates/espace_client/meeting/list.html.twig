@@ -8,60 +8,55 @@
             <a class="btn  btn-large py-2 login" href="{{ path('app_espace_client_meeting_add') }}" role="button">Ajouter une réunion</a>
         </div>
     </div>
-    <div class="row mt-5" id="list-meetings">
-        <table class="table dataTable_meeting" id="dataTable_meeting">
-            <thead>
-                <tr>
-                    <td class="encart_home_head text-green">Heure de début</td>
-                    <td class=""></td>
-                    <td class="encart_home_head">Sujet</td>
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <td class="encart_home_head text-center">Statut</td>
-                    {% endif %}
-                    <td class="encart_home_head">Lien de la réunion</td>
-                    <td></td>
-                </tr>
-            </thead>
-            <tbody>
-            {% for row in meetings|reverse %}
-                <tr id="meeting_{{ row.id }}">
-                    <td class="encart_home_body">{{ row.date|date("d/m/yy") }} à  {{ row.date|date("H:i") }}</td>
-                    <td class="encart_home_body"><a class="detail_meeting encart_home_body" href="#" data-meeting="{{ row.id }}">Info+</a></td>
-                    <td class="encart_home_body">{{ row.subject }}</td>
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <td class="text-center encart_home_body">
-                            <span class="d-none">{{ row.status }}</span>
-                            {% if row.status %}
-                                <span data-toggle="tooltip" title="Réunion déjà faite!"><i class="fa fa-lock text-danger"></i></span>
-                            {% else %}
-                                <i class="fa fa-unlock-alt text-info "></i>
-                            {% endif %}
-                        </td>
-                    {% endif %}
-                    <td class="link_identifiant encart_home_body">
-                        <span class="d-none">{{ row.link }}</span>
-                        <input class="input_copy" type="text" id="linkInput_{{ row.id }}" value="{{ row.link }}" readonly>
-                    </td>
-                    <td>
-                        <div class="actions link_identifiant">
-                            <button class="btn-icon-right btn btn-danger encart_home_body"
-                                    type="button"
-                                    onclick="return copyToPaste({{ row.id }});"
-                                    {{ row.status ? 'disabled="disabled"' : '' }}
-                                    data-target="#link-meeting">
+    <div class="mt-5 container" id="list-meetings">
+        <div class="row">
+            <div class="col-lg-3 list_meeting_head" style="display: flex; justify-content: flex-start">
+                <span class=" text-green">{{ knp_pagination_sortable(meetings, 'Heure de début', 'date') }}
+            </div>
+            <div class="col-lg-3 list_meeting_head "  style="display: flex; justify-content: flex-start">
+                <span>{{ knp_pagination_sortable(meetings, 'Sujet', 'subject') }}</span>
+            </div>
+            <div class="col-lg-3 list_meeting_head">Identifiant de réunion</div>
+            <div class="col-lg-3 list_meeting_head"></div>
+        </div>
+        {% for row in meetings|reverse %}
+            <div class="row list_meeting_border_radius mt-2"
+                 style="display: flex;
+                 justify-content: center;
+                 align-items: center;
+                ">
+                <div class="col-lg-3" style="display: flex; justify-content: space-between">
+                    <span>{{ row.date|date("d/m/yy") }} à  {{ row.date|date("H:i") }}</span>
+                    <span><a class="detail_meeting encart_home_body text-green" href="#" data-meeting="{{ row.id }}">Info+</a></span>
+                </div>
+                <div class="col-lg-3 ">{{ row.subject }}</div>
+                <div class="col-lg-3 ">
+                    <input class="input_copy" type="text" id="linkInput_{{ row.id }}" value="{{ baseUrl }}/reunion/{{ row.identifiant }}" readonly>
+                </div>
+                <div class="col-lg-3 text-center"
+                     style="
+                     display: flex;
+                     justify-content: center;
+                     align-items: center;
+                     ">
+{#                    <div class="actions link_identifiant">#}
+                        <span class="btn btn-danger mr-2" role="button"
+                                type="button"
+                                onclick="return copyToPaste({{ row.id }});"
+                                {{ row.status ? 'disabled="disabled"' : '' }}
+                                data-target="#link-meeting">
                                 <span class="small">
                                     Copier le lien <i class="fa fa-clone ml-2" aria-hidden="true"></i>
                                 </span>
-                            </button>
-                            <a href="#" data-meeting="{{ row.id }}" class="delete_meeting">
-                                <i class="fa fa-trash text-dark" aria-hidden="true"></i>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+                        </span>
+                        <a href="#" data-meeting="{{ row.id }}" class="delete_meeting">
+                            <i class="fa fa-trash text-dark" aria-hidden="true"></i>
+                        </a>
+{#                    </div>#}
+                </div>
+            </div>
+        {% endfor %}
+        <div class="list_pagination">{{ knp_pagination_render(meetings) }}</div>
     </div>
 {% endblock %}
 
