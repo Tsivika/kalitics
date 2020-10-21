@@ -46,29 +46,39 @@ class MeetingController extends AbstractController
     private $secretBbb;
 
     /**
-     * MeetingController constructor.
-     * @param MeetingManager $em
+     * @var
      */
-    public function __construct(MeetingManager $em, ContainerBagInterface $params)
+    private $paginator;
+
+    /**
+     * MeetingController constructor.
+     *
+     * @param MeetingManager        $em
+     * @param ContainerBagInterface $params
+     * @param PaginatorInterface    $paginator
+     */
+    public function __construct(MeetingManager $em, ContainerBagInterface $params, PaginatorInterface $paginator)
     {
         $this->em = $em;
         $this->params = $params;
         $this->urlBbb = $this->params->get('app.bbb_server_base_url');
         $this->secretBbb = $this->params->get('app.bbb_secret');
+        $this->paginator = $paginator;
     }
 
     /**
      * @Route("/", name="app_espace_client_meeting_list")
      */
-    public function meetingList(Request $request, PaginatorInterface $paginator)
+    public function meetingList(Request $request)
     {
         $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
         $result = $this->em->getUserMeetingList($this->getUser());
-        $meetings = $paginator->paginate(
+        $meetings = $this->paginator->paginate(
             $result,
             $request->query->getInt('page', 1),
             10
         );
+
         $meetings->setSortableTemplate('shared/sortable_link.html.twig');
         return $this->render('espace_client/meeting/list.html.twig', [
             'meetings' => $meetings,
@@ -89,7 +99,6 @@ class MeetingController extends AbstractController
      */
     public function meetingDetail(Request $request, Meeting $meeting)
     {
-//        $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
         $content = $this->em->detailMeeting($meeting);
 
         return new JsonResponse(
@@ -162,18 +171,28 @@ class MeetingController extends AbstractController
      *     options={"expose"=true},
      *     methods={"GET"})
      *
+     * @param Request $request
      * @param Meeting $meeting
      *
      * @return JsonResponse
      */
-    public function meetingDelete(Meeting $meeting)
+    public function meetingDelete(Request $request, Meeting $meeting)
     {
         $this->em->endMeeting($meeting, $this->urlBbb, $this->secretBbb);
-        $meetings = $this->em->deleteMeeting($meeting, $this->getUser());
+        $result = $this->em->deleteMeeting($meeting, $this->getUser());
+        $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+
+        $meetings = $this->paginator->paginate(
+            $result,
+            $request->query->getInt('page', 1),
+            10
+        );
+        $meetings->setSortableTemplate('shared/sortable_link.html.twig');
 
         return new JsonResponse( [
             'listHtml' => $this->renderView('espace_client/meeting/liste_ajax.html.twig', [
                 'meetings' => $meetings,
+                'baseUrl' => $baseurl,
             ]),
             'body' => "<p>La réunion est bien supprimée.</p>",
             'footer' => '<span>Consulter notre <a href="" class="text-green"> Politique de confidentialité</a></span>',

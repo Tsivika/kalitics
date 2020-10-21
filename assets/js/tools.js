@@ -46,11 +46,9 @@ export function confirmSwalAlertMeeting(msg, url, id) {
                 .then(function (response) {
                     simpleSwalAlert(response.data.body, response.data.footer);
                     $('#list-meetings').html(response.data.listHtml);
-                    customDatatableMeeting('#dataTable_meeting');
                 })
                 .catch(function (error) {
                     simpleSwalAlert('Une erreur s\'est produite.', response.data.footer);
-                    customDatatableMeeting('#dataTable_meeting');
                 });
         }
     })

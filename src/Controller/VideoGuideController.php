@@ -88,7 +88,7 @@ class VideoGuideController extends AbstractController
      *
      * @return JsonResponse
      */
-    public function deletePartner(VideoGuide $videoGuide)
+    public function deleteVideoGuide(VideoGuide $videoGuide)
     {
         $this->em->delete($videoGuide);
         $videoGuides = $this->em->findAll();

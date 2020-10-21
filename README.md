@@ -39,3 +39,7 @@ For prod env :
 ```bash
 $ docker-compose exec engine yarn encore production
 ```
+Chmod upload :
+```bash
+sudo chmod 777 -R uploads/
+```

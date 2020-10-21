@@ -47,13 +47,15 @@ class VideoGuideHandler extends Handler
         $titre = $this->form->get('titre')->getData();
         $imageFile = $this->form->get('pdc')->getData();
         $url = $this->form->get('url')->getData();
+        preg_match_all('#\bhttps?://[^,\s()<>]+(?:\([\w\d]+\)|([^,[:punct:]\s]|/))#', $url, $match);
 
         if ($imageFile) {
             $imageFileName = $this->imageUploader->upload($imageFile);
             $this->videoGuide->setPdc($imageFileName);
         }
+
         $this->videoGuide->setTitre($titre);
-        $this->videoGuide->setUrl($url);
+        $this->videoGuide->setUrl($match[0][0]);
 
         $this->em->saveOrUpdate($this->videoGuide);
 

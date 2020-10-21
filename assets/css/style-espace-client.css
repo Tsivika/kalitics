@@ -3,7 +3,7 @@
     opacity: 1;
     letter-spacing: 0px;
     max-height: 60px;
-    font-family: "GalanoGrotesqueAltRegular";
+    font-family: "GalanoGrotesque";
     z-index: 999;
 }
 #menu_espc .container {
@@ -122,7 +122,7 @@ img .image-profil {
     border:none;
 }
 .accordion-panel {
-    font-family: "GalanoGrotesqueAltRegular";
+    font-family: "GalanoGrotesque";
 }
 .accordion-panel .accordion {
     padding-top: 0px;
@@ -252,7 +252,7 @@ img .image-profil {
 
 .head_text_param {
     text-align: center;
-    font-family: GalanoGrotesqueAltMedium ;
+    font-family: GalanoGrotesqueMedium ;
     font-size: 18px;
     letter-spacing: 0px;
     opacity: 1;
@@ -261,7 +261,7 @@ img .image-profil {
 
 .body_text_param {
     text-align: center;
-    font-family: "GalanoGrotesqueAltRegular";
+    font-family: "GalanoGrotesque";
     font-size: 14px;
     letter-spacing: 0px;
     opacity: 1;
