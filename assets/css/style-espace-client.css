@@ -6,14 +6,23 @@
     font-family: "GalanoGrotesque";
     z-index: 999;
 }
-#menu_espc .container {
+
+#menu_espc .container-fluid {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
+    padding-left: 35px;
 }
 .item-link {
-    margin: 15px 50px 15px 0px;
-
+    margin: 15px 25px 15px 0px;
+}
+.item-link.active {
+    padding-bottom: 5px;
+    border:solid 2px #00C9AE;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    text-decoration: none;
 }
 .item-link a:hover {
     padding-bottom: 5px;

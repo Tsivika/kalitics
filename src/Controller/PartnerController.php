@@ -7,6 +7,7 @@ use App\Form\Handler\PartnerHandler;
 use App\Form\PartnerType;
 use App\Manager\PartnerManager;
 use App\Services\ImageUploader;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -29,13 +30,19 @@ class PartnerController extends AbstractController
     private $em;
 
     /**
+     * @var
+     */
+    private $paginator;
+
+    /**
      * PartnerController constructor.
      *
      * @param PartnerManager $em
      */
-    public function __construct(PartnerManager $em)
+    public function __construct(PartnerManager $em, PaginatorInterface $paginator)
     {
         $this->em = $em;
+        $this->paginator = $paginator;
     }
 
     /**
@@ -69,13 +76,21 @@ class PartnerController extends AbstractController
      *
      * @return Response
      */
-    public function listPartner()
+    public function listPartner(Request $request)
     {
-        $partners = $this->em->findAll();
+        $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+        $result = $this->em->findAll();
+        $partners = $this->paginator->paginate(
+            $result,
+            $request->query->getInt('page', 1),
+            10
+        );
+        $partners->setSortableTemplate('shared/sortable_link.html.twig');
 
         return $this->render('espace_admin/partner/list.html.twig', [
             'partners' => $partners,
             'title' => 'Gestions des partenaires',
+            'baseUrl' => $baseurl,
         ]);
     }
 
@@ -89,14 +104,22 @@ class PartnerController extends AbstractController
      * @param Partner $partner
      * @return JsonResponse
      */
-    public function deletePartner(Partner $partner)
+    public function deletePartner(Request $request, Partner $partner)
     {
         $this->em->delete($partner);
-        $partners = $this->em->findAll();
+        $result = $this->em->findAll();
+        $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+        $partners = $this->paginator->paginate(
+            $result,
+            $request->query->getInt('page', 1),
+            10
+        );
+        $partners->setSortableTemplate('shared/sortable_link.html.twig');
 
         return new JsonResponse( [
             'listHtml' => $this->renderView('espace_admin/partner/list_ajax.html.twig', [
                 'partners' => $partners,
+                'baseUrl' => $baseurl,
             ]),
             'body' => "<p>Partenaire supprimé.</p>",
             'footer' => '<span>Consulter notre <a href="" class="text-green"> Politique de confidentialité</a></span>',

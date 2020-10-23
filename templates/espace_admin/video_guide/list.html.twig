@@ -11,9 +11,8 @@
             <a class="btn  btn-large py-2 px-4 login" href="{{ path('app_espace_admin_video_guide_add') }}" role="button">Ajouter une vidéo</a>
         </div>
     </div>
-    <div class="row mt-5" id="list-video-guide">
-
-        <table class="table table-hover table-striped verticle-middle dataTable_video_guide" id="dataTable_video_guide" width="99%">
+    <div class="container mt-5" id="list-video-guide">
+        {#<table class="table table-hover table-striped verticle-middle dataTable_video_guide" id="dataTable_video_guide" width="99%">
             <thead>
             <tr>
                 <td class="encart_home_head" style="width: 25%" >Titre</td>
@@ -22,7 +21,7 @@
             </tr>
             </thead>
             <tbody>
-            {% for row in partners|reverse %}
+            {% for row in videoGuides|reverse %}
                 <tr id="testimonial_{{ row.id }}">
                     <td><span class="encart_home_body">{{ row.titre }}</span></td>
                     <td><span class="encart_home_body">{{ row.url }}</span></td>
@@ -42,7 +41,41 @@
                 </tr>
             {% endfor %}
             </tbody>
-        </table>
+        </table>#}
+        <div class="row">
+            <div class="col-lg-4 list_meeting_head">
+                <span>{{ knp_pagination_sortable(videoGuides, 'Titre', 'titre') }}
+            </div>
+            <div class="col-lg-5 list_meeting_head "  style="display: flex; justify-content: flex-start">
+                <span>{{ knp_pagination_sortable(videoGuides, 'Lien', 'url') }}</span>
+            </div>
+            <div class="col-lg-3 list_meeting_head">
+            </div>
+        </div>
+        {% for row in videoGuides|reverse %}
+            <div class="row list_meeting_border_radius mt-2"
+                 style="display: flex;
+                 justify-content: center;
+                 align-items: center;
+                ">
+                <div class="col-lg-4">
+                    <span>{{ row.titre }}</span>
+                </div>
+                <div class="col-lg-5 ">{{ row.url }}</div>
+                <div class="col-lg-3 actions text-right">
+                    <a href="{{ path('app_espace_admin_video_guide_edit', {'id' : row.id}) }}"
+                       role="button"
+                       class="btn-icon-right btn btn-danger encart_home_body px-5"
+                    >
+                        Modifier
+                    </a>
+                    <a href="#" data-video_guide="{{ row.id }}" class="delete_video_guide">
+                        <i class="fa fa-trash text-dark" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="list_pagination">{{ knp_pagination_render(videoGuides) }}</div>
     </div>
 {% endblock %}
 {% block javascripts %}

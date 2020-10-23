@@ -27,14 +27,16 @@ class VideoGuideType extends AbstractType
                 'label' => 'Vidéo',
                 'attr' => [
                     'class' => 'form-control bg-white encart_home_body',
-                    'placeholder' => 'Lien',
+                    'placeholder' => 'Lien (ex: <iframe width=...)',
                     'style' => 'width:450px',
+                    'required' => true,
                 ]
             ])
             ->add('pdc', FileType::class, [
                 'label' => 'Image de couverture',
                 'attr' => [
                     'accept' => 'image/jpeg, image/jpg, image/png',
+                    'required' => true,
                 ],
                 'mapped' => false,
                 'required' => false,

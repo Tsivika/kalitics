@@ -7,6 +7,7 @@ use App\Form\Handler\VideoGuideHandler;
 use App\Form\VideoGuideType;
 use App\Manager\VideoGuideManager;
 use App\Services\ImageUploader;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,12 +29,18 @@ class VideoGuideController extends AbstractController
     private $em;
 
     /**
+     * @var
+     */
+    private $paginator;
+
+    /**
      * VideoGuideController constructor.
      * @param VideoGuideManager $em
      */
-    public function __construct(VideoGuideManager $em)
+    public function __construct(VideoGuideManager $em, PaginatorInterface $paginator)
     {
         $this->em = $em;
+        $this->paginator = $paginator;
     }
 
     /**
@@ -68,12 +75,18 @@ class VideoGuideController extends AbstractController
      *
      * @return Response
      */
-    public function listVideoGuide()
+    public function listVideoGuide(Request $request)
     {
-        $partners = $this->em->findAll();
+        $result = $this->em->findAll();
+        $videoGuides = $this->paginator->paginate(
+            $result,
+            $request->query->getInt('page', 1),
+            10
+        );
+        $videoGuides->setSortableTemplate('shared/sortable_link.html.twig');
 
         return $this->render('espace_admin/video_guide/list.html.twig', [
-            'partners' => $partners,
+            'videoGuides' => $videoGuides,
             'title' => 'Gestions des vidéos',
         ]);
     }
@@ -88,14 +101,20 @@ class VideoGuideController extends AbstractController
      *
      * @return JsonResponse
      */
-    public function deleteVideoGuide(VideoGuide $videoGuide)
+    public function deleteVideoGuide(Request $request, VideoGuide $videoGuide)
     {
         $this->em->delete($videoGuide);
-        $videoGuides = $this->em->findAll();
+        $result = $this->em->findAll();
+        $videoGuides = $this->paginator->paginate(
+            $result,
+            $request->query->getInt('page', 1),
+            10
+        );
+        $videoGuides->setSortableTemplate('shared/sortable_link.html.twig');
 
         return new JsonResponse( [
             'listHtml' => $this->renderView('espace_admin/video_guide/list_ajax.html.twig', [
-                'partners' => $videoGuides,
+                'videoGuides' => $videoGuides,
             ]),
             'body' => "<p>Vidéo supprimée.</p>",
             'footer' => '<span>Consulter notre <a href="" class="text-green"> Politique de confidentialité</a></span>',

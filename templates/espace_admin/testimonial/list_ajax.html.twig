@@ -1,32 +1,42 @@
-<table class="table table-hover table-striped verticle-middle dataTable_testimonial" id="dataTable_testimonial" width="99%">
-    <thead>
-    <tr>
-        <td class="encart_home_head ">Nom</td>
-        <td class="encart_home_head" style="width: 60%">Extrait</td>
-        <td class="encart_home_head ">Note</td>
-        <td class=""></td>
-    </tr>
-    </thead>
-    <tbody>
-    {% for row in testimonials|reverse %}
-        <tr id="testimonial_{{ row.id }}">
-            <td><span class="encart_home_body">{{ row.name }}</span></td>
-            <td class=""><span class="encart_home_body"> {{ row.content[:70] ~ '...' }} </span></td>
-            <td><span class="encart_home_body">{{ row.score }}</span></td>
-            <td>
-                <div class="actions">
-                    <a href="{{ path('app_espace_admin_testimonial_edit', {'id' : row.id}) }}"
-                       role="button"
-                       class="btn-icon-right btn btn-danger encart_home_body px-5"
-                    >
-                        Modifier
-                    </a>
-                    <a href="#" data-testimonial="{{ row.id }}" class="delete_testimonial">
-                        <i class="fa fa-trash text-dark" aria-hidden="true"></i>
-                    </a>
-                </div>
-            </td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+<div class="row">
+    <div class="col-lg-2 list_meeting_head">
+                <span>{{ knp_pagination_sortable(testimonials, 'Nom', 'name') }}
+    </div>
+    <div class="col-lg-6 list_meeting_head "  style="display: flex; justify-content: flex-start">
+        <span>{{ knp_pagination_sortable(testimonials, 'Extrait', 'content') }}</span>
+    </div>
+    <div class="col-lg-4 list_meeting_head">
+        <div class="contaire">
+            <div class="row">
+                <div class="col-5"><span>{{ knp_pagination_sortable(testimonials, 'Note', 'score') }}</span></div>
+            </div>
+        </div>
+    </div>
+    {#            <div class="col-lg-3 list_meeting_head"></div>#}
+</div>
+{% for row in testimonials|reverse %}
+    <div class="row list_meeting_border_radius mt-2"
+         style="display: flex;
+                 justify-content: center;
+                 align-items: center;
+                ">
+        <div class="col-lg-2">
+            <span>{{ row.name }}</span>
+        </div>
+        <div class="col-lg-6 ">{{ row.content|striptags|slice(0, 58) ~ '...' }}</div>
+        <div class="col-lg-1 ">{{ row.score }}</div>
+        <div class="col-lg-3 actions">
+            <a href="{{ path('app_espace_admin_testimonial_edit', {'id' : row.id}) }}"
+               role="button"
+               class="btn-icon-right btn btn-danger encart_home_body px-5"
+            >
+                Modifier
+            </a>
+            <a href="#" data-testimonial="{{ row.id }}" class="delete_testimonial">
+                <i class="fa fa-trash text-dark" aria-hidden="true"></i>
+            </a>
+        </div>
+
+    </div>
+{% endfor %}
+<div class="list_pagination">{{ knp_pagination_render(testimonials) }}</div>

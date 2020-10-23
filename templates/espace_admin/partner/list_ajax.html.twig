@@ -1,30 +1,34 @@
-<table class="table table-hover table-striped verticle-middle dataTable_partner" id="dataTable_partner" width="99%">
-    <thead>
-    <tr>
-        <td class="encart_home_head" style="width: 50%">Nom</td>
-        <td class="encart_home_head" style="width: 25%">Site web</td>
-        <td class=""></td>
-    </tr>
-    </thead>
-    <tbody>
-    {% for row in partners|reverse %}
-        <tr id="testimonial_{{ row.id }}">
-            <td><span class="encart_home_body">{{ row.name }}</span></td>
-            <td><span class="encart_home_body">{{ row.webSite }}</span></td>
-            <td>
-                <div class="actions">
-                    <a href="{{ path('app_espace_admin_partner_edit', {'id' : row.id}) }}"
-                       role="button"
-                       class="btn-icon-right btn btn-danger encart_home_body px-5"
-                    >
-                        Modifier
-                    </a>
-                    <a href="#" data-partner="{{ row.id }}" class="delete_partner">
-                        <i class="fa fa-trash text-dark" aria-hidden="true"></i>
-                    </a>
-                </div>
-            </td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+<div class="row">
+    <div class="col-lg-4 list_meeting_head">
+                <span>{{ knp_pagination_sortable(partners, 'Nom', 'name') }}
+    </div>
+    <div class="col-lg-5 list_meeting_head "  style="display: flex; justify-content: flex-start">
+        <span>{{ knp_pagination_sortable(partners, 'Site web', 'webSite') }}</span>
+    </div>
+    <div class="col-lg-3 list_meeting_head">
+    </div>
+</div>
+{% for row in partners|reverse %}
+    <div class="row list_meeting_border_radius mt-2"
+         style="display: flex;
+                 justify-content: center;
+                 align-items: center;
+                ">
+        <div class="col-lg-4">
+            <span>{{ row.name }}</span>
+        </div>
+        <div class="col-lg-5 ">{{ row.webSite }}</div>
+        <div class="col-lg-3 actions text-right">
+            <a href="{{ path('app_espace_admin_partner_edit', {'id' : row.id}) }}"
+               role="button"
+               class="btn-icon-right btn btn-danger encart_home_body px-5"
+            >
+                Modifier
+            </a>
+            <a href="#" data-partner="{{ row.id }}" class="delete_partner">
+                <i class="fa fa-trash text-dark" aria-hidden="true"></i>
+            </a>
+        </div>
+    </div>
+{% endfor %}
+<div class="list_pagination">{{ knp_pagination_render(partners) }}</div>

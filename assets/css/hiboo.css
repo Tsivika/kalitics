@@ -213,14 +213,7 @@ header.masthead {
 }
 
 .footer-icon{
-    background-color: rgba(0,201,174,1) ;
-    color: white;
-    font-size: 13px;
-    padding-top: 7px;
-    margin-left: 5px;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
+    margin-left: 7px;
     cursor: pointer;
 }
 
@@ -423,8 +416,13 @@ li  {
 
 }
 
+.footer-menu{
+    margin: 0px 10px;
+}
+
 .footer-menu:hover{
     color:rgba(255,90,95,1);
+    text-decoration: none;
 }
 .footer-red-underline
 {
@@ -6695,13 +6693,19 @@ li  {
     padding: 10px;
     box-shadow: 0px 0px 18px #efefef;
     font-size: 14px;
+    color: #062944;
 }
 
 .card-tarif.active{
     background-color:rgba(0,201,174,1);
-    color:white;
+    color: #FFFFFF !important;
 }
 
+/*.card-tarif.activeInit{*/
+/*    margin-top: ;*/
+/*    background-color:rgba(0,201,174,1);*/
+/*    color: #FFFFFF !important;*/
+/*}*/
 
 .card-tarif.active.fa-check-circle{
     color:rgba(0,201,174,1);
@@ -6720,14 +6724,8 @@ li  {
 }
 
 .home-icon{
-    color:white;
-    background-color:#f2f2f2;
-    font-size: 18px;
     padding-top: 0px;
-    border-radius: 50%;
-
     cursor: pointer;
-    padding-left: 5.5px;
 }
 
 @font-face {

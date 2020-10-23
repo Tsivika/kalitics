@@ -8,6 +8,7 @@ use App\Form\Handler\MeetingHandler;
 use App\Form\MeetingType;
 use App\Manager\MeetingManager;
 use App\Manager\ParameterManager;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -46,17 +47,23 @@ class MeetingController extends AbstractController
     private $secretBbb;
 
     /**
+     * @var
+     */
+    private $paginator;
+
+    /**
      * MeetingController constructor.
      *
      * @param MeetingManager        $em
      * @param ContainerBagInterface $params
      */
-    public function __construct(MeetingManager $em, ContainerBagInterface $params)
+    public function __construct(MeetingManager $em, ContainerBagInterface $params, PaginatorInterface $paginator)
     {
         $this->em = $em;
         $this->params = $params;
         $this->urlBbb = $this->params->get('app.bbb_server_base_url');
         $this->secretBbb = $this->params->get('app.bbb_secret');
+        $this->paginator = $paginator;
     }
 
     /**
@@ -97,13 +104,21 @@ class MeetingController extends AbstractController
      *
      * @return Response
      */
-    public function meetingList()
+    public function meetingList(Request $request)
     {
-        $meetings = $this->em->findAll();
+        $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+        $result = $this->em->findAll();
+        $meetings = $this->paginator->paginate(
+            $result,
+            $request->query->getInt('page', 1),
+            10
+        );
+        $meetings->setSortableTemplate('shared/sortable_link.html.twig');
 
         return $this->render('espace_admin/meeting/list.html.twig', [
             'title' => 'Gestion de réunions',
-            'meetings' => $meetings
+            'meetings' => $meetings,
+            'baseUrl' => $baseurl,
         ]);
     }
 
@@ -117,15 +132,24 @@ class MeetingController extends AbstractController
      *
      * @return JsonResponse
      */
-    public function meetingDelete(Meeting $meeting)
+    public function meetingDelete(Request $request, Meeting $meeting)
     {
         $this->em->endMeeting($meeting, $this->urlBbb, $this->secretBbb);
         $this->em->delete($meeting);
-        $meetings = $this->em->findAll();
+        $result = $this->em->findAll();
+        $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+
+        $meetings = $this->paginator->paginate(
+            $result,
+            $request->query->getInt('page', 1),
+            10
+        );
+        $meetings->setSortableTemplate('shared/sortable_link.html.twig');
 
         return new JsonResponse( [
             'listHtml' => $this->renderView('espace_admin/meeting/liste_ajax.html.twig', [
                 'meetings' => $meetings,
+                'baseUrl' => $baseurl,
             ]),
             'body' => "<p>La réunion est bien supprimée.</p>",
             'footer' => '<span>Consulter notre <a href="" class="text-green"> Politique de confidentialité</a></span>',

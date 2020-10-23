@@ -13,57 +13,71 @@
             <a class="btn  btn-large py-2 login" href="{{ path('app_espace_admin_meeting_add') }}" role="button">Ajouter une réunion</a>
         </div>
     </div>
-    <div class="row mt-5" id="list-meetings">
+    <div class="container mt-5" id="list-meetings">
 
-        <table class="table table-hover table-striped verticle-middle dataTable_meeting" id="dataTable_meeting" width="99%">
-            <thead>
-            <tr>
-                <td class="encart_home_head">#</td>
-                <td class="encart_home_head ">Créateur</td>
-                <td class="encart_home_head">Lien</td>
-                <td class="encart_home_head ">Etat</td>
-                <td class="encart_home_head">Date de création</td>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for row in meetings|reverse %}
-                <tr id="meeting_{{ row.id }}">
-                    <td>{{ row.id }}</td>
-                    <td>{{ row.user.email }}</td>
-                    <td class="link_identifiant">
-                        <span class="d-none">{{ row.link }}</span>
-                        <input class="input_copy" type="text" id="linkInput_{{ row.id }}" value="{{ row.link }}" readonly>
-                    </td>
-                    <td>
-                        {% set state = '<i class="fa fa-circle" style="color: #ffaa2b"></i> En attente' %}
+        <div class="row">
+            <div class="col-lg-3 list_meeting_head" style="display: flex; justify-content: flex-start">
+                <span>{{ knp_pagination_sortable(meetings, 'Créateur', 'user.email') }}
+            </div>
+            <div class="col-lg-3 list_meeting_head "  style="display: flex; justify-content: flex-start">
+                <span>{{ knp_pagination_sortable(meetings, 'Lien', 'identifiant') }}</span>
+            </div>
+            <div class="col-lg-2 list_meeting_head"><span>{{ knp_pagination_sortable(meetings, 'Statut', 'state') }}</span></div>
+            <div class="col-lg-4 list_meeting_head">
+                <div class="contain">
+                    <div class="row">
+                        <div class="col-8"><span>{{ knp_pagination_sortable(meetings, 'Date de création', 'CreatedAt') }}</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% for row in meetings|reverse %}
+            <div class="row list_meeting_border_radius mt-2"
+                 style="display: flex;
+                 justify-content: center;
+                 align-items: center;
+                ">
+                <div class="col-lg-3" style="display: flex; justify-content: space-between">
+                    <span>{{ row.user.email }}</span>
+                </div>
+                <div class="col-lg-3 "><input class="input_copy" type="text" id="linkInput_{{ row.id }}" value="{{ baseUrl }}/reunion/{{ row.identifiant }}" readonly></div>
+                <div class="col-lg-2 ">
+                    {% set state = '<i class="fa fa-circle" style="color: #ffaa2b"></i> En attente' %}
 
-                        {% if row.state == 2 %}
-                            {% set state = '<i class="fa fa-circle " style="color: #dc3545"></i> Terminé' %}
-                        {% elseif row.state == 1  %}
-                            {% set state = '<i class="fa fa-circle text-green"></i> En cours' %}
-                        {% endif %}
+                    {% if row.state == 2 %}
+                        {% set state = '<i class="fa fa-circle " style="color: #dc3545"></i> Terminé' %}
+                    {% elseif row.state == 1  %}
+                        {% set state = '<i class="fa fa-circle text-green"></i> En cours' %}
+                    {% endif %}
 
-                        {{ state |raw }}
-                    </td>
-                    <td>{{ row.CreatedAt|date("d/m/yy") }}</td>
-                    <td>
-                        <div class="actions link_identifiant">
-                            <button class="btn-icon-right btn btn-danger encart_home_body"
-                                    type="button"
-                                    onclick="return copyToPaste({{ row.id }});"
-                                    data-target="#link-meeting">
-                                Copier lien <i class="fa fa-files-o" aria-hidden="true"></i>
-                            </button>
-                            <a href="#" data-meeting="{{ row.id }}" class="delete_meeting_bo">
-                                <i class="fa fa-trash text-danger" aria-hidden="true"></i>
-                            </a>
+                    {{ state |raw }}
+                </div>
+                <div class="col-lg-4 actions link_identifiant ">
+                    <div class="container">
+                        <div class="row ">
+                            <div class="col-4 text-left">{{ row.CreatedAt|date("d/m/yy") }}</div>
+                            <div class="col-8 text-right">
+                                <button class="btn-icon-right btn btn-danger encart_home_body"
+                                        type="button"
+                                        onclick="return copyToPaste({{ row.id }});"
+                                        data-target="#link-meeting">
+                                    Copier lien <i class="fa fa-files-o" aria-hidden="true"></i>
+                                </button>
+                                <a href="#" data-meeting="{{ row.id }}" class="delete_meeting_bo">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </a>
+                            </div>
                         </div>
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+                    </div>
+
+
+                </div>
+
+            </div>
+        {% endfor %}
+        <div class="list_pagination">{{ knp_pagination_render(meetings) }}</div>
+
+
     </div>
 {% endblock %}
 {% block javascripts %}

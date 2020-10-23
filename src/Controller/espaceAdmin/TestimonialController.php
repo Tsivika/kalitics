@@ -7,6 +7,7 @@ use App\Form\Handler\TestimonialHandler;
 use App\Form\TestimonialType;
 use App\Manager\TestimonialManager;
 use App\Services\ImageUploader;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse as RedirectResponseAlias;
@@ -29,13 +30,19 @@ class TestimonialController extends AbstractController
     private $em;
 
     /**
+     * @var
+     */
+    private $paginator;
+
+    /**
      * TestimonialController constructor.
      *
      * @param TestimonialManager $em
      */
-    public function __construct(TestimonialManager $em)
+    public function __construct(TestimonialManager $em, PaginatorInterface $paginator)
     {
         $this->em = $em;
+        $this->paginator = $paginator;
     }
 
     /**
@@ -71,13 +78,21 @@ class TestimonialController extends AbstractController
      *
      * @return Response
      */
-    public function listTestimonial()
+    public function listTestimonial(Request $request)
     {
-        $testimonials = $this->em->findAll();
+        $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+        $result = $this->em->findAll();
+        $testimonials = $this->paginator->paginate(
+            $result,
+            $request->query->getInt('page', 1),
+            10
+        );
+        $testimonials->setSortableTemplate('shared/sortable_link.html.twig');
 
         return $this->render('espace_admin/testimonial/list.html.twig', [
             'testimonials' => $testimonials,
             'title' => 'Gestions des avis',
+            'baseUrl' => $baseurl,
         ]);
     }
 
@@ -90,14 +105,22 @@ class TestimonialController extends AbstractController
      * @param Testimonial $testimonial
      * @return JsonResponse
      */
-    public function deleteTestimonial(Testimonial $testimonial)
+    public function deleteTestimonial(Request $request, Testimonial $testimonial)
     {
         $this->em->delete($testimonial);
-        $testimonials = $this->em->findAll();
+        $result = $this->em->findAll();
+        $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+        $testimonials = $this->paginator->paginate(
+            $result,
+            $request->query->getInt('page', 1),
+            10
+        );
+        $testimonials->setSortableTemplate('shared/sortable_link.html.twig');
 
         return new JsonResponse( [
             'listHtml' => $this->renderView('espace_admin/testimonial/list_ajax.html.twig', [
                 'testimonials' => $testimonials,
+                'baseUrl' => $baseurl,
             ]),
             'body' => "<p>L'avis est bien supprimé.</p>",
             'footer' => '<span>Consulter notre <a href="" class="text-green"> Politique de confidentialité</a></span>',

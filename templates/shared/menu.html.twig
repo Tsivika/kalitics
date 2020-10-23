@@ -98,7 +98,12 @@
                             <a class="btn btn-outline-danger btn-lg signin" href="{{ path('app_register') }}">Je m'inscris</a>
                         {% else%}
                             <a class="btn  btn-sm login text-center" href="{{ path('app_logout') }}">Déconnexion</a>
-                            <a class="btn btn-outline-danger btn-sm signin" href="{{ path('app_espace_client_meeting_list') }}">Tableau de bord</a>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a class="btn btn-outline-danger btn-sm signin" href="{{ path('app_espace_admin_dashbord') }}">Tableau de bord</a>
+                            {% else %}
+                                <a class="btn btn-outline-danger btn-sm signin" href="{{ path('app_espace_client_meeting_list') }}">Tableau de bord</a>
+                            {% endif %}
+
                         {% endif %}
                     </li>
                 </ul>
