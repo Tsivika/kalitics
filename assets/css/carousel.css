@@ -13,9 +13,8 @@
   !* .carousel-caption has z-index 10 *!
   z-index: 11;*/
   width: 5%;
-  margin-right: 72.5%;
-  margin-left: 72.5%;
-
+  margin-right: 73.5%;
+  margin-left: 73.5%;
 }
 .multi-item-carousel .carousel-inner {
   width: 150%;
@@ -38,8 +37,14 @@
 }
 
 .slide-img{
-	padding-left: 15px;
-    padding-right: 15px;
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-top: 10px;
+}
+
+.carousel-item .itemsContainer:nth-child(2) .image>img{
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 .carousel-control-prev-icon {

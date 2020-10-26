@@ -11,5 +11,6 @@ import './coupon';
 import './guide';
 import './profil';
 import './backOffice';
+import './espace-client-parameter';
 
 

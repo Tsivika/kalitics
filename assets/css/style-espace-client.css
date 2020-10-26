@@ -254,6 +254,7 @@ img .image-profil {
 }
 .item_param {
     margin: 10px;
+    padding-bottom: 10px;
     background: #FFFFFF 0% 0% no-repeat padding-box;
     border:solid 1px #ffffff;
     box-shadow: 0px 0px 10px #0000001A;
@@ -262,6 +263,7 @@ img .image-profil {
     max-width: 256px;
     max-height: 175px;
     color: #062944;
+    cursor: pointer;
 }
 
 .head_text_param {
