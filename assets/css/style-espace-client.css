@@ -45,6 +45,11 @@
     color: #ffffff !important;
     background: #062944 0% 0% no-repeat padding-box;
 }
+
+#navbarResponsive .navbar-nav {
+    margin-top: 0px;
+}
+
 td .actions {
     display: flex;
     flex-wrap: wrap;
