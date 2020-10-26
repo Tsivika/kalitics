@@ -12,82 +12,82 @@
         <div class="col-lg-12">
             {{ form_start(form) }}
             <section id="Paramètres Réunion">
-                <div class="encart_home_head">Paramètres Réunion</div>
+                <h5 class="encart_home_head h2-admin">Paramètres Réunion</h5>
                 <div class="box_param">
                     <div class="item_param {% if parameters.videoModerator %} active {% endif %}">
                         <div class="head_text_param">Vidéo animateur </div>
                         <div class="body_text_param">Commencer les réunions avec la vidéo de l'animateur activée</div>
-                        <div class="body_text_param text-right">{{ form_widget(form.videoModerator) }}</div>
+                        <div class="body_text_param checkbox-input d-none">{{ form_widget(form.videoModerator) }}</div>
                     </div>
                     <div class="item_param {% if parameters.videoParticipant %} active {% endif %}">
                         <div class="head_text_param">Vidéo participants</div>
                         <div class="body_text_param">Commencer les réunions avec la vidéo des participants active. Désactivable lors d'une réunion</div>
-                        <div class="body_text_param text-right">{{ form_widget(form.videoParticipant) }}</div>
+                        <div class="body_text_param checkbox-input d-none">{{ form_widget(form.videoParticipant) }}</div>
                     </div>
                     <div class="item_param {% if parameters.phonePwd %} active {% endif %}">
                         <div class="head_text_param">Mot de passe téléphone</div>
                         <div class="body_text_param">Exiger un mot de passe pour les participants voulant rejoindre la réunion par téléphone</div>
-                        <div class="body_text_param text-right">{{ form_widget(form.phonePwd) }}</div>
+                        <div class="body_text_param checkbox-input d-none">{{ form_widget(form.phonePwd) }}</div>
                     </div>
                     <div class="item_param {% if parameters.soundParticipant %} active {% endif %}">
                         <div class="head_text_param">Son des participants</div>
                         <div class="body_text_param">Désactiver le son des participants à l'entrée d'une réunion</div>
-                        <div class="body_text_param text-right">{{ form_widget(form.soundParticipant) }}</div>
+                        <div class="body_text_param checkbox-input d-none">{{ form_widget(form.soundParticipant) }}</div>
                     </div>
                 </div>
             </section>
             <section id="Paramètres Intéractions">
-                <div class="encart_home_head">Paramètres Intéractions</div>
+                <h5 class="encart_home_head">Paramètres Intéractions</h5>
                 <div class="box_param">
                     <div class="item_param {% if parameters.messagePublic %} active {% endif %}">
                         <div class="head_text_param">Converser</div>
                         <div class="body_text_param">Permettre aux participants d'envoyer un message visible à tout le monde</div>
-                        <div class="body_text_param text-right">{{ form_widget(form.messagePublic) }}</div>
+                        <div class="body_text_param checkbox-input d-none">{{ form_widget(form.messagePublic) }}</div>
                     </div>
                     <div class="item_param {% if parameters.annotationParticipant %} active {% endif %}">
                         <div class="head_text_param">Annotations</div>
                         <div class="body_text_param">Permet aux participants d'utiliser des annotations lors d'un partage d'écran</div>
-                        <div class="body_text_param text-right">{{ form_widget(form.annotationParticipant) }}</div>
+                        <div class="body_text_param checkbox-input d-none">{{ form_widget(form.annotationParticipant) }}</div>
                     </div>
                     <div class="item_param {% if parameters.boardParticipant %} active {% endif %}">
                         <div class="head_text_param">Tableau Blanc</div>
                         <div class="body_text_param">Les participants peuvent utiliser un tableau blanc qui inclut les fonctionnalités d'annotations</div>
-                        <div class="body_text_param text-right">{{ form_widget(form.boardParticipant) }}</div>
+                        <div class="body_text_param checkbox-input d-none">{{ form_widget(form.boardParticipant) }}</div>
                     </div>
                     <div class="item_param {% if parameters.recordAuto %} active {% endif %}">
                         <div class="head_text_param">Enregistrement auto</div>
                         <div class="body_text_param">Enregistrer automatiquement les conversations pendant la réunion</div>
-                        <div class="body_text_param text-right">{{ form_widget(form.recordAuto) }}</div>
+                        <div class="body_text_param checkbox-input d-none">{{ form_widget(form.recordAuto) }}</div>
                     </div>
                     <div class="item_param {% if parameters.feedback %} active {% endif %}">
                         <div class="head_text_param">Retour d'experience</div>
                         <div class="body_text_param">Affiche un sondage pour noter la qualité de la réunion (pouce vers le haut ou vers le bas)</div>
-                        <div class="body_text_param text-right">{{ form_widget(form.feedback) }}</div>
+                        <div class="body_text_param checkbox-input d-none">{{ form_widget(form.feedback) }}</div>
                     </div>
                 </div>
             </section>
             <section id="Paramètres Mail">
-                <div class="encart_home_head">Paramètres Mail</div>
+                <h5 class="encart_home_head">Paramètres Mail</h5>
                 <div class="box_param">
                     <div class="item_param {% if parameters.meetingReminder %} active {% endif %}">
                         <div class="head_text_param">Rappel de réunion</div>
                         <div class="body_text_param">Envoyer une notification lorsque la date de la réunion approche et une heure avant</div>
-                        <div class="body_text_param text-right">{{ form_widget(form.meetingReminder) }}</div>
+                        <div class="body_text_param checkbox-input d-none">{{ form_widget(form.meetingReminder) }}</div>
                     </div>
                     <div class="item_param {% if parameters.meetingCanceled %} active {% endif %}">
                         <div class="head_text_param">Réunion annulée</div>
                         <div class="body_text_param">Prévenir tous les participants lorsqu'une réunion est annulée</div>
-                        <div class="body_text_param text-right">{{ form_widget(form.meetingCanceled) }}</div>
+                        <div class="body_text_param checkbox-input d-none">{{ form_widget(form.meetingCanceled) }}</div>
                     </div>
                     <div class="item_param {% if parameters.personalMailbox %} active {% endif %}">
                         <div class="head_text_param">Boite mail perso</div>
                         <div class="body_text_param">Utiliser votre boite mail par défaut pour les envoies d'invitations</div>
-                        <div class="body_text_param text-right">{{ form_widget(form.personalMailbox) }}</div>
+                        <div class="body_text_param checkbox-input d-none">{{ form_widget(form.personalMailbox) }}</div>
                     </div>
                     <div class="item_param {% if parameters.formatHtmlMail %} active {% endif %}">
                         <div class="head_text_param">Format HTML mail</div>
                         <div class="body_text_param">Utiliser l'email au format HTML pour l'envoi d'invitation au lieu du texte simple</div>
-                        <div class="body_text_param text-right">{{ form_widget(form.formatHtmlMail) }}</div>
+                        <div class="body_text_param checkbox-input d-none">{{ form_widget(form.formatHtmlMail) }}</div>
                     </div>
                 </div>
             </section>
