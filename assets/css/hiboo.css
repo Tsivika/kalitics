@@ -6721,6 +6721,12 @@ li  {
 .card-tarif.actived.fa-check-circle{
     color:rgba(0,201,174,1) !important;
     background-color:white;
+    
+}
+#tarif2{
+    background: #00C9AE 0% 0% no-repeat padding-box !important;
+    outline: solid 10px #00C9AE !important;
+    border: none !important;
 }
 
 .home-icon{
