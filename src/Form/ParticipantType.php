@@ -16,8 +16,9 @@ class ParticipantType extends AbstractType
             ->add('email', EmailType::class, [
                 'label' => false,
                 'attr' => [
-                    'class' => 'form-control bg-white border-md encart_home_body',
+                    'class' => 'form-control infoPlaceholder bg-white border-md encart_home_body',
                     'placeholder' => 'Adresse mail participant',
+                    'style' => 'min-width:350px',
                 ]
             ])
         ;

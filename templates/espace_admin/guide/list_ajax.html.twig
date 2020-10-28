@@ -13,7 +13,7 @@
         <tr>
             <td class="encart_home_body ">{{ row.id }} </td>
             <td class="encart_home_body ">{{ row.question }}</td>
-            <td class="encart_home_body ">{{ row.response }}</td>
+            <td class="encart_home_body ">{{ row.response|raw }}</td>
             <td class="encart_home_body ">{{ row.category.title }}</td>
             <td align="center">
                 <a href="" data-guide="{{ row.id }}" class="delete_guide">

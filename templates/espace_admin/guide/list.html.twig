@@ -12,11 +12,11 @@
         <div class="jumbotron">
             {{ form_start(form, { 'attr': {'id':'form_guide'}}) }}
             <div class="mb-3">Ajouter nouvelle guide</div>
-            <div class="wrap_horizontal">
+            <div class="">
 
-                <div class="items">{{ form_widget(form.question) }}</div>
-                <div class="items">{{ form_widget(form.response) }}</div>
-                <div class="items">{{ form_widget(form.category) }}</div>
+                <div class="mb-2">{{ form_widget(form.category) }}</div>
+                <div class="mb-2">{{ form_widget(form.question) }}</div>
+                <div class="mb-2">{{ form_widget(form.response) }}</div>
                 <button class="btn login">Ajouter guide</button>
             </div>
             {{ form_end(form) }}
@@ -73,7 +73,7 @@
                     <tr>
                         <td class="encart_home_body ">{{ row.id }} </td>
                         <td class="encart_home_body ">{{ row.question }}</td>
-                        <td class="encart_home_body ">{{ row.response }}</td>
+                        <td class="encart_home_body ">{{ row.response|raw }}</td>
                         <td class="encart_home_body ">{{ row.category.title }}</td>
                         <td align="center">
                             <a href="" data-guide="{{ row.id }}" class="delete_guide">

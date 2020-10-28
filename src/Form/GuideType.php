@@ -7,6 +7,7 @@ use App\Entity\Guide;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -21,10 +22,11 @@ class GuideType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Question ',
                     'class' => 'form-control bg-white encart_home_body',
+                    'style' => 'width:350px',
                 ]
             ])
-            ->add('response', TextType::class, [
-                'required' => true,
+            ->add('response', TextareaType::class, [
+                'required' => false,
                 'attr' => [
                     'placeholder' => 'Réponse',
                     'class' => 'form-control bg-white encart_home_body',
@@ -36,6 +38,9 @@ class GuideType extends AbstractType
                 'choice_label' => 'title',
                 'expanded' => false,
                 'multiple' => false,
+                'attr' => [
+                    'style' => 'width:350px',
+                ]
             ])
         ;
     }

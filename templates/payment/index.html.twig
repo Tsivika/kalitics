@@ -7,17 +7,15 @@
 {% block body %}
 
     <div class="container">
-        <div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 mx-auto">
-            <div class="card card0 border-0">
-                <div class="row">
-                    <div class="col-12 ml-3">
-                        {{ macro_step.show_step_head(1, 'payment', 1) }}
-                    </div>
+        <div class="container-fluid py-5 mx-auto">
+            <div class="card card0 border-0" style="padding: 0px 15px">
+                <div class="" style="margin-left: -15px;">
+                    {{ macro_step.show_step_head(1, 'payment', 1) }}
                 </div>
                 <div class="row d-flex">
                     <div class="col-lg-6">
                         <div class="card1 pb-5" id="image-login">
-                            <div class="row px-3 justify-content-center mt-4 mb-5 border-line">
+                            <div class="row px-3 justify-content-center mt-4 mb-5 border-line ">
                                 <img src="{{ asset('build/images/hiboo_connexion.png')}}" class="image" style="width:100%; height:96%"> </div>
                         </div>
                     </div>

@@ -50,13 +50,15 @@ section p {
 #navbarResponsive .btn-outline-danger:hover,
 #navbarResponsive .btn-outline-danger:focus,
 #navbarResponsive .btn-outline-danger.active
-
 {
     color: #ffffff !important;
     background-color: #FF5A5F !important;
     border-color: #FF5A5F !important; /*set the color you want here*/
 }
 
+.remove_participant.btn-danger {
+    background-color: #FF5A5F !important;
+}
 
 .signup {
 
@@ -90,7 +92,7 @@ section p {
 a.link { color: rgba(0,201,174,1) !important; }
 
 header.masthead {
-    margin-bottom: 50px;
+    /*margin-bottom: 50px;*/
     background: no-repeat center center;
     background-color: rgba(0, 0, 0, 0);
     background-attachment: scroll;
@@ -6863,7 +6865,6 @@ section {
 
 .wrap_step{
     font-family: "GalanoGrotesque";
-    /*font-size: smaller;*/
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -6878,14 +6879,14 @@ section {
 .line_step_active{
     width: 100px;
     text-align: right;
-    border-top:solid 5px #FF5A5F;
+    border-top:solid 2px #FF5A5F;
     margin-left: 25px;
 }
 
 .circle_step{
     margin:10px;
-    width:48px;
-    height:48px;
+    width:40px;
+    height:40px;
     border-radius:100%;
     border: solid 1px #FF5A5F;
     color:#FF5A5F;
@@ -6895,11 +6896,12 @@ section {
     /*font-weight: bold;*/
     font-family: "GalanoGrotesqueMedium";
     overflow:hidden;
+    line-height:28px;
 }
 .circle_step_active{
     margin:10px;
-    width:48px;
-    height:48px;
+    width:40px;
+    height:40px;
     border-radius:100%;
     background-color:#FF5A5F;
     color:#fff;
@@ -6908,6 +6910,7 @@ section {
     font-weight: bold;
     font-family: "GalanoGrotesqueMedium";
     overflow:hidden;
+    line-height:28px;
 }
 .circle_step.one-line{line-height:48px;}
 .circle_step_active.one-line{line-height:53px;}
@@ -7095,4 +7098,17 @@ img{ max-width: 100%; max-height: 100%; }
     text-align: center;
     margin-left: 47%;
     z-index:100;
+}
+
+.infoPlaceholder::-webkit-input-placeholder {
+    font-weight: lighter;
+    font-family: GalanoGrotesque;
+}
+.infoPlaceholder::-moz-placeholder {
+    font-weight: lighter;
+    font-family: GalanoGrotesque;
+}
+.infoPlaceholder::-ms-input-placeholder {
+    font-weight: lighter;
+    font-family: GalanoGrotesque;
 }

@@ -143,7 +143,7 @@ img .image-profil {
 }
 .accordion-panel .accordion dt {
     display: block;
-    padding-bottom: 3px;
+    padding-bottom: 13px;
     color: #555;
     cursor: pointer;
     position: relative;
@@ -161,6 +161,8 @@ img .image-profil {
 .accordion-panel .accordion .content {
     padding: 5px 0px 5px 0px;
     overflow: auto;
+    background-color: #FFFFFF;
+    color: #062944;
 }
 .accordion-panel .plus-icon {
     display: inline-block;
@@ -176,7 +178,7 @@ img .image-profil {
 .accordion-panel .plus-icon:before,
 .accordion-panel .plus-icon:after {
     content: '';
-    background: #6bbf49;
+    background: #00C9AE;
     position: absolute;
 }
 .accordion-panel .plus-icon:before {

@@ -12,26 +12,17 @@
     <div class="row">
         <div class="col-lg-10 ">
                 <div class="accordion-panel">
-                    {#<div class="buttons-wrapper">
-                        <i class="plus-icon"></i>
-                        <div class="open-btn">
-                            Tout
-                        </div>
-                        <div class="close-btn hidden">
-                            Tout
-                        </div>
-                    </div>#}
 
                     {% for rowCat in categories %}
                         <div class="my-5">
-                            <strong>{{ rowCat.title }}</strong><br>
+                            <h3>{{ rowCat.title }}</h3>
                             <p>
                                 {% for rowGuide in rowCat.getGuides %}
                                     <dl class="accordion">
                                         <dt class="encart_home_head">{{ rowGuide.question }} <i class="plus-icon"></i></dt>
                                         <dd>
                                             <div class="content encart_home_body">
-                                                <p> {{ rowGuide.response}} </p>
+                                                <p> {{ rowGuide.response|raw}} </p>
                                             </div>
                                         </dd>
                                     </dl>

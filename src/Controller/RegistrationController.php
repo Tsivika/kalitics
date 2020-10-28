@@ -23,6 +23,7 @@ use App\Manager\UserManager;
 use App\Security\EmailVerifier;
 use App\Security\LoginFormAuthenticator;
 use App\Services\StripePayement;
+use phpDocumentor\Reflection\Types\Boolean;
 use phpDocumentor\Reflection\Types\This;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -154,13 +155,103 @@ class RegistrationController extends AbstractController
                 ]);
             }
 
-            return $this->forward('App\Controller\RegistrationController::registerUserMeeting');
+            return $this->forward('App\Controller\RegistrationController::registerUserMeeting', [
+                'hideMenuRegister' => 'register',
+            ]);
         }
 
         $response = $this->render('registration/register.html.twig', [
             'registrationForm' => $handler->getForm()->createView(),
             'preUser' => $preUser,
             'partners' => $this->partners,
+        ]);
+
+        if ($request->isXmlHttpRequest()){
+            return new JsonResponse([
+                'html' => $response->getContent()
+            ]);
+        }
+
+        return $response;
+    }
+
+    /**
+     * @Route("/register-user-meeting", name="register_user_meeting")
+     *
+     * @param Request $request
+     * @param RouterInterface $router
+     * @param ParameterManager $paramManager
+     * @param MeetingManager $meetingManager
+     *
+     * @param string $hideMenuRegister
+     * @return JsonResponse|Response
+     *
+     * @throws \Exception
+     */
+    public function registerUserMeeting(Request $request, RouterInterface $router, ParameterManager $paramManager, MeetingManager $meetingManager, string $hideMenuRegister = 'register')
+    {
+        $user = $this->getUser();
+        $userSubscription = $user->getSubscriptionUser();
+
+        if (!$user) {
+            throw new Exception("Vous n'avez pas accès à cette page");
+        }
+
+        $meeting = new Meeting();
+        $formUserMeeting = $this->createForm(MeetingParticipantType::class, $meeting, [
+            'action' => $this->generateUrl('register_user_meeting')
+        ]);
+
+        $handler = new MeetingHandler($formUserMeeting, $request, $this->getUser(), $meetingManager, $router);
+        $handlerUserMeeting = new RegisterUserMeetingHandler($formUserMeeting, $request, $user, $this->em);
+        $formUserMeeting->handleRequest($request);
+        if ($formUserMeeting->isSubmitted() && $formUserMeeting->isValid()) {
+            $handlerUserMeeting->onSuccess();
+            $handler->createMeeting($paramManager, $this->urlBbb, $this->secretBbb);
+            return $this->forward('App\Controller\RegistrationController::registerUserRunMeeting', [
+                'hideMenuRegister' => 'register',
+            ]);
+        }
+
+        $response = $this->render('registration/register_user_meeting.html.twig', [
+            'form' => $formUserMeeting->createView(),
+            'userSubscription' => $userSubscription,
+            'partners' => $this->partners,
+            'hideMenuRegister' => $hideMenuRegister
+        ]);
+
+        if ($request->isXmlHttpRequest()){
+            return new JsonResponse([
+                'html' => $response->getContent()
+            ]);
+        }
+
+        return $response;
+    }
+
+    /**
+     * @Route("/register-user-run-meeting", name="register_user_run_meeting")
+     *
+     * @param Request $request
+     * @param MeetingManager $manager
+     *
+     * @param string $hideMenuRegister
+     * @return JsonResponse|Response
+     */
+    public function registerUserRunMeeting(Request $request, MeetingManager $manager, string $hideMenuRegister = 'register')
+    {
+        $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+        $user = $this->getUser();
+        if (!$user) {
+            throw new Exception("Vous n'avez pas accès à cette page");
+        }
+        $meeting = $manager->getUserLastMeeting($this->getUser());
+        $identifiant = $meeting->getIdentifiant();
+
+        $response = $this->render('registration/register_user_run_meeting.html.twig', [
+            'link' => $baseurl.'/reunion/'.$identifiant,
+            'partners' => $this->partners,
+            'hideMenuRegister' => $hideMenuRegister
         ]);
 
         if ($request->isXmlHttpRequest()){
@@ -198,88 +289,6 @@ class RegistrationController extends AbstractController
             'user' => $this->getUser(),
             'form' => $form->createView(),
             'type' => $subscription->getId()
-        ]);
-
-        if ($request->isXmlHttpRequest()){
-            return new JsonResponse([
-                'html' => $response->getContent()
-            ]);
-        }
-
-        return $response;
-    }
-
-    /**
-     * @Route("/register-user-meeting", name="register_user_meeting")
-     *
-     * @param Request           $request
-     * @param RouterInterface   $router
-     * @param ParameterManager  $paramManager
-     * @param MeetingManager    $meetingManager
-     *
-     * @return JsonResponse|Response
-     *
-     * @throws \Exception
-     */
-    public function registerUserMeeting(Request $request, RouterInterface $router, ParameterManager $paramManager, MeetingManager $meetingManager)
-    {
-        $user = $this->getUser();
-        $userSubscription = $user->getSubscriptionUser();
-
-        if (!$user) {
-            throw new Exception("Vous n'avez pas accès à cette page");
-        }
-
-        $meeting = new Meeting();
-        $formUserMeeting = $this->createForm(MeetingParticipantType::class, $meeting, [
-            'action' => $this->generateUrl('register_user_meeting')
-        ]);
-
-        $handler = new MeetingHandler($formUserMeeting, $request, $this->getUser(), $meetingManager, $router);
-        $handlerUserMeeting = new RegisterUserMeetingHandler($formUserMeeting, $request, $user, $this->em);
-        $formUserMeeting->handleRequest($request);
-        if ($formUserMeeting->isSubmitted() && $formUserMeeting->isValid()) {
-            $handlerUserMeeting->onSuccess();
-            $handler->createMeeting($paramManager, $this->urlBbb, $this->secretBbb);
-            return $this->forward('App\Controller\RegistrationController::registerUserRunMeeting');
-        }
-
-        $response = $this->render('registration/register_user_meeting.html.twig', [
-            'form' => $formUserMeeting->createView(),
-            'userSubscription' => $userSubscription,
-            'partners' => $this->partners,
-        ]);
-
-        if ($request->isXmlHttpRequest()){
-            return new JsonResponse([
-                'html' => $response->getContent()
-            ]);
-        }
-
-        return $response;
-    }
-
-    /**
-     * @Route("/register-user-run-meeting", name="register_user_run_meeting")
-     *
-     * @param Request        $request
-     * @param MeetingManager $manager
-     *
-     * @return JsonResponse|Response
-     */
-    public function registerUserRunMeeting(Request $request, MeetingManager $manager)
-    {
-        $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
-        $user = $this->getUser();
-        if (!$user) {
-            throw new Exception("Vous n'avez pas accès à cette page");
-        }
-        $meeting = $manager->getUserLastMeeting($this->getUser());
-        $identifiant = $meeting->getIdentifiant();
-
-        $response = $this->render('registration/register_user_run_meeting.html.twig', [
-            'link' => $baseurl.'/reunion/'.$identifiant,
-            'partners' => $this->partners,
         ]);
 
         if ($request->isXmlHttpRequest()){
