@@ -6699,36 +6699,45 @@ li  {
 .card-tarif.active{
     background-color:rgba(0,201,174,1);
     color: #FFFFFF !important;
+    outline: solid 10px rgba(0,201,174,1) !important;
+    border: none;
+    border-radius: 0;
 }
-
-/*.card-tarif.activeInit{*/
-/*    margin-top: ;*/
-/*    background-color:rgba(0,201,174,1);*/
-/*    color: #FFFFFF !important;*/
-/*}*/
 
 .card-tarif.active.fa-check-circle{
     color:rgba(0,201,174,1);
     background-color:white;
 }
-
-.card-tarif.actived{
-    background-color:rgba(0,201,174,1);
-    color:white;
+.card-tarif:hover{
+    transform:size(1.1)
 }
-
-
+/*
+.frontend #tarif2{
+    background: #00C9AE 0% 0% no-repeat padding-box !important;
+    outline: solid 10px #00C9AE !important;
+    border: none !important;
+}
+*/
 .card-tarif.actived.fa-check-circle{
     color:rgba(0,201,174,1) !important;
     background-color:white;
     
 }
-#tarif2{
-    background: #00C9AE 0% 0% no-repeat padding-box !important;
-    outline: solid 10px #00C9AE !important;
-    border: none !important;
-}
 
+.card-tarif.active .fa-check-circle,
+.card-tarif.active .encart_home_body,
+.card-tarif.active .encart_home_head
+{
+ color: white !important;
+}
+.card-tarif.active .start{
+    background-color: white !important;
+    color:rgba(0,201,174,1) !important;
+}
+.card-tarif .btn.encart_home_body {
+    padding: 8px 30px;
+    margin-top: 10px;
+}
 .home-icon{
     padding-top: 0px;
     cursor: pointer;
