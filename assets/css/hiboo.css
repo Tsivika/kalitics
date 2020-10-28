@@ -6864,45 +6864,45 @@ section {
     width: 100px;
     text-align: right;
     border-top:dotted 5px #FF5A5F;
-    margin-left: 25px;
+    margin: 0 15px 0 25px;
 }
 
 .line_step_active{
     width: 100px;
     text-align: right;
     border-top:solid 5px #FF5A5F;
-    margin-left: 25px;
+    margin: 0 15px 0 25px;
 }
 
 .circle_step{
     margin:10px;
-    width:48px;
-    height:48px;
+    width:35px;
+    height:35px;
     border-radius:100%;
     border: solid 1px #FF5A5F;
     color:#FF5A5F;
     background-color: #ffffff;
     text-align:center;
-    font-size:25px;
+    font-size:22px;
     /*font-weight: bold;*/
     font-family: "GalanoGrotesqueMedium";
     overflow:hidden;
 }
 .circle_step_active{
     margin:10px;
-    width:48px;
-    height:48px;
+    width:35px;
+    height:35px;
     border-radius:100%;
     background-color:#FF5A5F;
     color:#fff;
     text-align:center;
-    font-size:25px;
+    font-size:22px;
     font-weight: bold;
     font-family: "GalanoGrotesqueMedium";
     overflow:hidden;
 }
-.circle_step.one-line{line-height:48px;}
-.circle_step_active.one-line{line-height:53px;}
+.circle_step.one-line{line-height:40px;}
+.circle_step_active.one-line{line-height:40px;}
 .align_picto_avantage {
     line-height: 0.9em;
 }
@@ -7073,7 +7073,6 @@ img{ max-width: 100%; max-height: 100%; }
     border-radius: 100%;
 }
 /* *** ** */
-
 .itemsContainer {
     float:left;
     position:relative;
@@ -7087,4 +7086,13 @@ img{ max-width: 100%; max-height: 100%; }
     text-align: center;
     margin-left: 47%;
     z-index:100;
+}
+
+.image-login{
+    background: url('../images/hiboo_connexion.png');
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border-radius: 6px 0px 0px 6px;
 }

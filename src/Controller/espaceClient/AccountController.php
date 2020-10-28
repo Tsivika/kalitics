@@ -112,24 +112,30 @@ class AccountController extends AbstractController
      */
     public function userSubscriptionPrePayment(Request $request, Subscription $subscription, SubscriptionManager $subscriptionManager, StripePayement $stripe, AccountManager $accountManager, PartnerManager $partnerManager)
     {
-        if ($this->getUser() === null) {
+        $user = $this->getUser();
+        if ($user === null) {
             $redirection = new RedirectResponse($this->router->generate('app_espace_client_profil_subscription_pre_payment', ['id' => $subscription->getId()]));
             $segment = $redirection->getTargetUrl();
             $this->session->set('prePayment', $segment);
 
             return $this->redirectToRoute('app_login');
         }
-        $form = $this->createForm(UserAccountType::class, $this->getUser());
+        
+
+        $form = $this->createForm(UserAccountType::class, $user);
+
+        
+        $form->get('subscription')->setData($subscription);
         $subPaying = $subscriptionManager->getPayingSubscription();
         $handler = new AccountHandler($form, $request, $accountManager, $stripe);
         if ($handler->process()) {
             return $this->redirectToRoute('app_espace_client_subscription_list');
         }
-
+        
         return $this->render('payment/index.html.twig', [
             'subscripbiontChoice' => $subscription,
             'subscriptionPaying' => $subPaying,
-            'user' => $this->getUser(),
+            'user' => $user,
             'form' => $form->createView(),
             'type' => $subscription->getId(),
             'partners' => $partnerManager->findAll(),
