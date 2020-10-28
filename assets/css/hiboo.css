@@ -514,11 +514,7 @@ li  {
     color:white;
 
 }
-.tarif1,.tarif2,.tarif3:hover{
 
-    background-color:rgba(0,201,174,1);
-
-}
 .mediaViewInfo {
     --web-view-name: Hiboo - Homepage;
     --web-view-id: Hiboo_-_Homepage;
@@ -6694,30 +6690,16 @@ li  {
     box-shadow: 0px 0px 18px #efefef;
     font-size: 14px;
     color: #062944;
+    margin: 10px 15px;
 }
-
+.card-tarif:hover,
 .card-tarif.active{
     background-color:rgba(0,201,174,1);
     color: #FFFFFF !important;
-    outline: solid 10px rgba(0,201,174,1) !important;
-    border: none;
-    border-radius: 0;
+    transform: scale(1.06);
 }
 
-.card-tarif.active.fa-check-circle{
-    color:rgba(0,201,174,1);
-    background-color:white;
-}
-.card-tarif:hover{
-    transform:size(1.1)
-}
-/*
-.frontend #tarif2{
-    background: #00C9AE 0% 0% no-repeat padding-box !important;
-    outline: solid 10px #00C9AE !important;
-    border: none !important;
-}
-*/
+.card-tarif.active.fa-check-circle,
 .card-tarif.actived.fa-check-circle{
     color:rgba(0,201,174,1) !important;
     background-color:white;
@@ -6725,12 +6707,18 @@ li  {
 }
 
 .card-tarif.active .fa-check-circle,
+.card-tarif:hover .fa-check-circle,
 .card-tarif.active .encart_home_body,
-.card-tarif.active .encart_home_head
+.card-tarif:hover .encart_home_body,
+.card-tarif.active .encart_home_head,
+.card-tarif:hover .encart_home_head
 {
  color: white !important;
 }
-.card-tarif.active .start{
+
+.card-tarif:hover .start,
+.card-tarif.active .start
+{
     background-color: white !important;
     color:rgba(0,201,174,1) !important;
 }
