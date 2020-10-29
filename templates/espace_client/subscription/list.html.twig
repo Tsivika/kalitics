@@ -10,13 +10,13 @@
     </div>
     <div class="container">
         <section id="list-subscription" >
-            <h3 class="text-center text-danger encart_home_head" >Les abonnements </h3>
+            <h3 class="text-center text-danger encart_home_head mb-5">Les abonnements </h3>
             <div class="row text-center">
                 {% for row in subscriptions %}
                     <div class="col-md-4 mb-5">
                         {% set active = '' %}
                         {% if userSubscription and userSubscription.id == row.id %}
-                            {% set active = 'actived' %}
+                            {% set active = 'actived active' %}
                         {% endif %}
                         <div class="card card-tarif {{ active }}" id="tarif{{ row.id }}">
                             <div class="card-body text-center">
@@ -47,7 +47,7 @@
                                 </h5>
                                 <div class="subscription_choice_{{ row.id }}">
                                     {% if userSubscription and userSubscription.id == row.id %}
-                                        <button type="button" class="btn btn-secondary encart_home_body ">Actuel</button>
+                                        <button type="button" class="btn start encart_home_body ">Actuel</button>
                                     {% else %}
                                         <a href="{{ path('app_espace_client_profil_subscription_pre_payment', {'id':row.id}) }}" role="button" data-subscription="{{ row.id }}" class="btn start encart_home_body {{ choicePopup }}">Séléctionner</a>
                                     {% endif %}

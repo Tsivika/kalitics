@@ -14,6 +14,7 @@ export function scrollToSection(sectionId) {
 }
 
 export function cardTarif() {
+    /*
     $(".card-tarif").mouseenter(function(){
         $(this).addClass('active');
         $(this).find(".fa-check-circle").css("color","white");
@@ -28,6 +29,7 @@ export function cardTarif() {
         $(this).find(".start").css("color","white");
         $(this).find(".start").css("background-color","rgba(0,201,174,1)");
     });
+    */
 }
 
 export function confirmSwalAlertMeeting(msg, url, id) {

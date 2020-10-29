@@ -521,11 +521,7 @@ li  {
     color:white;
 
 }
-.tarif1,.tarif2,.tarif3:hover{
 
-    background-color:rgba(0,201,174,1);
-
-}
 .mediaViewInfo {
     --web-view-name: Hiboo - Homepage;
     --web-view-id: Hiboo_-_Homepage;
@@ -6701,35 +6697,42 @@ li  {
     box-shadow: 0px 0px 18px #efefef;
     font-size: 14px;
     color: #062944;
+    margin: 10px 15px;
 }
-
+.card-tarif:hover,
 .card-tarif.active{
     background-color:rgba(0,201,174,1);
     color: #FFFFFF !important;
+    transform: scale(1.06);
 }
 
-/*.card-tarif.activeInit{*/
-/*    margin-top: ;*/
-/*    background-color:rgba(0,201,174,1);*/
-/*    color: #FFFFFF !important;*/
-/*}*/
-
-.card-tarif.active.fa-check-circle{
-    color:rgba(0,201,174,1);
-    background-color:white;
-}
-
-.card-tarif.actived{
-    background-color:rgba(0,201,174,1);
-    color:white;
-}
-
-
+.card-tarif.active.fa-check-circle,
 .card-tarif.actived.fa-check-circle{
     color:rgba(0,201,174,1) !important;
     background-color:white;
+
 }
 
+.card-tarif.active .fa-check-circle,
+.card-tarif:hover .fa-check-circle,
+.card-tarif.active .encart_home_body,
+.card-tarif:hover .encart_home_body,
+.card-tarif.active .encart_home_head,
+.card-tarif:hover .encart_home_head
+{
+ color: white !important;
+}
+
+.card-tarif:hover .start,
+.card-tarif.active .start
+{
+    background-color: white !important;
+    color:rgba(0,201,174,1) !important;
+}
+.card-tarif .btn.encart_home_body {
+    padding: 8px 30px;
+    margin-top: 10px;
+}
 .home-icon{
     padding-top: 0px;
     cursor: pointer;
@@ -6873,7 +6876,7 @@ section {
     width: 100px;
     text-align: right;
     border-top:dotted 5px #FF5A5F;
-    margin-left: 25px;
+    margin: 0 15px 0 25px;
 }
 
 .line_step_active{
@@ -6892,7 +6895,7 @@ section {
     color:#FF5A5F;
     background-color: #ffffff;
     text-align:center;
-    font-size:25px;
+    font-size:22px;
     /*font-weight: bold;*/
     font-family: "GalanoGrotesqueMedium";
     overflow:hidden;
@@ -6906,14 +6909,14 @@ section {
     background-color:#FF5A5F;
     color:#fff;
     text-align:center;
-    font-size:25px;
+    font-size:22px;
     font-weight: bold;
     font-family: "GalanoGrotesqueMedium";
     overflow:hidden;
     line-height:28px;
 }
-.circle_step.one-line{line-height:48px;}
-.circle_step_active.one-line{line-height:53px;}
+.circle_step.one-line{line-height:40px;}
+.circle_step_active.one-line{line-height:40px;}
 .align_picto_avantage {
     line-height: 0.9em;
 }
@@ -7084,7 +7087,6 @@ img{ max-width: 100%; max-height: 100%; }
     border-radius: 100%;
 }
 /* *** ** */
-
 .itemsContainer {
     float:left;
     position:relative;
@@ -7098,6 +7100,15 @@ img{ max-width: 100%; max-height: 100%; }
     text-align: center;
     margin-left: 47%;
     z-index:100;
+}
+
+.image-login{
+    background: url('../images/hiboo_connexion.png');
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border-radius: 6px 0px 0px 6px;
 }
 
 .infoPlaceholder::-webkit-input-placeholder {

@@ -7,28 +7,27 @@
 {% block body %}
 
     <div class="container">
-        <div class="container-fluid py-5 mx-auto">
-            <div class="card card0 border-0" style="padding: 0px 15px">
-                <div class="" style="margin-left: -15px;">
-                    {{ macro_step.show_step_head(1, 'payment', 1) }}
+        <div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 mx-auto">
+            <div class="card card0 border-0">
+                <div class="row">
+                    <div class="col-12 ml-3">
+                        {{ macro_step.show_step_head(1, 'payment', 1) }}
+                    </div>
                 </div>
-                <div class="row d-flex">
-                    <div class="col-lg-6">
-                        <div class="card1 pb-5" id="image-login">
-                            <div class="row px-3 justify-content-center mt-4 mb-5 border-line ">
-                                <img src="{{ asset('build/images/hiboo_connexion.png')}}" class="image" style="width:100%; height:96%"> </div>
+
+                <div class="row d-flex box-shadow-login">
+                    <div class="col-lg-6 m-0 p-0">
+                        <div class="image-login">
                         </div>
                     </div>
-                    <div class="col-lg-6 ">
-                        <p style="margin-bottom:30px ">
-                        <h3 class="encart_home_body">Paiement</h3>
-                        <span class="encart_home_body my-4">Merci de sélectionner un abonnement:</span>
-                        </p>
+                    <div class="col-lg-6 pl-4">
+                        <h1 class="encart_home_head pt-1 ml-2">Paiement</h1>
+                        <span class="encart_home_body m-3">Merci de sélectionner un abonnement:</span>
                         {{ form_start(form, {'attr': {'class': 'container-fluid inner','id' : 'payment-form'}, 'action':path('app_espace_client_profil_subscription_pre_payment', {'id':type}), 'method':'post'}) }}
-                        <div class="input-group col-lg-12 mb-3 ">
+                        <div class="input-group mb-3">
                             {% for key, child in form.subscription %}
-                                <div>
-                                    {{ form_widget(child) }}
+                                <div class="m-2">
+                                    {{ form_widget(child,{'attr':{'class':'subscriptionRadioWrapper'}}) }}
                                 </div>
                             {% endfor %}
                         </div>
@@ -37,34 +36,47 @@
                             {{ form_widget(form.codePromo) }}
                             <button class="btn btn-success btn-large ml-1" id="btnCodePromo" style="background-color: #00C9AE">Ajouter</button>
                         </div>
-                        {% set tva =  (subscripbiontChoice.price * 20)/100 %}
-                        {% set ttc =   subscripbiontChoice.price + tva %}
 
-                        <div class=" col-lg-12 mt-2">
-                            <div class="float-left ">HT:</div>
-                            <div class="float-right ">{{ subscripbiontChoice.price|number_format(2) }}€</div>
-                            <div style="" class="clearfix"></div>
+                        <div class="tab-content">
+                            {% for subscription in subscriptionPaying %}
+                                {% set show = subscription.id == subscripbiontChoice.id ? 'show active'  %}
+                                 <div class="tab-pane {{ show }}" id="tab-{{ subscription.id }}">
+                                    {% set tva =  (subscription.price * 20)/100 %}
+                                    {% set ttc =   subscription.price + tva %}
+                    
+                                    <div class=" col-lg-12 mt-2">
+                                        <div class="float-left ">HT:</div>
+                                        <div class="float-right ">{{ subscription.price|number_format(2) }}€</div>
+                                        <div style="" class="clearfix"></div>
+                                    </div>
+                                    <div class=" col-lg-12">
+                                        <div class="float-left ">TVA:</div>
+                                        <div class="float-right ">{{ tva|number_format(2) }}€</div>
+                                        <div style="" class="clearfix"></div>
+                                    </div>
+                                    <div class=" col-lg-12 mb-2 ">
+                                        <div class="float-left ">TTC:</div>
+                                        <div class="float-right" id="total_ttc">{{ ttc|number_format(2) }}€</div>
+                                        <div style="" class="clearfix"></div>
+                                    </div>
+
+                                    <div class=" col-lg-12 mb-2 box_reduction d-none">
+                                        <div class="float-left ">REDUCTION:</div>
+                                        <div class="float-right" id="montant_reduction"></div>
+                                        <div style="" class="clearfix"></div>
+                                    </div>
+                                    <div class=" col-lg-12 mb-2 ">
+                                        <div class="float-left font-weight-bold">TOTAL A PAYER:</div>
+                                        <div class="float-right font-weight-bold total-paid-label" id="total_payer">{{ ttc|number_format(2) }}€</div>
+                                        <div style="" class="clearfix"></div>
+                                    </div>
+                                </div>
+                            {% endfor %}  
                         </div>
-                        <div class=" col-lg-12">
-                            <div class="float-left ">TVA:</div>
-                            <div class="float-right ">{{ tva|number_format(2) }}€</div>
-                            <div style="" class="clearfix"></div>
-                        </div>
-                        <div class=" col-lg-12 mb-2 ">
-                            <div class="float-left ">TTC:</div>
-                            <div class="float-right" id="total_ttc">{{ ttc|number_format(2) }}€</div>
-                            <div style="" class="clearfix"></div>
-                        </div>
-                        <div class=" col-lg-12 mb-2 box_reduction d-none">
-                            <div class="float-left ">REDUCTION:</div>
-                            <div class="float-right" id="montant_reduction"></div>
-                            <div style="" class="clearfix"></div>
-                        </div>
-                        <div class=" col-lg-12 mb-2 ">
-                            <div class="float-left font-weight-bold">TOTAL A PAYER:</div>
-                            <div class="float-right font-weight-bold" id="total_payer">{{ ttc|number_format(2) }}€</div>
-                            <div style="" class="clearfix"></div>
-                        </div>
+
+
+
+
                         <div class="input-group col-lg-12 mb-2 ">
                             {{ form_widget(form.name) }} <div class="mx-1"></div>
                             {{ form_widget(form.firstname) }}
@@ -76,10 +88,13 @@
                         <div class="input-group col-lg-12 mb-2 "> {{ form_widget(form.address) }}</div>
                         <div class="input-group col-lg-12 mt-5 mb-2 "><strong>Carte bancaire</strong></div>
                         <div class=" mb-2 stripes" id="card-element" ></div>
-                        <div class=" mb-2" id="card-errors role="alert"></div>
-                        <div class="col-lg-12 mt-5 text-right">
+                        <div class=" mb-2" id="card-errors" role="alert"></div>
+                        <div class="mt-4 pb-3 text-left">
                             <button class="btn btn-success btn-large ml-1" style="background-color: #00C9AE">Valider le paiement</button>
                         </div>
+                        
+                        {% set tva =  (subscripbiontChoice.price * 20)/100 %}
+                        {% set ttc =   subscripbiontChoice.price + tva %}
 
                         <input type="hidden" id="reduction" name="reduction" value="0">
                         <input type="hidden" id="total-paid" name="total-paid" value="{{ ttc|number_format(2) }}">
@@ -101,5 +116,6 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script src="{{ asset('build/js/payment_stripe.js') }}"></script>
+    {#<script src="{{ asset('build/js/payment_stripe.js') }}"></script>#}
+    {{ encore_entry_script_tags('subscriptionPayement') }}
 {% endblock %}
