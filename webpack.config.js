@@ -37,6 +37,7 @@ Encore
      */
     .addEntry('app', './assets/js/app.js')
     .addEntry('espaceClient', './assets/js/espace-client.js')
+    .addEntry('subscriptionPayement', './assets/js/subscription_payement.js')
     .copyFiles({
         from: './assets/js',
         to: '/js/[path][name].[ext]'
