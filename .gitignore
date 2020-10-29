@@ -41,9 +41,6 @@ yarn-error.log
 /public/build/
 ###< symfony/webpack-encore-bundle ###
 
-composer.lock
-symfony.lock
-
 ###> symfony/web-server-bundle ###
 /.web-server-pid
 ###< symfony/web-server-bundle ###
