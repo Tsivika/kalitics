@@ -45,7 +45,7 @@ class TestimonialType extends AbstractType
                     'accept' => 'image/jpeg, image/jpg, image/png',
                 ],
                 'mapped' => false,
-                'required' => false,
+                'required' => true,
                 'constraints' => [
                     new File([
                         'maxSize' => '1024k',

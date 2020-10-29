@@ -15,7 +15,10 @@
                  align-items: center;
                 ">
         <div class="col-lg-4">
-            <span>{{ row.titre }}</span>
+            <div class="wrap_step">
+                <img class="img-thumbnail img-fluid" src="{{ asset('uploads/images/' ~ row.pdc) }}" style="max-width: 70px; max-height: 70px">
+                <span class="col-lg-8">{{ row.titre }}</span>
+            </div>
         </div>
         <div class="col-lg-5 ">{{ row.url }}</div>
         <div class="col-lg-3 actions text-right">
