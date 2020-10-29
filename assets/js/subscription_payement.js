@@ -9,7 +9,8 @@ import './payment_stripe'
             let $targetTab = $('.tab-content').find(`#tab-${$id}`) 
             $targetTab.addClass('show active')
             let totalPaid = $targetTab.find('.total-paid-label').text()
-            $("#total-paid").val(totalPaid)
+
+            $("#total-paid").val(parseFloat(totalPaid))
         })
     })
 })(jQuery)
