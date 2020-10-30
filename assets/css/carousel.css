@@ -15,6 +15,7 @@
   width: 5%;
   margin-right: 73.5%;
   margin-left: 73.5%;
+  z-index: 99999999;
 }
 .multi-item-carousel .carousel-inner {
   width: 150%;

@@ -151,6 +151,16 @@
 			$('#myModal').on('hide.bs.modal', function (e) {
 				$("#video").attr('src',$videoSrc);
 			})
+
+			/** carousel control */
+			$('.carousel-control-prev').on('click',(e) =>{
+				e.preventDefault()
+				$("#carouselExampleCaptions").carousel('prev')
+			})
+			$('.carousel-control-next').on('click',(e) =>{
+				e.preventDefault()
+				$("#carouselExampleCaptions").carousel('next')
+			})
 		});
 	</script>
 {% endblock %}

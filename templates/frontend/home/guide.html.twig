@@ -2,10 +2,11 @@
 <h5 class="text-center encart_home_body">Création d'une réunion : </h5>
 <div class=" bd-example">
 
-    <div id="carouselExampleCaptions" class="carousel slide multi-item-carousel " data-ride="carousel" data-interval="9999999999999">
+    <div id="carouselExampleCaptions" class="carousel slide multi-item-carousel " data-ride="carousel" {#data-interval="9999999999999"#} >
         <div class="carousel-inner">
             {% for key, row in guides %}
-                <div{% if loop.index0 == 0 %} class="carousel-item active" {% else %} class="carousel-item" {% endif %}">
+                {% set active =  loop.index0 == 0 ? ' active' : '' %}
+                <div class="carousel-item {{ active }}">
                     <div class="item__third itemsContainer">
                         <a class=" video-btn image" data-toggle="modal" data-src="{{ row.url }}" data-target="#myModal">
                             <img src="{{ asset('uploads/images/' ~ row.pdc) }}" class="d-block w-100 slide-img" alt="">
@@ -20,11 +21,11 @@
                 </div>
             {% endfor %}
         </div>
-        <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+        <a class="carousel-control-prev" href="#" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="sr-only">Previous</span>
         </a>
-        <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+        <a class="carousel-control-next" href="#" role="button" data-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
         </a>
@@ -32,6 +33,10 @@
         <div class="degradeNext"></div>
     </div>
 </div>
+
+
+
+
 
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -47,23 +52,3 @@
         </div>
     </div>
 </div>
-
-{#<div class="slick-center-wrap">
-			<a href="javascript:;" title="上一張" class="pic-prev">prev</a>
-			<a href="javascript:;" title="下一張" class="pic-next">next</a>
-			<ul class="slick-center">
-
-				<div>
-					<img src="{{ asset('frontend/images/photo-1448932223592-d1fc686e76.png') }}" class="d-block w-100 slide-img" alt="">
-				</div>
-				<div>
-					<img src="{{ asset('frontend/images/photo-1571826867433-29518cc0b0.png') }}" class="d-block w-100 slide-img" alt="">
-				</div>
-				<div>
-					<img src="{{ asset('frontend/images/photo-1520333789090-1afc82db53@2x.png') }}" class="d-block w-100 slide-img" alt="">
-				</div>
-				<div>
-					<img src="{{ asset('frontend/images/photo-1571826867433-29518cc0b0.png') }}" class="d-block w-100 slide-img" alt="">
-				</div>
-			</ul>
-		</div>#}
