@@ -20,7 +20,6 @@ class VideoGuideType extends AbstractType
                 'attr' => [
                     'class' => 'form-control bg-white encart_home_body',
                     'placeholder' => 'Titre',
-                    'style' => 'width:450px',
                 ]
             ])
             ->add('url', TextType::class, [
@@ -28,7 +27,6 @@ class VideoGuideType extends AbstractType
                 'attr' => [
                     'class' => 'form-control bg-white encart_home_body',
                     'placeholder' => 'Lien (ex: <iframe width=...)',
-                    'style' => 'width:450px',
                     'required' => true,
                 ]
             ])
@@ -42,7 +40,7 @@ class VideoGuideType extends AbstractType
                 'required' => false,
                 'constraints' => [
                     new File([
-                        'maxSize' => '1024k',
+                        'maxSize' => '2048k',
                         'mimeTypes' => [
                             'image/jpg',
                             'image/jpeg',

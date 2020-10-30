@@ -14,7 +14,6 @@ section p {
     color: #062944;
 }
 .login{
-
     background-color:rgba(0,201,174,1);
     color:white;
     margin-top:0px;
@@ -25,6 +24,18 @@ section p {
     /*padding:10px 40px;*/
     padding:8px 40px 10px 40px;
 }
+
+@media (min-width: 360px) {
+.login{
+    padding:8px 15px 10px 15px;
+    }
+}
+@media (min-width: 768px) {
+.login{
+    padding:8px 25px 10px 25px;
+    }
+}
+
 .box-shadow-login {
     box-shadow: 0px 0px 12px #0000001A;
     border-radius: 6px;
@@ -1029,5 +1040,6 @@ img{ max-width: 100%; max-height: 100%; }
 
 .d-flex-center{
     display: flex;
+    justify-content: center;
     align-items: center;
 }
