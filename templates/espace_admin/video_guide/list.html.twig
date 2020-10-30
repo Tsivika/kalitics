@@ -53,23 +53,18 @@
             </div>
         </div>
         {% for row in videoGuides|reverse %}
-            <div class="row list_meeting_border_radius mt-2"
-                 style="display: flex;
-                 justify-content: center;
-                 align-items: center;
-                ">
-                <div class="col-lg-4">
+            <div class="row list_meeting_border_radius mt-2">
+                <div class="col-7 col-lg-4 d-flex-center">
                     <span>{{ row.titre }}</span>
                 </div>
-                <div class="col-lg-5 ">{{ row.url }}</div>
-                <div class="col-lg-3 actions text-right">
+                <div class="col-lg-5 d-flex-center d-none d-lg-flex">{{ row.url }}</div>
+                <div class="col-5 col-lg-3 actions text-right">
                     <a href="{{ path('app_espace_admin_video_guide_edit', {'id' : row.id}) }}"
                        role="button"
-                       class="btn-icon-right btn btn-danger encart_home_body px-5"
-                    >
-                        Modifier
+                       class="btn-icon-right btn btn-danger encart_home_body m-2">
+                        <i class="fa fa-edit text-dark" aria-hidden="true"></i>
                     </a>
-                    <a href="#" data-video_guide="{{ row.id }}" class="delete_video_guide">
+                    <a href="#" data-video_guide="{{ row.id }}" class="btn btn-danger delete_video_guide">
                         <i class="fa fa-trash text-dark" aria-hidden="true"></i>
                     </a>
                 </div>

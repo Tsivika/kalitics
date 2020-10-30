@@ -1026,3 +1026,8 @@ img{ max-width: 100%; max-height: 100%; }
     font-weight: lighter;
     font-family: GalanoGrotesque;
 }
+
+.d-flex-center{
+    display: flex;
+    align-items: center;
+}
