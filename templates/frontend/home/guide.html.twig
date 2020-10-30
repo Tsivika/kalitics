@@ -2,14 +2,14 @@
 <h5 class="text-center encart_home_body">Création d'une réunion : </h5>
 <div class=" bd-example">
 
-    <div id="carouselExampleCaptions" class="carousel slide multi-item-carousel " data-ride="carousel" {#data-interval="9999999999999"#} >
+    <div id="carouselExampleCaptions" class="carousel slide multi-item-carousel " data-ride="carousel" data-interval="9999999999999" >
         <div class="carousel-inner">
             {% for key, row in guides %}
                 {% set active =  loop.index0 == 0 ? ' active' : '' %}
                 <div class="carousel-item {{ active }}">
                     <div class="item__third itemsContainer">
                         <a class=" video-btn image" data-toggle="modal" data-src="{{ row.url }}" data-target="#myModal">
-                            <img src="{{ asset('uploads/images/' ~ row.pdc) }}" class="d-block w-100 slide-img" alt="">
+                            <img src="{{ asset('uploads/images/' ~ row.pdc) }}" class="slide-img" alt="">
                         </a>
                         <div class="play">
                             <a class="video-btn image" data-toggle="modal" data-src="{{ row.url }}" data-target="#myModal">
