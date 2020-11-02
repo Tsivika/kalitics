@@ -23,6 +23,7 @@ import 'tinymce/plugins/link';
         deleteTestimonial();
         deletePartner();
         deleteVideoGuide();
+        showingSelectedFilename();
     });
 
     tinymce.init({
@@ -123,6 +124,17 @@ import 'tinymce/plugins/link';
             let url = Routing.generate('app_espace_admin_video_guide_delete', {'id':video_guide});
             e.preventDefault();
             confirmSwalAlertVideoGuide('de vouloir supprimer cette Guide vidéo', url, video_guide);
+        });
+    }
+
+    function showingSelectedFilename()
+    {
+        $('.dropdown-toggle').dropdown();
+        $('.custom-file-input').on('change', function(event) {
+            var inputFile = event.currentTarget;
+            $(inputFile).parent()
+                .find('.custom-file-label')
+                .html(inputFile.files[0].name);
         });
     }
 

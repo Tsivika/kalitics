@@ -21,7 +21,10 @@
                  align-items: center;
                 ">
         <div class="col-lg-2">
-            <span>{{ row.name }}</span>
+            <div class="wrap_step">
+                <img class="rounded-circle img-fluid" src="{{ asset('uploads/images/' ~ row.pdc) }}" style="max-width: 42px; max-height: 42px">
+                <span class="col-lg-8">{{ row.name }}</span>
+            </div>
         </div>
         <div class="col-lg-6 ">{{ row.content|striptags|slice(0, 58) ~ '...' }}</div>
         <div class="col-lg-1 ">{{ row.score }}</div>
