@@ -127,6 +127,7 @@ class MeetingHandler extends Handler
             $meetingUser->setLink($url);
             $meetingUser->setPasswordModerator($pwdModerator);
             $this->em->save($meetingUser);
+            $this->em->sendMailToParticipants($meetingUser->getParticipants());
 
             return $url;
         }

@@ -3,6 +3,7 @@
 
 namespace App\Manager;
 
+use App\Email\MeetingMail;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -303,5 +304,14 @@ class MeetingManager extends BaseManager
         $mpw = md5($rand.$pwd);
 
         return $mpw;
+    }
+
+    public function sendMailToParticipants(MessageBusInterface $bus, MeetingMail $mailer, $data)
+    {
+        foreach ($data as $row) {
+            $this->bus->dispatch($this->mailer->sendEmailToParticipant($row->getEmail()));
+            dump($row->getEmail());
+        }
+
     }
 }
