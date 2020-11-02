@@ -19,22 +19,21 @@ class PartnerType extends AbstractType
                 'label' => 'Nom',
                 'attr' => [
                     'class' => 'form-control bg-white encart_home_body',
-                    'placeholder' => 'Nom',
-                    'style' => 'width:400px',
+                    'placeholder' => 'Nom'
                 ]
             ])
             ->add('webSite', TextType::class, [
                 'label' => 'Site web',
                 'attr' => [
                     'class' => 'form-control bg-white encart_home_body',
-                    'placeholder' => 'Site web (ex: http://google.com)',
-                    'style' => 'width:400px',
+                    'placeholder' => 'Site web (ex: http://google.com)'
                 ]
             ])
             ->add('pdc', FileType::class, [
                 'label' => 'Image de couverture',
                 'attr' => [
                     'accept' => 'image/jpeg, image/jpg, image/png',
+                    'class' => 'form-control'
                 ],
                 'mapped' => false,
                 'required' => false,

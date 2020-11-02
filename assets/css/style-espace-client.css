@@ -332,6 +332,13 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
     color: #062944;
     opacity: 1;
 }
+
+@media (max-width: 992px) {
+    .card-borderer .actions {
+        margin-top: 10px;
+    }
+}
+
 @media (max-width: 992px) {
     .card-borderer {
         margin-top: 15px !important;

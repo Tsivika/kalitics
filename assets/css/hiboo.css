@@ -87,6 +87,13 @@ section p {
     padding:8px 40px 10px 40px;
 }
 
+@media (max-width: 992px) {
+    .signin {
+        padding: 8px 32px 10px 32px;
+    }
+}
+
+
 .text-green {
     color: rgba(0,201,174,1) !important;
 }
@@ -686,6 +693,7 @@ li  {
         padding-left: 0px;
     }
 }
+
 
 #navbarResponsive .navbar-nav {
     margin-top: 0px;

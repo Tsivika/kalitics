@@ -4,10 +4,10 @@
 
 {% block body %}
     <div class="row">
-        <div class="col-sm-7">
+        <div class="col-7">
             <span class="text-green">Gestions des réunions</span>
         </div>
-        <div class="col-sm-5">
+        <div class="col-5">
             <div class="w-100 text-right">
                 <a class="btn  btn-large py-2 login" href="{{ path('app_espace_admin_meeting_add') }}" role="button">
                     <span class="fa fa-plus"></span>
@@ -18,8 +18,8 @@
             </div>
         </div>
     </div>
-    <div class="container mt-5" id="list-meetings">
 
+    <div class="container mt-5" id="list-meetings">
         <div class="row">
             <div class="col-lg-3 list_meeting_head" style="display: flex; justify-content: flex-start">
                 <span>{{ knp_pagination_sortable(meetings, 'Créateur', 'user.email') }}
