@@ -4,13 +4,18 @@
 
 {% block body %}
     <div class="row">
-        <div>
+        <div class="col-sm-7">
             <span class="text-green">Gestions des réunions</span>
         </div>
-    </div>
-    <div class="row mt-4 ">
-        <div class="text-right">
-            <a class="btn  btn-large py-2 login" href="{{ path('app_espace_admin_meeting_add') }}" role="button">Ajouter une réunion</a>
+        <div class="col-sm-5">
+            <div class="w-100 text-right">
+                <a class="btn  btn-large py-2 login" href="{{ path('app_espace_admin_meeting_add') }}" role="button">
+                    <span class="fa fa-plus"></span>
+                    <span class="d-none d-sm-inline-block">
+                        Ajouter une réunion
+                    </span>
+                </a>
+            </div>
         </div>
     </div>
     <div class="container mt-5" id="list-meetings">
@@ -31,50 +36,50 @@
                 </div>
             </div>
         </div>
-        {% for row in meetings|reverse %}
-            <div class="row list_meeting_border_radius mt-2"
-                 style="display: flex;
-                 justify-content: center;
-                 align-items: center;
-                ">
-                <div class="col-lg-3" style="display: flex; justify-content: space-between">
-                    <span>{{ row.user.email }}</span>
-                </div>
-                <div class="col-lg-3 "><input class="input_copy" type="text" id="linkInput_{{ row.id }}" value="{{ baseUrl }}/reunion/{{ row.identifiant }}" readonly></div>
-                <div class="col-lg-2 ">
-                    {% set state = '<i class="fa fa-circle" style="color: #ffaa2b"></i> En attente' %}
+        <div class="row">
+            {% for row in meetings|reverse %}
+                <div class="col-sm-6 col-lg-12  mt-2">
+                    <div class="row card-borderer mx-1">
+                        <div class="col-lg-3 d-flex-center-left">
+                            <span>{{ row.user.email }}</span>
+                        </div>
+                        <div class="col-lg-3 d-flex-center-left">
+                            <input class="input_copy w-100" type="text" id="linkInput_{{ row.id }}" value="{{ baseUrl }}/reunion/{{ row.identifiant }}" readonly>
+                        </div>
+                        <div class="col-lg-2 d-flex-center-left">
+                            {% set state = '<i class="fa fa-circle" style="color: #ffaa2b"></i> En attente' %}
 
-                    {% if row.state == 2 %}
-                        {% set state = '<i class="fa fa-circle " style="color: #dc3545"></i> Terminé' %}
-                    {% elseif row.state == 1  %}
-                        {% set state = '<i class="fa fa-circle text-green"></i> En cours' %}
-                    {% endif %}
+                            {% if row.state == 2 %}
+                                {% set state = '<i class="fa fa-circle " style="color: #dc3545"></i> Terminé' %}
+                            {% elseif row.state == 1  %}
+                                {% set state = '<i class="fa fa-circle text-green"></i> En cours' %}
+                            {% endif %}
 
-                    {{ state |raw }}
-                </div>
-                <div class="col-lg-4 actions link_identifiant ">
-                    <div class="container">
-                        <div class="row ">
-                            <div class="col-4 text-left">{{ row.CreatedAt|date("d/m/yy") }}</div>
-                            <div class="col-8 text-right">
-                                <button class="btn-icon-right btn btn-danger encart_home_body"
-                                        type="button"
-                                        onclick="return copyToPaste({{ row.id }});"
-                                        data-target="#link-meeting">
-                                    Copier lien <i class="fa fa-files-o" aria-hidden="true"></i>
-                                </button>
-                                <a href="#" data-meeting="{{ row.id }}" class="delete_meeting_bo">
-                                    <i class="fa fa-trash" aria-hidden="true"></i>
-                                </a>
+                            {{ state |raw }}
+                        </div>
+                        <div class="col-lg-4 actions link_identifiant d-flex-center-right">                           
+                            <div class="w-100">
+                                <div class="pull-left">
+                                    {{ row.CreatedAt|date("d/m/yy") }}
+                                </div>
+                                <div class="pull-right">
+                                    <button class="btn btn-danger"
+                                            type="button"
+                                            onclick="return copyToPaste({{ row.id }});"
+                                            data-target="#link-meeting">
+                                        <span class="d-none d-sm-inline-block">Copier lien</span> 
+                                        <span class="fa fa-files-o" aria-hidden="true"></span>
+                                    </button>
+                                    <a href="#" data-meeting="{{ row.id }}" class="btn delete_meeting_bo">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-
-
                 </div>
-
-            </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
         <div class="list_pagination">{{ knp_pagination_render(meetings) }}</div>
 
 
