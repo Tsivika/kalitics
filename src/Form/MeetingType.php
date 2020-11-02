@@ -23,8 +23,7 @@ class MeetingType extends AbstractType
                 'required' => true,
                 'attr' => [
                     'placeholder' => 'Sujet',
-                    'class' => 'form-control bg-white encart_home_body',
-                    'style' => 'width:340px',
+                    'class' => 'form-control bg-white encart_home_body'
                 ]
             ])
             ->add('description', TextareaType::class, [
@@ -32,7 +31,7 @@ class MeetingType extends AbstractType
                 'required' => false,
                 'attr' => [
                     'placeholder' => 'Veuillez saisir la description de votre réunion',
-                    'class' => 'form-control bg-white encart_home_body',
+                    'class' => 'form-control bg-white encart_home_body w-100',
                     'rows' => 3,
                     'cols' => 30,
                 ]
@@ -43,8 +42,7 @@ class MeetingType extends AbstractType
                 'format' => 'dd/MM/yyyy HH:mm',
                 'attr' => [
                     'placeholder' => 'Date de la réunion',
-                    'class' => 'form-control bg-white border-left-0 border-right-0 border-top-0 encart_home_body',
-                    'style' => 'width: 155px; flex: 0 !important;',
+                    'class' => 'form-control bg-white encart_home_body'
                 ],
             ])
             ->add('durationH', IntegerType::class, [
@@ -52,7 +50,6 @@ class MeetingType extends AbstractType
                 'required' => false,
                 'attr' => [
                     'class' => 'form-control bg-white mr-2 encart_home_body',
-                    'style' => 'width:76px;',
                     'placeholder' => '00',
                 ]
             ])
@@ -61,7 +58,6 @@ class MeetingType extends AbstractType
                 'required' => false,
                 'attr' => [
                     'class' => 'form-control bg-white mr-2 encart_home_body',
-                    'style' => 'width:76px;',
                     'placeholder' => '00',
                 ]
             ])
@@ -70,8 +66,7 @@ class MeetingType extends AbstractType
                 'required' => true,
                 'attr' => [
                     'placeholder' => 'Mot de passe',
-                    'class' => 'form-control bg-white encart_home_body',
-                    'style' => 'width:120px;',
+                    'class' => 'form-control bg-white encart_home_body'
                 ]
             ])
             ->add('participants', CollectionType::class, [

@@ -17,8 +17,7 @@ class ParticipantType extends AbstractType
                 'label' => false,
                 'attr' => [
                     'class' => 'form-control infoPlaceholder bg-white border-md encart_home_body',
-                    'placeholder' => 'Adresse mail participant',
-                    'style' => 'min-width:350px',
+                    'placeholder' => 'Adresse mail participant'
                 ]
             ])
         ;
