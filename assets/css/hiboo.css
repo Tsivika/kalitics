@@ -129,7 +129,7 @@ header.masthead {
     z-index: 1;
 }
 .masthead:before{
-    content: url('../images/home-header-bg-left.png');
+    content: url('../images/Hiboo-Watermark.svg');
     position: absolute;
     z-index: -1;
     left: 0;
