@@ -1,0 +1,53 @@
+{% extends 'base-frontend.html.twig' %}
+
+{% block title %}Se connecter à Hiboo!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
+            <div class="card card0 border-0">
+                <div class="row d-flex">
+                    <div class="col-lg-6 ">
+                        <div class="card1" id="image-login">
+                            <div class="row justify-content-center">
+                                <img src="{{ asset('frontend/images/hiboo_connexion.png')}}" class="image" style="width:100%; height:96%"> </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 box-shadow-login pl-4">
+                        <h1 class="encart_home_head pt-2" style="letter-spacing: -1px">Connexion <span class="text-green">Hiboo</span></h1>
+                        <span class="encart_home_body"> Réinitialisez votre mot de passe </span>
+                        <p>
+                            {% for flashError in app.flashes('reset_password_error') %}
+                        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+                        {% endfor %}
+                        </p>
+
+                        <div class="my-5">
+                            {{ form_start(requestForm) }}
+                            {{ form_row(requestForm.email) }}
+                            <div class="my-3">
+                                <small>
+                                    Entrez votre adresse e-mail et nous vous enverrons un
+                                    lien pour réinitialiser votre mot de passe.
+                                </small>
+                            </div>
+                            <button type="submit" class="btn  btn-large py-2 login" style="padding: 0px 70px">
+                                <span class="font-weight-bold">Envoyer</span>
+                            </button>
+                            {{ form_end(requestForm) }}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="world-globe">
+        {{ include('shared/partenaire.html.twig') }}
+    </div>
+    <br><br>
+
+
+{% endblock %}
+
