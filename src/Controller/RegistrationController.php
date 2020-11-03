@@ -202,12 +202,11 @@ class RegistrationController extends AbstractController
             'action' => $this->generateUrl('register_user_meeting')
         ]);
 
-        $handler = new MeetingHandler($formUserMeeting, $request, $this->getUser(), $meetingManager, $router);
         $handlerUserMeeting = new RegisterUserMeetingHandler($formUserMeeting, $request, $user, $this->em);
         $formUserMeeting->handleRequest($request);
         if ($formUserMeeting->isSubmitted() && $formUserMeeting->isValid()) {
             $handlerUserMeeting->onSuccess();
-            $handler->createMeeting($paramManager, $this->urlBbb, $this->secretBbb);
+            $meetingManager->createMeeting($request, $paramManager, $this->urlBbb, $this->secretBbb, $user);
             return $this->forward('App\Controller\RegistrationController::registerUserRunMeeting', [
                 'hideMenuRegister' => 'register',
             ]);

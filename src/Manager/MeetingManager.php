@@ -3,12 +3,14 @@
 
 namespace App\Manager;
 
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
-use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 use App\Entity\Meeting;
 use App\Entity\User;
+use App\Email\MeetingMail;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 use BigBlueButton\BigBlueButton;
 use BigBlueButton\Parameters\EndMeetingParameters;
@@ -31,6 +33,14 @@ class MeetingManager extends BaseManager
      * @var ContainerBagInterface
      */
     private $params;
+    /**
+     * @var MessageBusInterface
+     */
+    private $bus;
+    /**
+     * @var MeetingMail
+     */
+    private $mailer;
 
     /**
      * MeetingManager constructor.
@@ -38,13 +48,15 @@ class MeetingManager extends BaseManager
      * @param EntityManagerInterface $em
      * @param ValidatorInterface     $validator
      */
-    public function __construct(EntityManagerInterface $em, ValidatorInterface $validator, ContainerBagInterface $params)
+    public function __construct(EntityManagerInterface $em, ValidatorInterface $validator, ContainerBagInterface $params, MessageBusInterface $bus, MeetingMail $mailer)
     {
         parent::__construct($em, Meeting::class, $validator);
         $this->em = $em;
         $this->params = $params;
         putenv('BBB_SECRET='.$this->params->get('app.bbb_secret'));
         putenv('BBB_SERVER_BASE_URL='.$this->params->get('app.bbb_server_base_url'));
+        $this->bus = $bus;
+        $this->mailer = $mailer;
     }
 
     /**
@@ -88,6 +100,7 @@ class MeetingManager extends BaseManager
     }
 
     /**
+     * @param Request           $request
      * @param ParameterManager  $paramManager
      * @param                   $urlBbb
      * @param                   $secretBbb
@@ -97,10 +110,11 @@ class MeetingManager extends BaseManager
      *
      * @throws \Exception
      */
-    public function createMeeting(ParameterManager $paramManager, $urlBbb, $secretBbb, User $user)
+    public function createMeeting(Request $request, ParameterManager $paramManager, $urlBbb, $secretBbb, User $user)
     {
         $meetingUser = $this->getUserLastMeeting($user);
         $paramUser = $paramManager->getParamUser($user);
+        $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
         if (empty($paramUser) ) {
             $paramManager->setDefaultParam($user);
             $paramUser = $paramManager->getParamUser($user);
@@ -113,7 +127,7 @@ class MeetingManager extends BaseManager
         $createMeetingParams->setAttendeePassword($meetingUser->getPassword());
         $createMeetingParams->setModeratorPassword($pwdModerator);
         $createMeetingParams->setDuration($duration);
-        $createMeetingParams->setLogoutUrl('http://127.0.0.1/');
+        $createMeetingParams->setLogoutUrl($baseurl);
         $createMeetingParams->setMaxParticipants(count($meetingUser->getParticipants()));
 
         if ($paramUser->getRecordAuto()) {
@@ -150,6 +164,8 @@ class MeetingManager extends BaseManager
             $meetingUser->setLink($url);
             $meetingUser->setPasswordModerator($pwdModerator);
             $this->save($meetingUser);
+            $urlMask = $baseurl . '/reunion/' . $meetingUser->getIdentifiant();
+            $this->sendMailToParticipants($meetingUser->getParticipants(), $urlMask);
 
             return $url;
         }
@@ -303,5 +319,12 @@ class MeetingManager extends BaseManager
         $mpw = md5($rand.$pwd);
 
         return $mpw;
+    }
+
+    public function sendMailToParticipants($emailParticipants, $urlMeeting)
+    {
+        foreach ($emailParticipants as $row) {
+            $this->bus->dispatch($this->mailer->sendEmailToParticipant($row->getEmail(), $urlMeeting));
+        }
     }
 }

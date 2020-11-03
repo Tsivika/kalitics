@@ -11,6 +11,7 @@ parameters:
     app.bbb_secret: 'jl262Jl4dVslTkH9C65AZoHnTzVXxstzfjlyd1MLwg'
     app.bbb_server_base_url: 'https://meet-dev.hiboo.live/bigbluebutton/'
     google_recaptcha_site_key: '%env(GOOGLE_RECAPTCHA_SITE_KEY)%'
+    app.contact.mail: '%env(CONTACT_MAIL)%'
 
 services:
     # default configuration for services in *this* file
