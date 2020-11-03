@@ -42,8 +42,9 @@
 }
 
 .slide-img {
-  width:640px;
-  height:360px;
+  object-fit: cover;
+  object-position: center;
+  min-width: 100%;
   padding-left: 25px;
   padding-right: 25px;
   padding-top: 10px;

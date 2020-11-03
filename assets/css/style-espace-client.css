@@ -2,7 +2,6 @@
     background: #062944 0% 0% no-repeat padding-box;
     opacity: 1;
     letter-spacing: 0px;
-    max-height: 60px;
     font-family: "GalanoGrotesque";
     z-index: 999;
 }
@@ -13,9 +12,20 @@
     justify-content: flex-start;
     padding-left: 35px;
 }
+
 .item-link {
     margin: 15px 25px 15px 0px;
 }
+@media (min-width: 992px) {
+    #menu_espc .container-fluid {
+        padding-left: 15px !important;
+    }
+    .item-link {
+        margin: 15px 20px 15px 0px;
+    }
+
+}
+
 .item-link.active {
     padding-bottom: 5px;
     border:solid 2px #00C9AE;
@@ -349,8 +359,8 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
 .bo-img-thumbnail {
     object-fit: cover;
     object-position: center;
-    max-height: 50px;
-    max-width: 70px;
+    height: 50px;
+    width: 70px;
 }
 @media (max-width: 992px) {
     .bo-img-thumbnail {

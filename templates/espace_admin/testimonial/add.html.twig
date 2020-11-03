@@ -20,36 +20,32 @@
                     {% include 'shared/flash_alert/index.html.twig' %}
                 </div>
             </div>
-            <div class="row">
-                <div class="col-6 col-lg-6 col-md-6">
-                    <div class="input-group wrap_input ">
-                        <div class="item-input-label">{{ form_label(form.name) }}</div>
-                        <div class="item-input">{{ form_widget(form.name) }}</div>
-                    </div>
-                    <div class="input-group wrap_input ">
-                        <div class="item-input-label">{{ form_label(form.score) }}</div>
-                        <div class="item-input">{{ form_widget(form.score) }}</div>
-                    </div>
-                </div>
-                <div class="col-6 col-lg-6 col-md-6">
-                    <div class="input-group wrap_input ">
-                        <div class="item-input-label">{{ form_label(form.image) }}</div>
-                        <div class="item-input">{{ form_widget(form.image) }}</div>
-                    </div>
-                    <div class="img-affiche"></div>
-                </div>
-            </div>
-            <hr>
-            <div class="input-group wrap_input ">
-                <div class="item-input-label">{{ form_label(form.content) }}</div>
-                <div class="item-input">
-                    {{ form_widget(form.content) }}
-                </div>
+
+            <div class="row mt-4  pt-2">
+                <div class="col-12">{{ form_label(form.name) }}</div>
+                <div class="col-12">{{ form_widget(form.name) }}</div>
             </div>
 
-            <div class="form-group col-lg-12 mx-auto mt-5">
+            <div class="row mt-4  pt-2">
+                <div class="col-12">{{ form_label(form.score) }}</div>
+                <div class="col-12">{{ form_widget(form.score) }}</div>
+            </div>
+
+            <div class="row mt-4  pt-2">
+                <div class="col-12">{{ form_label(form.image) }}</div>
+                <div class="col-12">{{ form_widget(form.image) }}</div>
+            </div>
+
+            <hr>
+            <div class="row mt-4  pt-2">
+                <div class="col-12">{{ form_label(form.content) }}</div>
+                <div class="col-12">{{ form_widget(form.content) }}</div>
+            </div>
+
+            <hr>
+            <div>
                 <button type="submit" class="btn  btn-large py-2 login">
-                    <span class="font-weight-bold">{{ titleBouton }}</span>
+                    <span class="font-weight-bold">{{titleBouton}}</span>
                 </button>
                 <button type="reset" class="btn  btn-large py-2 btn-outline-danger signin">
                     <span class="font-weight-bold ">Annuler</span>
