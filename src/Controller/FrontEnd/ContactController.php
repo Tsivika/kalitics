@@ -6,6 +6,7 @@ use App\Entity\Contact;
 use App\Form\ContactType;
 use App\Form\Handler\ContactHandler;
 use App\Manager\ContactManager;
+use App\Manager\PartnerManager;
 use phpDocumentor\Reflection\Types\This;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -19,15 +20,20 @@ class ContactController extends AbstractController
      * @var ContactManager
      */
     private $em;
+    /**
+     * @var PartnerManager
+     */
+    private $partnerManager;
 
     /**
      * ContactController constructor.
      *
      * @param ContactManager $em
      */
-    public function __construct(ContactManager $em)
+    public function __construct(ContactManager $em, PartnerManager $partnerManager)
     {
         $this->em = $em;
+        $this->partnerManager = $partnerManager;
     }
 
     /**
@@ -42,12 +48,13 @@ class ContactController extends AbstractController
         $form = $this->createForm(ContactType::class, $contact);
         $handler = new ContactHandler($form, $request, $this->em);
         if ($handler->process()) {
-            $this->addFlash('success', 'Demande de contact pris en compte. Un email sera envoyer au responsable.');
+            $this->addFlash('success', 'Demande de contact prise en compte. Un email sera envoyé au responsable.');
             return $this->redirectToRoute('app_contact');
         }
 
         return $this->render("frontend/contact/index.html.twig", [
             'form' => $form->createView(),
+            'partners' => $this->partnerManager->findAll(),
         ]);
     }
 

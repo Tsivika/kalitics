@@ -140,7 +140,7 @@ class MeetingController extends AbstractController
             $restriction = $handler->restriction($meetingInput);
             if (is_bool($restriction)) {
                 $handler->onSuccess();
-                $handler->createMeeting($paramManager, $this->urlBbb, $this->secretBbb);
+                $this->em->createMeeting($request, $paramManager, $this->urlBbb, $this->secretBbb, $this->getUser());
                 if ($meeting) {
                     return $this->redirectToRoute('app_espace_client_meeting_list');
                 } else {
