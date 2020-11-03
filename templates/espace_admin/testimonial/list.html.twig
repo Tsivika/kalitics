@@ -14,19 +14,14 @@
     <div class="container mt-5" id="list-testimonials">
         <div class="row">
             <div class="col-lg-2 list_meeting_head">
-                <span>{{ knp_pagination_sortable(testimonials, 'Nom', 'name') }}
+               {{ knp_pagination_sortable(testimonials, 'Nom', 'name') }}
             </div>
-            <div class="col-lg-6 list_meeting_head "  style="display: flex; justify-content: flex-start">
-                <span>{{ knp_pagination_sortable(testimonials, 'Extrait', 'content') }}</span>
+            <div class="col-lg-6 list_meeting_head ">
+                {{ knp_pagination_sortable(testimonials, 'Extrait', 'content') }}
             </div>
             <div class="col-lg-4 list_meeting_head">
-                <div class="contaire">
-                    <div class="row">
-                        <div class="col-5"><span>{{ knp_pagination_sortable(testimonials, 'Note', 'score') }}</span></div>
-                    </div>
-                </div>
+                {{ knp_pagination_sortable(testimonials, 'Note', 'score') }}
             </div>
-{#            <div class="col-lg-3 list_meeting_head"></div>#}
         </div>
         {% for row in testimonials|reverse %}
             <div class="row list_meeting_border_radius mt-2"
@@ -35,7 +30,10 @@
                  align-items: center;
                 ">
                 <div class="col-lg-2">
-                    <span>{{ row.name }}</span>
+                    <div class="wrap_step">
+                        <img class="rounded-circle img-fluid" src="{{ asset('uploads/images/' ~ row.pdc) }}" style="max-width: 42px; max-height: 42px">
+                        <span class="col-lg-8">{{ row.name }}</span>
+                    </div>
                 </div>
                 <div class="col-lg-6 ">{{ row.content|striptags|slice(0, 58) ~ '...' }}</div>
                 <div class="col-lg-1 ">{{ row.score }}</div>

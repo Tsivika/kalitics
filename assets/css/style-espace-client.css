@@ -346,6 +346,21 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
     }
 }
 
+.bo-img-thumbnail {
+    object-fit: cover;
+    object-position: center;
+    max-height: 50px;
+    max-width: 70px;
+}
+@media (max-width: 992px) {
+    .bo-img-thumbnail {
+        object-fit: cover;
+        object-position: center;
+        min-height: 150px;
+        min-width: 100%;
+    }
+}
+
 .list_pagination {
     text-align: center;
     margin-top: 20px;

@@ -4,12 +4,12 @@
 
 {% block body %}
     <div class="row">
-        <div class="col-8">
-           <span class="text-green">Gestions des partenaires</span>
+        <div class="col-7">
+            <span class="text-green">Gestions des partenaires</span>
         </div>
-        <div class="col-4">
+        <div class="col-5">
             <div class="w-100 text-right">
-                <a class="btn  btn-large py-2 login"  href="{{ path('app_espace_admin_partner_add') }}" role="button">
+                <a class="btn  btn-large py-2 login" href="{{ path('app_espace_admin_partner_add') }}" role="button">
                     <span class="fa fa-plus"></span>
                     <span class="d-none d-sm-inline-block">
                         Créer un partenaire
@@ -19,49 +19,45 @@
         </div>
     </div>
 
-
-
     <div class="container mt-5" id="list-partner">
         <div class="row">
             <div class="col-lg-4 list_meeting_head">
-                <span>{{ knp_pagination_sortable(partners, 'Nom', 'name') }}
+                {{ knp_pagination_sortable(partners, 'Nom', 'name') }}
             </div>
-            <div class="col-lg-5 list_meeting_head "  style="display: flex; justify-content: flex-start">
-                <span>{{ knp_pagination_sortable(partners, 'Site web', 'webSite') }}</span>
+            <div class="col-lg-5 list_meeting_head ">
+                {{ knp_pagination_sortable(partners, 'Site web', 'webSite') }}
             </div>
-            <div class="col-lg-3 list_meeting_head">
+            <div class="col-lg-3 list_meeting_head d-none d-lg-flex">
+                Actions
             </div>
         </div>
-        {% for row in partners|reverse %}
-            <div class="row list_meeting_border_radius mt-2">
+        <div class="row">
+            {% for row in partners|reverse %}
                 <div class="col-sm-6 col-lg-12  mt-2">
-                        <div class="row card-borderer mx-1">
-                            <div class="col-lg-3 d-flex-center-left">
-                                <span class="overflow-hidden">
-                                    {{ row.name }}
-                                </span>
+                    <div class="row card-borderer mx-1">
+                        <div class="col-lg-4 d-flex-center-left">
+                            <div class="w-100">
+                                <img class="img-thumbnail bo-img-thumbnail" src="{{ asset('uploads/images/' ~ row.pdc) }}">
+                                <span class="ml-2">{{ row.name }}</span>
                             </div>
-                            <div class="col-lg-6 d-flex-center-left">
-                                <span class="overflow-hidden">
-                                    {{ row.webSite }}
-                                <span>
+                        </div>
+                        
+                        <div class="col-lg-5 d-flex-center-left d-none d-lg-flex">{{ row.webSite }}</div>
+
+                        <div class="col-lg-3 actions link_identifiant d-flex-center-right">                           
+                            <div class="w-100 text-right">
+                                <a href="{{ path('app_espace_admin_partner_edit', {'id' : row.id}) }}" role="button" class="btn btn-danger">
+                                    Modifier
+                                </a>
+                                <a href="#" data-partner="{{ row.id }}" class="delete_partner btn btn-danger">
+                                    <i class="fa fa-trash text-dark" aria-hidden="true"></i>
+                                </a>
                             </div>
-                            <div class="col-lg-3 actions  d-flex-center-right">
-                                 <div class="w-100 w-100 text-right actions">
-                                    <a href="{{ path('app_espace_admin_partner_edit', {'id' : row.id}) }}"
-                                    role="button"
-                                    class="btn-icon-right btn btn-danger" >
-                                        Modifier
-                                    </a>
-                                    <a href="#" data-partner="{{ row.id }}" class="btn btn-danger delete_partner">
-                                        <i class="fa fa-trash text-dark" aria-hidden="true"></i>
-                                    </a>
-                                </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
         <div class="list_pagination">{{ knp_pagination_render(partners) }}</div>
     </div>
 {% endblock %}

@@ -21,19 +21,17 @@
 
     <div class="container mt-5" id="list-meetings">
         <div class="row">
-            <div class="col-lg-3 list_meeting_head" style="display: flex; justify-content: flex-start">
-                <span>{{ knp_pagination_sortable(meetings, 'Créateur', 'user.email') }}
+            <div class="col-lg-3 list_meeting_head">
+                {{ knp_pagination_sortable(meetings, 'Créateur', 'user.email') }}
             </div>
-            <div class="col-lg-3 list_meeting_head "  style="display: flex; justify-content: flex-start">
-                <span>{{ knp_pagination_sortable(meetings, 'Lien', 'identifiant') }}</span>
+            <div class="col-lg-3 list_meeting_head">
+                {{ knp_pagination_sortable(meetings, 'Lien', 'identifiant') }}
             </div>
-            <div class="col-lg-2 list_meeting_head"><span>{{ knp_pagination_sortable(meetings, 'Statut', 'state') }}</span></div>
+            <div class="col-lg-2 list_meeting_head">
+                {{ knp_pagination_sortable(meetings, 'Statut', 'state') }}
+            </div>
             <div class="col-lg-4 list_meeting_head">
-                <div class="contain">
-                    <div class="row">
-                        <div class="col-8"><span>{{ knp_pagination_sortable(meetings, 'Date de création', 'CreatedAt') }}</span></div>
-                    </div>
-                </div>
+                {{ knp_pagination_sortable(meetings, 'Date de création', 'CreatedAt') }}
             </div>
         </div>
         <div class="row">
@@ -67,10 +65,10 @@
                                             type="button"
                                             onclick="return copyToPaste({{ row.id }});"
                                             data-target="#link-meeting">
-                                        <span class="d-none d-sm-inline-block">Copier lien</span> 
+                                        <span class="d-none d-lg-inline-block">Copier lien</span> 
                                         <span class="fa fa-files-o" aria-hidden="true"></span>
                                     </button>
-                                    <a href="#" data-meeting="{{ row.id }}" class="btn delete_meeting_bo">
+                                    <a href="#" data-meeting="{{ row.id }}" class="btn btn-danger delete_meeting_bo">
                                         <i class="fa fa-trash" aria-hidden="true"></i>
                                     </a>
                                 </div>

@@ -252,6 +252,9 @@ class MeetingManager extends BaseManager
         $meetings =  $this->repository->statMeeting();
         $nbr = count($meetings);
         for ($i=0; $i < $nbr; $i++) {
+            if (!$meetings[$i]['state']) {
+                continue;
+            }
             $barData .= ', '.$meetings[$i]['state'].':'.$meetings[$i]['nbr'];
         }
         $barData .= '}';

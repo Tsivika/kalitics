@@ -13,34 +13,44 @@
     </div>
     <div class="container mt-5" id="list-video-guide">
         <div class="row">
-            <div class="col-7 col-lg-4 list_meeting_head">
+            <div class="col-lg-4 list_meeting_head">
                 <span>{{ knp_pagination_sortable(videoGuides, 'Titre', 'titre') }}
             </div>
             <div class="col-lg-5 list_meeting_head d-none d-lg-flex">
-                <span>{{ knp_pagination_sortable(videoGuides, 'Lien', 'url') }}</span>
+                {{ knp_pagination_sortable(videoGuides, 'Lien', 'url') }}
             </div>
-            <div class="col-5 col-lg-3 list_meeting_head text-right">
+            <div class="col-lg-3 list_meeting_head text-right d-none d-lg-flex">
                 <span>Actions</span>
             </div>
         </div>
+        <div class="row">
         {% for row in videoGuides|reverse %}
-            <div class="row list_meeting_border_radius mt-2">
-                <div class="col-7 col-lg-4 d-flex-center">
-                    <span>{{ row.titre }}</span>
-                </div>
-                <div class="col-lg-5 d-flex-center d-none d-lg-flex">{{ row.url }}</div>
-                <div class="col-5 col-lg-3 actions text-right">
-                    <a href="{{ path('app_espace_admin_video_guide_edit', {'id' : row.id}) }}"
-                       role="button"
-                       class="btn-icon-right btn btn-danger encart_home_body m-2">
-                        <i class="fa fa-edit text-dark" aria-hidden="true"></i>
-                    </a>
-                    <a href="#" data-video_guide="{{ row.id }}" class="btn btn-danger delete_video_guide">
-                        <i class="fa fa-trash text-dark" aria-hidden="true"></i>
-                    </a>
+            <div class="col-sm-6 col-lg-12  mt-2">
+                <div class="row card-borderer mx-1">
+                    <div class="col-lg-4 d-flex-center-left">
+                        <div class="w-100">
+                            <img class="img-thumbnail bo-img-thumbnail" src="{{ asset('uploads/images/' ~ row.pdc) }}">
+                            <span class="ml-2">{{ row.titre }}</span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-5 d-flex-center-left d-none d-lg-flex">{{ row.url }}</div>
+                    
+                    <div class="col-lg-3 actions link_identifiant d-flex-center-right">                           
+                        <div class="w-100 text-right">
+                            <a href="{{ path('app_espace_admin_video_guide_edit', {'id' : row.id}) }}" role="button" class="btn btn-danger">
+                                <span class="d-none d-lg-inline-block">Modifier </span>
+                                    <i class="fa fa-edit text-dark" aria-hidden="true"></i>
+                            </a>
+                            <a href="#" data-video_guide="{{ row.id }}" class="delete_video_guide btn btn-danger">
+                                <i class="fa fa-trash text-dark" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         {% endfor %}
+        </div>
         <div class="list_pagination">{{ knp_pagination_render(videoGuides) }}</div>
     </div>
 {% endblock %}
