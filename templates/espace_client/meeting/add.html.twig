@@ -15,131 +15,134 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block body %}
-    <div class="row">
+    <div class="row mt-2">
         <div class="col-lg-12 ">
-            <a href="{{ path('app_espace_client_meeting_list') }}" class="text-green"> Mes réunions </a> > {{title}}
+            <a href="{{ path('app_espace_client_meeting_list') }}" class="text-green"> Mes réunions </a> <span class="mx-2"> > </span> {{title}}
         </div>
     </div>
-    <div class="row mt-5">
-        <div class="col-lg-12 ">
-            {{ form_start(form) }}
-            <input type="hidden" data-nbr_participant="{{ userSubscription ? userSubscription.numberParticipant : 0 }}" class="participants">
-            <input type="hidden" value="{{ userSubscription ? userSubscription.durationMeeting : 0 }}" class="durationM">
-            <h5 class="encart_home_head mb-4">
-                {{title}} {% if mode %} - #{{ mode.subject }}{% endif %}
-            </h5>
 
-            <div class="row mt-4 justify-content-center ">
-                <div class="col-lg-6 text-center ">
-                    {% include 'shared/flash_alert/index.html.twig' %}
+    <div class="form-wrapper">
+        {{ form_start(form) }}
+        <input type="hidden" data-nbr_participant="{{ userSubscription ? userSubscription.numberParticipant : 0 }}" class="participants">
+        <input type="hidden" value="{{ userSubscription ? userSubscription.durationMeeting : 0 }}" class="durationM">
+        
+        
+        <h5 class="encart_home_head mb-4">
+            {{title}} {% if mode %} - #{{ mode.subject }}{% endif %}
+        </h5>
+
+        <div class="justify-content-center ">
+            <div class="text-center ">
+                {% include 'shared/flash_alert/index.html.twig' %}
+            </div>
+        </div>
+
+        <div class="row mt-4  pt-2">
+            <div class="col-12">{{ form_label(form.subject) }}</div>
+            <div class="col-12">{{ form_widget(form.subject) }}</div>
+        </div>
+
+        <div class="row mt-4  pt-2">
+            <div class="col-12">{{ form_label(form.description) }}</div>
+            <div class="col-12">{{ form_widget(form.description) }}</div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-lg-4 pt-3">
+                {{ form_label(form.date) }}
+                    <div class="col-auto pl-0">
+                    <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <i class="fa fa-calendar text-danger" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                            {{ form_widget(form.date) }}
+                    </div>
                 </div>
             </div>
-
-            <div class="input-group wrap_input ">
-                <div class="item-input-label">{{ form_label(form.subject) }}</div>
-                <div class="item-input">{{ form_widget(form.subject) }}</div>
-            </div>
-            <div class="input-group wrap_input ">
-                <div class="item-input-label">{{ form_label(form.description) }}</div>
-                <div class="item-input">{{ form_widget(form.description) }}</div>
-            </div>
-            <hr>
-            <div class="input-group wrap_input">
-                <div class="item-input-label">{{ form_label(form.date) }}</div>
-                <div class="input-group-prepend">
-                    <span class="input-group-text bg-white border-0">
-                        <i class="fa fa-calendar text-danger" aria-hidden="true"></i>
-                    </span>
-                </div>
-                {{ form_widget(form.date) }}
-            </div>
-
-            <div class="input-group wrap_input">
-                <div class="item-input-label">
-                    Durée de la réunion
-                    <i class="fa fa-info-circle" style="font-size: 20px; color: #00C9AE"
-                       data-toggle="tooltip"
-                       data-placement="top"
-                       data-html="true"
-                       title="{{ userSubscription ? '<div class=\'\' >Selon votre abonnement, la durée de la réunion est:<br>
-                            <span class=\'text-success\'>' ~ userSubscription.durationMeeting ~ '</span></div>' : '' }}"
-                    ></i>
-                </div>
-                <div class="item-input">
-                    <div style="display: flex; justify-content: flex-start; align-items: center">
-                        <span class="">
-                            {% if userSubscription.mode == 'free' %}
+            <div class="col-lg-3 pt-3">
+                    <label>
+                        Durée de la réunion
+                        <i class="fa fa-info-circle" style="font-size: 20px; color: #00C9AE" data-toggle="tooltip" data-placement="top" data-html="true" title="{{ userSubscription ? '<div class=\'\' >Selon votre abonnement, la durée de la réunion est:<br>  <span class=\'text-success\'>' ~ userSubscription.durationMeeting ~ '</span></div>' : '' }}" ></i>
+                    </label>
+                    <div class="row mb-3">
+                        <div class="col input-group">
+                             {% if userSubscription.mode == 'free' %}
                                 {{ form_widget(form.durationH, {'attr':{'disabled':'disabled'}}) }}
                             {% else %}
                                 {{ form_widget(form.durationH) }}
                             {% endif %}
-                        </span>
-                        <span class="mr-4 encart_home_body">h</span>
-                        <span class="">{{ form_widget(form.durationM) }}</span>
-                        <span class="mr-3 encart_home_body">min</span>
+                            <div class="input-group-append">
+                                <span class="btn btn-info">h</span>
+                            </div>
+                        </div>
+                        <div class="col input-group">
+                            {{ form_widget(form.durationM) }}
+                            <div class="input-group-append">
+                                <span class="btn btn-info" type="submit">min</span>
+                            </div>
+                        </div>
                     </div>
-                </div>
                 <div>
                     {{ form_errors(form.durationH) }}
                     {{ form_errors(form.durationM) }}
                 </div>
             </div>
-            <hr>
-            <h5 class="encart_home_head mb-4">Réunion publique ou privée</h5>
-            <div class="input-group wrap_input ">
-                <div class="item-input-label ">
-                    Mot de passe de la réunhiboo
-                </div>
-                <div class="item-input" >
-                    <div class="" style="display: flex; align-items: center">
-                        <div class="mr-3 mt-2">{{form_label(form.password)}}</div>
-                        <div class="">{{ form_widget(form.password) }}</div>
-                    </div>
-                </div>
-            </div>
-            <hr>
-            <h5 class="encart_home_head mb-4">Inviter des participants</h5>
-
-            <div class="input-group wrap_input">
-                <div class="item-input-label">
-                    Ajouter un participant
-                    <i class="fa fa-info-circle" style="font-size: 20px; color: #00C9AE"
-                       data-toggle="tooltip"
-                       data-placement="top"
-                       data-html="true"
-                       title="Le nombre de participant que vous pouvez ajouter est:<br>
-                            <span class='text-success'>{{ userSubscription.numberParticipant }}</span>"
-                    ></i>
-                </div>
-                <div class="item-input" >
-                    <div class="participant-data-proto-wrapper"
-                         data-prototype="{{ form_widget(form.participants.vars.prototype)|e('html_attr') }}"
-                         data-index="{{ form.participants|length }}" >
-                    </div>
-                    {% for participant in form.participants %}
-                        {{ formMacros.printParticipantsRow(participant) }}
-                    {% endfor %}
-                    <div class="row mt-1 mb-5">
-                        <div class="" style="margin-top: 10px">
-                            <button class="btn  btn-large py-2 login mb-1 mt-3 ml-1" id="add_participant" title="Ajouter participant">
-                                <span class="btn-icon-right encart_home_body"> Ajouter </span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <hr>
-            <div class="form-group col-lg-12 mx-auto form-add" style="margin-top: 20px">
-                <button type="submit" class="btn  btn-large py-2 login">
-                    <span class="font-weight-bold">{{title}}</span>
-                </button>
-                <button type="reset" class="btn btn-outline-danger py-2 px-5 btn-outline-danger signin">
-                    <span class="font-weight-bold ">Annuler</span>
-                </button>
-            </div>
-            {{ form_end(form) }}
         </div>
+
+        <hr>
+        <div class="mt-5">
+                <h5 class="encart_home_head mb-4">Réunion publique ou privée</h5>
+        </div>
+        <div class="row mt-4 pb-4">  
+            <div class="col-sm-12 pt-2">
+                {{form_label(form.password)}}
+            </div>
+            <div class="col-sm-12">{{ form_widget(form.password) }}</div>
+        </div>
+
+        <hr>
+        <h5 class="encart_home_head mb-4">Inviter des participants</h5>
+
+        <div class="row">
+             <div class="col-sm-12 pt-2">
+                Ajouter un participant
+                <i class="fa fa-info-circle" style="font-size: 20px; color: #00C9AE"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    data-html="true"
+                    title="Le nombre de participant que vous pouvez ajouter est:<br>
+                        <span class='text-success'>{{ userSubscription.numberParticipant }}</span>"
+                ></i>
+            </div>
+             <div class="col-sm-12 pt-2">
+                <div class="participant-data-proto-wrapper"
+                        data-prototype="{{ form_widget(form.participants.vars.prototype)|e('html_attr') }}"
+                        data-index="{{ form.participants|length }}" >
+                </div>
+                {% for participant in form.participants %}
+                    {{ formMacros.printParticipantsRow(participant) }}
+                {% endfor %}
+                <div class="w-100 m-4 text-center pt-2">
+                    <button class="btn  btn-large py-2 login" id="add_participant" title="Ajouter participant">
+                         Ajouter
+                    </button>
+                </div>
+            </div>
+
+        </div>
+        <hr>
+        <div class="form-group col-lg-12 mx-auto form-add" style="margin-top: 20px">
+            <button type="submit" class="btn  btn-large py-2 login">
+                <span class="font-weight-bold">{{title}}</span>
+            </button>
+            <button type="reset" class="btn btn-outline-danger py-2 px-5 btn-outline-danger signin">
+                <span class="font-weight-bold ">Annuler</span>
+            </button>
+        </div>
+        {{ form_end(form) }}
     </div>
 {% endblock %}
 {% block javascripts %}

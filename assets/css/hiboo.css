@@ -112,7 +112,7 @@ section p {
 
 @media (max-width: 992px) {
     .signin {
-        padding: 8px 32px 10px 32px;
+        padding: 8px 22px 10px 22px !important;
     }
 }
 

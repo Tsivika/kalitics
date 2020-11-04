@@ -49,7 +49,7 @@ class MeetingType extends AbstractType
                 'label' => 'h',
                 'required' => false,
                 'attr' => [
-                    'class' => 'form-control bg-white mr-2 encart_home_body',
+                    'class' => 'form-control bg-white encart_home_body',
                     'placeholder' => '00',
                 ]
             ])
@@ -57,7 +57,7 @@ class MeetingType extends AbstractType
                 'label' => 'min',
                 'required' => false,
                 'attr' => [
-                    'class' => 'form-control bg-white mr-2 encart_home_body',
+                    'class' => 'form-control bg-white encart_home_body',
                     'placeholder' => '00',
                 ]
             ])
