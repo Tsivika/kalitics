@@ -1,4 +1,11 @@
 swiftmailer:
-    url: '%env(MAILER_URL)%'
-    spool: { type: 'memory' }
+#    url: '%env(MAILER_DSN)%'
+#    spool: { type: 'memory' }
+#    transport:
+#        class: Swift_SmtpTransport
+#    host: smtp.sendgrid.net
+#    port: 587
+#    auth_mode: login
+#    username: nnewtic@gmail.com
+#    password: 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
     disable_delivery: false

@@ -2,6 +2,7 @@
 
 namespace App\Controller\FrontEnd;
 
+use App\Email\SwiftMailerEmail;
 use App\Entity\Contact;
 use App\Form\ContactType;
 use App\Form\Handler\ContactHandler;
@@ -12,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
+use Symfony\Component\Mailer\Bridge\Sendgrid\Transport\SendgridTransportFactory;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ContactController extends AbstractController
@@ -42,12 +44,45 @@ class ContactController extends AbstractController
      * @param Request $request
      * @return ResponseAlias
      */
-    public function contact(Request $request)
+    public function contact(Request $request, \Swift_Mailer $mailer)
     {
         $contact = new Contact();
         $form = $this->createForm(ContactType::class, $contact);
         $handler = new ContactHandler($form, $request, $this->em);
         if ($handler->process()) {
+
+            /*$message = (new \Swift_Message('Hello Email'))
+                ->setFrom('send@example.com')
+                ->setTo('tsivika@gmail.com')
+                ->setBody(
+                    $this->renderView(
+                        'emails/contact/sendMail.html.twig',
+                        ['message' => 'coucou']
+                    )
+                )
+            ;
+            $mailer->send($message);*/
+
+            $transport = (new \Swift_SmtpTransport('smtp.sendgrid.net', 587))
+                ->setUsername('tsivika')
+                ->setPassword('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');
+
+            $mailered = new \Swift_Mailer($transport);
+
+            $message = (new \Swift_Message())
+                ->setSubject('Here should be a subject')
+                ->setFrom(['contact@hiboo.live'])
+                ->setTo(['tsivika@gmail.com' => 'nouveau mail '])
+                ->setCc([
+                    'contactdiaryko@gmail.com' => 'Product manager'
+                ]);
+
+            $message->setBody('<html><body><p>Welcome to at home</p></body></html>','text/html');
+            $message->addPart('Welcome to Mailtrap, now your test emails will be safe', 'text/plain');
+            $mailered->send($message);
+
+            
+
             $this->addFlash('success', 'Demande de contact prise en compte. Un email sera envoyé au responsable.');
             return $this->redirectToRoute('app_contact');
         }
