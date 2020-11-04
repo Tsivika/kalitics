@@ -1,15 +1,3 @@
 swiftmailer:
-#    url: '%env(MAILER_URL)%'
+    url: '%env(MAILER_URL)%'
     spool: { type: 'memory' }
-#    transport: Swift_SmtpTransport
-#    host: smtp.sendgrid.net
-#    port: 587
-#    auth_mode: login
-#    username: nnewtic@gmail.com
-#    password: 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
-#    encryption: ssl
-#    stream_options:
-#        ssl:
-#            allow_self_signed: true
-#            verify_peer: false
-#            verify_peer_name: false
