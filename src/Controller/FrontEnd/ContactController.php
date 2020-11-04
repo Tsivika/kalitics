@@ -51,20 +51,8 @@ class ContactController extends AbstractController
         $handler = new ContactHandler($form, $request, $this->em);
         if ($handler->process()) {
 
-            /*$message = (new \Swift_Message('Hello Email'))
-                ->setFrom('send@example.com')
-                ->setTo('tsivika@gmail.com')
-                ->setBody(
-                    $this->renderView(
-                        'emails/contact/sendMail.html.twig',
-                        ['message' => 'coucou']
-                    )
-                )
-            ;
-            $mailer->send($message);*/
-
             $transport = (new \Swift_SmtpTransport('smtp.sendgrid.net', 587))
-                ->setUsername('tsivika')
+                ->setUsername('contact@hiboo.live')
                 ->setPassword('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');
 
             $mailered = new \Swift_Mailer($transport);
@@ -78,7 +66,6 @@ class ContactController extends AbstractController
                 ]);
 
             $message->setBody('<html><body><p>Welcome to at home</p></body></html>','text/html');
-            $message->addPart('Welcome to Mailtrap, now your test emails will be safe', 'text/plain');
             $mailered->send($message);
 
             
