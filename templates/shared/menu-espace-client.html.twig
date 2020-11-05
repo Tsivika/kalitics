@@ -1,8 +1,7 @@
 <div>
-    <div>
+    <div class="w-100 menu-primary" id="menu-primary">
         <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
             <div class="container-fluid">
-
                 <a class="navbar-brand" href="{{ path('app_homePage') }}">
                      <img src="{{ asset('build/images/Hiboo-logo.svg') }}" alt="Hiboo">
                 </a>
@@ -32,18 +31,29 @@
                         </li>
                     </ul>
                     <ul>
-                        <li class="nav-item sign">
+                        <li class="w-100 nav-item sign">
                             {% if app.user == null %}
-                                <a class="btn  btn-lg login text-center" href="{{ path('app_login') }}">Se connecter</a>
-                                <a class="btn btn-outline-danger btn-lg signin" href="{{ path('app_register') }}">Je m'inscris</a>
+                                <a class="btn  btn-lg login" href="{{ path('app_login') }}">Se connecter</a>
+                                <a class="btn btn-outline-danger signin" href="{{ path('app_register') }}">Je m'inscris</a>
                             {% else%}
-                                <a class="btn  btn-sm login text-center" href="{{ path('app_logout') }}">Déconnexion</a>
-                                <a class="btn btn-outline-danger btn-sm signin" href="{{ path('app_espace_admin_dashbord') }}">Tableau de bord</a>
+                                <a class="btn  btn-sm login" href="{{ path('app_logout') }}">Déconnexion</a>
+                                <a class="btn btn-outline-danger signin" href="{{ path('app_espace_admin_dashbord') }}">Tableau de bord</a>
                             {% endif %}
                         </li>
                     </ul>
+                    <div class="row py-4 d-lg-none">
+                        <a class="col footer-menu encart_home_body" href="#">FAQ</a>
+                        <a class="col footer-menu encart_home_body" href="#">CGU</a>
+                        <a class="col footer-menu encart_home_body" href="#">CGV</a>
+                        <span class="col footer-menu encart_home_body text-right" href="#">
+                            <button class="btn circle-btn navbar-closer" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                                <i class="fa fa-close"></i>
+                            </button>
+                        </span>
+                    </div>
                 </div>
             </div>
+           
         </nav>
     </div>
     <div>
@@ -94,12 +104,13 @@
                     <div class="item-link {% if app.request.get('_route') == 'app_espace_client_guide_list' %} active {% endif %}"><a href="{{ path('app_espace_client_guide_list') }}">Guide</a></div>
                     <div class="item-link {% if app.request.get('_route') == 'app_espace_client_subscription_list' %} active {% endif %}"><a href="{{ path(path_subscription) }}">Abonnement</a></div>
                 {% endif %}
-                <div class="item-link" style="flex: 2; text-align: right">
+                <div class="item-link d-none d-lg-block" style="flex: 2; text-align: right">
                     <a id="dropdownMenuButton" data-toggle="dropdown">
                         Bonjour, {{ app.user.firstname }}
                     </a>
                 </div>
             </div>
         </div>
+
     </div>
 </div>

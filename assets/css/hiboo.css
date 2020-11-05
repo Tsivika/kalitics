@@ -1,12 +1,35 @@
 .nav-item{
-
     padding:10px;
     z-index: 1;
 }
 .nav-item:hover{
-
     color:rgba(0,201,174,1);
 }
+
+@media (max-width:991px){
+    .menu-primary .nav-item{
+       text-align: right;
+    }
+    .menu-primary.open {
+        position:absolute !important;
+        z-index:9999 !important;
+     }
+    .menu-primary.open .navbar{
+        background: #ccfff8 !important;
+        text-align:right !important;
+        border-radius: 0% 0% 50% 50% / 0% 0% 7% 7% !important;
+        padding-bottom: 50px !important;
+    }    
+    .menu-primary .nav-item.sign {
+        margin-top: 5vh !important;
+    }
+    .menu-primary .nav-item.sign .btn {
+        margin-top: 1vh;
+        width:70%;
+    }
+}
+
+
 section p {
     color: #062944;
 }
@@ -89,7 +112,7 @@ section p {
 
 @media (max-width: 992px) {
     .signin {
-        padding: 8px 32px 10px 32px;
+        padding: 8px 22px 10px 22px !important;
     }
 }
 
@@ -121,8 +144,8 @@ header.masthead {
 }
 
 .masthead {
-    padding-top: 6rem;
-    padding-bottom: 4rem;
+    padding-top: 6vh;
+    padding-bottom: 2vh;
 }
 
 .masthead h1 {
@@ -167,6 +190,7 @@ header.masthead {
     letter-spacing: 0px;
     color: #FFFFFF;
     opacity: 1;
+    padding-top: 3px;
 }
 
 .world-globe h3{
@@ -375,11 +399,7 @@ a {
         border-top: 1px solid #EEEEEE !important;
         margin: 0px 15px
     }
-    .nav-item.sign{
-        width: 212px;
-        position: absolute;
-        right: 5px;
-    }
+    
     #image-login {
         display: none;
     }
@@ -651,7 +671,7 @@ li  {
     color:rgba(0,201,174,1) !important;
 }
 .card-tarif .btn.encart_home_body {
-    padding: 8px 30px;
+    padding: 5px 30px 10px 30px;
     margin-top: 10px;
 }
 .home-icon{
@@ -1015,13 +1035,13 @@ img{ max-width: 100%; max-height: 100%; }
 }
 .itemsContainer:hover .play{display:block}
 .play{
-    top:30%;
+    top: 35%;
     position: absolute;
-    display:none;
+    display: none;
     align-items: center;
     text-align: center;
-    margin-left: 47%;
-    z-index:100;
+    left: 45%;
+    z-index: 100;
 }
 
 .image-login{
@@ -1065,4 +1085,13 @@ img{ max-width: 100%; max-height: 100%; }
 /* Admin wysiwyg*/
 .tox.tox-tinymce {
     width: 100% !important;
+}
+
+button.btn.circle-btn {
+    border-radius: 50% !important;
+}
+
+.navbar-closer {
+    color: white !important;
+    background: #062944 !important;
 }

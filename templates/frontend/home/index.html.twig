@@ -153,13 +153,13 @@
 			})
 
 			/** carousel control */
-			$('.carousel-control-prev').on('click',(e) =>{
+			$('.carousel-control-prev').on('click',function (e){
 				e.preventDefault()
-				$("#carouselExampleCaptions").carousel('prev')
+				$(this).parents('.carousel').carousel('prev')
 			})
-			$('.carousel-control-next').on('click',(e) =>{
+			$('.carousel-control-next').on('click',function (e){
 				e.preventDefault()
-				$("#carouselExampleCaptions").carousel('next')
+				$(this).parents('.carousel').carousel('next')
 			})
 		});
 	</script>

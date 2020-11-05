@@ -9,7 +9,7 @@
     <div class="container">
         <div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 mx-auto">
             <div class="card card0 border-0">
-                <div class="row">
+                <div class="row d-none d-sm-flex">
                     <div class="col-12 ml-3">
                         {{ macro_step.show_step_head(1, 'payment', 1) }}
                     </div>
@@ -76,19 +76,31 @@
 
 
 
+                        <div class="row mt-4 px-4">
+                            <div class="col-lg-6 mt-2 px-1">
+                                {{ form_widget(form.name) }} 
+                            </div>
+                            <div class="col-lg-6 mt-2  px-1">
+                                {{ form_widget(form.firstname) }}
+                            </div>
+                            <div class="col-lg-6 mt-2  px-1">
+                                {{ form_widget(form.entreprise) }}
+                            </div>
+                            <div class="col-lg-6 mt-2  px-1">
+                                {{ form_widget(form.email, {'attr': {'class':'email-user'}}) }}
+                            </div>
+                            <div class="col-lg-12 mt-2  px-1">
+                                {{ form_widget(form.address) }}
+                            </div>
+                        </div>
+                        <div class="mt-5 px-2">
+                            <div class="mb-3"><strong>Carte bancaire</strong></div>
+                            <div class=" mb-2 stripes" id="card-element" ></div>
+                            <div class=" mb-2" id="card-errors" role="alert"></div>                            
+                        </div>
 
-                        <div class="input-group col-lg-12 mb-2 ">
-                            {{ form_widget(form.name) }} <div class="mx-1"></div>
-                            {{ form_widget(form.firstname) }}
-                        </div>
-                        <div class="input-group col-lg-12 mb-2 ">
-                            {{ form_widget(form.entreprise) }} <div class="mx-1"></div>
-                            {{ form_widget(form.email, {'attr': {'class':'email-user'}}) }}
-                        </div>
-                        <div class="input-group col-lg-12 mb-2 "> {{ form_widget(form.address) }}</div>
-                        <div class="input-group col-lg-12 mt-5 mb-2 "><strong>Carte bancaire</strong></div>
-                        <div class=" mb-2 stripes" id="card-element" ></div>
-                        <div class=" mb-2" id="card-errors" role="alert"></div>
+
+                        
                         <div class="mt-4 pb-3 text-left">
                             <button class="btn btn-success btn-large ml-1" style="background-color: #00C9AE">Valider le paiement</button>
                         </div>
