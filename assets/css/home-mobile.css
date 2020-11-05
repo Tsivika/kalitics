@@ -1,17 +1,26 @@
+.mobile-call-scrool{
+    position: fixed;
+    bottom: 0;
+    z-index: 9;
+    right: 0;
+    left: 0;
+}
 .mobile-call-scrool .chevron-down{
     width: 50px !important;
     height: 50px !important;
     transform: rotate(-90deg) !important;
     background: transparent url('../images/chevron-down.svg') 0% 0% no-repeat padding-box;
     opacity: 1;
-    position: relative;
-    margin: auto;
+    position: absolute;
+    left: 45%;
+    margin-top: -10px;
 }
 
 .navbar-light.home-navbar-light{
     opacity: 1;
     border-bottom: none !important ;
     box-shadow: unset !important;
+    background-color: #ffffff00 !important;
 }   
 .home-navbar-toggler{
     border-radius: 50%;
@@ -26,26 +35,74 @@
     background-repeat: no-repeat;
     background-position: center;    
 }
+@media (max-width: 1500px){
+    .advantage-item {
+        display: inline-block;
+        width: 100%;
+        text-align: center;
+        padding-right: 5px;
+        padding-left: 6px;
+    }
+    .advantage-item .item-icon {
+        width: 100%;
+    }
+    .advantage-item .item-desc {
+        width: 100%;
+    }
+}
 
-@media (max-width: 992px) {
+@media (max-width: 1340px) {
+    .masthead:after {
+        bottom: -5vh;
+    }
+    .masthead .home-header-container .w-50{
+        width: 60% !important;
+    }
+
     
 }
-@media (max-width: 499px) {
+@media (max-width: 992px) {
+    .masthead .home-header-container .w-50{
+        width: 75% !important;
+    }
     .masthead:before{
         content: none !important;
     }
+    .advantage-group {
+        display: block;
+    }
+    .advantage-item {
+        display: inline-block;
+        width: 48%;
+        text-align: center;
+        padding-right: 0px; 
+        padding-left: 0px; 
+        min-height: 150px;
+        vertical-align: bottom;
+        margin-top: 25px;
+    }
+    .advantage-item:last-child {
+        width: 100%;
+    }
+    .advantage-item:last-child .item-desc {
+        width: 50%;
+        margin: auto;
+    }
+}
+@media (max-width: 720px) {
+ 
     .masthead:after {
         content: " " !important;
         background-image: url('../images/Hiboo-Image-Fond.svg') !important;
         min-height: 220px;
-        width: 100%;
+        width: 70%;
+        margin-left: 20%;
         background-size: cover;
         position: relative !important;
         background-size: 100% 100%;
         display: inline-block;
         bottom: 0px;
     }
-
     .masthead .home-header-container .w-50{
         width: 100% !important;
         margin-left: 15px !important;
@@ -77,5 +134,13 @@
     .rs-icons{
         display: none;
     }
-    
+ 
+    /* Carousel*/
+    .multi-item-carousel .item__third {
+        width: 100%;
+        display: block;
+    }
+    .carousel.multi-item-carousel{
+        max-height: 180px;
+    }
 }
