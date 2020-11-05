@@ -38,15 +38,6 @@ services:
         calls:
             - [ setAnnotationReader, [ "@annotation_reader" ] ]
 
-    App\Email\Email:
-        alias: App\Email\SwiftMailerEmail
-
-    App\Email\Handler\SymfonyMailerHandler:
-        tags: ['messenger.message_handler']
-
-    App\Email\Handler\SwiftMailerHandler:
-        tags: ['messenger.message_handler']
-
     App\Services\ImageUploader:
         arguments:
             $targetDirectory: '%image_directory%'
