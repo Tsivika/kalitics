@@ -10,22 +10,38 @@
     .menu-primary .nav-item{
        text-align: right;
     }
+    
+    .menu-primary .nav-item .nav-link {
+        font-size: 22px;
+    }
+
     .menu-primary.open {
         position:absolute !important;
         z-index:9999 !important;
      }
     .menu-primary.open .navbar{
-        background: #ccfff8 !important;
-        text-align:right !important;
+        background: #CCF4EF !important;
+        text-align: right !important;
         border-radius: 0% 0% 50% 50% / 0% 0% 7% 7% !important;
-        padding-bottom: 50px !important;
-    }    
+        min-height: 100vh;
+        padding-top: 8px;
+        display: block;
+    } 
+       
+    .menu-primary.open .navbar-nav:nth-child(1){
+        margin-top: 3vh !important;
+    } 
+
     .menu-primary .nav-item.sign {
         margin-top: 5vh !important;
+        padding-bottom: 20vh;
     }
     .menu-primary .nav-item.sign .btn {
         margin-top: 1vh;
         width:70%;
+    }
+    .menu-primary .nav-item.sign .btn-outline-danger {
+        background: white;
     }
 }
 
@@ -630,7 +646,7 @@ li  {
     position: absolute;
     z-index: 1;
     right: 5%;
-    top: 50%;
+    bottom: -50%;
 }
 .card-tarif {
     border: 1px solid  white;

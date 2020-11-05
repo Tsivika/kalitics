@@ -23,13 +23,6 @@
   <script src="https://js.stripe.com/v3/"></script>
   {% block javascripts %}
       {{ encore_entry_script_tags('espaceClient') }}
-      <script type="text/javascript">
-        $(document).ready(function(){
-          $("#menu-primary .navbar-toggler, #menu-primary .navbar-closer").on('click', function(){
-            $("#menu-primary").toggleClass('open')
-          })
-        })
-      </script>
   {% endblock %}
    
 </body>

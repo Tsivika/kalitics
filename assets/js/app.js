@@ -18,4 +18,5 @@ import './carousel';
 import './toastr.min';
 import './toastr';
 import './meeting';
+import './mobile-menu-handler'
 

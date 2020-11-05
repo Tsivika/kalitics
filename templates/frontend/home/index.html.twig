@@ -2,7 +2,6 @@
 {% block title %}Bienvenue sur Hiboo{% endblock %}
 
 {% block body %}
-
 	<div id="preloader" class="d-none">
 		<div class="loader">
 			<svg class="circular" viewBox="25 25 50 50">
@@ -10,84 +9,14 @@
 			</svg>
 		</div>
 	</div>
-	{# BEGIN  Page Header #}
-	   {% include "frontend/home/home_header.html.twig" %}
-	{# END Page Header #}
+	
+	{# Header section #}
+	{% include "frontend/home/header.html.twig" %}
+	
 	<section class="p-5">
-		<div class="row mx-2">
-			<div class="col d-flex">
-				<div class="w-100 text-center">
-					<img src="{{ asset('build/images/world-globe.svg') }}" alt="world globe">
-				</div>
-				<div class="w-100">
-					<div class="encart_home_head align_picto_avantage img-title">
-						<span>Facile</span>
-					</div>
-					<div  class="encart_home_body mt-1">
-						<span>Utilisez Hiboo sur votre navigateur sans téléchargement</span>
-					</div>
-				</div>
-			</div>
-
-		
-			<div class="col d-flex">
-				<div class="w-100 text-center">
-					<img src="{{ asset('build/images/hourglass.svg') }}" alt="world globe">
-				</div>
-				<div class="w-100">
-					<div class="encart_home_head align_picto_avantage img-title">
-						<span>Rapide</span>
-					</div>
-					<div  class="encart_home_body mt-1">
-						<span>Créez votre propre<br/>réunion en moins <br/>d' 1 minute</span>
-					</div>
-				</div>
-			</div>
-
-			
-			<div class="col d-flex">
-				<div class="w-100 text-center">
-					<img src="{{ asset('build/images/shield.svg') }}" alt="world globe">
-				</div>
-				<div class="w-100">
-					<div class="encart_home_head align_picto_avantage img-title">
-						<span>Sécurisé</span>
-					</div>
-					<div  class="encart_home_body mt-1">
-						<span>Utilisation d'un firewall applicatif intelligent labélisé</span>
-					</div>
-				</div>
-			</div>
-
-			<div class="col d-flex">
-				<div class="w-100 text-center">
-					<img src="{{ asset('build/images/connection.svg') }}" alt="world globe">
-				</div>
-				<div class="w-100">
-					<div class="encart_home_head align_picto_avantage img-title">
-						<span>Réunion</span>
-					</div>
-					<div  class="encart_home_body mt-1">
-						<span>Participez à une réunion vidéo à deux ou à plusieurs</span>
-					</div>
-				</div>
-			</div>
-
-			<div class="col d-flex">
-				<div class="w-100 text-center">
-					<img src="{{ asset('build/images/chat.svg') }}" alt="world globe">
-				</div>
-				<div class="w-100">
-					<div class="encart_home_head align_picto_avantage img-title">
-						<span>Messagerie</span>
-					</div>
-					<div  class="encart_home_body mt-1">
-						<span>Envoyez des messages durant vos entretiens vidéos</span>
-					</div>
-				</div>
-			</div>
-		</div>
+		{% include "frontend/home/advantage.thml.twig" %}
 	</section>
+
 	<section id="guide" class="container world-globe" style="max-width: 1700px !important;">
 		{% include 'frontend/home/guide.html.twig' %}
 	</section>
@@ -95,30 +24,6 @@
 	<section id="testmoniaux" class="container-fluid text-center"  style="max-width: 1700px !important;" >
 		{% include 'frontend/home/testimonial.html.twig' %}
 	</section>
-
-	{#		slick begin#}
-	{#<section>
-		<div class="slick-center-wrap">
-			<a href="javascript:;" title="上一張" class="pic-prev">prev</a>
-			<a href="javascript:;" title="下一張" class="pic-next">next</a>
-			<ul class="slick-center">
-
-				<div>
-					<img src="{{ asset('frontend/images/photo-1448932223592-d1fc686e76.png') }}" class="d-block w-100 slide-img" alt="">
-				</div>
-				<div>
-					<img src="{{ asset('frontend/images/photo-1571826867433-29518cc0b0.png') }}" class="d-block w-100 slide-img" alt="">
-				</div>
-				<div>
-					<img src="{{ asset('frontend/images/photo-1520333789090-1afc82db53@2x.png') }}" class="d-block w-100 slide-img" alt="">
-				</div>
-				<div>
-					<img src="" data-lazy="http://placehold.it/500x150&amp;text=J-sport">
-				</div>
-			</ul>
-		</div>
-	</section>#}
-	{#		slick end#}
 
 	<section id="mission" class="container world-globe">
 		<h2 class="text-center encart_home_head text-green">Pourquoi Hiboo ? </h2>
@@ -134,7 +39,6 @@
 	</section>
 
 	<br><br>
-
 
 {% endblock %}
 {% block javascripts %}

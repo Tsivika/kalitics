@@ -1,0 +1,81 @@
+.mobile-call-scrool .chevron-down{
+    width: 50px !important;
+    height: 50px !important;
+    transform: rotate(-90deg) !important;
+    background: transparent url('../images/chevron-down.svg') 0% 0% no-repeat padding-box;
+    opacity: 1;
+    position: relative;
+    margin: auto;
+}
+
+.navbar-light.home-navbar-light{
+    opacity: 1;
+    border-bottom: none !important ;
+    box-shadow: unset !important;
+}   
+.home-navbar-toggler{
+    border-radius: 50%;
+    width: 60px;
+    height: 55px;
+    background: #062944;
+}
+.home-navbar-toggler-icon {
+    width: 34px;
+    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(225, 225, 255, 1)' stroke-width='3' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    height: 45px;
+    background-repeat: no-repeat;
+    background-position: center;    
+}
+
+@media (max-width: 992px) {
+    
+}
+@media (max-width: 499px) {
+    .masthead:before{
+        content: none !important;
+    }
+    .masthead:after {
+        content: " " !important;
+        background-image: url('../images/Hiboo-Image-Fond.svg') !important;
+        min-height: 220px;
+        width: 100%;
+        background-size: cover;
+        position: relative !important;
+        background-size: 100% 100%;
+        display: inline-block;
+        bottom: 0px;
+    }
+
+    .masthead .home-header-container .w-50{
+        width: 100% !important;
+        margin-left: 15px !important;
+        padding-right: 15px !important;
+    }
+    .masthead h1 {
+        font-weight: 600;
+        font-size: 62px;
+    }
+    .masthead h2 {
+        font-size: 6vw;
+        max-width: 100%;
+        margin-bottom: 5vh;
+    }
+
+    .masthead #reunion-email {
+        max-width: 90%;
+        margin: 5px 0px 10px 0px !important;
+        height: 45px;
+        padding-top: 10px;
+    }
+
+    .masthead #btn-reunion-email{
+        max-width: 90%;
+        margin: 5px 0px 25px 10px !important;
+        height: 45px;
+        padding-top: 5px;
+    }
+    .rs-icons{
+        display: none;
+    }
+    
+}

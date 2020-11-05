@@ -12,5 +12,6 @@ import './guide';
 import './profil';
 import './backOffice';
 import './espace-client-parameter';
+import './mobile-menu-handler'
 
 
