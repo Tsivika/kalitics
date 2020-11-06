@@ -35,7 +35,7 @@
 
     .menu-primary.open {
         position:absolute !important;
-        z-index:9999 !important;
+        z-index:9 !important;
      }
     .menu-primary.open .navbar{
         background: #CCF4EF !important;
@@ -59,6 +59,13 @@
     }
     .menu-primary .nav-item.sign .btn-outline-danger {
         background: white;
+    }
+    .menu-primary .navbar-closer-icon {
+        width: 25px;
+        background-image: url('../images/close-menu.svg');
+        height: 35px;
+        background-repeat: no-repeat;
+        background-position: center;
     }
 }
 

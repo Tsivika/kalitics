@@ -1,37 +1,42 @@
 <p><h2 class="text-center text-danger encart_home_head"> Leur avis compte ! </h2></p>
 <div class="rectangle">
-    <div class="container text-center my-3" style="max-width: 1700px !important;">
+    <div class="container text-center my-3">
         <div class=" bd-example">
-            <div id="testimonialCarousel" class="carousel slide multi-item-carousel " data-ride="carousel">
+            <div id="testimonialCarousel" class="carousel slide multi-item-carousel " data-ride="carousel" data-interval="9999999999999">
                 <div class="carousel-inner">
                     {% for key, row in testimonials %}
                         {% set active = loop.index0 == 0 ? ' active' : '' %}
                         <div class="carousel-item {{ active }}">
                             <div class="item__third">
                                 <div class="card bg-transparent border-0 w-100">
-                                    <div class="card-body row py-5">
-                                        <div class="col-sm-3">
-                                            <img src="{{ asset('uploads/images/' ~ row.pdc) }}" alt="" class="rounded-circle img-fluid"/>
+                                    <div class="card-body">
+                                        <div class="pull-right quote-wrapper">
+                                            <span  class="fa fa-2x fa-quote-right text-white ml-5"></span>
                                         </div>
-                                        <div class="col-sm-9 text-justify">
-                                            <h4 class="encart_home_head mb-3">
-                                                <div class="float-left">{{ row.name }}</div>
-                                                <div class="float-left">
-                                                    <span style=" font-size: 40px" class="fa fa-quote-right text-white ml-5"></span>
+                                        <div class="row">
+                                            <div class="col-lg-3 text-center">
+                                                <img src="{{ asset('uploads/images/' ~ row.pdc) }}" alt="" class="rounded-avatar img-fluid"/>
+                                            </div>
+                                            <div class="col-lg-9"> 
+                                                <h4 class="encart_home_head mb-3 user-name">
+                                                    {{ row.name }}                                                    
+                                                </h4>
+                                                 <div class="encart_home_body" style="font-size: 15px;">
+                                                    {{ row.content|raw }}
                                                 </div>
-                                                <div style="clear: both"></div>
-                                            </h4>
-                                            <span class="encart_home_body" style="font-size: 15px;">
-                                                {{ row.content|raw }}
-                                            </span><br>
-                                            {% for i in 1 .. 5 %}
-                                                {% if i <= row.score %}
-                                                    <span class="fa fa-star checked"></span>
-                                                {% else %}
-                                                    <span class="fa fa-star"></span>
-                                                {% endif%}
-                                            {% endfor %}
+                                                <div class="testimonial-rating">
+                                                    {% for i in 1 .. 5 %}
+                                                        {% if i <= row.score %}
+                                                            <span class="fa fa-star checked"></span>
+                                                        {% else %}
+                                                            <span class="fa fa-star"></span>
+                                                        {% endif%}
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
                                         </div>
+                                        
+                                        
                                     </div>
                                 </div>
                             </div>

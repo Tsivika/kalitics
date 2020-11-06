@@ -65,6 +65,18 @@
 				e.preventDefault()
 				$(this).parents('.carousel').carousel('next')
 			})
+
+
+			/***/
+			window.onscroll = function() {
+				var currentScrollPos = window.pageYOffset;
+				if(currentScrollPos > 99 ){
+					$(document).find('.mobile-call-scrool').addClass('hidden')
+				}else{
+					$(document).find('.mobile-call-scrool').removeClass('hidden')
+
+				}
+			}
 		});
 	</script>
 {% endblock %}
