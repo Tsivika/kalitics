@@ -5,10 +5,16 @@ namespace App\Manager;
 
 use App\Email\ContactEmail;
 use App\Entity\Contact;
+use App\Services\SendEmailService;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface as TransportExceptionInterfaceAlias;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
+/**
+ * Class ContactManager
+ * @package App\Manager
+ */
 class ContactManager extends BaseManager
 {
     /**
@@ -25,19 +31,23 @@ class ContactManager extends BaseManager
      * @var MessageBusInterface
      */
     private $bus;
+    /**
+     * @var SendEmailService
+     */
+    private $emailService;
 
     /**
      * ContactManager constructor.
      *
      * @param EntityManagerInterface $em
      * @param ValidatorInterface     $validator
+     * @param SendEmailService       $emailService
      */
-    public function __construct(EntityManagerInterface $em, ValidatorInterface $validator, ContactEmail $mailer, MessageBusInterface $bus)
+    public function __construct(EntityManagerInterface $em, ValidatorInterface $validator, SendEmailService $emailService)
     {
         parent::__construct($em, Contact::class, $validator);
         $this->em = $em;
-        $this->mailer = $mailer;
-        $this->bus = $bus;
+        $this->emailService = $emailService;
     }
 
     /**
@@ -56,10 +66,16 @@ class ContactManager extends BaseManager
 
     /**
      * @param $data
-     * @return \Symfony\Component\Messenger\Envelope
+     * @throws TransportExceptionInterfaceAlias
      */
     public function sendEmail($data)
     {
-        return $this->bus->dispatch($this->mailer->sendEmailMessage($data));
+        $template = 'emails/contact/sendMail.html.twig';
+        $context = [
+            'name' => $data->getName(),
+            'address_email' => $data->getEmail(),
+            'message' => $data->getMessage()
+        ];
+        $this->emailService->sendEmail($_ENV['CONTACT_MAIL'], $_ENV['RECEIVER_CONTACT_MAIL'], 'Hiboo: Demande de contact client', $template, $context) ;
     }
 }

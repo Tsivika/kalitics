@@ -25,13 +25,15 @@ class ContactHandler extends Handler
 
     /**
      * @return mixed|void
+     *
+     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
      */
     function onSuccess()
     {
         $param = $this->form->getData();
         $this->em->saveOrUpdate($param);
+        $this->em->sendEmail($param);
 
         return true;
     }
 }
-
