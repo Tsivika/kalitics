@@ -65,6 +65,7 @@ class User implements UserInterface
      */
     private $language;
 
+
     /**
      * @ORM\OneToOne(targetEntity=Subscription::class, cascade={"persist", "remove"})
      */

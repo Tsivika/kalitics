@@ -5,7 +5,9 @@ namespace App\Controller\espaceAdmin;
 use App\Manager\UserManager;
 use App\Repository\UserRepository;
 use App\Repository\UserSubscriptionRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -24,13 +26,19 @@ class UserSubscriptionController extends AbstractController
     private $repos;
 
     /**
+     * @var PaginatorInterface
+     */
+    private $paginator;
+
+    /**
      * UserSubscriptionController constructor.
      *
      * @param UserRepository $repos
      */
-    public function __construct(UserRepository $repos)
+    public function __construct(UserRepository $repos, PaginatorInterface $paginator)
     {
         $this->repos = $repos;
+        $this->paginator = $paginator;
     }
 
     /**
@@ -38,13 +46,25 @@ class UserSubscriptionController extends AbstractController
      *
      * @return Response
      */
-    public function userSubscriptionList()
+    public function userSubscriptionList(Request $request)
     {
-        $subscribers = $this->repos->findAll();
+        $result = $this->repos->findAll();
+
+        $subscribers = $this->paginator->paginate(
+            $result,
+            $request->query->getInt('page', 1),
+            10
+        );
+        $subscribers->setSortableTemplate('shared/sortable_link.html.twig');
 
         return $this->render('espace_admin/subscriber/list.html.twig', [
             'title' => 'Liste des abonnés',
             'subscribers' => $subscribers,
         ]);
+    }
+
+    public function userDetailSubscription()
+    {
+
     }
 }

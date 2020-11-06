@@ -5,6 +5,7 @@ namespace App\Controller\espaceAdmin;
 use App\Entity\CodePromo;
 use App\Form\CouponAdminType;
 use App\Manager\CodePromoManager;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,15 +25,21 @@ class CodePromoController extends AbstractController
      * @var CodePromoManager
      */
     private $em;
+    /**
+     * @var PaginatorInterface
+     */
+    private $paginator;
 
     /**
      * CodePromoController constructor.
      *
      * @param CodePromoManager $em
+     * @param PaginatorInterface $paginator
      */
-    public function __construct(CodePromoManager $em)
+    public function __construct(CodePromoManager $em, PaginatorInterface $paginator)
     {
         $this->em = $em;
+        $this->paginator = $paginator;
     }
 
     /**
@@ -42,9 +49,14 @@ class CodePromoController extends AbstractController
      */
     public function codePromoList(Request $request)
     {
-        $codePromo = $this->em->findAll();
+        $result = $this->em->findAll();
         $coupon = new CodePromo();
         $form = $this->createForm(CouponAdminType::class, $coupon);
+        $codePromo = $this->paginator->paginate(
+            $result,
+            $request->query->getInt('page', 1),
+            10
+        );
 
         return $this->render('espace_admin/code_promo/list.html.twig', [
             'title' => 'Liste des coupons',
@@ -87,10 +99,14 @@ class CodePromoController extends AbstractController
      *
      * @return JsonResponse
      */
-    public function codePromoDelete(CodePromo $coupon)
+    public function codePromoDelete(Request $request, CodePromo $coupon)
     {
-        $coupon = $this->em->deleteCoupon($coupon);
-
+        $result = $this->em->deleteCoupon($coupon);
+        $coupon = $this->paginator->paginate(
+            $result,
+            $request->query->getInt('page', 1),
+            10
+        );
         return new JsonResponse([
             'listHtml' => $this->renderView('espace_admin/code_promo/liste_ajax.html.twig', [
                 'codePromos' => $coupon,

@@ -8,8 +8,8 @@
             </div>
         </div>
 
-        <div class="row mt-5" id="list-subscriber">
-            <table class="table table-hover table-striped verticle-middle dataTable_sub" id="dataTable_sub">
+        <div class="container mt-5" id="list-subscriber">
+            {#<table class="table table-hover table-striped verticle-middle dataTable_sub" id="dataTable_sub">
                 <thead>
                 <tr>
                     <td class="encart_home_head text-green">Nom</td>
@@ -44,7 +44,81 @@
                     </tr>
                 {% endfor %}
                 </tbody>
-            </table>
+            </table>#}
+            <div class="row">
+                <div class="col-lg-3 list_meeting_head">
+                    {{ knp_pagination_sortable(subscribers, 'Nom', 'name') }}
+                </div>
+                <div class="col-lg-3 list_meeting_head">
+                    {{ knp_pagination_sortable(subscribers, 'Prénom', 'firstname') }}
+                </div>
+                <div class="col-lg-3 list_meeting_head">
+                    {{ knp_pagination_sortable(subscribers, 'Adresse mail', 'email') }}
+                </div>
+                <div class="col-lg-2 list_meeting_head">
+                    {{ knp_pagination_sortable(subscribers, 'Role', 'roles') }}
+                </div>
+                <div class="col-lg-1 list_meeting_head">
+                    Détail
+                </div>
+            </div>
+            <div class="row">
+                {% for row in subscribers|reverse %}
+                    <div class="col-sm-6 col-lg-12  mt-2">
+                        <div class="row card-borderer mx-1">
+                            <div class="col-lg-3 d-flex-center-left ">
+                                <span>{{ row.name }}</span>
+                            </div>
+                            <div class="col-lg-3 d-flex-center-left ">
+                                <span>{{ row.firstname }}</span>
+                            </div>
+                            <div class="col-lg-3 d-flex-center-left ">
+                                <span>{{ row.email }}</span>
+                            </div>
+                            <div class="col-lg-2 actions link_identifiant d-flex-center-right ">
+                                <select
+                                        id="change-roles"
+                                        name="roles"
+                                        class="form-control form-control-sm"
+                                        data-id_profil = {{ row.id }}
+                                >
+                                    {% set role_user = '' %}
+                                    {% if 'ROLE_ADMIN' in row.roles %}
+                                        {% set role_user = 'selected' %}
+                                    {% endif %}
+                                    <option value="ROLE_USER" {{ role_user }}>User</option>
+                                    <option value="ROLE_ADMIN" {{ role_user }}>Administrateur</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-1 actions link_identifiant d-flex-center-right ">
+                                <a href="" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-info-circle fa-2x text-green"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="list_pagination">{{ knp_pagination_render(subscribers) }}</div>
+        </div>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Détail utilisateur</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Lorem impsum
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>
