@@ -3,12 +3,12 @@
         <div class="wrap_step" >
             <div class="circle_step_active float-left" >1</div>
             <div class="">Infos personnelles</div>
-            <div class="{{ (number == 2 or number == 3) ? 'line_step_active' : 'line_step' }}"></div>
-            <div class="{{ (number == 2 or number == 3) ? 'circle_step_active' : 'circle_step' }} float-left" >2</div>
-            <div class="">Inviter des participants</div>
-            <div class="{{ (number == 3) ? 'line_step_active' : 'line_step' }}"></div>
-            <div class="{{ (number == 3) ? 'circle_step_active' : 'circle_step' }}  float-left" >3</div>
-            <div class="">Je lance ma réunion</div>
+            <div class="{{ (number == 2 or number == 3) ? 'line_step_active' : 'line_step d-none d-lg-inline-block' }}"></div>
+            <div class="{{ (number == 2 or number == 3) ? 'circle_step_active' : 'circle_step d-none d-lg-inline-block' }} float-left" >2</div>
+            <div class="{{ (number == 3) ? ' ' : 'd-none d-lg-inline-block' }}">Inviter des participants</div>
+            <div class="{{ (number == 3) ? 'line_step_active' : 'line_step d-none d-lg-inline-block' }}"></div>
+            <div class="{{ (number == 3) ? 'circle_step_active' : 'circle_step d-none d-lg-inline-block' }}  float-left" >3</div>
+            <div class="{{ (number == 3) ? '' : 'd-none d-lg-inline-block' }}">Je lance ma réunion</div>
         </div>
     {% elseif type == 'payment' %}
         {% if status == 0 %}

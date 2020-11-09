@@ -5,42 +5,45 @@
 {% block title %}S'inscrire sur Hiboo!{% endblock %}
 
 {% block body %}
-
     <div id="tunnel_2">
         <div class="container">
-            <div class="container-fluid py-5 mx-auto">
-                <div class="card card0 border-0" style="padding: 0px 25px">
-                    <div class="" style="margin-left: -25px;">
-                        {{ macro_step.show_step_head(0, 'register', 1) }}
+            <div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
+                <div class="card card0 border-0">
+                    <div class="w-100">
+                        <div class="" style="margin-left: -25px;">
+                            {{ macro_step.show_step_head(0, 'register', 1) }}
+                        </div>
                     </div>
-
                     <div class="row d-flex">
-                        <div class="col-lg-6 m-0">
-                            <div class="image-login">
+                        <div class="col-lg-6">
+                            <div class="card1" id="image-login">
+                                <div class="row justify-content-center">
+                                    <img src="{{ asset('frontend/images/hiboo_connexion.png')}}" class="image" style="width:100%; height:96%"> </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 box-shadow-login pl-4">
+                        <div class="col-lg-6 box-shadow-login">
                             {{ form_start(registrationForm, { 'attr': {'onsubmit': 'return ajaxSubmitTunnel(this)'}}) }}
                             <h1 class="encart_home_head pt-1 ml-2">Bienvenue sur <span class="text-green">Hiboo!</span></h1>
                             <div class="encart_home_body my-2 ml-2">
-                                    Veuillez renseigner votre nom, prénom et créer votre mot de passe pour créer votre compte.
-                                </div>
-                            <p>
-                                {% for flashError in app.flashes('verify_email_error') %}
+                                Veuillez renseigner votre nom, prénom et créer votre mot de passe pour créer votre compte.
+                            </div>
+                            {% for flashError in app.flashes('verify_email_error') %}
                             <div class="alert alert-danger encart_home_body" role="alert">{{ flashError }}</div>
                             {% endfor %}
-                            </p>
-                            <div class="input-group col-lg-10 ">
-                                {{ form_row(registrationForm.name) }}
-                            </div>
-                            <div class="input-group col-lg-10">
-                                {{ form_row(registrationForm.firstname) }}
-                            </div>
-                            <div class="input-group col-lg-10">
-                                {{ form_row(registrationForm.email, { 'value': preUser }) }}
-                            </div>
-                            <div class="input-group col-lg-10">
-                                {{ form_row(registrationForm.password) }}
+
+                            <div class="row">
+                                 <div class="input-group col-sm-10 col-lg-8 my-2" >
+                                    {{ form_widget(registrationForm.name) }}
+                                </div>
+                                 <div class="input-group col-sm-10 col-lg-8  my-2" >
+                                    {{ form_widget(registrationForm.firstname) }}
+                                </div>
+                                 <div class="input-group col-sm-10 col-lg-8 my-2" >
+                                    {{ form_widget(registrationForm.email, { 'value': preUser }) }}
+                                </div>
+                                 <div class="input-group col-sm-10 col-lg-8 my-2" >
+                                    {{ form_widget(registrationForm.password) }}
+                                </div>
                             </div>
                             <div class="input-group ">
                                 <div class="wrap_step small ml-3 mt-2 ">

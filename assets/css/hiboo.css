@@ -76,6 +76,9 @@ section p {
 .h5, h5 {
     color: #062944;
 }
+div#registration_form_password {
+    width: 100%;
+}
 .login{
     background-color:rgba(0,201,174,1);
     color:white;
@@ -103,6 +106,7 @@ section p {
     box-shadow: 0px 0px 12px #0000001A;
     border-radius: 6px;
     opacity: 1;
+    padding-left: 25px !important;
 }
 .box-shadow-login .form-group{
     margin-bottom: 10px !important;
