@@ -9,6 +9,8 @@
 .advantage-group {
     min-width: 100%;
     display: flex;
+    padding-left:   0px;
+    padding-right: 15px;
 }
 
 .advantage-item {
@@ -18,11 +20,14 @@
 
 .advantage-item .item-icon {
     width: 40%;
-    text-align: center;
+    text-align: right;
+    padding-top: 8px;
+    padding-right: 22px;
 }
 
 .advantage-item .item-desc {
     width: 60%;
+    color: #062944;
 }
 @media (max-width:991px){
     .menu-primary .nav-item{
@@ -73,7 +78,7 @@
 section p {
     color: #062944;
 }
-.h5, h5 {
+.h5, h5, .h4, h4, p {
     color: #062944;
 }
 div#registration_form_password {
@@ -188,25 +193,26 @@ header.masthead {
 }
 
 .masthead {
-    padding-top: 6vh;
+    padding-top: 8vh;
     padding-bottom: 2vh;
 }
 
 .masthead h1 {
 
     font-style: normal;
-    font-weight: lighter;
-    font-size: 100px;
+    font-size: 72px;
+    line-height: 86px;
     color: rgba(0,201,174,1);
-    font-family: GalanoGrotesque ;
+    font-family: 'GalanoGrotesqueMedium';
     z-index: 1;
+
 }
 .masthead h2 {
     font-family: GalanoGrotesque ;
     font-style: normal;
     font-weight: lighter;
     font-size: 3vw;
-    color: rgba(6,41,68,1);
+    color:#062944;
     z-index: 1;
     max-width: 75%;
 }
@@ -224,8 +230,9 @@ header.masthead {
     content: url('../images/Hiboo-Image-Fond.svg');
     position: absolute;
     z-index: -1;
-    right: 15px;
-    bottom: 10px;
+    right: 50px;
+    bottom: 0px;
+    transform: scale(1.1);
 }
 .site-heading .btn{
     background-color: #FF5A5F !important;
@@ -234,9 +241,22 @@ header.masthead {
     letter-spacing: 0px;
     color: #FFFFFF;
     opacity: 1;
-    padding-top: 3px;
+    padding-bottom: 15px;
+    border: none;
+    height: 45px;
 }
-
+.site-heading  .input-email{
+    height: 45px;
+    padding-bottom: 15px;
+}
+.site-heading  .input-email::placeholder{
+    font-style: normal;
+    font-size: 18px;
+    line-height: 22px ;
+    letter-spacing: 0px;
+    color: #062944;
+    opacity: 0.2;
+}
 .world-globe h3{
 
     color:rgba(0,201,174,1);
@@ -363,20 +383,14 @@ header.masthead {
     font-size: 14px !important
 }
 
-::placeholder {
-    color: #BDBDBD;
-    opacity: 1;
-    font-weight: 300
-}
-
+::placeholder ,
 :-ms-input-placeholder {
-    color: #BDBDBD;
-    font-weight: 300
-}
-
-::-ms-input-placeholder {
-    color: #BDBDBD;
-    font-weight: 300
+    font-style: normal;
+    font-size: 18px;
+    line-height: 22px ;
+    letter-spacing: 0px;
+    color: #062944;
+    opacity: 0.2;
 }
 
 input,
@@ -490,8 +504,6 @@ select.form-control {
 }
 
 .form-control::placeholder {
-    color: #ccc;
-    font-weight: bold;
     font-size: 0.9rem;
 }
 .form-control:focus {
@@ -522,6 +534,7 @@ li  {
 
 .footer-menu{
     margin: 0px 10px;
+    color: #062944;
 }
 
 .footer-menu:hover{
@@ -544,7 +557,7 @@ li  {
 
 }
 .rectangle{
-    background-color: #ccfff8;
+    background-color: #CCF4EF;
     margin-top: 30px;
     display: flex;
 }
@@ -668,13 +681,15 @@ li  {
 }
 .img-title{
     font-size: 24px;
-    font-weight: 500;
+    font-weight: normal;
+    font-family: GalanoGrotesqueMedium;
+
 }
 .rs-icons {
     position: absolute;
     z-index: 1;
-    right: 2%;
-    bottom: 5%;
+    right: 1%;
+    bottom: 35%;
 }
 .card-tarif {
     border: 1px solid  white;
@@ -721,6 +736,7 @@ li  {
 .home-icon{
     padding-top: 0px;
     cursor: pointer;
+    margin: 10px;
 }
 
 @font-face {
@@ -1078,6 +1094,8 @@ img{ max-width: 100%; max-height: 100%; }
     position:relative;
 }
 .itemsContainer:hover .play{display:block}
+.carousel-item.active .itemsContainer:nth-child(2) .play{display:block}
+
 .play{
     top: 35%;
     position: absolute;
@@ -1097,14 +1115,8 @@ img{ max-width: 100%; max-height: 100%; }
     border-radius: 6px 0px 0px 6px;
 }
 
-.infoPlaceholder::-webkit-input-placeholder {
-    font-weight: lighter;
-    font-family: GalanoGrotesque;
-}
-.infoPlaceholder::-moz-placeholder {
-    font-weight: lighter;
-    font-family: GalanoGrotesque;
-}
+.infoPlaceholder::-webkit-input-placeholder ,
+.infoPlaceholder::-moz-placeholder,
 .infoPlaceholder::-ms-input-placeholder {
     font-weight: lighter;
     font-family: GalanoGrotesque;
@@ -1138,4 +1150,8 @@ button.btn.circle-btn {
 .navbar-closer {
     color: white !important;
     background: #062944 !important;
+}
+
+.text-danger {
+    color: #FF5A5F!important;
 }

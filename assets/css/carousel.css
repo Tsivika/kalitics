@@ -186,3 +186,27 @@ img.rounded-avatar.img-fluid {
 #testimonialCarousel .user-name{
   text-align : left;
 }
+#testimonialCarousel .degradeNext{
+  background: linear-gradient(90deg, rgba(255, 255, 255,  0.01),#CCF4EF) !important;
+}
+#testimonialCarousel .degradePrev{
+  background: linear-gradient(-90deg, rgba(255, 255, 255,  0.01), #CCF4EF) !important;
+}
+.carousel-container {
+  margin-right: 2%;
+  margin-left: 2%;
+}
+#testimonialCarousel .carousel-control-prev, 
+#testimonialCarousel .carousel-control-next {
+  margin-right: 96.9%;
+  margin-left: 96.9%;
+}
+
+#testimonialCarousel .carousel-control-prev-icon {
+  background: transparent url('../images/chevron-down-white.svg') 0% 0% no-repeat padding-box;
+  transform: rotate(180deg);
+}
+
+#testimonialCarousel .carousel-control-next-icon {
+  background: transparent url('../images/chevron-down-white.svg') 0% 0% no-repeat padding-box;
+}

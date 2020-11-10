@@ -45,6 +45,8 @@
     }
     .advantage-item .item-icon {
         width: 100%;
+        text-align: center;
+        padding-right: unset;
     }
     .advantage-item .item-desc {
         width: 100%;
@@ -53,7 +55,9 @@
 
 @media (max-width: 1340px) {
     .masthead:after {
-        bottom: -5vh;
+        transform: scale(0.9);
+        right: 0;
+        bottom: -10vh;
     }
     .masthead .home-header-container .w-50{
         width: 60% !important;
@@ -136,6 +140,15 @@
     }
     .rs-icons{
         display: none;
+    }
+    .advantage-group {
+        padding-right: unset;
+    }
+    .advantage-group .img-title {
+        font-size: 20px;
+    }
+    .advantage-item .item-desc {
+        font-size: 14px;
     }
 }
  
