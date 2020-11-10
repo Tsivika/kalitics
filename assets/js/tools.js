@@ -384,3 +384,56 @@ export function confirmSwalAlertVideoGuide(msg, url, id) {
         }
     })
 }
+
+export function confirmSwalAlertUserDelete(msg, url, id) {
+    Swal.fire({
+        title: 'Vous êtes sur ?',
+        text: msg,
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Supprimer !',
+        cancelButtonText: 'Annuler',
+    }).then((result) => {
+        if (result.value) {
+            axios.get(url)
+                .then(function (response) {
+                    simpleSwalAlert(response.data.body, response.data.footer);
+                    document.getElementById("delete_user").checked = true;
+                    document.getElementById("delete_user").disabled = true;
+                    document.getElementById("info-user-delete").innerHTML = 'Utilisateur Supprimé.';
+
+                })
+                .catch(function (error) {
+                    simpleSwalAlert('Une erreur s\'est produite.', response.data.footer);
+                });
+        }
+    })
+}
+export function confirmSwalAlertUserDeactive(msg, url, id) {
+    Swal.fire({
+        title: 'Vous êtes sur ?',
+        text: msg,
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Désactiver !',
+        cancelButtonText: 'Annuler',
+    }).then((result) => {
+        if (result.value) {
+            axios.get(url)
+                .then(function (response) {
+                    simpleSwalAlert(response.data.body, response.data.footer);
+                    document.getElementById("deactive_user").checked = true;
+                    document.getElementById("deactive_user").disabled = true;
+                    document.getElementById("info-user-deactive").innerHTML = 'Utilisateur désactivé.';
+
+                })
+                .catch(function (error) {
+                    simpleSwalAlert('Une erreur s\'est produite.', response.data.footer);
+                });
+        }
+    })
+}

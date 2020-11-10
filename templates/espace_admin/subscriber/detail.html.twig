@@ -1,0 +1,88 @@
+{% extends 'base-espace-client.html.twig' %}
+{% block title %}{{ title }}{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="row mt-4 mb-2">
+            <div class="col-6">
+                <span class="text-green">Les détails concernant le client:</span><span> {{ user.firstname }} - {{ user.name }}</span>
+            </div>
+            <div class="col-6 box_actions">
+                <div>
+                    <input type="checkbox" id="deactive_user" data-id_user="{{ user.id }}" {% if user.deactive %} checked disabled {% endif %}> Désactiver/Activer
+                </div>
+                <div>
+                    <input type="checkbox" id="delete_user" data-id_user="{{ user.id }}" {% if user.deleted %} checked disabled {% endif %}> Supprimer
+                </div>
+                <div><a role="button" href="{{ path('app_espace_admin_user_subscriber_send_email', {'id':user.id}) }}" class="btn login">Envoyer un email</a></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div id="info-user-delete">{% if user.deleted %}  Utilisateur supprimé. {% endif %}</div>
+                <div id="info-user-deactive">{% if user.deactive %}  Utilisateur desactivé. {% endif %}</div>
+            </div>
+        </div>
+        <div class="row my-5 mx-3 border">
+            <div class="col-6 border">
+                <table>
+                    <tr>
+                        <td>Nom</td>
+                        <td>{{ user.firstname }}</td>
+                    </tr>
+                    <tr>
+                        <td>Prénom</td>
+                        <td>{{ user.name }}</td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td>{{ user.email }}</td>
+                    </tr>
+                    <tr>
+                        <td>Entreprise</td>
+                        <td>{{ user.entreprise }}</td>
+                    </tr>
+                    <tr>
+                        <td>Adresse</td>
+                        <td>{{ user.entreprise }}</td>
+                    </tr>
+                    <tr>
+                        <td>Date de création</td>
+                        <td>{{ user.createdAt|date('d/m/Y') }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-6 border">
+                {% for rowMeeting in meetings %}
+                    {{ rowMeeting.nbr }} - {{ rowMeeting.state }}<br>
+                {% endfor %}
+            </div>
+            <div class="col-12 my-5">
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Début</th>
+                            <th scope="col">Fin</th>
+                            <th scope="col">Code promo</th>
+                            <th scope="col">Abonnement</th>
+                            <th scope="col">Prix Abonnement</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in detailSubscription %}
+                            <tr>
+                                <td>{{ row.begin|date('d/m/Y') }}</td>
+                                <td>{{ row.end|date('d/m/Y') }}</td>
+                                <td>{{ row.codePromo }}</td>
+                                <td>{{ row.subscription.title }}</td>
+                                <td>{{ row.subscription.price }}€</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+{% endblock %}
+

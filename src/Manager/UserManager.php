@@ -10,6 +10,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
+/**
+ * Class UserManager
+ * @package App\Manager
+ */
 class UserManager extends BaseManager
 {
     /**
@@ -94,6 +98,11 @@ class UserManager extends BaseManager
         return $donutData;
     }
 
+    /**
+     * @param User $user
+     * @param $role
+     * @return User
+     */
     public function changeRole(User $user, $role)
     {
         $roles[] = $role;
@@ -101,5 +110,39 @@ class UserManager extends BaseManager
         $this->saveOrUpdate($user);
 
         return $user;
+    }
+
+    /**
+     * @param User $user
+     * @return bool
+     */
+    public function deleteUser(User $user)
+    {
+        $user->setDeleted(true);
+        $this->saveOrUpdate($user);
+
+        return true;
+    }
+
+    /**
+     * @param User $user
+     * @return bool
+     */
+    public function deactiveUser(User $user)
+    {
+        $user->setDeactive(true);
+        $this->saveOrUpdate($user);
+
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function updateUser()
+    {
+        $this->repository->updateUser();
+
+        return true;
     }
 }

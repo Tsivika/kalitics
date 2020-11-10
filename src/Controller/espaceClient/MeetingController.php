@@ -84,6 +84,7 @@ class MeetingController extends AbstractController
             'meetings' => $meetings,
             'title' => 'Liste de mes réunions',
             'baseUrl' => $baseurl,
+            'user' => $this->getUser(),
         ]);
     }
 

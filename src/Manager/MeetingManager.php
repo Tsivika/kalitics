@@ -3,20 +3,19 @@
 
 namespace App\Manager;
 
+use App\Constants\EmailMeetingConstant;
 use App\Entity\Meeting;
 use App\Entity\User;
-use App\Email\MeetingMail;
+use App\Services\SendEmailService;
+use BigBlueButton\BigBlueButton;
+use BigBlueButton\Parameters\CreateMeetingParameters;
+use BigBlueButton\Parameters\EndMeetingParameters;
+use BigBlueButton\Parameters\GetMeetingInfoParameters;
+use BigBlueButton\Parameters\JoinMeetingParameters;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-
-use BigBlueButton\BigBlueButton;
-use BigBlueButton\Parameters\EndMeetingParameters;
-use BigBlueButton\Parameters\GetMeetingInfoParameters;
-use BigBlueButton\Parameters\CreateMeetingParameters;
-use BigBlueButton\Parameters\JoinMeetingParameters;
 
 /**
  * Class MeetingManager
@@ -33,30 +32,28 @@ class MeetingManager extends BaseManager
      * @var ContainerBagInterface
      */
     private $params;
+
     /**
-     * @var MessageBusInterface
+     * @var SendEmailService
      */
-    private $bus;
-    /**
-     * @var MeetingMail
-     */
-    private $mailer;
+    private $emailService;
 
     /**
      * MeetingManager constructor.
      *
      * @param EntityManagerInterface $em
      * @param ValidatorInterface     $validator
+     * @param ContainerBagInterface  $params
+     * @param SendEmailService       $emailService
      */
-    public function __construct(EntityManagerInterface $em, ValidatorInterface $validator, ContainerBagInterface $params, MessageBusInterface $bus, MeetingMail $mailer)
+    public function __construct(EntityManagerInterface $em, ValidatorInterface $validator, ContainerBagInterface $params, SendEmailService $emailService)
     {
         parent::__construct($em, Meeting::class, $validator);
         $this->em = $em;
         $this->params = $params;
+        $this->emailService = $emailService;
         putenv('BBB_SECRET='.$this->params->get('app.bbb_secret'));
         putenv('BBB_SERVER_BASE_URL='.$this->params->get('app.bbb_server_base_url'));
-        $this->bus = $bus;
-        $this->mailer = $mailer;
     }
 
     /**
@@ -82,6 +79,10 @@ class MeetingManager extends BaseManager
         );
     }
 
+    /**
+     * @param $identifiant
+     * @return object|null
+     */
     public function meetingByIdentifiant($identifiant)
     {
         return $this->repository->findOneBy(
@@ -114,6 +115,7 @@ class MeetingManager extends BaseManager
     {
         $meetingUser = $this->getUserLastMeeting($user);
         $paramUser = $paramManager->getParamUser($user);
+        $maxNumberParticipant = (int)$user->getSubscriptionUser()->getNumberParticipant();
         $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
         if (empty($paramUser) ) {
             $paramManager->setDefaultParam($user);
@@ -128,7 +130,7 @@ class MeetingManager extends BaseManager
         $createMeetingParams->setModeratorPassword($pwdModerator);
         $createMeetingParams->setDuration($duration);
         $createMeetingParams->setLogoutUrl($baseurl);
-        $createMeetingParams->setMaxParticipants(count($meetingUser->getParticipants()));
+        $createMeetingParams->setMaxParticipants($maxNumberParticipant);
 
         if ($paramUser->getRecordAuto()) {
             $createMeetingParams->setRecord(true);
@@ -227,7 +229,7 @@ class MeetingManager extends BaseManager
     }
 
     /**
-     * State = 0 => en attente, State = 1 => en cours State = 1 => terminé
+     * State = 0 => en attente, State = 1 => en cours State = 2 => terminé
      *
      * @param Meeting $meeting
      * @param         $url
@@ -279,6 +281,17 @@ class MeetingManager extends BaseManager
     }
 
     /**
+     * @param $id
+     * @return mixed
+     */
+    public function getStatMeetingPerUser($id)
+    {
+        $meeting = $this->repository->statMeetingPerUser($id);
+
+        return $meeting;
+    }
+
+    /**
      * @param $meetingUser
      * @param $mode
      *
@@ -321,10 +334,22 @@ class MeetingManager extends BaseManager
         return $mpw;
     }
 
+    /**
+     * @param $emailParticipants
+     * @param $urlMeeting
+     *
+     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
+     */
     public function sendMailToParticipants($emailParticipants, $urlMeeting)
     {
+        $template = 'emails/meeting/sendMail.html.twig';
+        $context = [
+            'urlMeeting' => $urlMeeting,
+            'message' => EmailMeetingConstant::_MESSAGE_TO_SEND_,
+        ];
+
         foreach ($emailParticipants as $row) {
-            $this->bus->dispatch($this->mailer->sendEmailToParticipant($row->getEmail(), $urlMeeting));
+            $this->emailService->sendEmail($_ENV['CONTACT_MAIL'], $row->getEmail(), 'Hiboo: Invitation à une réunion.', $template, $context) ;
         }
     }
 }

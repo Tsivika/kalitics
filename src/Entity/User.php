@@ -65,6 +65,7 @@ class User implements UserInterface
      */
     private $language;
 
+
     /**
      * @ORM\OneToOne(targetEntity=Subscription::class, cascade={"persist", "remove"})
      */
@@ -116,6 +117,16 @@ class User implements UserInterface
     private $parameters;
 
     /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $deleted;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $deactive;
+
+    /**
      * User constructor.
      */
     public function __construct()
@@ -124,6 +135,8 @@ class User implements UserInterface
         $this->userSubscriptions = new ArrayCollection();
         $this->codePromos = new ArrayCollection();
         $this->parameters = new ArrayCollection();
+        $this->deleted = false;
+        $this->deactive = false;
     }
 
     /**
@@ -535,6 +548,30 @@ class User implements UserInterface
                 $parameter->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDeleted(): ?bool
+    {
+        return $this->deleted;
+    }
+
+    public function setDeleted(?bool $deleted): self
+    {
+        $this->deleted = $deleted;
+
+        return $this;
+    }
+
+    public function getDeactive(): ?bool
+    {
+        return $this->deactive;
+    }
+
+    public function setDeactive(?bool $deactive): self
+    {
+        $this->deactive = $deactive;
 
         return $this;
     }

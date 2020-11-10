@@ -8,45 +8,61 @@
             </div>
         </div>
 
-        <div class="row mt-5" id="list-subscriber">
-            <table class="table table-hover table-striped verticle-middle dataTable_sub" id="dataTable_sub">
-                <thead>
-                <tr>
-                    <td class="encart_home_head text-green">Nom</td>
-                    <td class="encart_home_head text-green">Prénom</td>
-                    <td class="encart_home_head text-green">email</td>
-                    <td class="encart_home_head text-green">Role</td>
-                    <td class="encart_home_head text-green">Détail abonnement</td>
-                </tr>
-                </thead>
-                <tbody>
-                {% for row in subscribers %}
-                    <tr>
-                        <td class="encart_home_body ">{{ row.name }} </td>
-                        <td class="encart_home_body ">{{ row.firstname }}</td>
-                        <td class="encart_home_body ">{{ row.email }}</td>
-                        <td class="encart_home_body ">
-                            <select
-                                    id="change-roles"
-                                    name="roles"
-                                    class="form-control form-control-sm"
-                                    data-id_profil = {{ row.id }}
-                            >
-                                {% set role_user = '' %}
-                                {% if 'ROLE_ADMIN' in row.roles %}
-                                    {% set role_user = 'selected' %}
-                                {% endif %}
-                                <option value="ROLE_USER" {{ role_user }}>User</option>
-                                <option value="ROLE_ADMIN" {{ role_user }}>Administrateur</option>
-                            </select>
-                        </td>
-                        <td class="encart_home_body "> - </td>
-                    </tr>
+        <div class="container mt-5" id="list-subscriber">
+            <div class="row">
+                <div class="col-lg-3 list_meeting_head">
+                    {{ knp_pagination_sortable(subscribers, 'Nom', 'name') }}
+                </div>
+                <div class="col-lg-3 list_meeting_head">
+                    {{ knp_pagination_sortable(subscribers, 'Prénom', 'firstname') }}
+                </div>
+                <div class="col-lg-3 list_meeting_head">
+                    {{ knp_pagination_sortable(subscribers, 'Adresse mail', 'email') }}
+                </div>
+                <div class="col-lg-2 list_meeting_head">
+                    {{ knp_pagination_sortable(subscribers, 'Role', 'roles') }}
+                </div>
+                <div class="col-lg-1 list_meeting_head">
+                    Détail
+                </div>
+            </div>
+            <div class="row">
+                {% for row in subscribers|reverse %}
+                    <div class="col-sm-6 col-lg-12  mt-2">
+                        <div class="row card-borderer mx-1">
+                            <div class="col-lg-3 d-flex-center-left ">
+                                <span>{{ row.name }}</span>
+                            </div>
+                            <div class="col-lg-3 d-flex-center-left ">
+                                <span>{{ row.firstname }}</span>
+                            </div>
+                            <div class="col-lg-3 d-flex-center-left ">
+                                <span>{{ row.email }}</span>
+                            </div>
+                            <div class="col-lg-2 actions link_identifiant d-flex-center-right ">
+                                <select
+                                        id="change-roles"
+                                        name="roles"
+                                        class="form-control form-control-sm"
+                                        data-id_profil = {{ row.id }}
+                                >
+                                    {% set role_user = '' %}
+                                    {% if 'ROLE_ADMIN' in row.roles %}
+                                        {% set role_user = 'selected' %}
+                                    {% endif %}
+                                    <option value="ROLE_USER" {{ role_user }}>User</option>
+                                    <option value="ROLE_ADMIN" {{ role_user }}>Administrateur</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-1 actions link_identifiant d-flex-center-right ">
+                                <a href="{{ path('app_espace_admin_user_subscriber_detail', {'id':row.id}) }}"><i class="fa fa-info-circle fa-2x text-green"></i></a>
+                            </div>
+                        </div>
+                    </div>
                 {% endfor %}
-                </tbody>
-            </table>
+            </div>
+            <div class="list_pagination">{{ knp_pagination_render(subscribers) }}</div>
         </div>
-
     </div>
 {% endblock %}
 
