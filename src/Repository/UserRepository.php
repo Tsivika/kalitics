@@ -98,18 +98,26 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
         return $query;
     }
-    /**
-     * @return int|mixed|string
-     */
-    /*public function getSubscribers()
+
+    public function getUserNotDeleted()
     {
         return $this->createQueryBuilder('u')
-            ->select(array('u', 's'))
-            ->leftJoin('u.userSubscriptions', 's')
-            ->andWhere('s.subscription = 2')
-            ->orderBy('u.id', 'DESC' )
+            ->andWhere('u.deleted = 0')
+            ->orderBy('u.id', 'ASC')
             ->getQuery()
             ->getResult()
-        ;
-    }*/
+            ;
+    }
+
+    public function updateUser()
+    {
+        $updateUser = $this->createQueryBuilder('u')
+            ->update(User::class, 'u')
+            ->set('u.deleted', 0)
+            ->set('u.deactive', 0)
+            ->getQuery();
+        $updateUser->execute();
+
+        return $updateUser;
+    }
 }

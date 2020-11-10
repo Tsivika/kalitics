@@ -229,7 +229,7 @@ class MeetingManager extends BaseManager
     }
 
     /**
-     * State = 0 => en attente, State = 1 => en cours State = 1 => terminé
+     * State = 0 => en attente, State = 1 => en cours State = 2 => terminé
      *
      * @param Meeting $meeting
      * @param         $url
@@ -278,6 +278,17 @@ class MeetingManager extends BaseManager
         $barData .= '}';
 
         return $barData;
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function getStatMeetingPerUser($id)
+    {
+        $meeting = $this->repository->statMeetingPerUser($id);
+
+        return $meeting;
     }
 
     /**
@@ -338,7 +349,7 @@ class MeetingManager extends BaseManager
         ];
 
         foreach ($emailParticipants as $row) {
-            $this->emailService->sendEmail($_ENV['CONTACT_MAIL'], $row->getEmail(), 'Hiboo: Inivitation à une réunion.', $template, $context) ;
+            $this->emailService->sendEmail($_ENV['CONTACT_MAIL'], $row->getEmail(), 'Hiboo: Invitation à une réunion.', $template, $context) ;
         }
     }
 }

@@ -9,42 +9,6 @@
         </div>
 
         <div class="container mt-5" id="list-subscriber">
-            {#<table class="table table-hover table-striped verticle-middle dataTable_sub" id="dataTable_sub">
-                <thead>
-                <tr>
-                    <td class="encart_home_head text-green">Nom</td>
-                    <td class="encart_home_head text-green">Prénom</td>
-                    <td class="encart_home_head text-green">email</td>
-                    <td class="encart_home_head text-green">Role</td>
-                    <td class="encart_home_head text-green">Détail abonnement</td>
-                </tr>
-                </thead>
-                <tbody>
-                {% for row in subscribers %}
-                    <tr>
-                        <td class="encart_home_body ">{{ row.name }} </td>
-                        <td class="encart_home_body ">{{ row.firstname }}</td>
-                        <td class="encart_home_body ">{{ row.email }}</td>
-                        <td class="encart_home_body ">
-                            <select
-                                    id="change-roles"
-                                    name="roles"
-                                    class="form-control form-control-sm"
-                                    data-id_profil = {{ row.id }}
-                            >
-                                {% set role_user = '' %}
-                                {% if 'ROLE_ADMIN' in row.roles %}
-                                    {% set role_user = 'selected' %}
-                                {% endif %}
-                                <option value="ROLE_USER" {{ role_user }}>User</option>
-                                <option value="ROLE_ADMIN" {{ role_user }}>Administrateur</option>
-                            </select>
-                        </td>
-                        <td class="encart_home_body "> - </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>#}
             <div class="row">
                 <div class="col-lg-3 list_meeting_head">
                     {{ knp_pagination_sortable(subscribers, 'Nom', 'name') }}
@@ -91,7 +55,7 @@
                                 </select>
                             </div>
                             <div class="col-lg-1 actions link_identifiant d-flex-center-right ">
-                                <a href="" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-info-circle fa-2x text-green"></i></a>
+                                <a href="{{ path('app_espace_admin_user_subscriber_detail', {'id':row.id}) }}"><i class="fa fa-info-circle fa-2x text-green"></i></a>
                             </div>
                         </div>
                     </div>
@@ -99,28 +63,6 @@
             </div>
             <div class="list_pagination">{{ knp_pagination_render(subscribers) }}</div>
         </div>
-
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-             aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Détail utilisateur</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        Lorem impsum
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </div>
 {% endblock %}
 

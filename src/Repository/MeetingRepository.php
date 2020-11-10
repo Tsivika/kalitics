@@ -72,6 +72,28 @@ class MeetingRepository extends ServiceEntityRepository
         return $query;
     }
 
+    /**
+     * @param $id
+     * @return int|mixed|string
+     */
+    public function statMeetingPerUser($id)
+    {
+        $query = $this->createQueryBuilder('m');
+        $query = $query
+            ->select('count(m.id) as nbr', 'm.state')
+            ->andWhere('m.user = :user')
+            ->setParameter('user', $id)
+            ->groupBy('m.state')
+        ;
+
+        $query = $query
+            ->getQuery()
+            ->getResult()
+        ;
+
+        return $query;
+    }
+
     // /**
     //  * @return Meeting[] Returns an array of Meeting objects
     //  */
