@@ -1,7 +1,7 @@
 <p><h2 class="text-center text-danger encart_home_head"> Leur avis compte ! </h2></p>
 <div class="rectangle">
     <div class="carousel-container">
-        <div id="testimonialCarousel" class="carousel slide multi-item-carousel " data-ride="carousel" data-interval="9999999999999">
+        <div id="testimonialCarousel" class="carousel slide multi-item-carousel " data-ride="carousel" {#data-interval="9999999999999"#}>
             <div class="carousel-inner">
                 {% for key, row in testimonials %}
                     {% set active = loop.index0 == 0 ? ' active' : '' %}
@@ -10,7 +10,10 @@
                             <div class="card bg-transparent border-0 w-100">
                                 <div class="card-body">
                                     <div class="pull-right quote-wrapper">
-                                        <span  class="fa fa-2x fa-quote-right text-white ml-5"></span>
+                                        <span  class="ml-5">
+                                            <img src="{{ asset('build/images/hiboo-guillemet.svg') }}">
+                                        </span>
+
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-3 text-center">
@@ -25,11 +28,13 @@
                                             </div>
                                             <div class="testimonial-rating">
                                                 {% for i in 1 .. 5 %}
-                                                    {% if i <= row.score %}
-                                                        <span class="fa fa-star checked"></span>
-                                                    {% else %}
-                                                        <span class="fa fa-star"></span>
-                                                    {% endif%}
+                                                    <span>
+                                                        {% if i <= row.score  %}
+                                                            <img src="{{ asset('build/images/star-full.svg') }}">
+                                                        {% else %}
+                                                            <img src="{{ asset('build/images/star.svg') }}">
+                                                        {% endif %}
+                                                    </span>
                                                 {% endfor %}
                                             </div>
                                         </div>

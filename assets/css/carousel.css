@@ -39,6 +39,7 @@
 }
 .carousel-item .itemsContainer:nth-child(2) .image>img{
   transform: scale(1.08);
+  transition: 0.4s;
 }
 
 .slide-img {
@@ -187,10 +188,10 @@ img.rounded-avatar.img-fluid {
   text-align : left;
 }
 #testimonialCarousel .degradeNext{
-  background: linear-gradient(90deg, rgba(255, 255, 255,  0.01),#CCF4EF) !important;
+  background: linear-gradient(90deg, rgba(255, 255, 255,  0.01),#CCF4EF);
 }
 #testimonialCarousel .degradePrev{
-  background: linear-gradient(-90deg, rgba(255, 255, 255,  0.01), #CCF4EF) !important;
+  background: linear-gradient(-90deg, rgba(255, 255, 255,  0.01), #CCF4EF);
 }
 .carousel-container {
   margin-right: 2%;
@@ -209,4 +210,8 @@ img.rounded-avatar.img-fluid {
 
 #testimonialCarousel .carousel-control-next-icon {
   background: transparent url('../images/chevron-down-white.svg') 0% 0% no-repeat padding-box;
+}
+
+.partenaire-logo {
+  height: 80px;
 }

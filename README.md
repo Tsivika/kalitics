@@ -43,3 +43,9 @@ Chmod upload :
 ```bash
 sudo chmod 777 -R uploads/
 ```
+
+Maquette XD : 
+https://xd.adobe.com/view/35a7b46b-6eca-4bbb-b660-04ea32a610df-60f4/grid	
+
+Preprod : 
+http://212.47.251.160/	

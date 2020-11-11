@@ -1155,3 +1155,8 @@ button.btn.circle-btn {
 .text-danger {
     color: #FF5A5F!important;
 }
+
+.footer-heart:after{
+    content: url('../images/heart.svg');
+    margin-left: 10px;
+}
