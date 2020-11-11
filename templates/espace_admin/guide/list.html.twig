@@ -8,7 +8,6 @@
             </div>
         </div>
 
-
         <div class="jumbotron">
             {{ form_start(form, { 'attr': {'id':'form_guide'}}) }}
             <div class="mb-3">Ajouter nouvelle guide</div>
@@ -21,44 +20,8 @@
             </div>
             {{ form_end(form) }}
         </div>
-        {#<div class="mt-5" id="list-guide">
-            <div class="accordion-panel">
-                <div class="buttons-wrapper">
-                    <i class="plus-icon"></i>
-                    <div class="open-btn">
-                        Open all
-                    </div>
-                    <div class="close-btn hidden">
-                        Close all
-                    </div>
-                </div>
-
-                <dl class="accordion">
-                    <dt>item 1 <i class="plus-icon"></i></dt>
-                    <dd>
-                        <div class="content">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                        </div>
-                    </dd>
-                    <dt>item 2 <i class="plus-icon"></i></dt>
-                    <dd>
-                        <div class="content">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-                                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                        </div>
-                    </dd>
-                    <dt>item 3 <i class="plus-icon"></i></dt>
-                    <dd>
-                        <div class="content">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-                                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                        </div>
-                    </dd>
-                </dl>
-            </div>
-        </div>#}
-        <div class="row mt-5" id="list-guide">
-            <table class="table table-hover table-striped verticle-middle dataTable_guide" id="dataTable_guide">
+        <div class="container mt-5" id="list-guide">
+            {#<table class="table table-hover table-striped verticle-middle dataTable_guide" id="dataTable_guide">
                 <thead>
                 <tr>
                     <td class="encart_home_head ">-</td>
@@ -83,7 +46,42 @@
                     </tr>
                 {% endfor %}
                 </tbody>
-            </table>
+            </table>#}
+            <div class="row">
+                <div class="col-lg-4 list_meeting_head">
+                    {{ knp_pagination_sortable(guides, 'Question', 'question') }}
+                </div>
+                <div class="col-lg-5 list_meeting_head">
+                    {{ knp_pagination_sortable(guides, 'Réponse', 'response') }}
+                </div>
+                <div class="col-lg-2 list_meeting_head text-left">
+                    {{ knp_pagination_sortable(guides, 'Catégorie', 'category.title') }}
+                </div>
+                <div class="col-lg-1 list_meeting_head"></div>
+            </div>
+            <div class="row">
+                {% for row in guides|reverse %}
+                    <div class="col-sm-6 col-lg-12  mt-2">
+                        <div class="row card-borderer mx-1">
+                            <div class="col-lg-4 d-flex-center-left">
+                                <span>{{ row.question }}</span>
+                            </div>
+                            <div class="col-lg-5 d-flex-center-left">
+                                {{ row.response|raw }}
+                            </div>
+                            <div class="col-lg-2 d-flex-center-left">
+                                <span>{{ row.category.title }}</span>
+                            </div>
+                            <div class="col-lg-1 d-flex-center-left">
+                                <a href="" data-guide="{{ row.id }}" class="delete_guide">
+                                    <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="list_pagination">{{ knp_pagination_render(guides) }}</div>
         </div>
 
     </div>

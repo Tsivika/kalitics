@@ -419,3 +419,9 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
     color: #062944;
     opacity: 1;
 }
+.box_actions {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}

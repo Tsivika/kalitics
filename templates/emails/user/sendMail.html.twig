@@ -1,10 +1,9 @@
 {% extends 'baseEmail.html.twig' %}
 
 {% block content %}
-    Bonjour, cet email fait l'objet d'une demande de contact pour un client . <br>
-    Nom : {{ name }}<br>
-    Adresse mail : {{ address_email }}<br>
-    Son message : {{ message|nl2br }}<br><br>
+    Bonjour, Hiboo vous envoie cet email <br>
+    Sujet: {{ subject|nl2br }}<br>
+    Message : {{ message|raw }}<br><br>
 {% endblock %}
 {% block signature %}
     <table>

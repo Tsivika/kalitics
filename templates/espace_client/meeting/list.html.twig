@@ -9,12 +9,18 @@
         </div>
         <div class="col-5">
             <div class="w-100 text-right">
-                <a class="btn  btn-large py-2 login" href="{{ path('app_espace_client_meeting_add') }}" role="button">
-                    <span class="fa fa-plus"></span>
-                    <span class="d-none d-sm-inline-block">
-                        Ajouter une réunion
+                {% if not user.deactive %}
+                    <a class="btn  btn-large py-2 login" href="{{ path('app_espace_client_meeting_add') }}" role="button">
+                        <span class="fa fa-plus"></span>
+                        <span class="d-none d-sm-inline-block">
+                            Ajouter une réunion
+                        </span>
+                    </a>
+                {% else %}
+                    <span class="btn  btn-large py-2 btn-outline-danger" role="button">
+                        Ajout réunion désactivé pour les utilisateurs désactivés.
                     </span>
-                </a>
+                {% endif %}
             </div>
         </div>
     </div>

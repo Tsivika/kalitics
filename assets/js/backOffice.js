@@ -2,11 +2,12 @@ import {
     simpleSwalAlert,
     confirmSwalAlertTestimonial,
     confirmSwalAlertPartner,
-    confirmSwalAlertVideoGuide
+    confirmSwalAlertVideoGuide,
+    confirmSwalAlertUserDelete,
+    confirmSwalAlertUserDeactive
 } from "./tools";
 const routes = require('../../public/js/fos_js_routes.json');
 import Routing from '../../vendor/friendsofsymfony/jsrouting-bundle/Resources/public/js/router.min.js';
-import { customDatatableMeeting } from "./datatable/custom_datatable";
 
 Routing.setRoutingData(routes);
 
@@ -17,9 +18,6 @@ import 'tinymce/plugins/link';
 
 (function ($) {
     $(document).ready(function() {
-        customDatatableMeeting('#dataTable_testimonial');
-        customDatatableMeeting('#dataTable_partner');
-        customDatatableMeeting('#dataTable_video_guide');
         deleteTestimonial();
         deletePartner();
         deleteVideoGuide();
@@ -137,5 +135,20 @@ import 'tinymce/plugins/link';
                 .html(inputFile.files[0].name);
         });
     }
+
+    $(document).on('click', '#delete_user', function(e) {
+        let user_id = $(this).data('id_user');
+        let url = Routing.generate('app_espace_admin_user_delete', {'id':user_id});
+        e.preventDefault();
+        confirmSwalAlertUserDelete('de vouloir supprimer cet utilisateur', url, user_id);
+    });
+
+    $(document).on('click', '#deactive_user', function(e) {
+        let user_id = $(this).data('id_user');
+        let url = Routing.generate('app_espace_admin_user_deactive', {'id':user_id});
+        e.preventDefault();
+        confirmSwalAlertUserDeactive('de vouloir désactiver cet utilisateur', url, user_id);
+    });
+
 
 })(jQuery);
