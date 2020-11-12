@@ -126,11 +126,14 @@ class UserManager extends BaseManager
 
     /**
      * @param User $user
+     * @param      $status
+     *
      * @return bool
      */
-    public function deactiveUser(User $user)
+    public function deactiveUser(User $user, $status)
     {
-        $user->setDeactive(true);
+        $status = ($status == 'false') ? 0 : $status;
+        $user->setActive($status);
         $this->saveOrUpdate($user);
 
         return true;

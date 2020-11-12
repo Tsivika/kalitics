@@ -114,7 +114,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $updateUser = $this->createQueryBuilder('u')
             ->update(User::class, 'u')
             ->set('u.deleted', 0)
-            ->set('u.deactive', 0)
+            ->set('u.active', 0)
             ->getQuery();
         $updateUser->execute();
 

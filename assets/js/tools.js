@@ -400,9 +400,7 @@ export function confirmSwalAlertUserDelete(msg, url, id) {
             axios.get(url)
                 .then(function (response) {
                     simpleSwalAlert(response.data.body, response.data.footer);
-                    document.getElementById("delete_user").checked = true;
-                    document.getElementById("delete_user").disabled = true;
-                    document.getElementById("info-user-delete").innerHTML = 'Utilisateur Supprimé.';
+                    $("#delete_user"). attr("disabled", true);
 
                 })
                 .catch(function (error) {
@@ -411,7 +409,7 @@ export function confirmSwalAlertUserDelete(msg, url, id) {
         }
     })
 }
-export function confirmSwalAlertUserDeactive(msg, url, id) {
+export function confirmSwalAlertUserDeactive(msg, url, msg_confirm, user_id) {
     Swal.fire({
         title: 'Vous êtes sur ?',
         text: msg,
@@ -419,16 +417,17 @@ export function confirmSwalAlertUserDeactive(msg, url, id) {
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Désactiver !',
+        confirmButtonText: msg_confirm.charAt(0).toUpperCase() + msg_confirm.substring(1).toLowerCase(),
         cancelButtonText: 'Annuler',
     }).then((result) => {
         if (result.value) {
             axios.get(url)
                 .then(function (response) {
                     simpleSwalAlert(response.data.body, response.data.footer);
-                    document.getElementById("deactive_user").checked = true;
-                    document.getElementById("deactive_user").disabled = true;
-                    document.getElementById("info-user-deactive").innerHTML = 'Utilisateur désactivé.';
+                    document.getElementById("coupon_" + user_id).checked = true;
+                    if (msg_confirm == 'désactivé') {
+                        document.getElementById("coupon_" + user_id).checked = false;
+                    }
 
                 })
                 .catch(function (error) {
