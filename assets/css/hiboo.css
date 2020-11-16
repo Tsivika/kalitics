@@ -798,7 +798,10 @@ li  {
     color: #062944;
     font-family: GalanoGrotesque ;
 }
-
+.navbar-dark .navbar-nav .nav-link:focus, 
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: rgb(0, 201, 174);
+}
 section {
     padding-top: 50px;
 }
