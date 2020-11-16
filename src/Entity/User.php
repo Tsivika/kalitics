@@ -136,6 +136,7 @@ class User implements UserInterface
         $this->codePromos = new ArrayCollection();
         $this->parameters = new ArrayCollection();
         $this->deleted = false;
+        $this->active = true;
     }
 
     /**

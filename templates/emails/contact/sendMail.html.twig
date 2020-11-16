@@ -1,27 +1,9 @@
 {% extends 'baseEmail.html.twig' %}
 
 {% block content %}
-    Bonjour, cet email fait l'objet d'une demande de contact pour un client . <br>
-    Nom : {{ name }}<br>
-    Adresse mail : {{ address_email }}<br>
-    Son message : {{ message|nl2br }}<br><br>
-{% endblock %}
-{% block signature %}
-    <table>
-        <tr>
-            <td>
-                Logo
-            </td>
-        </tr>
-        <tr>
-            <td style="text-align: center">
-                Le service client Hiboo
-            </td>
-        </tr>
-        <tr>
-            <td style="text-align: center">
-                <a href="mailto:contact@hiboo.fr">contact@hiboo.live</a>
-            </td>
-        </tr>
-    </table>
+    <p class="encart_home_head"><h1>Nouveau mail de {{ name }}:</h1></p>
+    <p class="encart_home_head"><h2>Email:<span class="encart_home_body">{{ address_email }}</span></h2> </p>
+    <p><h2 class="encart_home_head">Voici son message</h2>
+        <h3 class="encart_home_body" >{{ message|nl2br }}</h3>
+    </p>
 {% endblock %}

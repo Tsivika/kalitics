@@ -9,7 +9,7 @@
         </div>
         <div class="col-5">
             <div class="w-100 text-right">
-                {% if not user.deactive %}
+                {% if user.active %}
                     <a class="btn  btn-large py-2 login" href="{{ path('app_espace_client_meeting_add') }}" role="button">
                         <span class="fa fa-plus"></span>
                         <span class="d-none d-sm-inline-block">
