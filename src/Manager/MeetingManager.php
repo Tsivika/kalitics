@@ -167,7 +167,8 @@ class MeetingManager extends BaseManager
             $meetingUser->setPasswordModerator($pwdModerator);
             $this->save($meetingUser);
             $urlMask = $baseurl . '/reunion/' . $meetingUser->getIdentifiant();
-            $this->sendMailToParticipants($meetingUser->getParticipants(), $urlMask);
+//            $this->sendMailToParticipants($meetingUser->getParticipants(), $urlMask);
+            $this->sendMailToParticipants($meetingUser, $urlMask);
 
             return $url;
         }
@@ -340,15 +341,23 @@ class MeetingManager extends BaseManager
      *
      * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
      */
-    public function sendMailToParticipants($emailParticipants, $urlMeeting)
+    public function sendMailToParticipants($meetingUser, $urlMeeting)
     {
         $template = 'emails/meeting/sendMail.html.twig';
         $context = [
+            'message1' => EmailMeetingConstant::_MESSAGE_TO_SEND_1_,
+            'join_meeting' => EmailMeetingConstant::_JOIN_MEETING_,
+            'pwd_meeting' => EmailMeetingConstant::_PWD_MEETING_,
+            'date_meeting' => EmailMeetingConstant::_DATE_MEETING_,
+            'signature' => EmailMeetingConstant::_SIGNATURE_,
             'urlMeeting' => $urlMeeting,
-            'message' => EmailMeetingConstant::_MESSAGE_TO_SEND_,
+            'subject_meeting' => $meetingUser->getSubject() ??  '',
+            'description_meeting' => $meetingUser->getDescription() ?? '',
+            'pwd' => $meetingUser->getPassword(),
+            'date' => $meetingUser->getDate(),
         ];
 
-        foreach ($emailParticipants as $row) {
+        foreach ($meetingUser->getParticipants() as $row) {
             $this->emailService->sendEmail($_ENV['CONTACT_MAIL'], $row->getEmail(), 'Hiboo: Invitation à une réunion.', $template, $context) ;
         }
     }

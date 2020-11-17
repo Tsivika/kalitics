@@ -143,12 +143,13 @@ import 'tinymce/plugins/link';
         confirmSwalAlertUserDelete('de vouloir supprimer cet utilisateur', url, user_id);
     });
 
-    $(document).on('click', '#deactive_user', function(e) {
+    $(document).on('click', '.deactive_user', function(e) {
         let user_id = $(this).data('id_user');
-        let url = Routing.generate('app_espace_admin_user_deactive', {'id':user_id});
+        let status = $(this).prop('checked');
+        let msg_stat = status ? 'activer' : 'désactivé';
+        let url = Routing.generate('app_espace_admin_user_deactive', {'id':user_id, 'status': status});
         e.preventDefault();
-        confirmSwalAlertUserDeactive('de vouloir désactiver cet utilisateur', url, user_id);
+        confirmSwalAlertUserDeactive('de vouloir ' + msg_stat + ' cet utilisateur', url, msg_stat, user_id);
     });
-
 
 })(jQuery);

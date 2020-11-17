@@ -1160,3 +1160,10 @@ button.btn.circle-btn {
     content: url('../images/heart.svg');
     margin-left: 10px;
 }
+
+
+.custom-control-input:checked~.custom-control-label::before {
+    color: #fff;
+    border-color: rgba(0,201,174,1) !important;
+    background-color: rgba(0,201,174,1) !important;
+}

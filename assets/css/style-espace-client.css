@@ -425,3 +425,10 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
     justify-content: space-between;
     align-items: center;
 }
+.wrap_flex {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    font-family: GalanoGrotesque;
+}

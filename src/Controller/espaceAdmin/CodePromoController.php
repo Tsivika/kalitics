@@ -77,7 +77,12 @@ class CodePromoController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);
         $this->em->saveCoupon($data);
-        $codePromos = $this->em->findAll();
+        $result = $this->em->findAll();
+        $codePromos = $this->paginator->paginate(
+            $result,
+            $request->query->getInt('page', 1),
+            10
+        );
 
         return new JsonResponse([
             'listHtml' => $this->renderView('espace_admin/code_promo/liste_ajax.html.twig', [
@@ -107,6 +112,7 @@ class CodePromoController extends AbstractController
             $request->query->getInt('page', 1),
             10
         );
+
         return new JsonResponse([
             'listHtml' => $this->renderView('espace_admin/code_promo/liste_ajax.html.twig', [
                 'codePromos' => $coupon,
@@ -130,8 +136,13 @@ class CodePromoController extends AbstractController
     public function couponPromoSwitchStatus(CodePromo $coupon, Request $request)
     {
         $status = $request->get('status');
-        $coupons = $this->em->switchStatusCoupon($coupon, $status);
+        $result = $this->em->switchStatusCoupon($coupon, $status);
         $statusMsg = ($status === "true") ? 'Activation' : 'Désactivation';
+        $coupons = $this->paginator->paginate(
+            $result,
+            $request->query->getInt('page', 1),
+            10
+        );
 
         return new JsonResponse([
             'listHtml' => $this->renderView('espace_admin/code_promo/liste_ajax.html.twig', [

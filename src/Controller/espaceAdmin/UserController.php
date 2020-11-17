@@ -67,12 +67,13 @@ class UserController extends AbstractController
      *
      * @return JsonResponse
      */
-    public function UserDeactive(User $user)
+    public function UserDeactive(User $user, Request $request)
     {
-        $this->em->deactiveUser($user);
+        $status = $request->get('status');
+        $this->em->deactiveUser($user, $status);
 
         return new JsonResponse( [
-            'body' => "<p>Utilisateur desactivé.</p>",
+            'body' => ($status == 'false') ? "<p>Utilisateur desactivé.</p>" : "<p>Utilisateur activé.</p>",
             'footer' => '<span>Consulter notre <a href="" class="text-green"> Politique de confidentialité</a></span>',
             'status' => true,
             'success' => true,

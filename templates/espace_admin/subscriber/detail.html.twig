@@ -2,60 +2,69 @@
 {% block title %}{{ title }}{% endblock %}
 {% block body %}
     <div class="container">
-        <div class="row mt-4 mb-2">
+        <div class="row mt-4 mb-5">
             <div class="col-6">
-                <span class="text-green">Les détails concernant le client:</span><span> {{ user.firstname }} - {{ user.name }}</span>
-            </div>
-            <div class="col-6 box_actions">
-                <div>
-                    <input type="checkbox" id="deactive_user" data-id_user="{{ user.id }}" {% if user.deactive %} checked disabled {% endif %}> Désactiver/Activer
-                </div>
-                <div>
-                    <input type="checkbox" id="delete_user" data-id_user="{{ user.id }}" {% if user.deleted %} checked disabled {% endif %}> Supprimer
-                </div>
-                <div><a role="button" href="{{ path('app_espace_admin_user_subscriber_send_email', {'id':user.id}) }}" class="btn login">Envoyer un email</a></div>
+                <span class="text-green">Détail du client:</span>
             </div>
         </div>
+        <div class="row mb-5">
+            <div class="col-4">
+                <img src="{{ asset(twig_asset_image_directory ~ user.pdp) }}"  class="rounded-circle" alt="Cinque Terre" width="160" height="160">
+            </div>
+            <div class="col-4">
+                <div class="row">
+                    <div class="col-6 ">
+                        <h3 class="mr-3">{{ user.firstname }} {{ user.name }}</h3>
+                    </div>
+                    <div class="col-6 ">
+                        <div class="custom-control custom-switch">
+                                <input type="checkbox"
+                                       class="custom-control-input deactive_user"
+                                       id="coupon_{{ user.id }}"
+                                       data-id_user="{{ user.id }}"
+                                       {% if user.active %} checked {% endif %}
+                                >
+                                <label class="custom-control-label text-show" for="coupon_{{ user.id }}">
+                                    {{ user.active ? 'Activé' : 'Desactivé' }}
+                                </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <h5 class="mb-3"><strong>Date d'inscription</strong>: {{ user.createdAt|date('d/m/Y') }}</h5>
+                <button id="delete_user" data-id_user="{{ user.id }}" {% if user.deleted %}  disabled="desabled" {% endif %} class="btn btn-danger">Supprimer</button>
+                <a role="button" href="{{ path('app_espace_admin_user_subscriber_send_email', {'id':user.id}) }}" class="btn login">Envoyer un email</a>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-4"><strong>Entreprise</strong></div>
+            <div class="col-4">{{ user.entreprise }}</div>
+            <div class="col-4"><strong>Liste des réunions:</strong></div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-4"><strong>Adresse</strong></div>
+            <div class="col-4">{{ user.address }}</div>
+            <div class="col-4"><i class="fa fa-circle" style="color: #ffaa2b"></i> En attente : <span class="text-green">{{  (meetings|length > 0) ? meetings[0]['nbr'] + meetings[1]['nbr'] : 0 }} </span></div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-4"><strong>Adresse email</strong></div>
+            <div class="col-4">{{ user.email }}</div>
+            <div class="col-4"><i class="fa fa-circle text-green"></i> En cours: <span class="text-green">{{ (meetings|length > 0) ? meetings[2]['nbr'] : 0 }}</span></div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-4"><strong>Langue</strong></div>
+            <div class="col-4">{{ user.language }}</div>
+            <div class="col-4"><i class="fa fa-circle text-red"></i> Terminée: <span class="text-green">{{ (meetings|length > 0) ? meetings[3]['nbr'] : 0 }}</span></div>
+        </div>
+        <hr>
         <div class="row">
-            <div class="col-12">
-                <div id="info-user-delete">{% if user.deleted %}  Utilisateur supprimé. {% endif %}</div>
-                <div id="info-user-deactive">{% if user.deactive %}  Utilisateur desactivé. {% endif %}</div>
-            </div>
+            <div class="col-4"><strong>Abonnement</strong></div>
+            <div class="col-4">{{ (user.subscriptionUser|length>0) ? user.subscriptionUser.title : 'Gratuit'}}</div>
+            <div class="col-4"></div>
         </div>
-        <div class="row my-5 mx-3 border">
-            <div class="col-6 border">
-                <table>
-                    <tr>
-                        <td>Nom</td>
-                        <td>{{ user.firstname }}</td>
-                    </tr>
-                    <tr>
-                        <td>Prénom</td>
-                        <td>{{ user.name }}</td>
-                    </tr>
-                    <tr>
-                        <td>Email</td>
-                        <td>{{ user.email }}</td>
-                    </tr>
-                    <tr>
-                        <td>Entreprise</td>
-                        <td>{{ user.entreprise }}</td>
-                    </tr>
-                    <tr>
-                        <td>Adresse</td>
-                        <td>{{ user.entreprise }}</td>
-                    </tr>
-                    <tr>
-                        <td>Date de création</td>
-                        <td>{{ user.createdAt|date('d/m/Y') }}</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="col-6 border">
-                {% for rowMeeting in meetings %}
-                    {{ rowMeeting.nbr }} - {{ rowMeeting.state }}<br>
-                {% endfor %}
-            </div>
+        <hr>
+        <div class="row ">
             <div class="col-12 my-5">
                 <table class="table">
                     <thead class="thead-dark">

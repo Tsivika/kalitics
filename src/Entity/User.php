@@ -124,7 +124,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $deactive;
+    private $active;
 
     /**
      * User constructor.
@@ -136,7 +136,7 @@ class User implements UserInterface
         $this->codePromos = new ArrayCollection();
         $this->parameters = new ArrayCollection();
         $this->deleted = false;
-        $this->deactive = false;
+        $this->active = true;
     }
 
     /**
@@ -399,11 +399,18 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getPdp(): ?string
     {
         return $this->pdp;
     }
 
+    /**
+     * @param string|null $pdp
+     * @return $this
+     */
     public function setPdp(?string $pdp): self
     {
         $this->pdp = $pdp;
@@ -411,11 +418,18 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return Subscription|null
+     */
     public function getSubscriptionUser(): ?Subscription
     {
         return $this->subscriptionUser;
     }
 
+    /**
+     * @param Subscription|null $subscriptionUser
+     * @return $this
+     */
     public function setSubscriptionUser(?Subscription $subscriptionUser): self
     {
         $this->subscriptionUser = $subscriptionUser;
@@ -431,6 +445,10 @@ class User implements UserInterface
         return $this->userSubscriptions;
     }
 
+    /**
+     * @param UserSubscription $userSubscription
+     * @return $this
+     */
     public function addUserSubscription(UserSubscription $userSubscription): self
     {
         if (!$this->userSubscriptions->contains($userSubscription)) {
@@ -441,6 +459,10 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @param UserSubscription $userSubscription
+     * @return $this
+     */
     public function removeUserSubscription(UserSubscription $userSubscription): self
     {
         if ($this->userSubscriptions->contains($userSubscription)) {
@@ -462,6 +484,10 @@ class User implements UserInterface
         return $this->codePromos;
     }
 
+    /**
+     * @param CodePromo $codePromo
+     * @return $this
+     */
     public function addCodePromo(CodePromo $codePromo): self
     {
         if (!$this->codePromos->contains($codePromo)) {
@@ -472,6 +498,10 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @param CodePromo $codePromo
+     * @return $this
+     */
     public function removeCodePromo(CodePromo $codePromo): self
     {
         if ($this->codePromos->contains($codePromo)) {
@@ -485,11 +515,18 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getAddress(): ?string
     {
         return $this->address;
     }
 
+    /**
+     * @param string|null $address
+     * @return $this
+     */
     public function setAddress(?string $address): self
     {
         $this->address = $address;
@@ -497,11 +534,18 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getEntreprise(): ?string
     {
         return $this->entreprise;
     }
 
+    /**
+     * @param string|null $entreprise
+     * @return $this
+     */
     public function setEntreprise(?string $entreprise): self
     {
         $this->entreprise = $entreprise;
@@ -509,11 +553,18 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getStripeToken(): ?string
     {
         return $this->stripeToken;
     }
 
+    /**
+     * @param string|null $stripeToken
+     * @return $this
+     */
     public function setStripeToken(?string $stripeToken): self
     {
         $this->stripeToken = $stripeToken;
@@ -529,6 +580,10 @@ class User implements UserInterface
         return $this->parameters;
     }
 
+    /**
+     * @param Parameter $parameter
+     * @return $this
+     */
     public function addParameter(Parameter $parameter): self
     {
         if (!$this->parameters->contains($parameter)) {
@@ -539,6 +594,10 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @param Parameter $parameter
+     * @return $this
+     */
     public function removeParameter(Parameter $parameter): self
     {
         if ($this->parameters->contains($parameter)) {
@@ -552,11 +611,18 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return bool|null
+     */
     public function getDeleted(): ?bool
     {
         return $this->deleted;
     }
 
+    /**
+     * @param bool|null $deleted
+     * @return $this
+     */
     public function setDeleted(?bool $deleted): self
     {
         $this->deleted = $deleted;
@@ -564,14 +630,14 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getDeactive(): ?bool
+    public function getActive(): ?bool
     {
-        return $this->deactive;
+        return $this->active;
     }
 
-    public function setDeactive(?bool $deactive): self
+    public function setActive(?bool $active): self
     {
-        $this->deactive = $deactive;
+        $this->active = $active;
 
         return $this;
     }
