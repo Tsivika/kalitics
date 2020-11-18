@@ -1,3 +1,4 @@
+{#
 {% extends 'base.html.twig' %}
 
 {% block title %}Reset your password{% endblock %}
@@ -10,3 +11,43 @@
         <button class="btn btn-primary">Reset password</button>
     {{ form_end(resetForm) }}
 {% endblock %}
+#}
+{% extends 'base-frontend.html.twig' %}
+
+{% block title %}Réinitialisez votre mot de passe{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
+            <div class="card card0 border-0">
+                <div class="row d-flex">
+                    <div class="col-lg-6 ">
+                        <div class="card1" id="image-login">
+                            <div class="row justify-content-center">
+                                <img src="{{ asset('frontend/images/hiboo_connexion.png')}}" class="image" style="width:100%; height:96%"> </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 box-shadow-login pl-4">
+                        <h1 class="encart_home_head pt-2" style="letter-spacing: -1px">Réinitialisez votre mot de passe <span class="text-green">Hiboo</span></h1>
+
+                        <div class="my-5">
+                            {{ form_start(resetForm) }}
+                            {{ form_row(resetForm.plainPassword) }}
+                            <button type="submit" class="btn  btn-large py-2 login" style="padding: 0px 70px">
+                                <span class="font-weight-bold">Réinitialiser</span>
+                            </button>
+                            {{ form_end(resetForm) }}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="world-globe">
+        {{ include('shared/partenaire.html.twig') }}
+    </div>
+    <br><br>
+{% endblock %}
+
