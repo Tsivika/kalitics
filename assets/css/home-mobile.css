@@ -65,7 +65,25 @@
 
     
 }
+@media (max-width: 1200px) {
+    .masthead:after {
+        transform: scale(0.7);
+        right: 0;
+        bottom: -10vh;
+    }
+    .nav-item {
+        padding: 15px 1vh;
+    }
+    .login,
+    .signin {
+        padding: 8px 10px 10px 10px;
+    }
+    
+}
 @media (max-width: 992px) {
+    .nav-item {
+        padding: 10px;
+    }
     .masthead .home-header-container .w-50{
         width: 75% !important;
     }
@@ -95,6 +113,11 @@
     .mobile-call-scrool.hidden{
         display: none !important;
     }
+    .masthead:after {
+        transform: scale(0.7);
+        right: -15vh;
+        bottom: 0vh;
+    }
 }
 @media (max-width: 720px) {
  
@@ -109,6 +132,8 @@
         background-size: 100% 100%;
         display: inline-block;
         bottom: 0px;
+        transform: scale(1);
+        right: 0px!important;
     }
     .masthead .home-header-container .w-50{
         width: 100% !important;
