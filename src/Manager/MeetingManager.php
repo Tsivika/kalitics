@@ -130,7 +130,7 @@ class MeetingManager extends BaseManager
         $createMeetingParams->setModeratorPassword($pwdModerator);
         $createMeetingParams->setDuration($duration);
         $createMeetingParams->setLogoutUrl($baseurl);
-        $createMeetingParams->setMaxParticipants($maxNumberParticipant);
+        $createMeetingParams->setMaxParticipants($maxNumberParticipant+1);
 
         if ($paramUser->getRecordAuto()) {
             $createMeetingParams->setRecord(true);
