@@ -45,7 +45,6 @@
     .menu-primary.open .navbar{
         background: #CCF4EF !important;
         text-align: right !important;
-        border-radius: 0% 0% 50% 50% / 0% 0% 7% 7% !important;
         min-height: 100vh;
         padding-top: 8px;
         display: block;

@@ -81,6 +81,9 @@
     
 }
 @media (max-width: 992px) {
+    h2 {
+        font-size: 1.5rem;
+    }
     .nav-item {
         padding: 10px;
     }
@@ -124,6 +127,7 @@
     }
     #menu-primary.open .navbar-brand{
         display: block !important;
+        margin: auto;
     }
     
     #menu-primary .navbar-light {
@@ -136,6 +140,20 @@
     }
     .masthead {
         padding-top: 3vh;
+    }
+
+    /***   **/
+    .abonnement .btn.start{
+        width: 60%;    
+        padding-bottom: 12px !important;
+    }
+    .contact-btn{
+        width: 60%;    
+    }
+
+    .partenaire-group{
+        padding-bottom: 1.5rem !important;
+        padding-top: 1.5rem !important;
     }
 }
 @media (max-width: 720px) {
@@ -199,6 +217,10 @@
     }
     .advantage-item .item-desc {
         font-size: 14px;
+    }
+    .footer-menu.encart_home_body {
+        font-size: 20px;
+        font-weight: 800;
     }
 }
  
