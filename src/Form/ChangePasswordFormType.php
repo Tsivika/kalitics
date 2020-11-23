@@ -29,12 +29,21 @@ class ChangePasswordFormType extends AbstractType
                             'max' => 4096,
                         ]),
                     ],
-                    'label' => 'Nouveau mot de passe',
+                    'label' => false,
+                    'attr' => [
+                        'placeholder' => 'Nouveau mot de passe',
+                        'class' => 'form-control bg-white border-md infoPlaceholder encart_home_body py-3 pr-5',
+                    ]
                 ],
                 'second_options' => [
-                    'label' => 'Confirmation mot de passe',
+                    'label' => false,
+                    'attr' => [
+                        'placeholder' => 'Confirmation mot de passe',
+                        'class' => 'form-control bg-white border-md infoPlaceholder encart_home_body py-3 pr-5',
+                    ]
                 ],
                 'invalid_message' => 'Les 2 mots de passe ne sont pas identiques.',
+                'options' => ['attr' => ['class' => 'form-control bg-white border-md encart_home_body']],
                 // Instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,

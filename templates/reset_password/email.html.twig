@@ -1,9 +1,19 @@
-<h1>Hi!</h1>
+{% extends 'baseEmail.html.twig' %}
 
-<p>To reset your password, please visit the following link</p>
+{% block content %}
+    <h1 class="encart_home_head">Bonjour {{ name }}</h1>
 
-<a href="{{ url('app_reset_password', {token: resetToken.token}) }}">{{ url('app_reset_password', {token: resetToken.token}) }}</a>
+    <p class="encart_home_body">Auriez-vous perdu quelque chose?</p>
 
-<p>This link will expire in {{ tokenLifetime|date('g') }} hour(s).</p>
+    <p class="encart_home_body">Cliquez sur ce bouton pour choisir un nouveau<br>mot de passe.
+        Le lien expirera dans {{ tokenLifetime|date('g') }} heure(s).
+    </p>
 
-<p>Cheers!</p>
+    <a role="button" class="btn btn-success login" href="{{ url('app_reset_password', {token: resetToken.token}) }}">Réinitialiser mon mot de passe</a>
+
+    <p class="encart_home_body">Ce lien expirera dans {{ tokenLifetime|date('g') }} heure(s).</p>
+
+    <p class="encart_home_head"><h5>{{ signature|raw }}</h5> </p>
+
+{% endblock %}
+

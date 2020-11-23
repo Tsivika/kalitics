@@ -2,17 +2,17 @@
 
 namespace App\Controller;
 
+use App\Constants\EmailMeetingConstant;
 use App\Entity\User;
 use App\Form\ChangePasswordFormType;
 use App\Form\ResetPasswordRequestFormType;
 use App\Manager\PartnerManager;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use App\Manager\UserManager;
+use App\Services\SendEmailService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use SymfonyCasts\Bundle\ResetPassword\Controller\ResetPasswordControllerTrait;
@@ -28,9 +28,21 @@ class ResetPasswordController extends AbstractController
 
     private $resetPasswordHelper;
 
-    public function __construct(ResetPasswordHelperInterface $resetPasswordHelper)
+    /**
+     * @var SendEmailService
+     */
+    private $emailService;
+
+    /**
+     * @var UserManager
+     */
+    private $userManager;
+
+    public function __construct(ResetPasswordHelperInterface $resetPasswordHelper, SendEmailService $emailService, UserManager $userManager)
     {
         $this->resetPasswordHelper = $resetPasswordHelper;
+        $this->emailService = $emailService;
+        $this->userManager = $userManager;
     }
 
     /**
@@ -38,15 +50,14 @@ class ResetPasswordController extends AbstractController
      *
      * @Route("", name="app_forgot_password_request")
      */
-    public function request(Request $request, MailerInterface $mailer, PartnerManager $partnerManager): Response
+    public function request(Request $request, PartnerManager $partnerManager): Response
     {
         $form = $this->createForm(ResetPasswordRequestFormType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             return $this->processSendingPasswordResetEmail(
-                $form->get('email')->getData(),
-                $mailer
+                $form->get('email')->getData()
             );
         }
 
@@ -79,7 +90,7 @@ class ResetPasswordController extends AbstractController
      *
      * @Route("/reset/{token}", name="app_reset_password")
      */
-    public function reset(Request $request, UserPasswordEncoderInterface $passwordEncoder, string $token = null): Response
+    public function reset(Request $request, UserPasswordEncoderInterface $passwordEncoder, string $token = null, PartnerManager $partnerManager): Response
     {
         if ($token) {
             // We store the token in session and remove it from the URL, to avoid the URL being
@@ -98,7 +109,7 @@ class ResetPasswordController extends AbstractController
             $user = $this->resetPasswordHelper->validateTokenAndFetchUser($token);
         } catch (ResetPasswordExceptionInterface $e) {
             $this->addFlash('reset_password_error', sprintf(
-                'There was a problem validating your reset request - %s',
+                'Un problème est survenu lors de la validation de votre demande de réinitialisation - %s',
                 $e->getReason()
             ));
 
@@ -130,10 +141,11 @@ class ResetPasswordController extends AbstractController
 
         return $this->render('reset_password/reset.html.twig', [
             'resetForm' => $form->createView(),
+            'partners' => $partnerManager->findAll(),
         ]);
     }
 
-    private function processSendingPasswordResetEmail(string $emailFormData, MailerInterface $mailer): RedirectResponse
+    private function processSendingPasswordResetEmail(string $emailFormData): RedirectResponse
     {
         $user = $this->getDoctrine()->getRepository(User::class)->findOneBy([
             'email' => $emailFormData,
@@ -162,18 +174,15 @@ class ResetPasswordController extends AbstractController
             return $this->redirectToRoute('app_check_email');
         }
 
-        $email = (new TemplatedEmail())
-            ->from(new Address('contact@hiboo.live', 'Contact Hiboo'))
-            ->to($user->getEmail())
-            ->subject('Your password reset request')
-            ->htmlTemplate('reset_password/email.html.twig')
-            ->context([
-                'resetToken' => $resetToken,
-                'tokenLifetime' => $this->resetPasswordHelper->getTokenLifetime(),
-            ])
-        ;
-
-        $mailer->send($email);
+        $user = $this->userManager->findByEmail($emailFormData);
+        $template = 'reset_password/email.html.twig';
+        $context = [
+            'resetToken' => $resetToken,
+            'tokenLifetime' => $this->resetPasswordHelper->getTokenLifetime(),
+            'name' => $user[0]->getName() . ' ' . $user[0]->getFirstName(),
+            'signature' => EmailMeetingConstant::_SIGNATURE_,
+        ];
+        $this->emailService->sendEmail($_ENV['CONTACT_MAIL'], $emailFormData, 'Hiboo: Réinitialisation mot de passe', $template, $context) ;
 
         return $this->redirectToRoute('app_check_email');
     }

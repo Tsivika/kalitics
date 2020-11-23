@@ -142,7 +142,6 @@ class RegistrationController extends AbstractController
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator, SubscriptionManager $subscriptionManager, $subscription = null): Response
     {
-
         $pathPrePayment= $this->session->get('prePayment');
         $preUser = $this->session->get('preCreateUser') ?? '';
         $user = new User();

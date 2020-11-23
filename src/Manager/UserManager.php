@@ -148,4 +148,11 @@ class UserManager extends BaseManager
 
         return true;
     }
+
+    public function findByEmail(string $email)
+    {
+        return $this->repository->findBy(
+            ['email' => $email]
+        );
+    }
 }
