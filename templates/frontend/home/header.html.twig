@@ -1,3 +1,8 @@
+<div class="d-block d-lg-none text-center fake-nav-brand">
+        <a class="navbar-brand" href="{{ path('app_homePage') }}">
+        <img src="{{ asset('build/images/Hiboo-logo.svg') }}" alt="Hiboo">
+    </a>
+</div>
 <header class="masthead">
     <div class="container-fluid home-header-container">   
         <div class="w-50 ml-5">
@@ -35,8 +40,8 @@
         <img class="img-fluid" src="{{ asset('build/images/youtube-dark.png') }}">
     </div>
 </div>
-<section class="d-block d-lg-none  mobile-call-scrool">
-    <div class="w-100 text-center">
+<section class="d-mobile d-none">
+    <div class="mobile-call-scrool w-100 text-center">
         <div class="chevron-down"> </div>
     </div>
     <div class="navbar-light home-navbar-light text-right mr-4">

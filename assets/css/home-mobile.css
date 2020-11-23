@@ -1,9 +1,5 @@
 .mobile-call-scrool{
-    position: fixed;
-    bottom: 0;
-    z-index: 8;
-    right: 0;
-    left: 0;
+   position: relative;
 }
 .mobile-call-scrool .chevron-down{
     width: 50px !important;
@@ -13,7 +9,8 @@
     opacity: 1;
     position: absolute;
     left: 45%;
-    margin-top: -10px;
+    margin-top: -7rem;
+
 }
 
 .navbar-light.home-navbar-light{
@@ -23,6 +20,9 @@
     background-color: #ffffff00 !important;
 }   
 .home-navbar-toggler{
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
     border-radius: 50%;
     width: 60px;
     height: 55px;
@@ -92,10 +92,11 @@
     }
     .advantage-group {
         display: block;
+        margin-left: 2%;
     }
     .advantage-item {
         display: inline-block;
-        width: 48%;
+        width: 46%;
         text-align: center;
         padding-right: 0px; 
         padding-left: 0px; 
@@ -110,17 +111,38 @@
         width: 50%;
         margin: auto;
     }
-    .mobile-call-scrool.hidden{
-        display: none !important;
-    }
+
     .masthead:after {
         transform: scale(0.7);
         right: -15vh;
         bottom: 0vh;
     }
+
+    #header .navbar-brand,
+    #header .navbar-toggler.navbar-toggler-right{
+        display: none !important;
+    }
+    #menu-primary.open .navbar-brand{
+        display: block !important;
+    }
+    
+    #menu-primary .navbar-light {
+        opacity: 1;
+        border-bottom: unset !important;
+        box-shadow: unset !important;
+    }
+    #header{
+        padding-top: 15px;
+    }
+    .masthead {
+        padding-top: 3vh;
+    }
 }
 @media (max-width: 720px) {
- 
+    .d-mobile{
+        display: block !important;
+    }
+
     .masthead:after {
         content: " " !important;
         background-image: url('../images/Hiboo-Image-Fond.svg') !important;
@@ -169,6 +191,9 @@
     .advantage-group {
         padding-right: unset;
     }
+    .advantage-item {
+        width: 47%;
+    }
     .advantage-group .img-title {
         font-size: 20px;
     }
@@ -216,5 +241,17 @@
     #testimonialCarousel .item__third {
         width: 75%;
         margin-left: 12.5%;
+    }
+}
+
+/** Iphone and large heigth pone ***/
+@media (min-height: 720px) {
+    .mobile-call-scrool .chevron-down{ 
+        margin-top: -4rem;
+    }
+}
+@media (min-height: 800px) {
+    .mobile-call-scrool .chevron-down{ 
+        margin-top: -1rem;
     }
 }
