@@ -77,7 +77,7 @@
 section p {
     color: #062944;
 }
-.h5, h5, .h4, h4, p {
+.h6, h6, .h5, h5, .h4, h4, p {
     color: #062944;
 }
 div#registration_form_password {
@@ -197,14 +197,12 @@ header.masthead {
 }
 
 .masthead h1 {
-
     font-style: normal;
     font-size: 72px;
     line-height: 86px;
     color: rgba(0,201,174,1);
     font-family: 'GalanoGrotesqueMedium';
     z-index: 1;
-
 }
 .masthead h2 {
     font-family: GalanoGrotesque ;
@@ -217,6 +215,7 @@ header.masthead {
 }
 .site-heading{
     z-index: 1;
+    color: #ffcc00;
 }
 .masthead:before{
     content: url('../images/Hiboo-Watermark.svg');
@@ -1160,7 +1159,6 @@ button.btn.circle-btn {
 
 .footer-heart:after{
     content: url('../images/heart.svg');
-    margin-left: 10px;
 }
 
 
