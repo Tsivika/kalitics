@@ -17,7 +17,7 @@
                         <form method="post">
                             <input type="hidden" name="_target_path" value="{{ redirect }}"/>
 
-                            <h1 class="encart_home_head pt-2" style="letter-spacing: -1px">Connexion <span class="text-green">Hiboo</span></h1>
+                            <h1 class="encart_home_body pt-2" style="letter-spacing: -1px">Connexion <span class="text-green">Hiboo</span></h1>
                             <span class="encart_home_body">
                                     Connectez-vous afin de profiter pleinement de vos réunions
                                 </span>
@@ -34,12 +34,12 @@
                             </p>
                             <div class="row">
                                 <!-- Email Address -->
-                                <div class="input-group col-sm-10 col-lg-8 mb-4 mt-5" >
-                                    <input type="email" value="{{ last_username }}" placeholder="Adresse mail" name="email" id="inputEmail" class="encart_home_body form-control" required autofocus>
+                                <div class="input-group col-sm-10 col-lg-8 mb-3 mt-5" >
+                                    <input type="email" value="{{ last_username }}" placeholder="Adresse mail" name="email" id="inputEmail" class="encart_home_body form-control" required autofocus style="padding:25px 30px 25px 20px">
                                 </div>
 
                                 <div class="input-group col-sm-10 col-lg-8 mb-2">
-                                    <input type="password" name="password" id="inputPassword" placeholder="Mot de passe" class="form-control encart_home_body py-2" required>
+                                    <input type="password" name="password" id="inputPassword" placeholder="Mot de passe" class="form-control encart_home_body py-4" required style="padding:25px 30px 25px 20px">
                                 </div>
                             </div>
 
@@ -64,7 +64,7 @@
                                 <input type="hidden" name="_csrf_token"
                                        value="{{ csrf_token('authenticate') }}"
                                 >
-                                <button type="submit" class="btn  btn-large py-2 login" style="padding: 0px 70px">
+                                <button type="submit" class="btn  btn-large py-2 login" style="padding: 0px 80px">
                                     <span class="font-weight-bold">Se connecter</span>
                                 </button>
                             </div>
