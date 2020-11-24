@@ -19,7 +19,7 @@
 }
 
 .advantage-item .item-icon {
-    width: 40%;
+    width: 25%;
     text-align: right;
     padding-top: 8px;
     padding-right: 22px;
@@ -139,6 +139,9 @@ div#registration_form_password {
 }
 
 .remove_participant.btn-danger {
+    background-color: #FF5A5F !important;
+}
+.list_table.btn-danger {
     background-color: #FF5A5F !important;
 }
 

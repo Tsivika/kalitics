@@ -63,7 +63,7 @@ class GuideController extends AbstractController
             $request->query->getInt('page', 1),
             10
         );
-        $guides->setSortableTemplate('shared/sortable_link.html.twig');
+        $guides->setSortableTemplate('shared/sortable_link_colored.html.twig');
 
         return $this->render('espace_admin/guide/list.html.twig', [
             'guides' => $guides,
@@ -90,7 +90,7 @@ class GuideController extends AbstractController
             $request->query->getInt('page', 1),
             10
         );
-        $guides->setSortableTemplate('shared/sortable_link.html.twig');
+        $guides->setSortableTemplate('shared/sortable_link_colored.html.twig');
         return new JsonResponse([
             'listHtml' => $this->renderView('espace_admin/guide/list_ajax.html.twig', [
                 'guides' => $guides,
@@ -119,7 +119,7 @@ class GuideController extends AbstractController
             $request->query->getInt('page', 1),
             10
         );
-        $guides->setSortableTemplate('shared/sortable_link.html.twig');
+        $guides->setSortableTemplate('shared/sortable_link_colored.html.twig');
         return new JsonResponse([
             'listHtml' => $this->renderView('espace_admin/guide/list_ajax.html.twig', [
                 'guides' => $guides,

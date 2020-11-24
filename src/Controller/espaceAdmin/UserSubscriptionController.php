@@ -63,7 +63,7 @@ class UserSubscriptionController extends AbstractController
             $request->query->getInt('page', 1),
             10
         );
-        $subscribers->setSortableTemplate('shared/sortable_link.html.twig');
+        $subscribers->setSortableTemplate('shared/sortable_link_colored.html.twig');
 
         return $this->render('espace_admin/subscriber/list.html.twig', [
             'title' => 'Liste des abonnés',

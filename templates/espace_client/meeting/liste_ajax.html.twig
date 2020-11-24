@@ -1,48 +1,48 @@
 <div class="row">
-    <div class="col-lg-3 list_meeting_head" style="display: flex; justify-content: flex-start">
-                <span class=" text-green">{{ knp_pagination_sortable(meetings, 'Heure de début', 'date') }}
+    <div class="col-lg-2 list_meeting_head">
+        {{ knp_pagination_sortable(meetings, 'Début', 'date') }}
     </div>
-    <div class="col-lg-3 list_meeting_head "  style="display: flex; justify-content: flex-start">
-        <span>{{ knp_pagination_sortable(meetings, 'Sujet', 'subject') }}</span>
+    <div class="col-lg-3 list_meeting_head">
+        {{ knp_pagination_sortable(meetings, 'Sujet', 'subject') }}
     </div>
-    <div class="col-lg-3 list_meeting_head">Identifiant de réunion</div>
-    <div class="col-lg-3 list_meeting_head"></div>
+    <div class="col-lg-7 list_meeting_head">
+        Identifiant de réunion
+    </div>
 </div>
-{% for row in meetings|reverse %}
-    <div class="row list_meeting_border_radius mt-2"
-         style="display: flex;
-                 justify-content: center;
-                 align-items: center;
-                ">
-        <div class="col-lg-3" style="display: flex; justify-content: space-between">
-            <span>{{ row.date|date("d/m/yy") }} à  {{ row.date|date("H:i") }}</span>
-            <span><a class="detail_meeting encart_home_body text-green" href="#" data-meeting="{{ row.id }}">Info+</a></span>
+<div class="row">
+    {% for row in meetings|reverse %}
+        <div class="col-sm-6 col-lg-12 mt-2">
+            <div class="row card-borderer mx-1">
+                <div class="col-lg-2 d-flex-center-left">
+                    <span>{{ row.date|date("d/m/yy") }} à  {{ row.date|date("H:i") }}</span>
+                </div>
+
+                <div class="col-lg-3 d-flex-center-left">
+                    {{ row.subject }}
+                </div>
+
+                <div class="col-lg-2 d-flex-center-left">
+                    <input class="input_copy" style="color: #50697C" type="text" id="linkInput_{{ row.id }}" value="{{ baseUrl }}/reunion/{{ row.identifiant }}" readonly>
+                </div>
+                <div class="col-lg-5 actions link_identifiant d-flex-center-right">
+                    <div class="w-100">
+                        <div class="pull-right">
+                            <a class="detail_meeting encart_home_body text-green" href="#" data-meeting="{{ row.id }}">
+                                <span class="mx-2"> Info + </span>
+                            </a>
+
+                            <button class="list_table btn btn-danger mr-2 px-5" role="button" type="button" onclick="return copyToPaste({{ row.id }});" {{ row.status ? 'disabled="disabled"' : '' }} data-target="#link-meeting">
+                                <span class="d-none d-lg-inline-block">Copier le lien</span>
+                                <span class="fa fa-clone ml-2" aria-hidden="true"></span>
+                            </button>
+                            <a href="#" data-meeting="{{ row.id }}"  class="delete_meeting">
+                                <i class="fa fa-trash text-dark" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-lg-3 ">{{ row.subject }}</div>
-        <div class="col-lg-3 ">
-            <input class="input_copy" type="text" id="linkInput_{{ row.id }}" value="{{ baseUrl }}/reunion/{{ row.identifiant }}" readonly>
-        </div>
-        <div class="col-lg-3 text-center"
-             style="
-                     display: flex;
-                     justify-content: center;
-                     align-items: center;
-                     ">
-            {#                    <div class="actions link_identifiant">#}
-            <span class="btn btn-danger mr-2" role="button"
-                  type="button"
-                  onclick="return copyToPaste({{ row.id }});"
-                                {{ row.status ? 'disabled="disabled"' : '' }}
-                                data-target="#link-meeting">
-                                <span class="small">
-                                    Copier le lien <i class="fa fa-clone ml-2" aria-hidden="true"></i>
-                                </span>
-                        </span>
-            <a href="#" data-meeting="{{ row.id }}" class="delete_meeting">
-                <i class="fa fa-trash text-dark" aria-hidden="true"></i>
-            </a>
-            {#                    </div>#}
-        </div>
-    </div>
-{% endfor %}
+    {% endfor %}
+</div>
 <div class="list_pagination">{{ knp_pagination_render(meetings) }}</div>

@@ -329,13 +329,13 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
     justify-content: center !important;
 }
 .list_meeting_head {
-    border-bottom: solid 1px #062944;
+    border-bottom: solid 1px #50697C;
     font-family: GalanoGrotesque;
     padding-bottom: 13px;
     margin-bottom: 13px;
     text-align: left;
     letter-spacing: 0px;
-    color: #062944;
+    color: #50697C;
     opacity: 1;
 }
 .list_meeting_head a:hover{
@@ -347,9 +347,11 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
     box-shadow: 0px 0px 6px #0000001A;
     border-radius: 5px;
     min-height: 50px;
-    font-family: GalanoGrotesque;
+    /*font-family: GalanoGrotesque;*/
+    /*font-size: 18px/22px;*/
+    font: normal normal normal 18px/22px GalanoGrotesque;
     letter-spacing: 0px;
-    color: #062944;
+    color: #50697C;
     opacity: 1;
 }
 
@@ -431,4 +433,10 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
     justify-content: space-between;
     align-items: center;
     font-family: GalanoGrotesque;
+}
+.input_grey {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #5A5D633D;
+    border-radius: 6px;
+    opacity: 1;
 }

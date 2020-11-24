@@ -113,7 +113,7 @@ class MeetingController extends AbstractController
             $request->query->getInt('page', 1),
             10
         );
-        $meetings->setSortableTemplate('shared/sortable_link.html.twig');
+        $meetings->setSortableTemplate('shared/sortable_link_colored.html.twig');
 
         return $this->render('espace_admin/meeting/list.html.twig', [
             'title' => 'Gestion de réunions',
@@ -144,7 +144,7 @@ class MeetingController extends AbstractController
             $request->query->getInt('page', 1),
             10
         );
-        $meetings->setSortableTemplate('shared/sortable_link.html.twig');
+        $meetings->setSortableTemplate('shared/sortable_link_colored.html.twig');
 
         return new JsonResponse( [
             'listHtml' => $this->renderView('espace_admin/meeting/liste_ajax.html.twig', [

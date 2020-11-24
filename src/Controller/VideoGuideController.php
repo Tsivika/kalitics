@@ -83,7 +83,7 @@ class VideoGuideController extends AbstractController
             $request->query->getInt('page', 1),
             10
         );
-        $videoGuides->setSortableTemplate('shared/sortable_link.html.twig');
+        $videoGuides->setSortableTemplate('shared/sortable_link_colored.html.twig');
 
         return $this->render('espace_admin/video_guide/list.html.twig', [
             'videoGuides' => $videoGuides,
@@ -110,7 +110,7 @@ class VideoGuideController extends AbstractController
             $request->query->getInt('page', 1),
             10
         );
-        $videoGuides->setSortableTemplate('shared/sortable_link.html.twig');
+        $videoGuides->setSortableTemplate('shared/sortable_link_colored.html.twig');
 
         return new JsonResponse( [
             'listHtml' => $this->renderView('espace_admin/video_guide/list_ajax.html.twig', [

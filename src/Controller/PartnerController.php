@@ -85,7 +85,7 @@ class PartnerController extends AbstractController
             $request->query->getInt('page', 1),
             10
         );
-        $partners->setSortableTemplate('shared/sortable_link.html.twig');
+        $partners->setSortableTemplate('shared/sortable_link_colored.html.twig');
 
         return $this->render('espace_admin/partner/list.html.twig', [
             'partners' => $partners,
@@ -114,7 +114,7 @@ class PartnerController extends AbstractController
             $request->query->getInt('page', 1),
             10
         );
-        $partners->setSortableTemplate('shared/sortable_link.html.twig');
+        $partners->setSortableTemplate('shared/sortable_link_colored.html.twig');
 
         return new JsonResponse( [
             'listHtml' => $this->renderView('espace_admin/partner/list_ajax.html.twig', [

@@ -5,13 +5,12 @@
 {% block body %}
     <div class="row">
         <div class="col-7">
-            <span class="text-green">Gestions des réunions</span>
+            <span class="text-green">Mes réunions</span>
         </div>
         <div class="col-5">
             <div class="w-100 text-right">
                 {% if user.active %}
                     <a class="btn  btn-large py-2 login" href="{{ path('app_espace_client_meeting_add') }}" role="button">
-                        <span class="fa fa-plus"></span>
                         <span class="d-none d-sm-inline-block">
                             Ajouter une réunion
                         </span>
@@ -26,7 +25,7 @@
     </div>
 
 
-    <div class="mt-5 container" id="list-meetings">
+    <div class="mt-5 container-fluid" style="max-width: 2000px" id="list-meetings">
 
         <div class="row">
             <div class="col-lg-2 list_meeting_head">
@@ -41,7 +40,7 @@
         </div>
         <div class="row">
             {% for row in meetings|reverse %}
-                <div class="col-sm-6 col-lg-12  mt-2">
+                <div class="col-sm-6 col-lg-12 mt-2">
                     <div class="row card-borderer mx-1">
                         <div class="col-lg-2 d-flex-center-left">
                             <span>{{ row.date|date("d/m/yy") }} à  {{ row.date|date("H:i") }}</span>
@@ -52,21 +51,20 @@
                         </div>
 
                         <div class="col-lg-2 d-flex-center-left">
-                            <input class="input_copy" type="text" id="linkInput_{{ row.id }}" value="{{ baseUrl }}/reunion/{{ row.identifiant }}" readonly>
+                            <input class="input_copy" style="color: #50697C" type="text" id="linkInput_{{ row.id }}" value="{{ baseUrl }}/reunion/{{ row.identifiant }}" readonly>
                         </div>
                         <div class="col-lg-5 actions link_identifiant d-flex-center-right">                           
                             <div class="w-100">
                                 <div class="pull-right">
-                                    <a class="btn btn-info detail_meeting encart_home_body" href="#" data-meeting="{{ row.id }}">
-                                        <span> Plus </span>
-                                        <span class="fa fa-info ml-2" aria-hidden="true"></span>
+                                    <a class="detail_meeting encart_home_body text-green" href="#" data-meeting="{{ row.id }}">
+                                        <span class="mx-2"> Info + </span>
                                     </a>
                                     
-                                    <button class="btn btn-danger mr-2" role="button" type="button" onclick="return copyToPaste({{ row.id }});" {{ row.status ? 'disabled="disabled"' : '' }} data-target="#link-meeting">
-                                        <span class="d-none d-lg-inline-block">Copier lien</span>
+                                    <button class="list_table btn btn-danger mr-2 px-5" role="button" type="button" onclick="return copyToPaste({{ row.id }});" {{ row.status ? 'disabled="disabled"' : '' }} data-target="#link-meeting">
+                                        <span class="d-none d-lg-inline-block">Copier le lien</span>
                                         <span class="fa fa-clone ml-2" aria-hidden="true"></span>
                                     </button>
-                                    <a href="#" data-meeting="{{ row.id }}"  class="btn btn-danger delete_meeting">
+                                    <a href="#" data-meeting="{{ row.id }}"  class="delete_meeting">
                                         <i class="fa fa-trash text-dark" aria-hidden="true"></i>
                                     </a>
                                 </div>

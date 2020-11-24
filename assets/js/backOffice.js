@@ -35,7 +35,7 @@ import 'tinymce/plugins/link';
         },
         branding: false,
         height: 300,
-        width: 660,
+        width: 450,
         plugins: 'link',
         toolbar1: "bold italic underline | alignleft aligncenter alignright alignjustify",
         toolbar2: "cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image media code | insertdatetime preview | forecolor backcolor",

@@ -1,7 +1,7 @@
 <div>
     <div class="w-100 menu-primary" id="menu-primary">
         <nav class="navbar navbar-expand-lg navbar-dark" id="mainNav">
-            <div class="container-fluid">
+            <div class="container-fluid" style="max-width: 1700px">
                 <a class="navbar-brand" href="{{ path('app_homePage') }}">
                      <img src="{{ asset('build/images/Hiboo-logo.svg') }}" alt="Hiboo">
                 </a>
@@ -58,7 +58,7 @@
     </div>
     <div>
         <div id="menu_espc">
-            <div  class="container-fluid">
+            <div  class="container-fluid" style="max-width: 1700px">
 {#                <span class="text-danger">{{ app.request.get('_route') }}</span>#}
                 {% set path_dashbord = 'app_espace_client_meeting_list' %}
                 {% set path_subscription = 'app_espace_client_subscription_list' %}
@@ -111,6 +111,5 @@
                 </div>
             </div>
         </div>
-
     </div>
 </div>

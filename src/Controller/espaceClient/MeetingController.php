@@ -79,7 +79,7 @@ class MeetingController extends AbstractController
             10
         );
 
-        $meetings->setSortableTemplate('shared/sortable_link.html.twig');
+        $meetings->setSortableTemplate('shared/sortable_link_colored.html.twig');
         return $this->render('espace_client/meeting/list.html.twig', [
             'meetings' => $meetings,
             'title' => 'Liste de mes réunions',

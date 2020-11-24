@@ -87,7 +87,7 @@ class TestimonialController extends AbstractController
             $request->query->getInt('page', 1),
             10
         );
-        $testimonials->setSortableTemplate('shared/sortable_link.html.twig');
+        $testimonials->setSortableTemplate('shared/sortable_link_colored.html.twig');
 
         return $this->render('espace_admin/testimonial/list.html.twig', [
             'testimonials' => $testimonials,
@@ -115,7 +115,7 @@ class TestimonialController extends AbstractController
             $request->query->getInt('page', 1),
             10
         );
-        $testimonials->setSortableTemplate('shared/sortable_link.html.twig');
+        $testimonials->setSortableTemplate('shared/sortable_link_colored.html.twig');
 
         return new JsonResponse( [
             'listHtml' => $this->renderView('espace_admin/testimonial/list_ajax.html.twig', [
