@@ -23,6 +23,8 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class MeetingManager extends BaseManager
 {
+    const CUSTOM_CSS_FIELD_NAME = 'userdata-bbb_custom_style';
+    
     /**
      * @var EntityManagerInterface
      */
@@ -314,6 +316,10 @@ class MeetingManager extends BaseManager
 
         $joinMeetingParams = new JoinMeetingParameters($meetingUser->getId(), $username, $password);
         $joinMeetingParams->setRedirect(true);
+        $joinMeetingParams->setCustomParameter(
+            static::CUSTOM_CSS_FIELD_NAME,
+            ':root{--color-primary: #00C9AE;}'
+        );
 
         $url = $bbb->getJoinMeetingURL($joinMeetingParams);
 
