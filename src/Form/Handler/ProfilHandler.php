@@ -69,6 +69,7 @@ class ProfilHandler extends Handler
                 $this->form->get('password')->getData()
             )
         );
+
         $this->em->save($this->user);
     }
 }

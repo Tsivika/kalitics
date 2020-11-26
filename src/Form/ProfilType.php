@@ -65,16 +65,13 @@ class ProfilType extends AbstractType
                     'placeholder' => '************',
                 ],
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'Saisisser votre mot de passe',
-                    ]),
                     new Length([
                         'min' => 6,
                         'minMessage' => 'Votre mot de passe doit être supérieur à {{ limit }} caractères',
                         'max' => 100,
                     ]),
                 ],
-                'required' => true,
+                'required' => false,
             ])
             ->add('pdp', FileType::class, [
                 'label' => 'Photo de profil',

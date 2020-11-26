@@ -60,6 +60,7 @@ class ProfilController extends AbstractController
             'title' => 'Détail de votre profil',
             'form' => $form->createView(),
             'pdp' => $user->getPdp(),
+            'state_account' => $user->getActive(),
             'subscription' => $user->getSubscriptionUser(),
         ]);
     }

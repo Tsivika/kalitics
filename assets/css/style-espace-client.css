@@ -126,12 +126,6 @@ hr {
     height: 160px;
     border-radius: 50%;
 }
-img .image-profil {
-    border:solid 1px #00C9AE;
-    width: 160px;
-    height: auto;
-    border-radius: 50%;
-}
 .wrap_horizontal
 {
     display: flex;
