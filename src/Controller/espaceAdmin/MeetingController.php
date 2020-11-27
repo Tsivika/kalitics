@@ -87,7 +87,7 @@ class MeetingController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()){
             if ($handler->onSuccess()) {
-                $this->em->createMeeting($request, $paramManager, $this->urlBbb, $this->secretBbb, $this->getUser());
+                $this->em->createMeeting($request, $paramManager, $this->getUser());
 
                 return $this->redirectToRoute('app_espace_admin_meeting_list');
             }

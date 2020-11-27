@@ -39,6 +39,16 @@ class MeetingManager extends BaseManager
      * @var SendEmailService
      */
     private $emailService;
+    
+    /**
+     * @var mixed
+     */
+    private $urlBbb;
+    
+    /**
+     * @var mixed
+     */
+    private $secretBbb;
 
     /**
      * MeetingManager constructor.
@@ -54,6 +64,8 @@ class MeetingManager extends BaseManager
         $this->em = $em;
         $this->params = $params;
         $this->emailService = $emailService;
+        $this->urlBbb = $this->params->get('app.bbb_server_base_url');
+        $this->secretBbb = $this->params->get('app.bbb_secret');
         putenv('BBB_SECRET='.$this->params->get('app.bbb_secret'));
         putenv('BBB_SERVER_BASE_URL='.$this->params->get('app.bbb_server_base_url'));
     }
@@ -71,7 +83,7 @@ class MeetingManager extends BaseManager
 
     /**
      * @param User $user
-     * @return object|null
+     * @return Meeting|null
      */
     public function getUserLastMeeting(User $user)
     {
@@ -83,7 +95,7 @@ class MeetingManager extends BaseManager
 
     /**
      * @param $identifiant
-     * @return object|null
+     * @return Meeting|null
      */
     public function meetingByIdentifiant($identifiant)
     {
@@ -101,21 +113,38 @@ class MeetingManager extends BaseManager
     {
         return $this->repository->getUserMeetingList($user);
     }
-
+    
     /**
-     * @param Request           $request
-     * @param ParameterManager  $paramManager
-     * @param                   $urlBbb
-     * @param                   $secretBbb
-     * @param User              $user
-     *
+     * @param Request $request
+     * @param ParameterManager $paramManager
+     * @param User $user
      * @return string
-     *
-     * @throws \Exception
+     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
      */
-    public function createMeeting(Request $request, ParameterManager $paramManager, $urlBbb, $secretBbb, User $user)
+    public function createMeeting(Request $request, ParameterManager $paramManager, User $user)
     {
         $meetingUser = $this->getUserLastMeeting($user);
+        $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+        $pwdModerator = $this->passwordModerator($meetingUser->getPassword());
+        $meetingUser->setPasswordModerator($pwdModerator);
+        
+        $urlMask = $baseurl . '/reunion/' . $meetingUser->getIdentifiant();
+        $this->save($meetingUser);
+        $this->sendMailToParticipants($meetingUser, $urlMask);
+
+        return $urlMask;
+    }
+    
+    /**
+     * @param Meeting $meeting
+     * @param ParameterManager $paramManager
+     * @param Request $request
+     * @return string
+     * @throws \Exception
+     */
+    public function generateLinkMeet(Meeting $meeting, ParameterManager $paramManager, Request $request)
+    {
+        $user = $meeting->getUser();
         $paramUser = $paramManager->getParamUser($user);
         $maxNumberParticipant = (int)$user->getSubscriptionUser()->getNumberParticipant();
         $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
@@ -123,57 +152,57 @@ class MeetingManager extends BaseManager
             $paramManager->setDefaultParam($user);
             $paramUser = $paramManager->getParamUser($user);
         }
-        $duration = ($meetingUser->getDurationH()*60) + $meetingUser->getDurationM();
-        $pwdModerator = $this->passwordModerator($meetingUser->getPassword());
-
+        $duration = ($meeting->getDurationH()*60) + $meeting->getDurationM();
+        $pwdModerator = $this->passwordModerator($meeting->getPassword());
+    
         $bbb = new BigBlueButton();
-        $createMeetingParams = new CreateMeetingParameters($meetingUser->getId(), $meetingUser->getSubject());
-        $createMeetingParams->setAttendeePassword($meetingUser->getPassword());
+        $createMeetingParams = new CreateMeetingParameters($meeting->getId(), $meeting->getSubject());
+        $createMeetingParams->setAttendeePassword($meeting->getPassword());
         $createMeetingParams->setModeratorPassword($pwdModerator);
         $createMeetingParams->setDuration($duration);
         $createMeetingParams->setLogoutUrl($baseurl);
         $createMeetingParams->setMaxParticipants($maxNumberParticipant+1);
-
+    
         if ($paramUser->getRecordAuto()) {
             $createMeetingParams->setRecord(true);
             $createMeetingParams->setAllowStartStopRecording(true);
             $createMeetingParams->setAutoStartRecording(true);
-            $createMeetingParams->setMeetingId($meetingUser->getId());
-            $createMeetingParams->setMeetingName($meetingUser->getSubject());
+            $createMeetingParams->setMeetingId($meeting->getId());
+            $createMeetingParams->setMeetingName($meeting->getSubject());
         }
-
+    
         if ($paramUser->getSoundParticipant()) {
             $createMeetingParams->setMuteOnStart(true);
         }
-
+    
         if ($paramUser->getMessagePublic()) {
             $createMeetingParams->setLockSettingsDisablePublicChat(false);
         }
-
+    
         if ($paramUser->getAnnotationParticipant()) {
             $createMeetingParams->setLockSettingsDisableNote(false);
         }
-
+    
         if ($paramUser->getBoardParticipant()) {
             $createMeetingParams->setLockSettingsLockedLayout(false);
         }
-
-        $response = $bbb->createMeeting($createMeetingParams);
-
-        if ($response->getReturnCode() == 'FAILED') {
-            return 'Impossible de créer la réunion! veuillez contacter notre administrateur.';
-        } else {
-            $url = $this->joinMeeting($meetingUser, 'participant', $urlBbb, $secretBbb);
-
-            $meetingUser->setLink($url);
-            $meetingUser->setPasswordModerator($pwdModerator);
-            $this->save($meetingUser);
-            $urlMask = $baseurl . '/reunion/' . $meetingUser->getIdentifiant();
-//            $this->sendMailToParticipants($meetingUser->getParticipants(), $urlMask);
-            $this->sendMailToParticipants($meetingUser, $urlMask);
-
-            return $url;
+        
+        //If not created
+        $create = false;
+        
+        if ($this->getInfoMeeting($meeting) !== 1) {
+            $create = true;
         }
+        
+        if ($create) {
+            $response = $bbb->createMeeting($createMeetingParams);
+    
+            if ($response->getReturnCode() == 'FAILED') {
+                return null;
+            }
+        }
+        
+        return $this->joinMeeting($meeting, 'participant');
     }
 
     /**
@@ -240,7 +269,7 @@ class MeetingManager extends BaseManager
      *
      * @return string
      */
-    public function getInfoMeeting(Meeting $meeting, $url, $secret)
+    public function getInfoMeeting(Meeting $meeting)
     {
         $bbb = new BigBlueButton();
 
@@ -302,7 +331,7 @@ class MeetingManager extends BaseManager
      *
      * @throws \Exception
      */
-    public function joinMeeting($meetingUser, $mode, $urlBbb, $secretBbb)
+    public function joinMeeting($meetingUser, $mode)
     {
         $username = 'Hiboo participant';
         $password = $meetingUser->getPassword();
