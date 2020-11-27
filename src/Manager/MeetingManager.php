@@ -24,6 +24,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class MeetingManager extends BaseManager
 {
     const CUSTOM_CSS_FIELD_NAME = 'userdata-bbb_custom_style';
+    const CUSTOM_AUTO_SWAP_LAYOUT = 'userdata-autoSwapLayout';
     
     /**
      * @var EntityManagerInterface
@@ -333,7 +334,7 @@ class MeetingManager extends BaseManager
      *
      * @throws \Exception
      */
-    public function joinMeeting($meetingUser, $mode)
+    public function joinMeeting(Meeting $meetingUser, $mode)
     {
         $username = 'Hiboo participant';
         $password = $meetingUser->getPassword();
@@ -350,6 +351,10 @@ class MeetingManager extends BaseManager
         $joinMeetingParams->setCustomParameter(
             static::CUSTOM_CSS_FIELD_NAME,
             ':root{--color-primary: #00C9AE;}'
+        );
+        $joinMeetingParams->setCustomParameter(
+            static::CUSTOM_AUTO_SWAP_LAYOUT,
+            'true'
         );
 
         $url = $bbb->getJoinMeetingURL($joinMeetingParams);
