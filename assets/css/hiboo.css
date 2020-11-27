@@ -251,6 +251,11 @@ header.masthead {
     height: 45px;
     padding-bottom: 15px;
 }
+
+input::placeholder{
+    color : #D7D8D9 !important
+}
+
 .site-heading  .input-email::placeholder{
     font-style: normal;
     font-size: 18px;

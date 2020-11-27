@@ -8,7 +8,8 @@
         <div class="w-50 ml-3">
             <div class="site-heading">
                 <h1>Hiboo</h1>
-                <h2>la communication vidéo sécurisée Made in France !</h2>
+                <h2 class="d-none  d-md-block">la communication vidéo sécurisée Made in France !</h2>
+                <h2 class="d-block d-md-none ">La visioconférence professionnelle sécurisée</h2>
                 <div class ="row mt-4">
                     <div class="col-sm-6 col-xl-7 pl-4 pr-2" >
                         <input type="email" class="form-control encart_home_body input-email" id="reunion-email" placeholder="Entrez votre adresse email">
@@ -23,23 +24,7 @@
         </div>
     </div>
 </header >
-<div class="rs-icons">
-    <div id="facebook" class="home-icon">
-        <img class="img-fluid" src="{{ asset('build/images/facebook-dark.png') }}">
-    </div>
-    <div id="instagram" class="home-icon">
-        <img class="img-fluid" src="{{ asset('build/images/instagram-dark.png') }}">
-    </div>
-    <div id="linkedin" class="home-icon">
-        <img class="img-fluid" src="{{ asset('build/images/linkedin-dark.png') }}">
-    </div>
-    <div id="twitter" class="home-icon">
-        <img class="img-fluid" src="{{ asset('build/images/twitter-dark.png') }}">
-    </div>
-    <div id="youtube" class="home-icon ">
-        <img class="img-fluid" src="{{ asset('build/images/youtube-dark.png') }}">
-    </div>
-</div>
+{% include "shared/social-network-icons.html.twig" %} 
 <section class="d-mobile d-none">
     <div class="mobile-call-scrool w-100 text-center">
         <div class="chevron-down"> </div>
