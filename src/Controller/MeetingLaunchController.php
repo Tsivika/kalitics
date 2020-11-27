@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Manager\MeetingManager;
 use App\Manager\ParameterManager;
+use phpDocumentor\Reflection\Types\True_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -48,10 +49,20 @@ class MeetingLaunchController extends AbstractController
     public function meetingRedirectUrl(Request $request, $identifiant)
     {
         $meeting = $this->meetingManager->meetingByIdentifiant($identifiant);
-    
-        $url = $this->meetingManager
-            ->generateLinkMeet($meeting, $this->parameterManager, $request);
+        $today = new \DateTime("now");
+        $dateMeeting = $meeting->getCreatedAt();
+        $diff = $today->format('Y-m-d') > $dateMeeting->format('Y-m-d');
 
-        return $this->redirect($url);
+        if ($diff) {
+            $this->addFlash('error', 'La date de la réunion est déjà passée.');
+            $this->redirectToRoute('app_espace_client_meeting_list');
+        } else {
+            $url = $this->meetingManager
+                ->generateLinkMeet($meeting, $this->parameterManager, $request);
+
+            return $this->redirect($url);
+        }
+
+        return $this->redirectToRoute('app_espace_client_meeting_list');
     }
 }
