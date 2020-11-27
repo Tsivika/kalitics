@@ -48,7 +48,7 @@ Routing.setRoutingData(routes);
             if (durationInput > parseInt(durationM)) {
                 simpleSwalAlert('La durée de votre réunion est de :' + durationM, '');
                 $(this).focus();
-                $(this).val('20');
+                $(this).val(parseInt(durationM));
             }
         });
 
