@@ -50,7 +50,6 @@ class MeetingHandler extends Handler
         $meeting = $this->form->getData();
         $meeting->setIdentifiant($identifiant[0]);
         $meeting->setUser($this->user);
-        $meeting->setLink('');
 
         $this->em->save($meeting);
 
