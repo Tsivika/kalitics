@@ -198,7 +198,7 @@ class MeetingManager extends BaseManager
             $response = $bbb->createMeeting($createMeetingParams);
     
             if ($response->getReturnCode() == 'FAILED') {
-                return null;
+                return $this->joinMeeting($meeting, 'participant');
             }
         }
         
