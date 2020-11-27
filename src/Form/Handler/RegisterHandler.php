@@ -3,16 +3,13 @@
 
 namespace App\Form\Handler;
 
-use App\Entity\Subscription;
 use App\Entity\User;
 use App\Manager\RegisterManager;
 use App\Manager\SubscriptionManager;
 use App\Security\EmailVerifier;
 use App\Security\LoginFormAuthenticator;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Mime\Address;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 

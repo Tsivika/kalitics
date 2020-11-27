@@ -148,12 +148,14 @@ class MeetingManager extends BaseManager
         $paramUser = $paramManager->getParamUser($user);
         $maxNumberParticipant = (int)$user->getSubscriptionUser()->getNumberParticipant();
         $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+        
         if (empty($paramUser) ) {
             $paramManager->setDefaultParam($user);
             $paramUser = $paramManager->getParamUser($user);
         }
+        
         $duration = ($meeting->getDurationH()*60) + $meeting->getDurationM();
-        $pwdModerator = $this->passwordModerator($meeting->getPassword());
+        $pwdModerator = $meeting->getPasswordModerator();
     
         $bbb = new BigBlueButton();
         $createMeetingParams = new CreateMeetingParameters($meeting->getId(), $meeting->getSubject());
