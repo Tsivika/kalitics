@@ -192,6 +192,7 @@ header.masthead {
     background-image: none;
     background-size: auto;
     position: relative;
+    margin-top: 70px
     /*background-size: cover;*/
 }
 

@@ -162,13 +162,15 @@
     .d-mobile{
         display: block !important;
     }
-
+    .masthead{
+        margin-top: 1vh !important;
+    }
     .masthead:after {
         content: " " !important;
         background-image: url('../images/Hiboo-Image-Fond.svg') !important;
         min-height: 220px;
         width: 70%;
-        margin-left: 20%;
+        margin-left: 12%;
         background-size: cover;
         position: relative !important;
         background-size: 100% 100%;
@@ -183,11 +185,11 @@
         padding-right: 15px !important;
     }
     .masthead h1 {
-        font-weight: 600;
+        font-weight: 400;
         font-size: 62px;
     }
     .masthead h2 {
-        font-size: 6vw;
+        font-size: 8vw;
         max-width: 100%;
         margin-bottom: 5vh;
     }
