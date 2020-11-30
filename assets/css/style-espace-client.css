@@ -49,11 +49,10 @@
 }
 
 .item-link.active {
-    border:solid 2px #00C9AE;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    text-decoration: none;
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-decoration-color: #00C9AE;
+    text-underline-offset: 9px;
 }
 .item-link a:hover {
     padding-bottom: 5px;
