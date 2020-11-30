@@ -49,7 +49,6 @@
 }
 
 .item-link.active {
-    padding-bottom: 5px;
     border:solid 2px #00C9AE;
     border-top: none;
     border-left: none;
@@ -455,4 +454,20 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
     border: 1px solid #5A5D633D;
     border-radius: 6px;
     opacity: 1;
+}
+
+label {
+    cursor: pointer;
+    /* Style as you please, it will become the visible UI component. */
+}
+
+/*#profil_pdp {*/
+/*    opacity: 0;*/
+/*    position: absolute;*/
+/*    z-index: -1;*/
+/*}*/
+
+input[type="file"]::-webkit-file-upload-button{
+    display: none;
+    visibility: hidden;
 }

@@ -74,7 +74,7 @@ class ProfilType extends AbstractType
                 'required' => false,
             ])
             ->add('pdp', FileType::class, [
-                'label' => 'Photo de profil',
+                'label' => 'Modifier',
                 'attr' => [
                     'accept' => 'image/jpeg, image/jpg, image/png',
                 ],
