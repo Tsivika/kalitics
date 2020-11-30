@@ -140,9 +140,14 @@
                     </ul>
                     <ul class="user-right-menu">
                         <li class="nav-item d-none d-lg-block" style="flex: 2; text-align: right">
-                            <a id="dropdownMenuButton" data-toggle="dropdown">
+                            <a id="dropdownMenuButton" data-toggle="dropdown" class="mr-1">
                                     Bonjour, {{ app.user.firstname }}
                             </a>
+                            {% if app.user.pdp == '' %}
+                                <img src="{{ asset('build/images/avatarDefault.png') }}"  class="rounded-circle image-profil" alt="" style="width: 40px; height: 40px">
+                            {% else %}
+                                <img src="{{ asset(twig_asset_image_directory ~ pdp) }}"  class="rounded-circle image-profil" alt=""  style="width: 40px; height: 40px">
+                            {% endif %}
                         </li>
                     </ul>
                 </div>
