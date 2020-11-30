@@ -27,7 +27,6 @@
 }
 
 .item-link.active {
-    padding-bottom: 5px;
     border:solid 2px #00C9AE;
     border-top: none;
     border-left: none;

@@ -18,7 +18,12 @@
             {{ form_start(form) }}
             <div class="row">
                 <div class="col-lg-3 ">
-                    <img src="{{ asset(twig_asset_image_directory ~ pdp) }}"  class="rounded-circle image-profil" alt="" width="160" height="160">
+                    {% if pdp == '' %}
+                        <img src="{{ asset('build/images/avatarDefault.png') }}"  class="rounded-circle image-profil" alt="" width="160" height="160">
+                    {% else %}
+                        <img src="{{ asset(twig_asset_image_directory ~ pdp) }}"  class="rounded-circle image-profil" alt="" width="160" height="160">
+                    {% endif %}
+
                     <div class="input-group wrap_input mt-3" style="justify-content: space-between; max-width: 160px; overflow: hidden;">
                         <div class="item-input ">
                             {{ form_widget(form.pdp) }}

@@ -58,7 +58,7 @@
     </div>
     <div>
         <div id="menu_espc">
-            <div  class="container-fluid" style="max-width: 1700px">
+            <div  class="container-fluid d-flex align-items-center" style="max-width: 1700px">
 {#                <span class="text-danger">{{ app.request.get('_route') }}</span>#}
                 {% set path_dashbord = 'app_espace_client_meeting_list' %}
                 {% set path_subscription = 'app_espace_client_subscription_list' %}
@@ -105,9 +105,16 @@
                     <div class="item-link {% if app.request.get('_route') == 'app_espace_client_subscription_list' %} active {% endif %}"><a href="{{ path(path_subscription) }}">Abonnement</a></div>
                 {% endif %}
                 <div class="item-link d-none d-lg-block" style="flex: 2; text-align: right">
-                    <a id="dropdownMenuButton" data-toggle="dropdown">
-                        Bonjour, {{ app.user.firstname }}
-                    </a>
+                    <div class="flex">
+                        <a id="dropdownMenuButton" data-toggle="dropdown" class="mr-2">
+                            Bonjour, {{ app.user.firstname }}
+                        </a>
+                        {% if app.user.pdp == '' %}
+                            <img src="{{ asset('build/images/avatarDefault.png') }}"  class="rounded-circle image-profil" alt="" style="width: 40px; height: 40px">
+                        {% else %}
+                            <img src="{{ asset(twig_asset_image_directory ~ app.user.pdp) }}"  class="rounded-circle image-profil" alt="" style="width: 40px; height: 40px">
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
