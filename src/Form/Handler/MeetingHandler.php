@@ -4,20 +4,11 @@
 namespace App\Form\Handler;
 
 use App\Entity\User;
-use App\Manager\ParameterManager;
-use DateTime;
 use App\Manager\MeetingManager;
-use phpDocumentor\Reflection\Types\This;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
-
-use App\bbb\src\BigBlueButton;
-use App\bbb\src\Parameters\CreateMeetingParameters;
-use App\bbb\src\Parameters\JoinMeetingParameters;
-use App\bbb\src\Parameters\EndMeetingParameters;
 
 /**
  * Class MeetingHandler
@@ -59,105 +50,10 @@ class MeetingHandler extends Handler
         $meeting = $this->form->getData();
         $meeting->setIdentifiant($identifiant[0]);
         $meeting->setUser($this->user);
-        $meeting->setLink('');
 
         $this->em->save($meeting);
 
         return true;
-    }
-
-    /**
-     * @param ParameterManager $paramManager
-     *
-     * @return string
-     *
-     * @throws \Exception
-     */
-    public function createMeeting(ParameterManager $paramManager, $urlBbb, $secretBbb)
-    {
-        $meetingUser = $this->em->getUserLastMeeting($this->user);
-        $paramUser = $paramManager->getParamUser($this->user);
-        $baseurl = $this->request->getScheme() . '://' . $this->request->getHttpHost() . $this->request->getBasePath();
-        if (empty($paramUser) ) {
-            $paramManager->setDefaultParam($this->user);
-            $paramUser = $paramManager->getParamUser($this->user);
-        }
-        $duration = ($meetingUser->getDurationH()*60) + $meetingUser->getDurationM();
-        $pwdModerator = $this->passwordModerator($meetingUser->getPassword());
-
-        $bbb = new BigBlueButton($urlBbb, $secretBbb);
-        $createMeetingParams = new CreateMeetingParameters($meetingUser->getId(), $meetingUser->getSubject());
-        $createMeetingParams->setAttendeePassword($meetingUser->getPassword());
-        $createMeetingParams->setModeratorPassword($pwdModerator);
-        $createMeetingParams->setDuration($duration);
-        $createMeetingParams->setLogoutUrl($baseurl);
-        $createMeetingParams->setMaxParticipants(count($meetingUser->getParticipants()));
-
-        if ($paramUser->getRecordAuto()) {
-            $createMeetingParams->setRecord(true);
-            $createMeetingParams->setAllowStartStopRecording(true);
-            $createMeetingParams->setAutoStartRecording(true);
-            $createMeetingParams->setMeetingId($meetingUser->getId());
-            $createMeetingParams->setMeetingName($meetingUser->getSubject());
-        }
-
-        if ($paramUser->getSoundParticipant()) {
-            $createMeetingParams->setMuteOnStart(true);
-        }
-
-        if ($paramUser->getMessagePublic()) {
-            $createMeetingParams->setLockSettingsDisablePublicChat(false);
-        }
-
-        if ($paramUser->getAnnotationParticipant()) {
-            $createMeetingParams->setLockSettingsDisableNote(false);
-        }
-
-        if ($paramUser->getBoardParticipant()) {
-            $createMeetingParams->setLockSettingsLockedLayout(false);
-        }
-
-        $response = $bbb->createMeeting($createMeetingParams);
-
-        if ($response->getReturnCode() == 'FAILED') {
-            return 'Impossible de créer la réunion! veuillez contacter notre administrateur.';
-        } else {
-            $url = $this->joinMeeting($meetingUser, 'participant', $urlBbb, $secretBbb);
-
-            $meetingUser->setLink($url);
-            $meetingUser->setPasswordModerator($pwdModerator);
-            $this->em->save($meetingUser);
-
-            return $url;
-        }
-    }
-
-    /**
-     * @param $meetingUser
-     * @param $mode
-     *
-     * @return string
-     *
-     * @throws \Exception
-     */
-    public function joinMeeting($meetingUser, $mode, $urlBbb, $secretBbb)
-    {
-        $username = 'Hiboo participant';
-        $password = $meetingUser->getPassword();
-        if ($mode == 'moderator')
-        {
-            $username = $this->user->getFirstname();
-            $password = $this->passwordModerator($meetingUser->getPassword());
-        }
-
-        $bbb = new BigBlueButton($urlBbb, $secretBbb);
-
-        $joinMeetingParams = new JoinMeetingParameters($meetingUser->getId(), $username, $password);
-        $joinMeetingParams->setRedirect(true);
-
-        $url = $bbb->getJoinMeetingURL($joinMeetingParams);
-
-        return $url;
     }
 
     /**

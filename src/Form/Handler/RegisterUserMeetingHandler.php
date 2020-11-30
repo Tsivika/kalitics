@@ -51,7 +51,6 @@ class RegisterUserMeetingHandler extends Handler
         $meeting->setIdentifiant($identifiant[0]);
         $meeting->setUser($this->user);
         $meeting->setPassword('passMeetingHiboo');
-        $meeting->setLink('');
 
         $this->em->save($meeting);
     }

@@ -27,14 +27,21 @@ class ParameterManager extends BaseManager
         parent::__construct($em, Parameter::class, $validator);
         $this->em = $em;
     }
-
+    
+    /**
+     * @param User $user
+     * @return Parameter|array
+     */
     public function getParamUser(User $user)
-    {
+    {   /** @var Parameter[] $param */
         $param = $this->repository->getParamUser($user) ;
 
         return (count($param)>0) ? $param[0] : [];
     }
-
+    
+    /**
+     * @param User $user
+     */
     public function setDefaultParam(User $user)
     {
         $param = new Parameter();

@@ -49,11 +49,6 @@ class Meeting
     private $identifiant;
 
     /**
-     * @ORM\Column(type="text")
-     */
-    private $link;
-
-    /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="meetings")
      */
     private $user;
@@ -205,26 +200,6 @@ class Meeting
     public function setIdentifiant(string $identifiant): self
     {
         $this->identifiant = $identifiant;
-
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getLink(): ?string
-    {
-        return $this->link;
-    }
-
-    /**
-     * @param string $link
-     *
-     * @return $this
-     */
-    public function setLink(?string $link): self
-    {
-        $this->link = $link;
 
         return $this;
     }
