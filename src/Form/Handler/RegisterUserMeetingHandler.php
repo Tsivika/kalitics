@@ -41,12 +41,12 @@ class RegisterUserMeetingHandler extends Handler
         $uuid = Uuid::uuid4();
         $idRandom = explode('-',$uuid->toString());
         $identifiant = array_reverse($idRandom);
-
+        $duration = $this->user->getSubscriptionUser()->getDurationMeeting();
         $meeting = $this->form->getData();
 
         $meeting->setSubject('');
         $meeting->setDescription('');
-        $meeting->setDurationM(20);
+        $meeting->setDurationM((int)$duration);
         $meeting->setDate(new DateTime('now'));
         $meeting->setIdentifiant($identifiant[0]);
         $meeting->setUser($this->user);

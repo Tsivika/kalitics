@@ -17,21 +17,38 @@
         <div class="form-wrapper">
             {{ form_start(form) }}
             <div class="row">
-                <div class="col-lg-3 ">
-                    {% if pdp == '' %}
+                <div class="col-lg-4 text-center">
+{#                    <input type="file" id="profil_pdp" name="profil[pdp]" accept="image/jpeg, image/jpg, image/png" placeholder="Choisir fichier" class="custom-file-input">#}
+                    <div class="image-upload-wrap">
+{#                        <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />#}
+                        {{ form_widget(form.pdp) }}
+                        <div class="drag-text">
+                            <h5>Faites glisser et déposez un fichier ou sélectionnez Ajouter une image</h5>
+                        </div>
+                    </div>
+                    <div class="file-upload-content">
+                        <img class="rounded-circle image-profil file-upload-image" alt="" width="160" height="160" src="#" />
+                        <div class="image-title-wrap">
+                            <button type="button" onclick="removeUpload()" class="remove-image">Supprimer <span class="image-title">Uploaded Image</span></button>
+                        </div>
+                    </div>
+                    <div class="file-upload">
+                    <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Ajouter / Modifier image</button>
+                    </div>
+                    {#{% if pdp == '' %}
                         <img src="{{ asset('build/images/avatarDefault.png') }}"  class="rounded-circle image-profil" alt="" width="160" height="160">
                     {% else %}
                         <img src="{{ asset(twig_asset_image_directory ~ pdp) }}"  class="rounded-circle image-profil" alt="" width="160" height="160">
                     {% endif %}
 
-                    <div class="input-group wrap_input mt-3" style="justify-content: space-between; max-width: 160px; overflow: hidden;">
+                    <div class="input-group wrap_input mt-3 profil" style="justify-content: space-between;  overflow: hidden;">
                         <div class="item-input ">
                             {{ form_widget(form.pdp) }}
                             {{ form_errors(form.pdp) }}
                         </div>
                         <div class="item-input " ><a href="" class="text-danger small text-green">{{ form_label(form.pdp) }}</a>  </div>
                         <div class="item-input " ><a href="" class="text-danger small"><label for="">Supprimer</label></a>  </div>
-                    </div>
+                    </div>#}
                 </div>
                 <div class="col-lg-6 m-auto align-middle" style="font-family: GalanoGrotesqueAltMedium" >
                     <h1>{{ form.name.vars.value|capitalize }} {{ form.firstname.vars.value|capitalize }}</h1>
@@ -61,6 +78,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="row mt-4 bordered">
                 <div class="col-lg-3 ">
                     <input readonly type="text" class="border-0 bg-white" value="Adresse email">
@@ -74,6 +92,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="row mt-4 bordered">
                 <div class="col-lg-3 ">
                     <input readonly type="text" class="border-0 bg-white" value="Mot de passe">
@@ -126,8 +145,46 @@
             </button>
         </div>
         {{ form_end(form) }}
+
     </div>
     </div>
 
 
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('.image-upload-wrap').hide();
+
+                    $('.file-upload-image').attr('src', e.target.result);
+                    $('.file-upload-content').show();
+
+                    $('.image-title').html(input.files[0].name);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+
+            } else {
+                removeUpload();
+            }
+        }
+
+        function removeUpload() {
+            $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+            $('.file-upload-content').hide();
+            $('.image-upload-wrap').show();
+        }
+        $('.image-upload-wrap').bind('dragover', function () {
+            $('.image-upload-wrap').addClass('image-dropping');
+        });
+        $('.image-upload-wrap').bind('dragleave', function () {
+            $('.image-upload-wrap').removeClass('image-dropping');
+        });
+    </script>
 {% endblock %}

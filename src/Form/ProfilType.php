@@ -77,6 +77,9 @@ class ProfilType extends AbstractType
                 'label' => 'Modifier',
                 'attr' => [
                     'accept' => 'image/jpeg, image/jpg, image/png',
+                    'placeholder' => 'Choisir fichier',
+                    'class' => 'file-upload-input',
+                    'onchange' => 'readURL(this);',
                 ],
                 'mapped' => false,
                 'required' => false,
