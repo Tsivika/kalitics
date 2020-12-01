@@ -883,6 +883,8 @@ section {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    margin-bottom: 15px;
+
 }
 .line_step{
     width: 100px;
@@ -900,8 +902,8 @@ section {
 
 .circle_step{
     margin:10px;
-    width:40px;
-    height:40px;
+    width:30px;
+    height:30px;
     border-radius:100%;
     border: solid 1px #FF5A5F;
     color:#FF5A5F;
@@ -911,12 +913,12 @@ section {
     /*font-weight: bold;*/
     font-family: "GalanoGrotesqueMedium";
     overflow:hidden;
-    line-height:28px;
+    line-height:30px;
 }
 .circle_step_active{
     margin:10px;
-    width:40px;
-    height:40px;
+    width:30px;
+    height:30px;
     border-radius:100%;
     background-color:#FF5A5F;
     color:#fff;
@@ -925,7 +927,7 @@ section {
     font-weight: bold;
     font-family: "GalanoGrotesqueMedium";
     overflow:hidden;
-    line-height:28px;
+    /*line-height:30px;*/
 }
 .circle_step.one-line{line-height:40px;}
 .circle_step_active.one-line{line-height:40px;}
