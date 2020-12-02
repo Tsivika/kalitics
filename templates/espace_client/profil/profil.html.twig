@@ -18,16 +18,21 @@
             {{ form_start(form) }}
             <div class="row">
                 <div class="col-lg-4 text-center">
-{#                    <input type="file" id="profil_pdp" name="profil[pdp]" accept="image/jpeg, image/jpg, image/png" placeholder="Choisir fichier" class="custom-file-input">#}
                     <div class="image-upload-wrap">
-{#                        <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />#}
                         {{ form_widget(form.pdp) }}
+                        {{ form_errors(form.pdp) }}
                         <div class="drag-text">
                             <h5>Faites glisser et déposez un fichier ou sélectionnez Ajouter une image</h5>
                         </div>
                     </div>
-                    <div class="file-upload-content">
-                        <img class="rounded-circle image-profil file-upload-image" alt="" width="160" height="160" src="#" />
+                    <div class="file-upload-content" style="display: block">
+                        {% if pdp == '' %}
+                            <img src="{{ asset('build/images/avatarDefault.png') }}"  class="rounded-circle image-profil file-upload-image" alt="" width="160" height="160">
+                        {% else %}
+                            <img src="{{ asset(twig_asset_image_directory ~ pdp) }}"  class="rounded-circle image-profil file-upload-image" alt="" width="160" height="160">
+                        {% endif %}
+
+{#                        <img class="rounded-circle image-profil file-upload-image" alt="" width="160" height="160" src="#" />#}
                         <div class="image-title-wrap">
                             <button type="button" onclick="removeUpload()" class="remove-image">Supprimer <span class="image-title">Uploaded Image</span></button>
                         </div>

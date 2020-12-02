@@ -88,6 +88,28 @@ class ProfilController extends AbstractController
     }
 
     /**
+     * @Route("/delete_picture/{id}",
+     *     name="app_espace_client_profil_delete_picture",
+     *     options={"expose"=true},
+     *     methods={"get"})
+     *
+     * @return JsonResponse
+     */
+    public function deleteProfilPicture(User $user)
+    {
+        if ($filePicture = $user->getPdp()) {
+            unlink($filePicture);
+        }
+        $this->em->removePicture($user);
+
+        return new JsonResponse([
+            'body' => "<p>Image supprimée</p>",
+            'footer' => '<span>Consulter notre <a href="" class="text-green"> Politique de confidentialité</a></span>',
+            'success' => true,
+        ]);
+    }
+
+    /**
      * @Route("/change_role/{id}/{role}",
      *     name="app_espace_client_profil_change_role",
      *     options={"expose"=true},

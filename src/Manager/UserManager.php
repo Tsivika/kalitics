@@ -149,10 +149,27 @@ class UserManager extends BaseManager
         return true;
     }
 
+    /**
+     * @param string $email
+     * @return object[]
+     */
     public function findByEmail(string $email)
     {
         return $this->repository->findBy(
             ['email' => $email]
         );
+    }
+
+    /**
+     * @param User $user
+     *
+     * @return bool
+     */
+    public function removePicture(User $user)
+    {
+        $user->setPdp(null);
+        $this->saveOrUpdate($user);
+
+        return true;
     }
 }
