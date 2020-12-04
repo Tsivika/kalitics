@@ -400,7 +400,9 @@ class MeetingManager extends BaseManager
         ];
 
         foreach ($meetingUser->getParticipants() as $row) {
-            $this->emailService->sendEmail($_ENV['CONTACT_MAIL'], $row->getEmail(), 'Hiboo: Invitation à une réunion.', $template, $context) ;
+            if ($row->getEmail()) {
+                $this->emailService->sendEmail($_ENV['CONTACT_MAIL'], $row->getEmail(), 'Hiboo: Invitation à une réunion.', $template, $context) ;
+            }
         }
     }
 }

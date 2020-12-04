@@ -1,37 +1,39 @@
-<div class="d-block d-lg-none text-center fake-nav-brand">
+<div class="container-fluid max-2000 m-auto">
+    <div class="d-block d-lg-none text-center fake-nav-brand">
         <a class="navbar-brand" href="{{ path('app_homePage') }}">
-        <img src="{{ asset('build/images/Hiboo-logo.svg') }}" alt="Hiboo">
-    </a>
-</div>
-<header class="masthead">
-    <div class="container-fluid home-header-container">
-        <div class="w-50 ml-3">
-            <div class="site-heading">
-                <h1>Hiboo</h1>
-                <h2 class="d-none  d-md-block">la communication vidéo sécurisée Made in France !</h2>
-                <h2 class="d-block d-md-none ">La visioconférence professionnelle sécurisée</h2>
-                <div class ="row mt-4">
-                    <div class="col-sm-6 col-xl-7 pl-4 pr-2" >
-                        <input type="email" class="form-control encart_home_body input-email" id="reunion-email" placeholder="Entrez votre adresse email">
-                    </div>
-                    <div class="col-sm-5 col-xl-4" >
-                        <button class ="btn btn-danger btn-block" id="btn-reunion-email">
-                            Je crée ma réunion
-                        </button>
+            <img src="{{ asset('build/images/Hiboo-logo.svg') }}" alt="Hiboo">
+        </a>
+    </div>
+    <header class="masthead">
+        <div class="container-fluid home-header-container pl-0">
+            <div class="w-50 ml-3">
+                <div class="site-heading">
+                    <h1>Hiboo</h1>
+                    <h2 class="d-none  d-md-block">la communication vidéo sécurisée Made in France !</h2>
+                    <h2 class="d-block d-md-none ">La visioconférence professionnelle sécurisée</h2>
+                    <div class ="row mt-4">
+                        <div class="col-sm-6 col-xl-7 pl-4 pr-2" >
+                            <input type="email" class="form-control encart_home_body input-email" id="reunion-email" placeholder="Entrez votre adresse email">
+                        </div>
+                        <div class="col-sm-5 col-xl-4" >
+                            <button class ="btn btn-danger btn-block" id="btn-reunion-email">
+                                Je crée ma réunion
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</header >
-{% include "shared/social-network-icons.html.twig" %} 
-<section class="d-mobile d-none">
-    <div class="mobile-call-scrool w-100 text-center">
-        <div class="chevron-down"> </div>
-    </div>
-    <div class="navbar-light home-navbar-light text-right mr-4">
-        <button class="home-navbar-toggler navbar-toggler navbar-toggler-right " type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <div class="home-navbar-toggler-icon"></div>
-        </button>
-    </div>
-</section>
+    </header >
+    {% include "shared/social-network-icons.html.twig" %}
+    <section class="d-mobile d-none">
+        <div class="mobile-call-scrool w-100 text-center">
+            <div class="chevron-down"> </div>
+        </div>
+        <div class="navbar-light home-navbar-light text-right mr-4">
+            <button class="home-navbar-toggler navbar-toggler navbar-toggler-right " type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <div class="home-navbar-toggler-icon"></div>
+            </button>
+        </div>
+    </section>
+</div>
