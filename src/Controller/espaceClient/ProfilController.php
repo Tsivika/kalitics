@@ -97,13 +97,15 @@ class ProfilController extends AbstractController
      */
     public function deleteProfilPicture(User $user)
     {
+        $pathPicture = $this->getParameter('asset_image_directory');
         if ($filePicture = $user->getPdp()) {
-            unlink($filePicture);
+            unlink($pathPicture.$filePicture);
         }
         $this->em->removePicture($user);
 
         return new JsonResponse([
-            'body' => "<p>Image supprimée</p>",
+            'path_picture' => $pathPicture,
+            'body' => "<p>Photo supprimée</p>",
             'footer' => '<span>Consulter notre <a href="" class="text-green"> Politique de confidentialité</a></span>',
             'success' => true,
         ]);

@@ -36,6 +36,7 @@
 
 .item-link {
     margin: 15px 25px 15px 0px;
+    padding: 0px;
 }
 @media (min-width: 992px) {
     #menu_espc .container-fluid {
@@ -43,17 +44,19 @@
     }
     .item-link {
         margin: 0px 20px 15px 0px;
-        font-size: 18px;
+        /*font-size: 18px;*/
     }
 
 }
 
 .item-link.active {
-    text-decoration-line: underline;
-    text-decoration-style: solid;
-    text-decoration-color: #00C9AE;
-    text-underline-offset: 9px;
+    border:solid 2px #00C9AE;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    text-decoration: none;
 }
+
 .item-link a:hover {
     padding-bottom: 5px;
     border:solid 2px #00C9AE;
@@ -578,4 +581,21 @@ input[type="file"]::-webkit-file-upload-button{
 }
 .list_table.btn {
     color: #ffffff !important;
+}
+
+.custom-file-label {
+    /*position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #ff0000;
+    border: 1px solid #ff0000;
+    border-radius: .25rem;*/
+    display: none;
 }
