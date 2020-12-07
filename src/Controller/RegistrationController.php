@@ -186,7 +186,6 @@ class RegistrationController extends AbstractController
     {
         $user = $this->getUser();
         $userSubscription = $user->getSubscriptionUser();
-
         if (!$user) {
             throw new Exception("Vous n'avez pas accès à cette page");
         }

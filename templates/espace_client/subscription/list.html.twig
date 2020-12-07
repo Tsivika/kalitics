@@ -11,9 +11,9 @@
     <div class="container-fluid" style="max-width: 1700px">
         <section id="list-subscription" >
             <h3 class="text-center text-danger encart_home_head mb-5">Les abonnements </h3>
-            <div class="row text-center">
+            <div class="d-flex justify-content-around">
                 {% for row in subscriptions %}
-                    <div class="col-md-4 mb-5">
+                    <div class="col-md-4 mb-5" style="max-width: 30%">
                         {% set active = '' %}
                         {% if userSubscription and userSubscription.id == row.id %}
                             {% set active = 'actived active' %}

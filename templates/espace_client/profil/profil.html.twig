@@ -17,20 +17,22 @@
         <div class="form-wrapper">
             {{ form_start(form) }}
             <div class="row">
-                <div class="col-lg-3 ">
-                    {% if pdp == '' %}
-                        <img src="{{ asset('build/images/avatarDefault.png') }}"  class="rounded-circle image-profil" alt="" width="160" height="160">
-                    {% else %}
-                        <img src="{{ asset(twig_asset_image_directory ~ pdp) }}"  class="rounded-circle image-profil" alt="" width="160" height="160">
-                    {% endif %}
-
-                    <div class="input-group wrap_input mt-3" style="justify-content: space-between; max-width: 160px; overflow: hidden;">
-                        <div class="item-input ">
-                            {{ form_widget(form.pdp) }}
-                            {{ form_errors(form.pdp) }}
+                <div class="col-lg-3 text-center">
+                    <div class="encart_profil_picture mr-5">
+                        {% if pdp == '' %}
+                            <img src="{{ asset('build/images/avatarDefault.png') }}"  class="rounded-circle image-profil" alt="" width="160" height="160">
+                        {% else %}
+                            <img src="{{ asset(twig_asset_image_directory ~ pdp) }}"  class="rounded-circle image-profil" alt="" width="160" height="160">
+                        {% endif %}
+                    </div>
+                    <div class="input-group wrap_input mt-3 profil" style="justify-content: space-between;  overflow: hidden;">
+                        <div class="item-input" ><a href="" class="small text-green">{{ form_label(form.pdp) }}</a>  </div>
+                        <div class="item-input" >
+                            <a href="" class="text-danger small delete_profil_picture" data-profil="{{ app.user.id }}">
+                                <label for="">Supprimer</label>
+                            </a>
                         </div>
-                        <div class="item-input " ><a href="" class="text-danger small text-green">{{ form_label(form.pdp) }}</a>  </div>
-                        <div class="item-input " ><a href="" class="text-danger small"><label for="">Supprimer</label></a>  </div>
+                        <div class="item-input">{{ form_widget(form.pdp) }}</div>
                     </div>
                 </div>
                 <div class="col-lg-6 m-auto align-middle" style="font-family: GalanoGrotesqueAltMedium" >
@@ -61,6 +63,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="row mt-4 bordered">
                 <div class="col-lg-3 ">
                     <input readonly type="text" class="border-0 bg-white" value="Adresse email">
@@ -74,6 +77,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="row mt-4 bordered">
                 <div class="col-lg-3 ">
                     <input readonly type="text" class="border-0 bg-white" value="Mot de passe">
@@ -96,7 +100,7 @@
                         <input readonly type="text" class="border-0 bg-white" value="{{ subscription ? subscription.title : 'Aucun' }}">
                     </div>
                     <div class="col-lg-4  text-center mt-2 " >
-                        <a class="btn btn-danger text-center list_table px-4" href="{{ path('app_espace_client_subscription_list') }}">Changer d'abonnement</a>
+                        <a class="background-red btn text-center list_table px-4" href="{{ path('app_espace_client_subscription_list') }}">Changer d'abonnement</a>
                     </div>
                 </div>
             {% endif %}
@@ -116,7 +120,7 @@
                     <input type="text" readonly class="border-0 bg-white" value="{{ state_account ? 'Activé' : 'Désactivé' }}">
                 </div>
                 <div class="col-lg-4 text-center mt-2" >
-                    <a href="#" class="btn btn-danger text-center delete_profil list_table px-4" data-profil="{{ app.user.id }}">Supprimer mon compte</a> </div>
+                    <a href="#" class="btn background-red text-center delete_profil list_table px-4" data-profil="{{ app.user.id }}">Supprimer mon compte</a> </div>
             </div>
         </div>
         <hr>
@@ -126,8 +130,8 @@
             </button>
         </div>
         {{ form_end(form) }}
-    </div>
-    </div>
 
+    </div>
+    </div>
 
 {% endblock %}

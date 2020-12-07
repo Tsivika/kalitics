@@ -46,7 +46,7 @@
         <div class="row">
             {% for row in meetings|reverse %}
                 <div class="col-sm-6 col-lg-12 mt-2">
-                    <div class="row card-borderer mx-1">
+                    <div class="row card-borderer">
                         <div class="col-lg-2 d-flex-center-left">
                             <span>{{ row.date|date("d/m/yy") }} à  {{ row.date|date("H:i") }}</span>
                         </div>
@@ -55,17 +55,17 @@
                             {{ row.subject }}
                         </div>
 
-                        <div class="col-lg-2 d-flex-center-left">
+                        <div class="col-lg-3 d-flex-center-left">
                             <input class="input_copy" style="color: #50697C" type="text" id="linkInput_{{ row.id }}" value="{{ baseUrl }}/reunion/{{ row.identifiant }}" readonly>
                         </div>
-                        <div class="col-lg-5 actions link_identifiant d-flex-center-right">                           
+                        <div class="col-lg-4 actions link_identifiant d-flex-center-right" >
                             <div class="w-100">
                                 <div class="pull-right">
                                     <a class="detail_meeting encart_home_body text-green" href="#" data-meeting="{{ row.id }}">
                                         <span class="mx-2"> Info + </span>
                                     </a>
                                     
-                                    <button class="list_table btn btn-danger mr-2 px-5" role="button" type="button" onclick="return copyToPaste({{ row.id }});" {{ row.status ? 'disabled="disabled"' : '' }} data-target="#link-meeting">
+                                    <button class="list_table background-red btn mr-2 px-5" role="button" type="button" onclick="return copyToPaste({{ row.id }});" {{ row.status ? 'disabled="disabled"' : '' }} data-target="#link-meeting">
                                         <span class="d-none d-lg-inline-block">Copier le lien</span>
                                         <span class="fa fa-clone ml-2" aria-hidden="true"></span>
                                     </button>
