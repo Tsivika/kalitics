@@ -77,7 +77,6 @@ class ProfilType extends AbstractType
                 'label' => 'Modifier',
                 'attr' => [
                     'accept' => 'image/jpeg, image/jpg, image/png',
-                    'placeholder' => 'Choisir fichier',
                     'class' => 'file-upload-input',
                     'onchange' => 'readURL(this);',
                 ],
@@ -92,6 +91,7 @@ class ProfilType extends AbstractType
                             'image/png',
                         ],
                         'mimeTypesMessage' => 'fichiers : jpg, jpeg, png sont valides',
+                        'maxSizeMessage' => 'Le fichier est trop volumineux ( {{ size }}{{ suffix }} ). La taille maximale autorisée est de {{ limit }}{{ suffix }}.',
                     ])
                 ],
             ])

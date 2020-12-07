@@ -34,7 +34,7 @@
                         {{ form_label(form.codePromo) }}
                         <div class="input-group col-lg-12 mb-2 ">
                             {{ form_widget(form.codePromo) }}
-                            <button class="btn btn-success btn-large ml-1" id="btnCodePromo" style="background-color: #00C9AE">Ajouter</button>
+                            <button class="btn login ml-1 py-0" id="btnCodePromo">Ajouter</button>
                         </div>
 
                         <div class="tab-content">
@@ -102,7 +102,7 @@
 
                         
                         <div class="mt-4 pb-3 text-left">
-                            <button class="btn btn-success btn-large ml-1" style="background-color: #00C9AE">Valider le paiement</button>
+                            <button class="btn login ml-1 px-5">Valider le paiement</button>
                         </div>
                         
                         {% set tva =  (subscripbiontChoice.price * 20)/100 %}

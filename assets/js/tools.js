@@ -185,6 +185,31 @@ export function confirmSwalAlertProfilDelete(msg, url) {
     })
 }
 
+export function confirmSwalAlertProfilDeletePicture(msg, url) {
+    Swal.fire({
+        title: 'Attention !',
+        text: msg,
+        type: 'error',
+        showCancelButton: true,
+        confirmButtonColor: '#FF5A5F',
+        cancelButtonColor: '#00C9AE',
+        confirmButtonText: 'Supprimer!',
+        cancelButtonText: 'Annuler',
+    }).then((result) => {
+        if (result.value) {
+            axios.get(url)
+                .then(function (response) {
+                    simpleSwalAlert(response.data.body, response.data.footer);
+                    let avatar = '<i class="fa fa-user-circle" style="font-size: 160px"></i>';
+                    $('.encart_profil_picture').html(avatar);
+                })
+                .catch(function (error) {
+                    simpleSwalAlert('Une erreur s\'est produite.', response.data.footer);
+                });
+        }
+    })
+}
+
 export function confirmSwalAlertProfilChangeRole(msg, url) {
     Swal.fire({
         title: 'Attention !',
