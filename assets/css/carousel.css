@@ -38,11 +38,24 @@
   padding: 15px;
 }
 .carousel-item .itemsContainer:nth-child(2) .image>img{
+  animation-duration: 1.2s;
+  animation-name: sliderZoom;
   transform: scale(1.08);
 }
-.carousel-item{
-  transition: transform .6s ease-in-out,-webkit-transform .4s ease-in-out !important;
+
+@keyframes sliderZoom{
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.08);
+  }
 }
+/*
+.carousel-item{
+  transition: transform 5s ease-in-out,-webkit-transform 5s ease-in-out !important;
+}
+*/
 
 .slide-img {
   object-fit: cover;
@@ -216,4 +229,8 @@ img.rounded-avatar.img-fluid {
 
 .partenaire-logo {
   height: 40px;
+}
+
+#testimonialCarousel .item__third {
+  background: #cdf4ef;
 }
