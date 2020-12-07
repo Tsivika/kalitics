@@ -25,6 +25,7 @@ class MeetingManager extends BaseManager
 {
     const CUSTOM_CSS_FIELD_NAME = 'userdata-bbb_custom_style';
     const CUSTOM_AUTO_SWAP_LAYOUT = 'userdata-autoSwapLayout';
+    const DEFAULT_NAME = 'Réunion';
     
     /**
      * @var EntityManagerInterface
@@ -157,6 +158,10 @@ class MeetingManager extends BaseManager
         
         $duration = ($meeting->getDurationH()*60) + $meeting->getDurationM();
         $pwdModerator = $meeting->getPasswordModerator();
+        
+        if (empty($meeting->getSubject())) {
+            $meeting->setSubject(static::DEFAULT_NAME);
+        }
     
         $bbb = new BigBlueButton();
         $createMeetingParams = new CreateMeetingParameters($meeting->getId(), $meeting->getSubject());
