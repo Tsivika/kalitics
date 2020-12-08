@@ -19,6 +19,33 @@ class ParticipantRepository extends ServiceEntityRepository
         parent::__construct($registry, Participant::class);
     }
 
+    /**
+     * @return int|mixed|string
+     */
+    public function getParticipantsMeeting()
+    {
+        $now = new \DateTime("NOW");
+        $date = new \DateTime("NOW");
+        $date->add(new \DateInterval("PT15M" ));
+
+        $query = $this->createQueryBuilder('p');
+        $query = $query
+            ->select('m.subject, m.identifiant, m.description, m.password, m.date, p.email')
+            ->join('p.meeting', 'm')
+            ->andWhere('m.date <= :date2')
+            ->andWhere('m.date >= :date1')
+            ->setParameter('date1', $now)
+            ->setParameter('date2', $date)
+        ;
+
+        $query = $query
+            ->getQuery()
+            ->getResult()
+        ;
+
+        return $query;
+    }
+
     // /**
     //  * @return Participant[] Returns an array of Participant objects
     //  */

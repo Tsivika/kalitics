@@ -49,8 +49,8 @@ class MeetingLaunchController extends AbstractController
     public function meetingRedirectUrl(Request $request, $identifiant)
     {
         $meeting = $this->meetingManager->meetingByIdentifiant($identifiant);
-        $today = new \DateTime("now");
-        $dateMeeting = $meeting->getCreatedAt();
+        $today = new \DateTime("NOW");
+        $dateMeeting = $meeting->getDate();
         $diff = $today->format('Y-m-d') > $dateMeeting->format('Y-m-d');
 
         if ($diff) {

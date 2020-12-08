@@ -6,6 +6,7 @@ namespace App\Manager;
 use App\Constants\EmailMeetingConstant;
 use App\Entity\Meeting;
 use App\Entity\User;
+use App\Repository\ParticipantRepository;
 use App\Services\SendEmailService;
 use BigBlueButton\BigBlueButton;
 use BigBlueButton\Parameters\CreateMeetingParameters;
@@ -341,7 +342,7 @@ class MeetingManager extends BaseManager
      */
     public function joinMeeting(Meeting $meetingUser, $mode)
     {
-        $username = 'Hiboo participant';
+        $username = $meetingUser->getUser()->getEmail() ? $meetingUser->getUser()->getEmail() : 'Hiboo participant';
         $password = $meetingUser->getPassword();
         if ($mode == 'moderator')
         {
@@ -409,5 +410,11 @@ class MeetingManager extends BaseManager
                 $this->emailService->sendEmail($_ENV['CONTACT_MAIL'], $row->getEmail(), 'Hiboo: Invitation à une réunion.', $template, $context) ;
             }
         }
+    }
+
+    public function notificationParticipant(ParticipantRepository $participantRepos)
+    {
+        $participants = $participantRepos->getParticipantsMeeting();
+        dd($participants);
     }
 }
