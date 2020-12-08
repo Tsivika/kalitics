@@ -388,7 +388,7 @@ class MeetingManager extends BaseManager
      *
      * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
      */
-    public function sendMailToParticipants($meetingUser, $urlMeeting)
+    public function sendMailToParticipants(Meeting $meetingUser, $urlMeeting)
     {
         $template = 'emails/meeting/sendMail.html.twig';
         $context = [
