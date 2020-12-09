@@ -19,6 +19,10 @@ class NotifyParticipantsCommand extends Command
      */
     private $em;
 
+    /**
+     * NotifyParticipantsCommand constructor.
+     * @param ParticipantManager $em
+     */
     public function __construct(ParticipantManager $em)
     {
         $this->em=$em;

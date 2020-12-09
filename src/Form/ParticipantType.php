@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Participant;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -18,6 +19,14 @@ class ParticipantType extends AbstractType
                 'attr' => [
                     'class' => 'form-control infoPlaceholder bg-white border-md encart_home_body px-5',
                     'placeholder' => 'nom@adresse mail'
+                ]
+            ])
+            ->add('name', TextType::class, [
+                'label' => false,
+                'required' => false,
+                'attr' => [
+                    'class' => 'form-control infoPlaceholder bg-white border-md encart_home_body px-5',
+                    'placeholder' => 'Nom participant'
                 ]
             ])
         ;

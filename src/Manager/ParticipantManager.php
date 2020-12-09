@@ -37,6 +37,13 @@ class ParticipantManager extends BaseManager
      */
     private $context;
 
+    /**
+     * ParticipantManager constructor.
+     * @param EntityManagerInterface $em
+     * @param ValidatorInterface $validator
+     * @param SendEmailService $emailService
+     * @param RequestContext $context
+     */
     public function __construct(EntityManagerInterface $em, ValidatorInterface $validator, SendEmailService $emailService, RequestContext $context)
     {
         parent::__construct($em, Participant::class, $validator);
@@ -45,6 +52,10 @@ class ParticipantManager extends BaseManager
         $this->context = $context;
     }
 
+    /**
+     * @return false
+     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
+     */
     public function notifyParticipants()
     {
         $template = 'emails/meeting/email_notification.html.twig';
@@ -70,5 +81,16 @@ class ParticipantManager extends BaseManager
                 return false;
             }
         }
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function getById($id)
+    {
+        $participant = $this->find($id);
+
+        return $participant->getName();
     }
 }

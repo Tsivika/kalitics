@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Manager\MeetingManager;
 use App\Manager\ParameterManager;
+use App\Manager\ParticipantManager;
 use phpDocumentor\Reflection\Types\True_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -25,30 +26,40 @@ class MeetingLaunchController extends AbstractController
      * @var ParameterManager
      */
     private $parameterManager;
-    
+    /**
+     * @var ParticipantManager
+     */
+    private $participantManager;
+
     /**
      * MeetingLaunchController constructor.
-     * @param MeetingManager $meetingManager
-     * @param ParameterManager $parameterManager
+     * @param MeetingManager     $meetingManager
+     * @param ParameterManager   $parameterManager
+     * @param ParticipantManager $participantManager
      */
-    public function __construct(MeetingManager $meetingManager, ParameterManager $parameterManager)
+    public function __construct(MeetingManager $meetingManager, ParameterManager $parameterManager, ParticipantManager $participantManager)
     {
         $this->meetingManager = $meetingManager;
         $this->parameterManager = $parameterManager;
+        $this->participantManager = $participantManager;
     }
 
     /**
-     * @Route("/reunion/{identifiant}", name="app_launch_meeting_fr")
-     * @Route("/meeting/{identifiant}", name="app_launch_meeting_en")
+     * @Route("/reunion/{identifiant}/{participant}", name="app_launch_meeting_fr")
+     * @Route("/meeting/{identifiant}/{participant}", name="app_launch_meeting_en")
      *
      * @param Request $request
      * @param $identifiant
-     * @return RedirectResponse
+     * @param $participant
+     *
      * @throws \Exception
+     *
+     * @return RedirectResponse
      */
-    public function meetingRedirectUrl(Request $request, $identifiant)
+    public function meetingRedirectUrl(Request $request, $identifiant, $participant)
     {
         $meeting = $this->meetingManager->meetingByIdentifiant($identifiant);
+        $participant = (is_numeric($participant)) ? $this->participantManager->getById($participant) : $participant;
         $today = new \DateTime("NOW");
         $dateMeeting = $meeting->getDate();
         $diff = $today->format('Y-m-d') > $dateMeeting->format('Y-m-d');
@@ -58,7 +69,7 @@ class MeetingLaunchController extends AbstractController
             $this->redirectToRoute('app_espace_client_meeting_list');
         } else {
             $url = $this->meetingManager
-                ->generateLinkMeet($meeting, $this->parameterManager, $request);
+                ->generateLinkMeet($meeting, $this->parameterManager, $request, $participant);
 
             return $this->redirect($url);
         }
