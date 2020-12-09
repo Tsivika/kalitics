@@ -67,6 +67,7 @@ class ContactController extends AbstractController
         return $this->render("frontend/contact/index.html.twig", [
             'form' => $form->createView(),
             'partners' => $this->partnerManager->findAll(),
+            'title' => 'Contacter Iboo'
         ]);
     }
 }
