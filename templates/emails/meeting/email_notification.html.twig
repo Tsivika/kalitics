@@ -1,0 +1,17 @@
+{% extends 'baseEmail.html.twig' %}
+
+{% block content %}
+    <p class="encart_home_head"><h1>{{ message1|raw }}</h1></p>
+    {% if subject_meeting %}
+        <p class="encart_home_head"><h3>{{ subject_meeting|raw }}</h3></p>
+    {% endif %}
+    {% if description_meeting %}
+        <p class="encart_home_head"><h3>{{ description_meeting|raw }}</h3></p>
+    {% endif %}
+
+    <p class="encart_home_head"><h2>{{ join_meeting|raw }}</h2></p>
+    <a href="{{ urlMeeting }}" role="button" class="btn btn-success login">Rejoindre la réunion</a>
+    <p class="encart_home_head"><h2>{{ pwd_meeting }} {{ pwd|raw }}</h2> </p>
+    <p class="encart_home_head"><h2>{{ date_meeting }} {{ date|date('d/m/Y') }}</h2> </p>
+    <p class="encart_home_head"><h5>{{ signature|raw }}</h5> </p>
+{% endblock %}

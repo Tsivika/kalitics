@@ -71,7 +71,7 @@ class ProfilType extends AbstractType
                         'max' => 100,
                     ]),
                 ],
-                'required' => false,
+                'required' => true,
             ])
             ->add('pdp', FileType::class, [
                 'label' => 'Modifier',

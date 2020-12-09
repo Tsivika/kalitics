@@ -241,7 +241,7 @@ class RegistrationController extends AbstractController
         $identifiant = $meeting->getIdentifiant();
 
         $response = $this->render('registration/register_user_run_meeting.html.twig', [
-            'link' => $baseurl.'/reunion/'.$identifiant,
+            'link' => $baseurl.'/reunion/'.$identifiant.'/'.$meeting->getUser()->getName(),
             'partners' => $this->partners,
             'hideMenuRegister' => $hideMenuRegister
         ]);
