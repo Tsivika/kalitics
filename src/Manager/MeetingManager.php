@@ -6,6 +6,7 @@ namespace App\Manager;
 use App\Constants\EmailMeetingConstant;
 use App\Entity\Meeting;
 use App\Entity\User;
+use App\Repository\ParticipantRepository;
 use App\Services\SendEmailService;
 use BigBlueButton\BigBlueButton;
 use BigBlueButton\Parameters\CreateMeetingParameters;
@@ -144,7 +145,7 @@ class MeetingManager extends BaseManager
      * @return string
      * @throws \Exception
      */
-    public function generateLinkMeet(Meeting $meeting, ParameterManager $paramManager, Request $request)
+    public function generateLinkMeet(Meeting $meeting, ParameterManager $paramManager, Request $request, $userName)
     {
         $user = $meeting->getUser();
         $paramUser = $paramManager->getParamUser($user);
@@ -206,11 +207,11 @@ class MeetingManager extends BaseManager
             $response = $bbb->createMeeting($createMeetingParams);
     
             if ($response->getReturnCode() == 'FAILED') {
-                return $this->joinMeeting($meeting, 'participant');
+                return $this->joinMeeting($meeting, 'participant', $userName);
             }
         }
         
-        return $this->joinMeeting($meeting, 'participant');
+        return $this->joinMeeting($meeting, 'participant', $userName);
     }
 
     /**
@@ -332,16 +333,16 @@ class MeetingManager extends BaseManager
     }
 
     /**
-     * @param $meetingUser
+     * @param Meeting $meetingUser
      * @param $mode
-     *
+     * @param null $userName
      * @return string
      *
      * @throws \Exception
      */
-    public function joinMeeting(Meeting $meetingUser, $mode)
+    public function joinMeeting(Meeting $meetingUser, $mode, $userName = null)
     {
-        $username = 'Hiboo participant';
+        $username = $userName ?? 'Hiboo participant';
         $password = $meetingUser->getPassword();
         if ($mode == 'moderator')
         {
@@ -388,26 +389,32 @@ class MeetingManager extends BaseManager
      *
      * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
      */
-    public function sendMailToParticipants($meetingUser, $urlMeeting)
+    public function sendMailToParticipants(Meeting $meetingUser, $urlMeeting)
     {
         $template = 'emails/meeting/sendMail.html.twig';
-        $context = [
-            'message1' => EmailMeetingConstant::_MESSAGE_TO_SEND_1_,
-            'join_meeting' => EmailMeetingConstant::_JOIN_MEETING_,
-            'pwd_meeting' => EmailMeetingConstant::_PWD_MEETING_,
-            'date_meeting' => EmailMeetingConstant::_DATE_MEETING_,
-            'signature' => EmailMeetingConstant::_SIGNATURE_,
-            'urlMeeting' => $urlMeeting,
-            'subject_meeting' => $meetingUser->getSubject() ??  '',
-            'description_meeting' => $meetingUser->getDescription() ?? '',
-            'pwd' => $meetingUser->getPassword(),
-            'date' => $meetingUser->getDate(),
-        ];
 
         foreach ($meetingUser->getParticipants() as $row) {
             if ($row->getEmail()) {
+                $context = [
+                    'message1' => EmailMeetingConstant::_MESSAGE_TO_SEND_1_,
+                    'join_meeting' => EmailMeetingConstant::_JOIN_MEETING_,
+                    'pwd_meeting' => EmailMeetingConstant::_PWD_MEETING_,
+                    'date_meeting' => EmailMeetingConstant::_DATE_MEETING_,
+                    'signature' => EmailMeetingConstant::_SIGNATURE_,
+                    'urlMeeting' => $urlMeeting.'/'.$row->getId(),
+                    'subject_meeting' => $meetingUser->getSubject() ??  '',
+                    'description_meeting' => $meetingUser->getDescription() ?? '',
+                    'pwd' => $meetingUser->getPassword(),
+                    'date' => $meetingUser->getDate(),
+                ];
                 $this->emailService->sendEmail($_ENV['CONTACT_MAIL'], $row->getEmail(), 'Hiboo: Invitation à une réunion.', $template, $context) ;
             }
         }
+    }
+
+    public function notificationParticipant(ParticipantRepository $participantRepos)
+    {
+        $participants = $participantRepos->getParticipantsMeeting();
+        dd($participants);
     }
 }

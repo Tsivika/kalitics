@@ -41,7 +41,15 @@ $ docker-compose exec engine yarn encore production
 ```
 Chmod upload :
 ```bash
-sudo chmod 777 -R uploads/
+docker-compose exec engine chmod 777 -R uploads/
+```
+
+### Mise en place de CRON
+Rajouter cette ligne dans le Crontab : `crontab -e`
+
+```
+#NOTIFY PARTICIPANTS
+*/5 * * * * /usr/local/bin/docker-compose -f /var/www/hiboo/docker-compose.yaml exec -d engine php bin/console app:notify-participants --env=prod
 ```
 
 Maquette XD : 

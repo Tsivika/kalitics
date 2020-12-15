@@ -1,5 +1,5 @@
 {% extends "base-frontend.html.twig" %}
-
+{% block title %}{{ title }}{% endblock %}
 {% block body %}
     <div class="container">
         <div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
@@ -19,7 +19,7 @@
                     <div class="col-lg-6 ">
                         {{ form_start(form, {'attr':{'id':'form_contact'}}) }}
                         <div style="margin:20px 0px 25px 15px; ">
-                            <h3 class="encart_home_head">Contacter <span class="text-green">Hiboo</span></h3>
+                            <h3 class="encart_home_head">Contacter <span class="text-green">Iboo</span></h3>
                             <span class="encart_home_body">Une question ? Remplissez ce formulaire et nous vous répondrons dans les plus brefs délais.</span>
                         </div>
 
