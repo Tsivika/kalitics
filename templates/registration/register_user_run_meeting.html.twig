@@ -24,24 +24,22 @@
                         <div class="col-lg-6 box-shadow-login">
                             <p style="margin-bottom:20px">
                                 <h3 class="encart_home_head">Commencer la<span class="text-green"> réunion!</span></h3>
-                                <span class="my-4">
+                                <span class="my-4 black_hiboo">
                                     Félicitations! Vous pouvez dès maintenant démarrer la réunion.
                                 </span>
                             </p>
                             <p style="margin-top:30px">
                                 Voici votre lien <span class="text-green">réunIboo</span> personnel!
                             </p>
-                            <p>
+                            <p class="mb-5">
                                 <span class="text-red">{{ link }}</span>
                             </p>
 
-                            <div class="form-group col-lg-12 mx-auto" style="margin-top: 100px">
-                                <a href="{{ link }}" target="_blank" class="btn btn-large py-3 px-4 login">
-                                    <span role="button" class="encart_home_body text-white">Lancer la réunion</span>
-                                </a>
-                                <a class="btn btn-outline-danger text-red btn-sm signin py-3 px-4" href="{{ path('app_espace_client_meeting_list') }}">
-                                    <span class="encart_home_body ">Voir mon compte</span>
-                                </a>
+                            <div class="form-group mx-auto">
+                                <div class="row">
+                                    <div class="col-lg-5 col-md-6 col-sm-12"><a class="btn  btn-lg login text-center" href="{{ link }}">Lancer la réunion</a></div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12"><a class="btn btn-outline-danger btn-lg signin" href="{{ path('app_espace_client_meeting_list') }}">Voir mon compte</a></div>
+                                </div>
                             </div>
                         </div>
                     </div>

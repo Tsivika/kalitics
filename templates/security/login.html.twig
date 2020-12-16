@@ -3,8 +3,7 @@
 {% block title %}Se connecter à Iboo!{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
+        <div class="container mt-5 mx-auto">
             <div class="card card0 border-0">
                 <div class="row d-flex">
                     <div class="col-lg-6 ">
@@ -17,8 +16,8 @@
                         <form method="post">
                             <input type="hidden" name="_target_path" value="{{ redirect }}"/>
 
-                            <h1 class="encart_home_body pt-2" style="letter-spacing: -1px">Connexion <span class="text-green">Iboo</span></h1>
-                            <span class="encart_home_body">
+                            <h1 class="encart_home_body pt-2 black_hiboo" style="letter-spacing: -1px">Connexion <span class="text-green">Iboo</span></h1>
+                            <span class="encart_home_body black_hiboo">
                                     Connectez-vous afin de profiter pleinement de vos réunions
                                 </span>
                             <p>
@@ -52,12 +51,12 @@
                                 <div class="col-lg-4">
                                     <a href="{{ path('app_forgot_password_request') }}" class="text-danger ml-2" > Mot de passe oublié ? </a>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 black_hiboo">
                                     Pas de compte ? <a href="{{ path('app_register') }}" class="link">Inscrivez vous</a>
                                 </div>
                             </div>
 
-                            <div class="encart_home_body" style="margin-top: 60px;font-size: 12px;padding: 10px;">
+                            <div class="encart_home_body black_hiboo" style="margin-top: 60px;font-size: 12px;padding: 10px;">
                                 En me connectant, j'accepte votre <a href="#" class="link">Politique de confidentialité</a> et <a href="#" class="link">les Conditions de service.</a>
                             </div>
                             <div class="form-group col-lg-12 mx-auto mb-0">
@@ -108,8 +107,7 @@
                 </form>
             </div>
         </div>
-    </div>
-    {% include "shared/social-network-icons.html.twig" %} 
+    {% include "shared/social-network-icons.html.twig" %}
     <div class="world-globe">
         {{ include('shared/partenaire.html.twig') }}
     </div>

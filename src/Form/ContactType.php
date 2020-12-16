@@ -23,21 +23,21 @@ class ContactType extends AbstractType
                 'required' => true,
                 'attr' => [
                     'placeholder' => 'Nom',
-                    'class' => 'form-control bg-white  border-md',
+                    'class' => 'form-control infoPlaceholder bg-white  border-md',
                 ]
             ])
             ->add('email', EmailType::class, [
                 'required' => true,
                 'attr' => [
                     'placeholder' => 'email',
-                    'class' => 'form-control bg-white  border-md',
+                    'class' => 'form-control infoPlaceholder bg-white  border-md',
                 ]
             ])
             ->add('message', TextareaType::class, [
                 'required' => true,
                 'attr' => [
                     'placeholder' => 'Message',
-                    'class' => 'form-control bg-white  border-md',
+                    'class' => 'form-control textarea1 bg-white  border-md',
                 ]
             ])
             /*->add('captchaSubmit', RecaptchaSubmitType::class, [

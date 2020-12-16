@@ -6,8 +6,7 @@
 
 {% block body %}
     <div id="tunnel_2">
-        <div class="container">
-            <div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
+            <div class="container px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
                 <div class="card card0 border-0">
                     <div class="w-100">
                         <div class="" style="margin-left: -25px;">
@@ -23,8 +22,8 @@
                         </div>
                         <div class="col-lg-6 box-shadow-login">
                             {{ form_start(registrationForm, { 'attr': {'onsubmit': 'return ajaxSubmitTunnel(this)'}}) }}
-                            <h1 class="encart_home_head pt-1 ml-2">Bienvenue sur <span class="text-green">Iboo!</span></h1>
-                            <div class="encart_home_body my-2 ml-2">
+                            <h1 class="encart_home_head pt-1 ml-2 black_hiboo">Bienvenue sur <span class="text-green">Iboo!</span></h1>
+                            <div class="encart_home_body my-2 ml-2 black_hiboo">
                                 Veuillez renseigner votre nom, prénom et créer votre mot de passe pour créer votre compte.
                             </div>
                             {% for flashError in app.flashes('verify_email_error') %}
@@ -40,26 +39,29 @@
                                 </div>
                                  <div class="input-group col-sm-10 col-lg-8 my-2" >
                                     {{ form_widget(registrationForm.email, { 'value': preUser }) }}
+                                    {{ form_errors(registrationForm.email) }}
                                 </div>
                                  <div class="input-group col-sm-10 col-lg-8 my-2" >
                                     {{ form_widget(registrationForm.password) }}
                                 </div>
                             </div>
                             <div class="input-group ">
-                                <div class="wrap_step small ml-3 mt-2 ">
+                                <div class="wrap_step small ml-3 black_hiboo ">
                                     <span>{{ form_widget(registrationForm.agreeTerms) }}</span>
                                     En me connectant, j'accepte votre <a href="#" class="link ml-1 mr-1" > Politique de confidentialité</a> et <a href="#" class="link ml-1">les Conditions de service.</a>
                                 </div>
 
-                                <span class="encart_home_body small ml-2">
+                                <div class="encart_home_body small ml-5">
 
-                                </span>
+{#<input type="checkbox" name="group2" id="checkbox-1">
+      <label for="checkbox-1"><span class="checkbox">Oranges</span></label>#}
+                                </div>
                             </div>
                             <div class="form-group col-lg-12 mx-auto" style="margin-top: 20px">
                                 <input type="hidden" name="_csrf_token"
                                        value="{{ csrf_token('authenticate') }}"
                                 >
-                                <button type="submit" class="btn  btn-large login" style="padding: 9px 90px">
+                                <button type="submit" class="btn  btn-large login" style="padding: 9px 50px">
                                     <span class="font-weight-bold">Continuer</span>
                                 </button>
                             </div>
@@ -69,7 +71,6 @@
 
                 </div>
             </div>
-        </div>
     </div>
     <div class="world-globe">
         {% include 'shared/partenaire.html.twig' %}

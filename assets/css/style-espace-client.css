@@ -23,7 +23,7 @@
 }
 #menu_espc .user-right-menu{
     position: absolute;
-    right: 3vw;
+    right: 9px;
 }
 
 
@@ -171,7 +171,7 @@ hr {
 .accordion-panel .accordion dt {
     display: block;
     padding-bottom: 13px;
-    color: #555;
+    color: #062944;
     cursor: pointer;
     position: relative;
     user-select: none;
