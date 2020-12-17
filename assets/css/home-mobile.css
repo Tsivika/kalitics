@@ -38,22 +38,15 @@
     margin-left: -3px; 
 }
 @media (max-width: 1500px){
-    .advantage-item {
-        display: inline-block;
-        width: 100%;
-        text-align: center;
-        padding-right: 5px;
-        padding-left: 6px;
-    }
     .advantage-item .item-icon {
-        width: 100%;
+        width: unset;
         text-align: center;
-        padding-right: unset;
-        padding-bottom: 15px;
-    }
+    }  
+
     .advantage-item .item-desc {
-        width: 100%;
+        font-size: 14px;
     }
+
 }
 
 @media (max-width: 1340px) {
@@ -64,6 +57,24 @@
     }
     .masthead .home-header-container .w-50{
         width: 60% !important;
+    }
+
+    .advantage-item {
+        display: inline-block;
+        width: 100%;
+        text-align: center;
+        padding-right: 5px;
+        padding-left: 6px;
+    }
+
+    .advantage-item .item-icon {
+        width: 100%;
+        text-align: center;
+        padding-right: unset;
+        padding-bottom: 15px;
+    }
+    .advantage-item .item-desc {
+        width: 100%;
     }
 
     
