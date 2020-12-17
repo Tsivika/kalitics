@@ -228,9 +228,12 @@ img.rounded-avatar.img-fluid {
 }
 
 .partenaire-logo {
-  height: 40px;
+  height: 60px;
+  opacity: 0.42;
 }
-
+.partenaire-logo:hover{
+  opacity: 1;
+}
 #testimonialCarousel .description {
   font-size: 15px;
 }
@@ -246,3 +249,4 @@ img.rounded-avatar.img-fluid {
 .video-title{
   background: white;
 }
+

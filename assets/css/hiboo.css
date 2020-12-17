@@ -240,8 +240,9 @@ header.masthead {
     content: url('../images/Hiboo-Watermark.svg');
     position: absolute;
     z-index: -1;
-    left: 0;
-    top: -50px;
+    left: -10vh;
+    top: -25vh;
+    transform: scale(0.7);
 }
 .masthead:after {
     content: url('../images/Hiboo-Image-Fond.svg');
@@ -369,7 +370,10 @@ footer a:hover {
     margin-left: 7px;
     cursor: pointer;
 }
-
+.footer-icon:hover{
+    filter: brightness(0.8);
+    -webkit-filter: brightness(0.8);
+}
 .twitter {
     background-color: #1DA1F2;
     color: #fff;
@@ -716,8 +720,45 @@ li  {
 .rs-icons {
     position: absolute;
     z-index: 1;
-    right: 1%;
+    right: 1.5vw;
     bottom: 35%;
+}
+
+.rs-icons .icon{
+    width: 30px;
+    height: 30px;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+}
+.rs-icons #facebook .icon{
+    background: url("./../images/facebook-dark.png");
+}
+.rs-icons #facebook .icon:hover{
+    background: url("./../images/facebook.png");
+}
+.rs-icons #instagram .icon{
+    background: url("./../images/instagram-dark.png");
+}
+.rs-icons #instagram .icon:hover{
+    background: url("./../images/instagram.png");
+}
+.rs-icons #linkedin .icon{
+    background: url("./../images/linkedin-dark.png");
+}
+.rs-icons #linkedin .icon:hover{
+    background: url("./../images/linkedin.png");
+}
+.rs-icons #twitter .icon{
+    background: url("./../images/twitter-dark.png");
+}
+.rs-icons #twitter .icon:hover{
+    background: url("./../images/twitter.png");
+}
+.rs-icons #youtube .icon{
+    background: url("./../images/youtube-dark.png");
+}
+.rs-icons #youtube .icon:hover{
+    background: url("./../images/youtube.png");
 }
 .card-tarif {
     border: 1px solid  white;
