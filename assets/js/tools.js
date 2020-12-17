@@ -417,8 +417,8 @@ export function confirmSwalAlertUserDelete(msg, url, id) {
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Supprimer !',
+        cancelButtonColor: '#00C9AE',
+        confirmButtonText: 'Supprimer',
         cancelButtonText: 'Annuler',
     }).then((result) => {
         if (result.value) {
