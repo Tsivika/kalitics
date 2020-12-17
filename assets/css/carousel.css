@@ -231,6 +231,14 @@ img.rounded-avatar.img-fluid {
   height: 40px;
 }
 
+#testimonialCarousel .description {
+  font-size: 15px;
+}
 #testimonialCarousel .item__third {
   background: #cdf4ef;
+}
+@media (max-width: 1500px){
+  #testimonialCarousel .description {
+    font-size: 13px !important;
+  }
 }
