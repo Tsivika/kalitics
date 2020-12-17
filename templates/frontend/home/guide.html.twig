@@ -1,13 +1,14 @@
-<h2 class="text-center encart_home_head mb-3 text-green">Comment ça marche </h2>
-<h5 class="text-center encart_home_body">Création d'une réunion : </h5>
-<div class=" bd-example space-title">
-
+<h2 class="text-center encart_home_head text-green">Comment ça marche </h2>
+<div class=" bd-example">
     <div id="videoGuideCarousel" class="carousel slide multi-item-carousel " data-ride="carousel" {#data-interval="9999999999999"#} >
         <div class="carousel-inner">
             {% for key, row in guides %}
                 {% set active =  loop.index0 == 0 ? ' active' : '' %}
                 <div class="carousel-item {{ active }}">
                     <div class="item__third itemsContainer">
+                        <div class="text-center video-title pb-4">
+                            <h5 class="encart_home_body">{{ row.titre }} </h5>
+                        </div>
                         <a class=" video-btn image" data-toggle="modal" data-src="{{ row.url }}" data-target="#myModal">
                             <img src="{{ asset('uploads/images/' ~ row.pdc) }}" class="slide-img" alt="">
                         </a>

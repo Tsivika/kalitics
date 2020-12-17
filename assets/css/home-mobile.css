@@ -46,7 +46,16 @@
     .advantage-item .item-desc {
         font-size: 14px;
     }
-
+    .masthead:before {
+        left: -11vw;
+        top: -42vh;
+        transform: scale(0.6);
+    }
+    .masthead:after {
+        transform: scale(1.1);
+        right: 3vw;
+        bottom: -5vh;
+    }
 }
 
 @media (max-width: 1340px) {

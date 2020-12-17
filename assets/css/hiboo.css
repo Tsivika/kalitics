@@ -223,17 +223,14 @@ header.masthead {
     font-size: 72px;
     line-height: 86px;
     color: rgba(0,201,174,1);
-    font-family: 'GalanoGrotesqueMedium';
+    font-family: 'GalanoGrotesque';
     z-index: 1;
 }
 .masthead h2 {
-    font-family: GalanoGrotesque ;
-    font-style: normal;
-    font-weight: lighter;
+    font-family: "GalanoGrotesqueLight" ;
     font-size: 3vw;
     color:#062944;
     z-index: 1;
-    max-width: 75%;
 }
 .site-heading{
     z-index: 1;
@@ -797,6 +794,12 @@ li  {
     font-weight: normal;
     font-style: normal;
 }
+@font-face {
+    font-family: 'GalanoGrotesqueLight';
+    src: url('../fonts/galano_Grotesque/GalanoGrotesque-Light.eot') format('embedded-opentype'), url('../fonts/galano_Grotesque/GalanoGrotesque-Light.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 
 @font-face {
     font-family: 'CenturyGothic';
@@ -1139,7 +1142,7 @@ img{ max-width: 100%; max-height: 100%; }
 .carousel-item.active .itemsContainer:nth-child(2) .play{display:block}
 
 .play{
-    top: 35%;
+    top: 45%;
     position: absolute;
     display: none;
     align-items: center;

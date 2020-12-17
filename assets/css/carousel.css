@@ -242,3 +242,7 @@ img.rounded-avatar.img-fluid {
     font-size: 13px !important;
   }
 }
+
+.video-title{
+  background: white;
+}
