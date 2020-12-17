@@ -236,6 +236,7 @@ header.masthead {
     z-index: 1;
     color: #ffcc00;
 }
+/*
 .masthead:before{
     content: url('../images/Hiboo-Watermark.svg');
     position: absolute;
@@ -243,7 +244,7 @@ header.masthead {
     left: -10vh;
     top: -25vh;
     transform: scale(0.7);
-}
+}*/
 .masthead:after {
     content: url('../images/Hiboo-Image-Fond.svg');
     position: absolute;
