@@ -56,7 +56,7 @@
                         </div>
 
                         <div class="col-lg-3 d-flex-center-left">
-                            <input class="input_copy" style="color: #50697C; width: 98%" type="text" id="linkInput_{{ row.id }}" value="{{ baseUrl }}/reunion/{{ row.identifiant }}" readonly>
+                            <input class="input_copy" style="color: #50697C; width: 99%" type="text" id="linkInput_{{ row.id }}" value="{{ baseUrl }}/reunion/{{ row.identifiant }}" readonly>
                         </div>
                         <div class="col-lg-4 actions link_identifiant d-flex-center-right" >
                             <div class="w-100">
@@ -66,11 +66,11 @@
                                     </a>
                                     
                                     <button class="list_table background-red btn mr-2 px-5" role="button" type="button" onclick="return copyToPaste({{ row.id }});" {{ row.status ? 'disabled="disabled"' : '' }} data-target="#link-meeting">
-                                        <span class="d-none d-lg-inline-block">Copier le lien</span>
+                                        <span class="d-none d-lg-inline-block pb-1">Copier le lien</span>
                                         <span class="fa fa-clone ml-2" aria-hidden="true"></span>
                                     </button>
                                     <a href="#" data-meeting="{{ row.id }}"  class="delete_meeting">
-                                        <i class="fa fa-trash text-dark" aria-hidden="true"></i>
+                                        <img src="{{ asset('build/images/iboo-Trash.svg') }}">
                                     </a>
                                 </div>
                             </div>

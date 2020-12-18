@@ -25,22 +25,25 @@ class RegistrationFormType extends AbstractType
             ->add('name', TextType::class, [
                 'label' => false,
                 'attr' => [
-                    'class' => 'form-control bg-white infoPlaceholder border-md encart_home_body py-3 pl-3 pr-5',
+                    'class' => 'form-control bg-white infoPlaceholder border-md encart_home_body pl-3 pr-5',
                     'placeholder' => 'Nom de famille',
+                    'style' => 'padding-bottom: 13px;'
                 ]
             ])
             ->add('firstname', TextType::class, [
                 'label' => false,
                 'attr' => [
-                    'class' => 'form-control bg-white infoPlaceholder border-md encart_home_body py-3 pr-5',
+                    'class' => 'form-control bg-white infoPlaceholder border-md encart_home_body pb-3 pr-5',
                     'placeholder' => 'Prénom',
+                    'style' => 'padding-bottom: 13px;'
                 ]
             ])
             ->add('email', EmailType::class, [
                 'label' => false,
                 'attr' => [
-                    'class' => 'form-control bg-white infoPlaceholder border-md encart_home_body py-3 pr-5',
-                    'placeholder' => 'Adresse mail'
+                    'class' => 'form-control bg-white infoPlaceholder border-md encart_home_body pb-3 pr-5',
+                    'placeholder' => 'Adresse mail',
+                    'style' => 'padding-bottom: 13px;'
                 ]
             ])
             ->add('agreeTerms', CheckboxType::class, [
@@ -71,10 +74,12 @@ class RegistrationFormType extends AbstractType
                 'required' => true,
                 'first_options'  => ['label' => false, 'attr' => [
                     'placeholder' => 'Mot de passe',
-                    'class' => 'form-control bg-white border-md infoPlaceholder encart_home_body py-3 pr-5',
+                    'class' => 'form-control bg-white border-md infoPlaceholder encart_home_body pr-5',
+                    'style' => 'padding-bottom: 13px;'
                     ]],
                 'second_options' => ['label' => false, 'attr' => ['placeholder' => 'Confirmer votre mot de passe',
-                    'class' => 'form-control bg-white border-md infoPlaceholder encart_home_body py-3 pr-5'
+                    'class' => 'form-control bg-white border-md infoPlaceholder encart_home_body pr-5',
+                    'style' => 'padding-bottom: 13px;'
                     ]],
             ])
             /*->add('language', ChoiceType::class,

@@ -1227,14 +1227,17 @@ img{ max-width: 100%; max-height: 100%; }
 
 /** **/
 
+/*
 .encart_home_body input[type="checkbox"]{
     display: none;
 }
 .encart_home_body label {
     position: relative;
 }
+*/
 
-/* Base styles for spans */
+ /*Base styles for spans */
+/*
 .encart_home_body span::before,
 .encart_home_body span::after {
     content: '';
@@ -1243,9 +1246,11 @@ img{ max-width: 100%; max-height: 100%; }
     bottom: 0;
     margin: auto;
 }
+*/
 
 
 /* Check-boxes */
+/*
 .encart_home_body span.checkbox::before {
     width: 20px;
     height: 20px;
@@ -1269,6 +1274,7 @@ img{ max-width: 100%; max-height: 100%; }
 input[type="checkbox"]:checked + label span.checkbox::after {
     color: #00C9AE;
 }
+*/
 
 /** **/
 
