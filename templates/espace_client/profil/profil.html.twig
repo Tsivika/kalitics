@@ -100,7 +100,7 @@
                         <input readonly type="text" class="border-0 bg-white" value="{{ subscription ? subscription.title : 'Aucun' }}">
                     </div>
                     <div class="col-lg-4  text-center mt-2 " >
-                        <a class="background-red btn text-center list_table px-4" href="{{ path('app_espace_client_subscription_list') }}">Changer d'abonnement</a>
+                        <a class="background-red btn text-center list_table px-4" href="{{ path('app_espace_client_subscription_list') }}" style="padding-bottom: 12px">Changer d'abonnement</a>
                     </div>
                 </div>
             {% endif %}
@@ -120,12 +120,12 @@
                     <input type="text" readonly class="border-0 bg-white" value="{{ state_account ? 'Activé' : 'Désactivé' }}">
                 </div>
                 <div class="col-lg-4 text-center mt-2" >
-                    <a href="#" class="btn background-red text-center delete_profil list_table px-4" data-profil="{{ app.user.id }}">Supprimer mon compte</a> </div>
+                    <a href="#" class="btn background-red text-center delete_profil list_table px-4" data-profil="{{ app.user.id }}" style="padding-bottom: 12px">Supprimer mon compte</a> </div>
             </div>
         </div>
         <hr>
         <div class="input-group wrap_input mt-5">
-            <button type="submit" class="btn  btn-large py-2 login">
+            <button type="submit" class="btn  btn-large py-2 login pb-2" style="padding-bottom: 13px !important;">
                 <span class="font-weight-bold">Enregistrer</span>
             </button>
         </div>

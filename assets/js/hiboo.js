@@ -1,6 +1,6 @@
 import showToast from "./toastr";
 import {
-	cardTarif,
+	// cardTarif,
 	confirmSwalAlertCreateMeeting,
 	simpleSwalAlert
 } from "./tools";
@@ -17,7 +17,7 @@ $(document).ready(function() {
 		interval: false,
 	});
 
-	cardTarif();
+	// cardTarif();
 
 	$('a[href*="#"]:not([href="#"])').on('click', function() {
 		if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
@@ -108,7 +108,7 @@ $(document).ready(function() {
 	});
 
 	$(window).scroll(function() {
-		if ($(this).scrollTop() > 100) {
+		if ($(this).scrollTop() > 5) {
 			$('#mainNav').removeClass('navbar-dark');
 			$('.back-to-top').fadeIn('slow');
 			$('#mainNav').addClass('navbar-light');

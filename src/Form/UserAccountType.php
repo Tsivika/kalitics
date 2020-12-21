@@ -43,32 +43,37 @@ class UserAccountType extends AbstractType
                 'label' => 'Code de réduction',
                 'required' => false,
                 'mapped' => false,
-//                'attr' => [
-//                    'class' => 'form-control bg-white encart_home_body',
-//                ]
+                'attr' => [
+                    'class' => 'form-control bg-white encart_home_body',
+                    'style' => "padding-bottom:13px;"
+                ]
             ])
             ->add('name', TextType::class, [
                 'attr' => [
                     'class' => 'form-control bg-white encart_home_body',
                     'placeholder' => 'Nom',
+                    'style' => "padding-bottom:13px;"
                 ]
             ])
             ->add('firstname', TextType::class, [
                 'attr' => [
                     'class' => 'form-control bg-white encart_home_body',
                     'placeholder' => 'Prénom',
+                    'style' => "padding-bottom:13px;"
                 ]
             ])
             ->add('address', TextType::class, [
                 'attr' => [
                     'class' => 'form-control bg-white encart_home_body',
                     'placeholder' => 'Adresse',
+                    'style' => "padding-bottom:13px;"
                 ]
             ])
             ->add('entreprise', TextType::class, [
                 'attr' => [
                     'class' => 'form-control bg-white encart_home_body',
                     'placeholder' => 'Entreprise',
+                    'style' => "padding-bottom:13px;"
                 ]
             ])
         ;

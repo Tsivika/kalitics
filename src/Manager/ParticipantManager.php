@@ -70,7 +70,7 @@ class ParticipantManager extends BaseManager
                     'pwd_meeting' => EmailMeetingConstant::_PWD_MEETING_,
                     'date_meeting' => EmailMeetingConstant::_DATE_MEETING_,
                     'signature' => EmailMeetingConstant::_SIGNATURE_,
-                    'urlMeeting' => $baseurl . '/reunion/' . $row['identifiant'],
+                    'urlMeeting' => $baseurl . '/reunion/' . $row['identifiant'] . '/' . $row['id'],
                     'subject_meeting' => $row['subject'],
                     'description_meeting' => $row['description'],
                     'pwd' => $row['password'],

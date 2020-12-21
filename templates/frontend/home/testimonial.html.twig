@@ -24,7 +24,7 @@
                                                 {{ row.name }}                                                    
                                             </h4>
                                             <div class="encart_home_body description">
-                                                {{ row.content|raw }}
+                                                {{ row.content|striptags|slice(0, 130) ~ '...' }}
                                             </div>
                                             <div class="testimonial-rating">
                                                 {% for i in 1 .. 5 %}

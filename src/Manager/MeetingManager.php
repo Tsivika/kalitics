@@ -396,7 +396,7 @@ class MeetingManager extends BaseManager
         foreach ($meetingUser->getParticipants() as $row) {
             if ($row->getEmail()) {
                 $context = [
-                    'message1' => EmailMeetingConstant::_MESSAGE_TO_SEND_1_,
+                    'message0' => EmailMeetingConstant::_MESSAGE_TO_SEND_0_,
                     'join_meeting' => EmailMeetingConstant::_JOIN_MEETING_,
                     'pwd_meeting' => EmailMeetingConstant::_PWD_MEETING_,
                     'date_meeting' => EmailMeetingConstant::_DATE_MEETING_,

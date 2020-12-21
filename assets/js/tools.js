@@ -97,7 +97,7 @@ export function confirmSwalAlertSubscriptionDelete(msg, url, id) {
                 .then(function (response) {
                     $('#list-subscription-admin').html(response.data.listHtml);
                     simpleSwalAlert(response.data.body, response.data.footer);
-                    cardTarif();
+                    // cardTarif();
                     $('[data-toggle="tooltip"]').tooltip();
                 })
                 .catch(function (error) {
@@ -124,7 +124,7 @@ export function confirmSwalAlertSubscriptionDeactive(msg, url) {
                 .then(function (response) {
                     $('#list-subscription').html(response.data.listHtml);
                     simpleSwalAlert(response.data.body, response.data.footer);
-                    cardTarif();
+                    // cardTarif();
                 })
                 .catch(function (error) {
                     simpleSwalAlert('Une erreur s\'est produite.', response.data.footer);
@@ -270,11 +270,11 @@ export function confirmSwalAlertSubscription(msg, url, id) {
                 .then(function (response) {
                     $('#list-subscription').html(response.data.listHtml);
                     simpleSwalAlert(response.data.body, response.data.footer);
-                    cardTarif();
+                    // cardTarif();
                 })
                 .catch(function (error) {
                     simpleSwalAlert('Une erreur s\'est produite.', response.data.footer);
-                    cardTarif();
+                    // cardTarif();
                 });
         }
     })

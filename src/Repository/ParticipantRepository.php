@@ -30,7 +30,7 @@ class ParticipantRepository extends ServiceEntityRepository
 
         $query = $this->createQueryBuilder('p');
         $query = $query
-            ->select('m.subject, m.identifiant, m.description, m.password, m.date, p.email')
+            ->select('m.subject, m.identifiant, m.description, m.password, m.date, p.email, p.id')
             ->join('p.meeting', 'm')
             ->andWhere('m.date <= :date2')
             ->andWhere('m.date >= :date1')

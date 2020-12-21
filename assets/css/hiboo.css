@@ -151,6 +151,8 @@ div#registration_form_password {
 
 .remove_participant.btn-danger {
     background-color: #ffffff !important;
+    border: solid 1px #FFFFFF;
+    padding-top: 3px;
 }
 .remove_participant.btn-danger .fa-close{
     color: #FF5A5F !important;
@@ -769,7 +771,7 @@ li  {
     color: #062944;
     margin: 10px 15px;
 }
-.card-tarif:hover,
+/*.card-tarif:hover,*/
 .card-tarif.active{
     background-color:rgba(0,201,174,1);
     color: #FFFFFF !important;
@@ -784,16 +786,16 @@ li  {
 }
 
 .card-tarif.active .fa-check-circle,
-.card-tarif:hover .fa-check-circle,
+/*.card-tarif:hover .fa-check-circle,*/
 .card-tarif.active .encart_home_body,
-.card-tarif:hover .encart_home_body,
-.card-tarif.active .encart_home_head,
-.card-tarif:hover .encart_home_head
+/*.card-tarif:hover .encart_home_body,*/
+.card-tarif.active .encart_home_head
+/*.card-tarif:hover .encart_home_head*/
 {
  color: white !important;
 }
 
-.card-tarif:hover .start,
+/*.card-tarif:hover .start,*/
 .card-tarif.active .start
 {
     background-color: white !important;

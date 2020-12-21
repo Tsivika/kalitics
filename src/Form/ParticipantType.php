@@ -18,7 +18,8 @@ class ParticipantType extends AbstractType
                 'label' => false,
                 'attr' => [
                     'class' => 'form-control infoPlaceholder bg-white border-md encart_home_body px-5',
-                    'placeholder' => 'nom@adresse mail'
+                    'placeholder' => 'nom@adresse mail',
+                    'style' => 'padding-bottom:14px',
                 ]
             ])
             ->add('name', TextType::class, [
@@ -26,7 +27,8 @@ class ParticipantType extends AbstractType
                 'required' => false,
                 'attr' => [
                     'class' => 'form-control infoPlaceholder bg-white border-md encart_home_body px-5',
-                    'placeholder' => 'Nom participant'
+                    'placeholder' => 'Nom participant',
+                    'style' => 'padding-bottom:14px',
                 ]
             ])
         ;
