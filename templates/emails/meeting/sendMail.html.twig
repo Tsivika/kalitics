@@ -10,8 +10,14 @@
     {% endif %}
 
     <p class="encart_home_head"><h2>{{ join_meeting|raw }}</h2></p>
-    <a href="{{ urlMeeting }}" role="button" class="btn btn-success login">Rejoindre la réunion</a>
+    <a href="{{ urlMeeting }}" style="display:inline-block;background:#00c9ae;color:#FFFFFF;font-family:Helvetica;font-size:14px;font-weight:bold;line-height:120%;margin:0;text-decoration:none;text-transform:none;padding:10px 25px;mso-padding-alt:0px;border-radius:5px;" target="_blank">
+        Rejoindre la réunion
+    </a>
     <p class="encart_home_head"><h2>{{ pwd_meeting }} {{ pwd|raw }}</h2> </p>
     <p class="encart_home_head"><h2>{{ date_meeting }} {{ date|date('d/m/Y') }}</h2> </p>
     <p class="encart_home_head"><h5>{{ signature|raw }}</h5> </p>
+    <div style="font-family:helvetica;font-size:20px;line-height:1;text-align:center;color:#F45e46;">
+        Hello <a href="https://test.com" class="link-style" style="color: #0478bf; text-decoration: none;">Hello World</a>
+    </div>
+
 {% endblock %}

@@ -21,6 +21,5 @@ class EmailMeetingConstant extends AbstractController
     public const _JOIN_MEETING_ = 'Pour rejoindre la réunion, <br>cliquer sur le bouton suivant :';
     public const _PWD_MEETING_ = 'Mot de passe : ';
     public const _DATE_MEETING_ = 'Date : ';
-    public const _SIGNATURE_ = '<i>Merci d\'utiliser iboo!<br>Une question? <a href="https://iboo.live/contact" class="text-green">Contactez-nous</a> sur iboo.live</i>';
-
+    public const _SIGNATURE_ = '<i>Merci d\'utiliser iboo!<br>Une question? <a href="https://iboo.live/contact" class="link-style" style="color: #0478bf; text-decoration: none;">Contactez-nous</a> sur iboo.live</i>';
 }
