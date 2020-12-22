@@ -1,5 +1,4 @@
 import {
-    cardTarif,
     confirmSwalAlertSubscriptionDeactive,
     confirmSwalAlertSubscription,
     confirmSwalAlertSubscriptionDelete,
@@ -15,7 +14,6 @@ Routing.setRoutingData(routes);
 
 (function ($) {
     $(document).ready(function() {
-        cardTarif();
         subscriptionChoice();
         subscriptionDelete();
         subscriptionDeactive();
