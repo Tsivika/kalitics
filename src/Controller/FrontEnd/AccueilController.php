@@ -9,6 +9,7 @@ use App\Manager\SubscriptionManager;
 use App\Manager\TestimonialManager;
 use App\Manager\VideoGuideManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -36,6 +37,28 @@ class AccueilController extends AbstractController
             'testimonials' => $testimonials,
             'partners' => $partners,
             'guides' => $guides,
+        ]);
+    }
+
+    /**
+     * @Route("/set_cookie",
+     *     name="app_set_cookie",
+     *     options={"expose"=true},
+     *     methods={"GET"}
+     *     )
+     *
+     * @return bool|string
+     */
+    public function setCookieAction()
+    {
+
+        if (isset($_COOKIE["iboo_cookie_check"])) {
+        } else {
+            setcookie("iboo_cookie_check", "iboo.live", time() + 365*24*3600, "/", null, false, true);
+        }
+
+        return new JsonResponse( [
+            'success' => true,
         ]);
     }
 }

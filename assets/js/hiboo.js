@@ -1,6 +1,5 @@
 import showToast from "./toastr";
 import {
-	// cardTarif,
 	confirmSwalAlertCreateMeeting,
 	simpleSwalAlert
 } from "./tools";
@@ -17,7 +16,8 @@ $(document).ready(function() {
 		interval: false,
 	});
 
-	// cardTarif();
+	$('#cookie-div:hidden').fadeIn(1000);
+	$('#cookie-check-bt').click(function(){$('#cookie-div').fadeOut(1000);});
 
 	$('a[href*="#"]:not([href="#"])').on('click', function() {
 		if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
@@ -71,6 +71,19 @@ $(document).ready(function() {
 		}
 	});
 
+	$(document).on('click', '#cookie-accepted', function (e) {
+		e.preventDefault();
+		var url = Routing.generate('app_set_cookie');
+		axios.get(url)
+			.then(function (response) {
+				if (response.data.success) {
+					$('#cookie-div').fadeOut(1000);
+				}
+			})
+			.catch(function (error) {
+				simpleSwalAlert('Une erreur s\'est produite.', '');
+			});
+	})
 
 	$('.slick-center').slick({
 		prevArrow: $('.pic-prev'),

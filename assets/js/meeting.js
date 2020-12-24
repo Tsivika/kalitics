@@ -23,8 +23,8 @@ Routing.setRoutingData(routes);
             e.preventDefault();
             let count = $('.participant-proto-wrapper').length;
             var nbr_participant = $('.participants').data('nbr_participant');
-
-            if (parseInt(nbr_participant) === count) {
+nbr_participant = parseInt(nbr_participant) - 1;
+            if (nbr_participant === count) {
 
                 simpleSwalAlert('Vous avez atteint le nombre maximum de participants.', '');
 

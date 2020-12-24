@@ -216,7 +216,7 @@ header.masthead {
 }
 
 .masthead {
-    padding-top: 8vh;
+    padding-top: 13vh;
     padding-bottom: 2vh;
 }
 
@@ -658,7 +658,7 @@ li  {
 .fa-check-circle{
     color:rgba(0,201,174,1);
 }
-.start{
+.start, .start_tarif{
     background-color:rgba(0,201,174,1);
     color:white;
 }
@@ -666,6 +666,12 @@ li  {
     background-color: #07ab95;
     color:white;
 }
+.start_tarif:hover {
+    background-color: #FFFFFF;
+    border:solid 1px #00C9AE;
+    color:#00C9AE;
+}
+
 
 .mediaViewInfo {
     --web-view-name: Hiboo - Homepage;
@@ -800,6 +806,12 @@ li  {
 {
     background-color: white !important;
     color:#062944 !important;
+}
+.card-tarif.active .start:hover
+{
+    background-color: #00C9AE !important;
+    color:#FFFFFF !important;
+    border:solid 1px #FFFFFF;
 }
 .card-tarif .btn.encart_home_body {
     padding: 5px 30px;
@@ -1336,5 +1348,31 @@ button.btn.circle-btn {
 }
 
 .max-90percent {
-    max-width: 90%;
+    max-width: 2000px;
 }
+/** COOKIE **/
+.cookie-check-div{
+    display:none;
+    width:100%;
+    padding:20px;
+    position:fixed;
+    /*left:0;*/
+    bottom:0;
+    color:#062944;
+    background:#fff;
+    z-index:99999999999;
+}
+
+.cookie-check-div-txt{
+    float:left;
+    margin:auto auto auto auto;
+    padding:5px;
+}
+
+.cookie-check-div-bt{
+    float:right;
+    position: absolute;
+    right: 2px;
+    top: 2px;
+}
+/** COOKIE **/

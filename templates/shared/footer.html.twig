@@ -18,12 +18,12 @@
                 <a class="footer-menu encart_home_body" href="#">CGU</a>
                 <a class="footer-menu encart_home_body" href="#">CGV</a>
             </div>
-            <div class="col-lg-8">
-                <div class="row flex-wrap-reverse">
-                    <div class="col-lg-6 footer-brand text-center animated fadeInLeft text-center mt-4">
+{#            <div class="col-lg-8" style="border: solid 1px #31b131">#}
+{#                <div class="row flex-wrap-reverse">#}
+                    <div class="col-lg-4 footer-brand text-center animated fadeInLeft text-center mt-4">
                         <h6 class=" encart_home_body"><span class="footer-blue-underline" >Made i</span>n France <span class="footer-red-underline footer-heart">with </span> </h6>
                     </div>
-                    <div class="col-lg-6 footer-brand animated fadeInLeft text-center mt-4 pb-4">
+                    <div class="col-lg-4 footer-brand animated fadeInLeft text-center mt-4 pb-4">
                         <span class="footer-icon">
                             <a href="https://www.facebook.com/visioiboo" target="_blank">
                                 <img class="img-fluid" src="{{ asset('build/images/facebook.png') }}">
@@ -50,10 +50,30 @@
                             </a>
                         </span>
                     </div>
+{#                </div>#}
+{#            </div>#}
+        </div>
+
+        {% if app.request.cookies.get('iboo_cookie_check') %}
+        {% else %}
+            <div id="cookie-div" class="cookie-check-div">
+                <div class="d-flex justify-content-between align-items-center flex-nowrap" >
+                    <div class=""><img src="{{ asset('build/images/Flag_of_Europe.svg') }}" class="img-fluid" style="width: auto; height: 50px; border-radius: 5px"></div>
+                    <div class="cookie-check-div-txt" style="max-width: 80%;">
+                        <span class="encart_home_head">Nous utilisons les cookies pour mettre nos services à disposition.</span>
+                        <span class="encart_home_body">
+                        Pour en savoir plus sur les cookies que nous utilisons et obtenir des informations sur vos préférences et vos choix de non participation veuillez cliquer ici. En utilisant iboo, vous acceptez notre utilisation des cookies
+                    </span>
+                    </div>
+                    <div class="mr-3">
+                        <a id="cookie-accepted" class="btn btn-default login btn-sm" href="{{ path('app_set_cookie') }}" role="button">Accepter et continuer</a>
+                    </div>
+                    <div class="cookie-check-div-bt ml-5">
+                        <a id="cookie-check-bt" class="btn btn-default encart_home_head" href="#" role="button">X</a>
+                    </div>
                 </div>
             </div>
-        </div>
+        {% endif %}
     </div>
-
 
 </footer>
