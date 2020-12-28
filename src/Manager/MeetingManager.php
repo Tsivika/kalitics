@@ -359,6 +359,10 @@ class MeetingManager extends BaseManager
             ':root{--color-primary: #00C9AE;}'
         );
         $joinMeetingParams->setCustomParameter(
+            static::CUSTOM_CSS_FIELD_NAME,
+            '#message-input:focus{box-shadow: 0 0 0 0;}'
+        );
+        $joinMeetingParams->setCustomParameter(
             static::CUSTOM_AUTO_SWAP_LAYOUT,
             'true'
         );
