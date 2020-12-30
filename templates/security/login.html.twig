@@ -1,12 +1,12 @@
 {% extends 'base-frontend.html.twig' %}
 
-{% block title %}Se connecter à Iboo!{% endblock %}
+{% block title %}Se connecter à Iboo !{% endblock %}
 
 {% block body %}
         <div class="container mt-5 mx-auto">
             <div class="card card0 border-0">
                 <div class="row d-flex">
-                    <div class="col-lg-6 ">
+                    <div class="col-lg-6 box-shadow-login-picture">
                         <div class="card1" id="image-login">
                             <div class="row justify-content-center">
                                 <img src="{{ asset('frontend/images/hiboo_connexion.png')}}" class="image" style="width:100%; height:96%"> </div>
@@ -16,7 +16,7 @@
                         <form method="post">
                             <input type="hidden" name="_target_path" value="{{ redirect }}"/>
 
-                            <h1 class="encart_home_body pt-2 black_hiboo" style="letter-spacing: -1px">Connexion <span class="text-green">Iboo</span></h1>
+                            <h1 class="encart_home_body pt-4 black_hiboo" style="letter-spacing: -1px">Connexion <span class="text-green">Iboo</span></h1>
                             <span class="encart_home_body black_hiboo">
                                     Connectez-vous afin de profiter pleinement de vos réunions
                                 </span>
@@ -34,7 +34,7 @@
                             <div class="row">
                                 <!-- Email Address -->
                                 <div class="input-group col-sm-10 col-lg-8 mb-3 mt-5" >
-                                    <input type="email" value="{{ last_username }}" placeholder="Adresse mail" name="email" id="inputEmail" class="encart_home_body form-control" required autofocus style="padding:15px 30px 25px 20px">
+                                    <input type="email" value="{{ last_username }}" placeholder="Adresse mail" name="email" id="inputEmail" class="encart_home_body form-control py-4" required autofocus style="padding:15px 30px 25px 20px">
                                 </div>
 
                                 <div class="input-group col-sm-10 col-lg-8 mb-2">
