@@ -3,6 +3,7 @@
 
 namespace App\Form\Handler;
 
+use App\Entity\Participant;
 use App\Entity\User;
 use App\Manager\MeetingManager;
 use Ramsey\Uuid\Uuid;
@@ -17,6 +18,11 @@ use Symfony\Component\Routing\RouterInterface;
 class MeetingHandler extends Handler
 {
     /**
+     * @var User
+     */
+    private $user;
+    
+    /**
      * @var RouterInterface
      */
     private $router;
@@ -29,8 +35,13 @@ class MeetingHandler extends Handler
      * @param User           $user
      * @param MeetingManager $em
      */
-    public function __construct(FormInterface $form, Request $request, User $user, MeetingManager $em, RouterInterface $router)
-    {
+    public function __construct(
+        FormInterface $form,
+        Request $request,
+        User $user,
+        MeetingManager $em,
+        RouterInterface $router
+    ) {
         $this->form = $form;
         $this->request = $request;
         $this->em = $em;
@@ -52,7 +63,18 @@ class MeetingHandler extends Handler
         $meeting->setUser($this->user);
 
         $this->em->save($meeting);
-
+    
+        //Add current user as Participant as a presenter
+        $participant = new Participant();
+        $participant->setEmail($this->user->getEmail())
+            ->setName($this->user->getFirstname())
+            ->setType(Participant::PRESENTER_TYPE)
+            ->setMeeting($meeting);
+    
+        $meeting->addParticipant($participant);
+    
+        $this->em->save($meeting);
+    
         return true;
     }
 
