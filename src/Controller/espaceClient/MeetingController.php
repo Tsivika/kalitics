@@ -155,7 +155,7 @@ class MeetingController extends AbstractController
                     $participant = $meeting->getParticipant($user->getEmail());
                     
                     return $this->render('espace_client/meeting/add_confirmation.html.twig', [
-                        'link' => $baseurl.'/reunion/'.$theMeeting->getIdentifiant().'/'.$participant->getId(),
+                        'link' => $baseurl.'/reunion/'.$meeting->getIdentifiant().'/'.$participant->getId(),
                         'title' => 'Bravo, vous venez de créer une réunion',
                     ]);
                 }
