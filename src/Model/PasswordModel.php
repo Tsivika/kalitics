@@ -9,17 +9,17 @@ class PasswordModel
     private $password;
     
     /**
-     * @return string
+     * @return string|null
      */
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
     }
     
     /**
-     * @param string $password
+     * @param string|null $password
      */
-    public function setPassword(string $password): void
+    public function setPassword(?string $password): void
     {
         $this->password = $password;
     }

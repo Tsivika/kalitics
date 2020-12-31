@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Model\PasswordModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -30,16 +31,15 @@ class CheckMeetingPasswordType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Mot de passe de la réunion',
                     'class' => 'form-control bg-white border-md infoPlaceholder encart_home_body py-3 pr-5',
-                ],
-                // Instead of being set onto the object directly,
-                // this is read and encoded in the controller
-                'mapped' => false,
+                ]
             ])
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults([]);
+        $resolver->setDefaults(
+            ['data_class' => PasswordModel::class]
+        );
     }
 }
