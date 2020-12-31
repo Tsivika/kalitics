@@ -147,9 +147,11 @@ class MeetingController extends AbstractController
                 } else {
                     $theMeeting = $this->em->getUserLastMeeting($this->getUser());
                     $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
-
+                    //Current participant
+                    $participant = $meeting->getParticipant($this->getUser()->getUsername());
+                    
                     return $this->render('espace_client/meeting/add_confirmation.html.twig', [
-                        'link' => $baseurl.'/reunion/'.$theMeeting->getIdentifiant().'/'.$theMeeting->getUser()->getFirstname(),
+                        'link' => $baseurl.'/reunion/'.$theMeeting->getIdentifiant().'/'.$participant->getId(),
                         'title' => 'Bravo, vous venez de créer une réunion',
                     ]);
                 }
