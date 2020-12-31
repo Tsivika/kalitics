@@ -87,7 +87,7 @@ class MeetingLaunchController extends AbstractController
             $formUserMeeting->handleRequest($request);
             
             if ($formUserMeeting->isSubmitted()) {
-                if ($meetingFormPassword->getPassword() == $meeting->getPassword()) {
+                if ($meetingFormPassword->getPassword() !== $meeting->getPassword()) {
                     $formUserMeeting->addError(new FormError('Mot de passe incorrect !'));
                 }
                 
@@ -98,7 +98,7 @@ class MeetingLaunchController extends AbstractController
                         'app_launch_meeting_fr',
                         [
                             'identifiant' => $identifiant,
-                            'participant' => $participant,
+                            'participant' => $participant->getId(),
                         ]
                     );
                 }
