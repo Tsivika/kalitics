@@ -3,12 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Participant;
+use App\Form\CheckMeetingPasswordType;
 use App\Manager\MeetingManager;
 use App\Manager\ParameterManager;
 use App\Manager\ParticipantManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -30,18 +33,28 @@ class MeetingLaunchController extends AbstractController
      * @var ParticipantManager
      */
     private $participantManager;
+    /**
+     * @var SessionInterface
+     */
+    private $session;
 
     /**
      * MeetingLaunchController constructor.
      * @param MeetingManager     $meetingManager
      * @param ParameterManager   $parameterManager
      * @param ParticipantManager $participantManager
+     * @param SessionInterface   $session
      */
-    public function __construct(MeetingManager $meetingManager, ParameterManager $parameterManager, ParticipantManager $participantManager)
-    {
+    public function __construct(
+        MeetingManager $meetingManager,
+        ParameterManager $parameterManager,
+        ParticipantManager $participantManager,
+        SessionInterface $session
+    ) {
         $this->meetingManager = $meetingManager;
         $this->parameterManager = $parameterManager;
         $this->participantManager = $participantManager;
+        $this->session = $session;
     }
 
     /**
@@ -54,7 +67,7 @@ class MeetingLaunchController extends AbstractController
      *
      * @throws \Exception
      *
-     * @return RedirectResponse
+     * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function meetingRedirectUrl(Request $request, $identifiant, $participant)
     {
@@ -63,6 +76,39 @@ class MeetingLaunchController extends AbstractController
         $today = new \DateTime("now");
         $dateMeeting = $meeting->getDate();
         $diff = $today->format('Y-m-d') > $dateMeeting->format('Y-m-d');
+        
+        $meetingPassword = $this->session->get('meetingPassword', null);
+        
+        if (!$meetingPassword || $meetingPassword !== $meeting->getPassword()) {
+            $meetingFormPassword = ['password' => null];
+            $formUserMeeting = $this->createForm(CheckMeetingPasswordType::class, $meetingFormPassword);
+            
+            $formUserMeeting->handleRequest($request);
+            
+            if ($formUserMeeting->isSubmitted()) {
+                $formData = $formUserMeeting->getData();
+                
+                if ($formData['password'] !== $meeting->getPassword()) {
+                    $formUserMeeting->addError(new FormError('Mot de passe incorrect !'));
+                }
+                
+                if ($formUserMeeting->isValid()) {
+                    $this->session->set('meetingPassword', $formData['password']);
+                    
+                    return $this->redirectToRoute(
+                        'app_launch_meeting_fr',
+                        [
+                            'identifiant' => $identifiant,
+                            'participant' => $participant,
+                        ]
+                    );
+                }
+            }
+            
+            return $this->render('meeting/password_meeting.html.twig', [
+                'form' => $formUserMeeting->createView()
+            ]);
+        }
         
         if (!$participant instanceof Participant) {
             $this->addFlash('error', 'Participant introuvable.');
