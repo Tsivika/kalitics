@@ -50,13 +50,19 @@
                         <div class="col-lg-2 d-flex-center-left">
                             <span>{{ row.date|date("d/m/yy") }} à  {{ row.date|date("H:i") }}</span>
                         </div>
-                        
+
                         <div class="col-lg-3 d-flex-center-left">
                             {{ row.subject }}
                         </div>
 
                         <div class="col-lg-3 d-flex-center-left">
-                            <input class="input_copy" style="color: #50697C; width: 99%" type="text" id="linkInput_{{ row.id }}" value="{{ baseUrl }}/reunion/{{ row.identifiant }}" readonly>
+                            {% set currentUserParticipant = 0 %}
+
+                            {% if row.getParticipant(app.user.email) is not null %}
+                                {% set currentUserParticipant = row.getParticipant(app.user.email).id %}
+                            {% endif %}
+
+                            <input class="input_copy" style="color: #50697C; width: 99%" type="text" id="linkInput_{{ row.id }}" value="{{ baseUrl }}/reunion/{{ row.identifiant }}/{{ currentUserParticipant }}" readonly>
                         </div>
                         <div class="col-lg-4 actions link_identifiant d-flex-center-right" >
                             <div class="w-100">
@@ -64,7 +70,7 @@
                                     <a class="detail_meeting encart_home_body text-green" href="#" data-meeting="{{ row.id }}">
                                         <span class="mx-2"> Info + </span>
                                     </a>
-                                    
+
                                     <button class="list_table background-red btn mr-2 px-5" role="button" type="button" onclick="return copyToPaste({{ row.id }});" {{ row.status ? 'disabled="disabled"' : '' }} data-target="#link-meeting">
                                         <span class="d-none d-lg-inline-block pb-1">Copier le lien</span>
                                         <span class="fa fa-clone ml-2" aria-hidden="true"></span>
