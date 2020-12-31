@@ -66,7 +66,7 @@ class MeetingLaunchController extends AbstractController
         
         if (!$participant instanceof Participant) {
             $this->addFlash('error', 'Participant introuvable.');
-            $this->redirectToRoute('app_espace_client_meeting_list');
+            return $this->redirectToRoute('app_espace_client_meeting_list');
         }
 
         if ($diff) {
