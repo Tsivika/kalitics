@@ -4,6 +4,7 @@
 namespace App\Controller\espaceClient;
 
 use App\Entity\Meeting;
+use App\Entity\User;
 use App\Form\Handler\MeetingHandler;
 use App\Form\MeetingType;
 use App\Manager\MeetingManager;
@@ -147,8 +148,11 @@ class MeetingController extends AbstractController
                 } else {
                     $theMeeting = $this->em->getUserLastMeeting($this->getUser());
                     $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+                    
+                    /** @var User $user */
+                    $user = $this->getUser();
                     //Current participant
-                    $participant = $meeting->getParticipant($this->getUser()->getUsername());
+                    $participant = $meeting->getParticipant($user->getEmail());
                     
                     return $this->render('espace_client/meeting/add_confirmation.html.twig', [
                         'link' => $baseurl.'/reunion/'.$theMeeting->getIdentifiant().'/'.$participant->getId(),
