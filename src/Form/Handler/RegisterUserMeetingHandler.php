@@ -3,6 +3,8 @@
 
 namespace App\Form\Handler;
 
+use App\Entity\Meeting;
+use App\Entity\Participant;
 use DateTime;
 use App\Entity\User;
 use App\Manager\RegisterManager;
@@ -42,6 +44,7 @@ class RegisterUserMeetingHandler extends Handler
         $idRandom = explode('-',$uuid->toString());
         $identifiant = array_reverse($idRandom);
         $duration = $this->user->getSubscriptionUser()->getDurationMeeting();
+        /** @var Meeting $meeting */
         $meeting = $this->form->getData();
 
         $meeting->setSubject('');
@@ -50,7 +53,16 @@ class RegisterUserMeetingHandler extends Handler
         $meeting->setDate(new DateTime('now'));
         $meeting->setIdentifiant($identifiant[0]);
         $meeting->setUser($this->user);
-        $meeting->setPassword('passMeetingHiboo');
+        $randomPassword = mt_rand(11111, 99999);
+        $meeting->setPassword($randomPassword);
+    
+        //Add current user as Participant as a presenter
+        $participant = new Participant();
+        $participant->setEmail($this->user->getEmail())
+        ->setName($this->user->getFirstname())
+        ->setType(Participant::PRESENTER_TYPE);
+        
+        $meeting->addParticipant($participant);
 
         $this->em->save($meeting);
     }

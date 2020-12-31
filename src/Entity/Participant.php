@@ -10,6 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Participant
 {
+    const PARTICIPANT_TYPE = 'participant';
+    const PRESENTER_TYPE = 'presenter';
+    
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -26,12 +29,25 @@ class Participant
      * @ORM\Column(type="string", length=100, nullable=true)
      */
     private $email;
+    
+    /**
+     * @ORM\Column(type="string", length=100, nullable=false)
+     */
+    private $type;
 
     /**
      * @ORM\ManyToOne(targetEntity=Meeting::class, inversedBy="participants")
      */
     private $meeting;
-
+    
+    /**
+     * Participant constructor.
+     */
+    public function __construct()
+    {
+        $this->type = static::PARTICIPANT_TYPE;
+    }
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -70,6 +86,25 @@ class Participant
     {
         $this->meeting = $meeting;
 
+        return $this;
+    }
+    
+    /**
+     * @return mixed
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+    
+    /**
+     * @param $type
+     * @return $this
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    
         return $this;
     }
 }

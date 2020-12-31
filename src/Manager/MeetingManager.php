@@ -5,6 +5,7 @@ namespace App\Manager;
 
 use App\Constants\EmailMeetingConstant;
 use App\Entity\Meeting;
+use App\Entity\Participant;
 use App\Entity\User;
 use App\Repository\ParticipantRepository;
 use App\Services\SendEmailService;
@@ -27,6 +28,7 @@ class MeetingManager extends BaseManager
     const CUSTOM_CSS_FIELD_NAME = 'userdata-bbb_custom_style';
     const CUSTOM_AUTO_SWAP_LAYOUT = 'userdata-autoSwapLayout';
     const DEFAULT_NAME = 'Réunion';
+    const DEFAULT_PARTICIPANT_NAME = 'Iboo participant';
     
     /**
      * @var EntityManagerInterface
@@ -139,14 +141,20 @@ class MeetingManager extends BaseManager
     }
     
     /**
-     * @param Meeting $meeting
-     * @param ParameterManager $paramManager
-     * @param Request $request
+     * @param Meeting                 $meeting
+     * @param ParameterManager        $paramManager
+     * @param Request                 $request
+     * @param Participant             $participant
+     *
      * @return string
      * @throws \Exception
      */
-    public function generateLinkMeet(Meeting $meeting, ParameterManager $paramManager, Request $request, $userName)
-    {
+    public function generateLinkMeet(
+        Meeting $meeting,
+        ParameterManager $paramManager,
+        Request $request,
+        Participant $participant
+    ) {
         $user = $meeting->getUser();
         $paramUser = $paramManager->getParamUser($user);
         $maxNumberParticipant = (int)$user->getSubscriptionUser()->getNumberParticipant();
@@ -207,11 +215,19 @@ class MeetingManager extends BaseManager
             $response = $bbb->createMeeting($createMeetingParams);
     
             if ($response->getReturnCode() == 'FAILED') {
-                return $this->joinMeeting($meeting, 'participant', $userName);
+                return $this->joinMeeting(
+                    $meeting,
+                    $participant->getType(),
+                    $participant->getName()
+                );
             }
         }
         
-        return $this->joinMeeting($meeting, 'participant', $userName);
+        return $this->joinMeeting(
+            $meeting,
+            $participant->getType(),
+            $participant->getName()
+        );
     }
 
     /**
@@ -342,11 +358,11 @@ class MeetingManager extends BaseManager
      */
     public function joinMeeting(Meeting $meetingUser, $mode, $userName = null)
     {
-        $username = $userName ?? 'Hiboo participant';
+        $username = $userName ?? self::DEFAULT_PARTICIPANT_NAME;
         $password = $meetingUser->getPassword();
-        if ($mode == 'moderator')
+        
+        if ($mode === Participant::PRESENTER_TYPE)
         {
-            $username = $this->user->getFirstname();
             $password = $this->passwordModerator($meetingUser->getPassword());
         }
 

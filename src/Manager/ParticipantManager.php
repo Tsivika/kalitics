@@ -85,12 +85,13 @@ class ParticipantManager extends BaseManager
 
     /**
      * @param $id
-     * @return mixed
+     *
+     * @return Participant|null
      */
     public function getById($id)
     {
         $participant = $this->find($id);
 
-        return $participant->getName();
+        return $participant;
     }
 }
