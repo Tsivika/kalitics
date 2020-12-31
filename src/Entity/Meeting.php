@@ -6,6 +6,7 @@ use DateTime;
 use App\Repository\MeetingRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -230,6 +231,20 @@ class Meeting
     public function getParticipants(): Collection
     {
         return $this->participants;
+    }
+    
+    /**
+     * @param string $email
+     *
+     * @return Participant|null
+     */
+    public function getParticipant(string $email)
+    {
+        $criteria = Criteria::create()
+            ->andWhere(Criteria::expr()->eq('email', $email));
+        
+        return $this->participants
+            ->matching($criteria)->first();
     }
 
     /**

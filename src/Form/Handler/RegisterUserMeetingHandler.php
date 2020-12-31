@@ -55,15 +55,18 @@ class RegisterUserMeetingHandler extends Handler
         $meeting->setUser($this->user);
         $randomPassword = mt_rand(11111, 99999);
         $meeting->setPassword($randomPassword);
+
+        $this->em->save($meeting);
     
         //Add current user as Participant as a presenter
         $participant = new Participant();
         $participant->setEmail($this->user->getEmail())
-        ->setName($this->user->getFirstname())
-        ->setType(Participant::PRESENTER_TYPE);
-        
+            ->setName($this->user->getFirstname())
+            ->setType(Participant::PRESENTER_TYPE)
+            ->setMeeting($meeting);
+    
         $meeting->addParticipant($participant);
-
+    
         $this->em->save($meeting);
     }
 }

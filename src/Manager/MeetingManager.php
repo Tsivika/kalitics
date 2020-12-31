@@ -363,7 +363,7 @@ class MeetingManager extends BaseManager
         
         if ($mode === Participant::PRESENTER_TYPE)
         {
-            $password = $this->passwordModerator($meetingUser->getPassword());
+            $password = $meetingUser->getPasswordModerator();
         }
 
         $bbb = new BigBlueButton();
