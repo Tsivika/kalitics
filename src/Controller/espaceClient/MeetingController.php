@@ -146,7 +146,7 @@ class MeetingController extends AbstractController
                 if ($meeting) {
                     return $this->redirectToRoute('app_espace_client_meeting_list');
                 } else {
-                    $theMeeting = $this->em->getUserLastMeeting($this->getUser());
+                    $meeting = $this->em->getUserLastMeeting($this->getUser());
                     $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
                     
                     /** @var User $user */
