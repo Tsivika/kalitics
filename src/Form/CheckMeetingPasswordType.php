@@ -15,7 +15,6 @@ class CheckMeetingPasswordType extends AbstractType
     {
         $builder
             ->add('password', PasswordType::class, [
-                'type' => PasswordType::class,
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez entrer le mot de passe',
@@ -32,7 +31,6 @@ class CheckMeetingPasswordType extends AbstractType
                     'placeholder' => 'Nouveau mot de passe',
                     'class' => 'form-control bg-white border-md infoPlaceholder encart_home_body py-3 pr-5',
                 ],
-                'options' => ['attr' => ['class' => 'form-control bg-white border-md encart_home_body']],
                 // Instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
