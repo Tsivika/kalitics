@@ -28,7 +28,7 @@ class CheckMeetingPasswordType extends AbstractType
                 ],
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'Nouveau mot de passe',
+                    'placeholder' => 'Mot de passe de la réunion',
                     'class' => 'form-control bg-white border-md infoPlaceholder encart_home_body py-3 pr-5',
                 ],
                 // Instead of being set onto the object directly,
