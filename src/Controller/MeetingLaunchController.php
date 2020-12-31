@@ -7,6 +7,7 @@ use App\Form\CheckMeetingPasswordType;
 use App\Manager\MeetingManager;
 use App\Manager\ParameterManager;
 use App\Manager\ParticipantManager;
+use App\Model\PasswordModel;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -80,20 +81,18 @@ class MeetingLaunchController extends AbstractController
         $meetingPassword = $this->session->get('meetingPassword', null);
         
         if (!$meetingPassword || $meetingPassword !== $meeting->getPassword()) {
-            $meetingFormPassword = ['password' => null];
+            $meetingFormPassword = new PasswordModel();
             $formUserMeeting = $this->createForm(CheckMeetingPasswordType::class, $meetingFormPassword);
             
             $formUserMeeting->handleRequest($request);
             
             if ($formUserMeeting->isSubmitted()) {
-                $formData = $formUserMeeting->getData();
-                
-                if ($formData->get('password') !== $meeting->getPassword()) {
+                if ($meetingFormPassword->getPassword() == $meeting->getPassword()) {
                     $formUserMeeting->addError(new FormError('Mot de passe incorrect !'));
                 }
                 
                 if ($formUserMeeting->isValid()) {
-                    $this->session->set('meetingPassword', $formData['password']);
+                    $this->session->set('meetingPassword', $meetingFormPassword->getPassword());
                     
                     return $this->redirectToRoute(
                         'app_launch_meeting_fr',
