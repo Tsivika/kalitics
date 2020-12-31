@@ -400,8 +400,8 @@ class MeetingManager extends BaseManager
     }
 
     /**
-     * @param $emailParticipants
-     * @param $urlMeeting
+     * @param Meeting $meetingUser
+     * @param string  $urlMeeting
      *
      * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
      */
@@ -423,7 +423,14 @@ class MeetingManager extends BaseManager
                     'pwd' => $meetingUser->getPassword(),
                     'date' => $meetingUser->getDate(),
                 ];
-                $this->emailService->sendEmail($_ENV['CONTACT_MAIL'], $row->getEmail(), 'Hiboo: Invitation à une réunion.', $template, $context) ;
+                
+                $this->emailService->sendEmail(
+                    $_ENV['CONTACT_MAIL'],
+                    $row->getEmail(),
+                    EmailMeetingConstant::_SUBJECT_TO_SEND_,
+                    $template,
+                    $context
+                ) ;
             }
         }
     }
