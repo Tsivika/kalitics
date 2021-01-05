@@ -3,6 +3,7 @@
 
 namespace App\Form\Handler;
 
+use App\Constants\EmailMeetingConstant;
 use App\Entity\User;
 use App\Manager\RegisterManager;
 use App\Manager\SubscriptionManager;
@@ -12,6 +13,8 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\Mime\Address;
 
 class RegisterHandler extends Handler
 {
@@ -87,13 +90,18 @@ class RegisterHandler extends Handler
         $this->em->save($this->user);
 
         // generate a signed url and email it to the user
-        /*$this->emailVerifier->sendEmailConfirmation('app_verify_email', $this->user,
+        $emailUser = $this->user->getEmail();
+        $this->emailVerifier->sendEmailConfirmation('app_verify_email', $this->user,
             (new TemplatedEmail())
-                ->from(new Address('fanilo@hightao-mg.com', 'Fanilo'))
-                ->to($this->user->getEmail())
-                ->subject('Veuillez confirmer votre email')
-                ->htmlTemplate('registration/confirmation_email.html.twig')
-        );*/
+                ->from(new Address($_ENV['CONTACT_MAIL'], 'Iboo la visio profeessionnelle'))
+                ->to($emailUser)
+                ->subject('Veuillez confirmer votre e-mail')
+                ->htmlTemplate('emails/registration/confirmation_email.html.twig')
+                ->context([
+                    'user_email' => $this->user->getEmail(),
+                    'signature' => EmailMeetingConstant::_SIGNATURE_,
+                ])
+        );
 
         // TODO  send an email
 

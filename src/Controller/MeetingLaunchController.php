@@ -7,6 +7,7 @@ use App\Form\CheckMeetingPasswordType;
 use App\Manager\MeetingManager;
 use App\Manager\ParameterManager;
 use App\Manager\ParticipantManager;
+use App\Manager\PartnerManager;
 use App\Model\PasswordModel;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
@@ -37,7 +38,12 @@ class MeetingLaunchController extends AbstractController
     /**
      * @var SessionInterface
      */
+
     private $session;
+    /**
+     * @var
+     */
+    private $partners;
 
     /**
      * MeetingLaunchController constructor.
@@ -50,12 +56,14 @@ class MeetingLaunchController extends AbstractController
         MeetingManager $meetingManager,
         ParameterManager $parameterManager,
         ParticipantManager $participantManager,
-        SessionInterface $session
+        SessionInterface $session,
+        PartnerManager $partnerManager
     ) {
         $this->meetingManager = $meetingManager;
         $this->parameterManager = $parameterManager;
         $this->participantManager = $participantManager;
         $this->session = $session;
+        $this->partners = $partnerManager->findAll();
     }
 
     /**
@@ -105,7 +113,8 @@ class MeetingLaunchController extends AbstractController
             }
             
             return $this->render('meeting/password_meeting.html.twig', [
-                'form' => $formUserMeeting->createView()
+                'form' => $formUserMeeting->createView(),
+                'partners' => $this->partners,
             ]);
         }
         

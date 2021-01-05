@@ -33,7 +33,7 @@ class EmailVerifier
 
         $context = $email->getContext();
         $context['signedUrl'] = $signatureComponents->getSignedUrl();
-        $context['expiresAt'] = $signatureComponents->getExpiresAt();
+        $context['expiresAt'] = $_ENV['EXPIRE_EMAIL'];
 
         $email->context($context);
 

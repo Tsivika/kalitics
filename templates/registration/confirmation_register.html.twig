@@ -1,0 +1,19 @@
+{#{% extends 'base-frontend.html.twig' %}#}
+
+{% block body %}
+    <div class="row text-center">
+        <div class="col-lg-12 ">
+            <p><i class="fa fa-check-circle text-green fa-3x" aria-hidden="true"></i></p>
+            <p>
+                Nous vous avons envoyé un courriel à l'adresse<br>
+                <strong>{{ mail_user }}</strong><br>
+                Merci de confirmer votre inscription en cliquant sur le bouton de <br>
+                confirmation dans le courriel enfin de pouvoir utiliser <span class="text-green">Iboo</span>
+            </p>
+            <p class="my-4">
+                <small>Vous n'avez pas reçu de mail? </small>
+                <a class="text-red" href="">Me renvoyer un mail de confirmation</a>
+            </p>
+        </div>
+    </div>
+{% endblock %}

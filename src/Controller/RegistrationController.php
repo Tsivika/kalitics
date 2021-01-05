@@ -149,15 +149,38 @@ class RegistrationController extends AbstractController
                 ]);
             }
 
-            return $this->forward('App\Controller\RegistrationController::registerUserMeeting', [
+            /*return $this->forward('App\Controller\RegistrationController::registerUserMeeting', [
                 'hideMenuRegister' => 'register',
-            ]);
+            ]);*/
+
+            return $this->forward('App\Controller\RegistrationController::registerConfirmation');
         }
 
         $response = $this->render('registration/register.html.twig', [
             'registrationForm' => $handler->getForm()->createView(),
             'preUser' => $preUser,
             'partners' => $this->partners,
+        ]);
+
+        if ($request->isXmlHttpRequest()){
+            return new JsonResponse([
+                'html' => $response->getContent()
+            ]);
+        }
+
+        return $response;
+    }
+
+    /**
+     * @Route("/register-confirmation", name="app_user_registration_confirmation")
+     *
+     * @return Response
+     */
+    public function registerConfirmation(Request $request)
+    {
+        $response = $this->render('registration/confirmation_register.html.twig', [
+            'mail_user' => $this->getUser()->getEmail(),
+            'title' => 'Confirmation de votre compte',
         ]);
 
         if ($request->isXmlHttpRequest()){
@@ -315,9 +338,10 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('app_register');
         }
 
-        // @TODO Change the redirect on success and handle or remove the flash message in your templates
-        $this->addFlash('success', 'Your email address has been verified.');
+        $this->addFlash('success', 'Votre adresse e-mail a été vérifiée.');
 
-        return $this->redirectToRoute('app_register');
+        return $this->redirectToRoute('register_user_meeting', [
+            'hideMenuRegister' => 'register',
+        ]);
     }
 }
