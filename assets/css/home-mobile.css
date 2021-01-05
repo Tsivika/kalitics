@@ -83,6 +83,9 @@
         padding-right: unset;
         padding-bottom: 15px;
     }
+    .advantage-item .item-icon img {
+        height: 50px;
+    }
     .advantage-item .item-desc {
         width: 100%;
     }
@@ -135,6 +138,9 @@
     .advantage-item:last-child .item-desc {
         width: 50%;
         margin: auto;
+    }
+    .advantage-item .item-icon img {
+        height: unset;
     }
 
     .masthead:after {

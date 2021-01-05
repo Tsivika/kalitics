@@ -1383,4 +1383,24 @@ button.btn.circle-btn {
     right: 2px;
     top: 2px;
 }
+
+
 /** COOKIE **/
+@media (max-width: 3000px) {
+    .navbar-brand img {
+        width: 100% !important;
+    }
+}
+
+@media (max-width: 1245px) {
+    .navbar-brand img {
+        width: 250px !important;
+    }
+}
+
+@media (max-width: 1165px) {
+    .navbar-brand img {
+        width: 158px !important;
+        height: 30px !important;
+    }
+}
