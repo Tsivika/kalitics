@@ -372,7 +372,7 @@ class MeetingManager extends BaseManager
         $joinMeetingParams->setRedirect(true);
         $joinMeetingParams->setCustomParameter(
             static::CUSTOM_CSS_FIELD_NAME,
-            ':root{--color-primary: #00C9AE;} #message-input:focus{box-shadow: 0 0 0 0;}'
+            ':root{--color-primary: #00C9AE; --btn-primary-bg: #00C9AE;} #message-input:focus{box-shadow: 0 0 0 0;}'
         );
         $joinMeetingParams->setCustomParameter(
             static::CUSTOM_AUTO_SWAP_LAYOUT,
