@@ -76,7 +76,13 @@ class ParticipantManager extends BaseManager
                     'pwd' => $row['password'],
                     'date' => $row['date'],
                 ];
-                $this->emailService->sendEmail($_ENV['CONTACT_MAIL'], $row['email'], $subject, $template, $context) ;
+                $this->emailService->sendEmail(
+                    EmailMeetingConstant::_SENDER_NAME_. '<' .$_ENV['CONTACT_MAIL'] .'>',
+                    $row['email'],
+                    $subject,
+                    $template,
+                    $context
+                );
             } else {
                 return false;
             }
