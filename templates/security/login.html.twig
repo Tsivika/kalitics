@@ -4,18 +4,14 @@
 
 {% block body %}
         <div class="container mt-5 mx-auto">
-            <div class="card card0 border-0">
-                <div class="row d-flex">
-                    <div class="col-lg-6 box-shadow-login-picture">
-                        <div class="card1" id="image-login">
-                            <div class="row justify-content-center">
-                                <img src="{{ asset('frontend/images/hiboo_connexion.png')}}" class="image" style="width:100%; height:96%"> </div>
-                        </div>
+            <div class="card box-shadow-login">
+                <div class="row content">
+                    <div class="col-lg-6 card-bg">
+                        <img src="{{ asset('frontend/images/hiboo_connexion.png')}}" class="image-bg">
                     </div>
-                    <div class="col-lg-6 box-shadow-login">
+                    <div class="col-lg-6 card-content">
                         <form method="post">
                             <input type="hidden" name="_target_path" value="{{ redirect }}"/>
-
                             <h1 class="encart_home_body pt-4 black_hiboo" style="letter-spacing: -1px">Connexion <span class="text-green">Iboo</span></h1>
                             <span class="encart_home_body black_hiboo">
                                     Connectez-vous afin de profiter pleinement de vos réunions
@@ -43,11 +39,6 @@
                             </div>
 
                             <div class="row encart_home_body " style="font-size: 12px; margin-bottom:20px">
-                                {#<div class="checkbox mb-3 col-lg-4">
-                                    <label>
-                                        <input type="checkbox" name="_remember_me"> me souvenir de moi
-                                    </label>
-                                </div>#}
                                 <div class="col-lg-4">
                                     <a href="{{ path('app_forgot_password_request') }}" class="text-danger ml-2" > Mot de passe oublié ? </a>
                                 </div>
