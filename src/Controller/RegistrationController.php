@@ -181,7 +181,7 @@ class RegistrationController extends AbstractController
         $response = $this->render('registration/confirmation_register.html.twig', [
             'mail_user' => $this->getUser()->getEmail(),
             'title' => 'Confirmation de votre compte',
-            'partners' => $this->partners,
+            'partners' => $this->partners
         ]);
 
         if ($request->isXmlHttpRequest()){
@@ -324,13 +324,16 @@ class RegistrationController extends AbstractController
      *
      * @param EmailVerifier $emailVerifier
      *
-     * @return RedirectResponse
+     * @return Response
      */
     public function reSendEmailConfirmation(EmailVerifier $emailVerifier)
     {
         $this->em->sendEmailConfirmation($this->getUser(), $emailVerifier);
 
-        return $this->redirectToRoute('app_user_registration_confirmation');
+        return $this->render('registration/confirmation_resend_mail.html.twig', [
+            'mail_user' => $this->getUser()->getEmail(),
+            'partners' => $this->partners,
+        ]);
     }
 
     /**
@@ -357,19 +360,6 @@ class RegistrationController extends AbstractController
 
         return $this->redirectToRoute('register_user_meeting', [
             'hideMenuRegister' => 'register',
-        ]);
-    }
-
-    /**
-     * @Route("/test_confirmation", name="test_confirmation")
-     * @return Response
-     */
-    public function test()
-    {
-        return $this->render('registration/confirmation_register.html.twig', [
-            'mail_user' => 'tsivika@gmail.com',
-            'title' => 'Confirmation de votre compte',
-            'partners' => $this->partners,
         ]);
     }
 }

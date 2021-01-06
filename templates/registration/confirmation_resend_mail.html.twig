@@ -1,3 +1,4 @@
+{% extends 'base-frontend.html.twig' %}
 {% block body %}
     <div class="row text-center plane-trajectoire" style="">
         <div class="col-lg-12 encart_home_body">
@@ -12,6 +13,9 @@
                 <a class="text-red" href="{{ path('app_re_send_email_confirmation') }}">Me renvoyer un mail de confirmation</a>
             </p>
         </div>
+    </div>
+    <div class="world-globe ">
+        {{ include('shared/partenaire.html.twig') }}
     </div>
     <br><br>
 {% endblock %}
