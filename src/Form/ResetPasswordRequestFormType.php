@@ -22,8 +22,7 @@ class ResetPasswordRequestFormType extends AbstractType
                 ],
                 'attr' => [
                     'class' => 'form-control bg-white infoPlaceholder border-md encart_home_body py-3',
-                    'placeholder' => 'Adresse mail',
-                    'style' => 'width:350px',
+                    'placeholder' => 'Adresse mail'
                 ]
             ])
         ;

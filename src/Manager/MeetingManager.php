@@ -372,7 +372,7 @@ class MeetingManager extends BaseManager
         $joinMeetingParams->setRedirect(true);
         $joinMeetingParams->setCustomParameter(
             static::CUSTOM_CSS_FIELD_NAME,
-            ':root{--color-primary: #00C9AE;} #message-input:focus{box-shadow: 0 0 0 0;}'
+            ':root{--color-primary: #00C9AE; --btn-primary-bg: #00C9AE;} #message-input:focus{box-shadow: 0 0 0 0;}'
         );
         $joinMeetingParams->setCustomParameter(
             static::CUSTOM_AUTO_SWAP_LAYOUT,
@@ -410,9 +410,18 @@ class MeetingManager extends BaseManager
         $template = 'emails/meeting/sendMail.html.twig';
 
         foreach ($meetingUser->getParticipants() as $row) {
+    
+            $title = EmailMeetingConstant::_MESSAGE_TO_SEND_0_;
+            $subject = EmailMeetingConstant::_SUBJECT_TO_SEND_;
+            
+            if ($row->getType() === Participant::PRESENTER_TYPE) {
+                $title = EmailMeetingConstant::_MESSAGE_TO_SEND_0_PRESENTER_;
+                $subject = EmailMeetingConstant::_SUBJECT_TO_SEND_PRESENTER_;
+            }
+            
             if ($row->getEmail()) {
                 $context = [
-                    'message0' => EmailMeetingConstant::_MESSAGE_TO_SEND_0_,
+                    'message0' => $title,
                     'join_meeting' => EmailMeetingConstant::_JOIN_MEETING_,
                     'pwd_meeting' => EmailMeetingConstant::_PWD_MEETING_,
                     'date_meeting' => EmailMeetingConstant::_DATE_MEETING_,
@@ -425,9 +434,9 @@ class MeetingManager extends BaseManager
                 ];
                 
                 $this->emailService->sendEmail(
-                    $_ENV['CONTACT_MAIL'],
+                    EmailMeetingConstant::_SENDER_NAME_. '<' .$_ENV['CONTACT_MAIL'] .'>',
                     $row->getEmail(),
-                    EmailMeetingConstant::_SUBJECT_TO_SEND_,
+                    $subject,
                     $template,
                     $context
                 ) ;

@@ -7,86 +7,77 @@
 {% block title %}Inviter des participants!{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
-            <div class="card card0 border-0">
-                    <div class="w-100">
-                        <div class="" style="margin-left: -25px;">
-                            {{ macro_step.show_step_head(0, 'register', 2) }}
-                        </div>
-                    </div>
-                    <div class="row d-flex">
-                        <div class="col-lg-6">
-                            <div class="card1" id="image-login">
-                                <div class="row justify-content-center">
-                                    <img src="{{ asset('build/images/haboo_contact.png')}}" class="image" style="width:100%; height:96%">
+    <div class="container mt-5 mx-auto login-container">
+        <div class="w-100">
+            <div class="ml-1">
+                {{ macro_step.show_step_head(0, 'register', 2) }}
+            </div>
+        </div>
+        <div class="card box-shadow-login">
+            <div class="row content">
+                <div class="col-lg-6 card-bg">
+                    <img src="{{ asset('build/images/haboo_contact.png')}}" class="image-bg">
+                </div>
+                <div class="col-lg-6 card-content">
+                    {{ form_start(form, { 'attr': {'onsubmit': 'return ajaxSubmitTunnel(this)'}}) }}
+                        <input type="hidden" data-nbr_participant="{{ userSubscription ? userSubscription.numberParticipant : 0 }}" class="participants">
+                        {# <p style="margin-bottom:30px ">#}
+                        <h2 class="encart_home_head pt-3 ml-2 black_hiboo">Utilisez <span class="text-green">Iboo</span> à plusieurs</h2>
+                        <span class="encart_home_body my-4 black_hiboo">
+                            Invitez vos collègues ou amis à votre réunion <strong>Iboo</strong>.
+                        </span>
+                        {#  </p>#}
+
+
+                        <div class="form-group mt-1">
+                            <div class="participant-data-proto-wrapper "
+                                data-prototype="{{ form_widget(form.participants.vars.prototype)|e('html_attr') }}"
+                                data-index="{{ form.participants|length }}">
+                            </div>
+
+                            <div>
+
+                                <div class="row participant-proto-wrapper mt-1">
+                                    <div class="col-4 pr-0"><input type="text" id="meeting_participant_participants_10_name" name="meeting_participant[participants][10][name]" class="form-control infoPlaceholder bg-white border-md encart_home_body px-2 pb-3 form-control" placeholder="Nom"></div>
+                                    <div class="col-6 pr-0 pl-1"><input type="email" id="meeting_participant_participants_10_email" name="meeting_participant[participants][10][email]" required="required" class="form-control infoPlaceholder bg-white border-md encart_home_body form-control px-5 pb-3" placeholder="nom@adresse.mail"></div>
+                                    <div class="col-2 pl-0"><a class="remove_participant btn btn-danger ml-1 encart_home_body text-white small"><span class="fa fa-close"></span></a></div>
+                                </div>
+
+
+                                <div class="row participant-proto-wrapper mt-2">
+                                    <div class="col-4 pr-0"><input type="text" id="meeting_participant_participants_11_name" name="meeting_participant[participants][11][name]" class="form-control infoPlaceholder bg-white border-md encart_home_body px-2 pb-3 form-control" placeholder="Nom"></div>
+                                    <div class="col-6 pr-0 pl-1"><input type="email" id="meeting_participant_participants_11_email" name="meeting_participant[participants][11][email]"  class="form-control infoPlaceholder bg-white border-md encart_home_body form-control px-5 pb-3" placeholder="nom@adresse.mail"></div>
+                                    <div class="col-2 pl-0"><a class="remove_participant btn btn-danger ml-1 encart_home_body text-white small"><span class="fa fa-close"></span></a></div>
+                                </div>
+
+                                <div class="row participant-proto-wrapper mt-2">
+                                    <div class="col-4 pr-0"><input type="text" id="meeting_participant_participants_12_name" name="meeting_participant[participants][12][name]" class="form-control infoPlaceholder bg-white border-md encart_home_body px-2 pb-3 form-control" placeholder="Nom"></div>
+                                    <div class="col-6 pr-0 pl-1"><input type="email" id="meeting_participant_participants_12_email" name="meeting_participant[participants][12][email]"  class="form-control infoPlaceholder bg-white border-md encart_home_body form-control px-5 pb-3" placeholder="nom@adresse.mail"></div>
+                                    <div class="col-2 pl-0"><a class="remove_participant btn btn-danger ml-1 encart_home_body text-white small"><span class="fa fa-close"></span></a></div>
+                                </div>
+
+                            </div>
+
+                            <div class="row mb-5">
+                                <div class="" style="margin-top: 10px">
+                                {# <a class="btn-icon-right encart_home_body mt-2 ml-1" id="add_participant"><i class="fa fa-plus text-red"></i> <span class="text-red">Ajouter un e-mail</span></a>#}
                                 </div>
                             </div>
+
+
+                            <button type="submit" class="btn  btn-large py-2 login">
+                                <span class="font-weight-bold encart_home_body px-5">Inviter</span>
+                            </button>
                         </div>
-                        <div class="col-lg-6 box-shadow-login">
-                            {{ form_start(form, { 'attr': {'onsubmit': 'return ajaxSubmitTunnel(this)'}}) }}
-                                <input type="hidden" data-nbr_participant="{{ userSubscription ? userSubscription.numberParticipant : 0 }}" class="participants">
-        {#                        <p style="margin-bottom:30px ">#}
-                                    <h2 class="encart_home_head pt-3 ml-2 black_hiboo">Utilisez <span class="text-green">Iboo</span> à plusieurs</h2>
-                                    <span class="encart_home_body my-4 black_hiboo">
-                                        Invitez vos collègues ou amis à votre réunion <strong>Iboo</strong>.
-                                    </span>
-        {#                        </p>#}
-
-                                <div class="form-group col-lg-12 mx-auto" style="margin-top: 10px;">
-                                    <div class="participant-data-proto-wrapper "
-                                        data-prototype="{{ form_widget(form.participants.vars.prototype)|e('html_attr') }}"
-                                        data-index="{{ form.participants|length }}">
-                                    </div>
-
-                                    <div class="row mt-1" style="margin-bottom: -10px">
-                                        <div class="flex-column my-1 ml-1">
-                                            <div class="input-group participant-proto-wrapper">
-                                                <div class="mr-1 w-25"><input type="text" id="meeting_participant_participants_10_name" name="meeting_participant[participants][10][name]" class="form-control infoPlaceholder bg-white border-md encart_home_body px-2 pb-3 form-control" placeholder="Nom"></div>
-                                                <div><input type="email" id="meeting_participant_participants_10_email" name="meeting_participant[participants][10][email]" required="required" class="form-control infoPlaceholder bg-white border-md encart_home_body form-control px-5 pb-3" placeholder="nom@adresse.mail"></div>
-                                                <div><a class="remove_participant btn btn-danger ml-1 encart_home_body text-white small"><span class="fa fa-close"></span></a></div>
-                                            </div>
-                                        </div>
-                                        <div class="flex-column my-1 ml-1">
-                                            <div class="input-group participant-proto-wrapper">
-                                                <div class="mr-1 w-25"><input type="text" id="meeting_participant_participants_11_name" name="meeting_participant[participants][11][name]" class="form-control infoPlaceholder bg-white border-md encart_home_body px-2 pb-3 form-control" placeholder="Nom"></div>
-                                                <div><input type="email" id="meeting_participant_participants_11_email" name="meeting_participant[participants][11][email]"  class="form-control infoPlaceholder bg-white border-md encart_home_body form-control px-5 pb-3" placeholder="nom@adresse.mail"></div>
-                                                <div><a class="remove_participant btn btn-danger ml-1 encart_home_body text-white small"><span class="fa fa-close"></span></a></div>
-                                            </div>
-                                        </div>
-                                        <div class="flex-column my-1 ml-1">
-                                            <div class="input-group participant-proto-wrapper">
-                                                <div class="mr-1 w-25"><input type="text" id="meeting_participant_participants_12_name" name="meeting_participant[participants][12][name]" class="form-control infoPlaceholder bg-white border-md encart_home_body px-2 pb-3 form-control" placeholder="Nom"></div>
-                                                <div><input type="email" id="meeting_participant_participants_12_email" name="meeting_participant[participants][12][email]"  class="form-control infoPlaceholder bg-white border-md encart_home_body form-control px-5 pb-3" placeholder="nom@adresse.mail"></div>
-                                                <div><a class="remove_participant btn btn-danger ml-1 encart_home_body text-white small"><span class="fa fa-close"></span></a></div>
-                                            </div>
-                                        </div>
-                                        {#<div class="flex-column my-1 ml-1">
-                                            <div class="input-group participant-proto-wrapper">
-                                                <div class="mr-1 w-25"><input type="text" id="meeting_participant_participants_13_name" name="meeting_participant[participants][13][name]" class="form-control infoPlaceholder bg-white border-md encart_home_body px-2 pb-3 form-control" placeholder="Nom"></div>
-                                                <div><input type="email" id="meeting_participant_participants_13_email" name="meeting_participant[participants][13][email]"  class="form-control infoPlaceholder bg-white border-md encart_home_body form-control px-5 pb-3" placeholder="nom@adresse.mail"></div>
-                                                <div><a class="remove_participant btn btn-danger ml-1 encart_home_body text-white small"><span class="fa fa-close"></span></a></div>
-                                            </div>
-                                        </div>#}
-                                    </div>
-
-                                    <div class="row mb-5">
-                                        <div class="" style="margin-top: 10px">
-{#                                            <a class="btn-icon-right encart_home_body mt-2 ml-1" id="add_participant"><i class="fa fa-plus text-red"></i> <span class="text-red">Ajouter un e-mail</span></a>#}
-                                        </div>
-                                    </div>
-
-
-                                    <button type="submit" class="btn  btn-large py-2 login">
-                                        <span class="font-weight-bold encart_home_body px-5">Inviter</span>
-                                    </button>
-                                </div>
-                            {{ form_end(form) }}
-                        </div>
-                    </div>
+                    {{ form_end(form) }}
+                </div>
             </div>
         </div>
     </div>
+
+    <div class="login-rs">
+        {% include "shared/social-network-icons.html.twig" %}
+    <div>
 
     <div class="world-globe">
         {% include 'shared/partenaire.html.twig' %}

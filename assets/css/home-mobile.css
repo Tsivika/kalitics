@@ -46,24 +46,14 @@
     .advantage-item .item-desc {
         font-size: 14px;
     }
-    /*
-    .masthead:before {
-        left: -11vw;
-        top: -42vh;
-        transform: scale(0.6);
-    }*/
-    .masthead:after {
-        transform: scale(1.1);
-        right: 3vw;
-        bottom: -5vh;
-    }
+    
 }
 
 @media (max-width: 1340px) {
     .masthead:after {
-        transform: scale(1);
+        transform: scale(0.9);
         right: 0;
-        bottom: -5vh;
+        bottom: -6vh;
     }
     .masthead .home-header-container .w-50{
         width: 60% !important;
@@ -83,15 +73,28 @@
         padding-right: unset;
         padding-bottom: 15px;
     }
+    .advantage-item .item-icon img {
+        height: 50px;
+    }
     .advantage-item .item-desc {
         width: 100%;
     }
 
     
 }
+@media (max-width: 1280px) {
+    .masthead:after {
+        transform: scale(0.8);
+        right: -20px;
+        bottom: -7vh;
+    }
+
+}
 @media (max-width: 1200px) {
     .masthead:after {
-        transform: scale(0.9);
+        transform: scale(0.7);
+        right: -40px;
+        bottom: -8vh;
     }
     .nav-item {
         padding: 15px 1vh;
@@ -136,11 +139,20 @@
         width: 50%;
         margin: auto;
     }
+    .advantage-item .item-icon img {
+        height: unset;
+    }
 
     .masthead:after {
-        transform: scale(0.7);
-        right: -15vh;
-        bottom: 0vh;
+        content: " " !important;
+        background-image: url('../images/Hiboo-Image-Fond.svg') !important;
+        min-height: 270px;
+        width: 100%;
+        position: relative !important;
+        background-size: 100% 100%;
+        display: inline-block;
+        transform: scale(1);
+        top: 15px;
     }
 
     #header .navbar-brand,
@@ -186,18 +198,28 @@
         margin-top: 1vh !important;
     }
     .masthead:after {
-        content: " " !important;
-        background-image: url('../images/Hiboo-Image-Fond.svg') !important;
         min-height: 220px;
         width: 70%;
-        margin-left: 12%;
+        top: 0px;
+        /**margin-left: 12%;
         background-size: cover;
         position: relative !important;
         background-size: 100% 100%;
-        display: inline-block;
         bottom: 0px;
+        display: inline-block;
         transform: scale(1);
-        right: 0px!important;
+        right: 0px!important
+        */;
+    }
+
+    .masthead .home-header-container{
+        margin-left: 0px !important;
+        margin-right: 0px !important;
+    }
+
+    .advantage-section{
+        margin : 0 !important;
+        padding : 0 !important;
     }
     .masthead .home-header-container .w-50{
         width: 100% !important;
@@ -299,5 +321,16 @@
 @media (min-height: 800px) {
     .mobile-call-scrool .chevron-down{ 
         margin-top: -1rem;
+    }
+}
+
+@media (max-width: 620px) {
+    .masthead #btn-reunion-email{
+        max-width: 100%;
+    }
+}
+@media (max-width: 575px) {
+    .masthead #btn-reunion-email{
+        max-width: 90%;
     }
 }

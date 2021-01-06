@@ -1,21 +1,18 @@
 {% use 'bootstrap_4_layout.html.twig' %}
 
 {% block _meeting_participant_participants_entry_widget %}
-    <div class="flex-column my-1 ml-1 mb-2">
-        <div class="input-group participant-proto-wrapper">
-            <div class="mr-1 w-25">{{ form_widget(form.name) }}</div>
-            <div>{{ form_widget(form.email) }}</div>
-            <div><a class="remove_participant btn btn-danger ml-1 encart_home_body text-white small"><span class="fa fa-close"></span></a></div>
-        </div>
+    <div class="row participant-proto-wrapper">
+        <div class="col-4 pr-0">{{ form_widget(form.name) }}</div>
+        <div class="col-6 pr-0 pl-1">{{ form_widget(form.email) }}</div>
+        <div class="col-2 pl-0"><a class="remove_participant btn btn-danger ml-1 encart_home_body text-white small"><span class="fa fa-close"></span></a></div>
     </div>
 {% endblock %}
 
 {% block _meeting_participants_entry_widget %}
-    <div class="flex-column my-1 ml-1">
-        <div class="input-group participant-proto-wrapper">
-            <div class="mr-1 w-25">{{ form_widget(form.name) }}</div>
-            <div>{{ form_widget(form.email) }}</div>
-            <div><a class="remove_participant btn btn-danger ml-1 encart_home_body text-white small"><span class="fa fa-close"></span></a></div>
-        </div>
+    <div class="row participant-proto-wrapper mt-1">
+        <div class="col-4 pr-0">{{ form_widget(form.name) }}</div>
+        <div class="col-6 pr-0 pl-1">{{ form_widget(form.email) }}</div>
+        <div class="col-2 pl-0"><a class="remove_participant btn btn-danger ml-1 encart_home_body text-white small"><span class="fa fa-close"></span></a></div>
     </div>
+    
 {% endblock %}
