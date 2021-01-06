@@ -1,67 +1,80 @@
-{% if hideMenuRegister is not defined %}
-<section id="header">
-    <div class="w-100 menu-primary" id="menu-primary">
-        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-            <div class="container-fluid max-2000 m-auto">
-                <a class="navbar-brand primary"  href="{{ path('app_homePage') }}">
-                    <img src="{{ asset('build/images/iboo-logo.svg') }}" alt="Hiboo" class="img-fluid logo-hiboo">
-                </a>
-                <button class="navbar-toggler navbar-toggler-right " type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    <i class="navbar-toggler-icon"></i>
-                </button>
-                <div class="collapse navbar-collapse pt-2" id="navbarResponsive">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('app_homePage') ~ '#guide' }}">Guide</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('app_homePage') ~ '#testmoniaux' }}">Testmoniaux</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('app_homePage') ~ '#mission' }}">Mission</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('app_homePage') ~ '#tarifs' }}">Tarifs</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('app_homePage') ~ '#partenaires' }}">Partenaires</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('app_contact') }}">Contact</a>
-                        </li>
-                    </ul>
-                    <ul>
-                        <li class="w-100 nav-item sign">
-                            {% if app.user == null %}
-                                <a class="btn  btn-lg login text-center" href="{{ path('app_login') }}">Se connecter</a>
-                                <a class="btn btn-outline-danger btn-lg signin" href="{{ path('app_register') }}">Je m'inscris</a>
-                            {% else%}
-                                <a class="btn  btn-sm login text-center" href="{{ path('app_logout') }}">Déconnexion</a>
-                                {% if is_granted('ROLE_ADMIN') %}
-                                    <a class="btn btn-outline-danger btn-sm signin" href="{{ path('app_espace_admin_dashbord') }}">Tableau de bord</a>
-                                {% else %}
-                                    <a class="btn btn-outline-danger btn-sm signin" href="{{ path('app_espace_client_meeting_list') }}">Tableau de bord</a>
-                                {% endif %}
+<div class="d-block d-lg-none text-center fake-nav-brand mt-2">
+    <a class="navbar-brand" href="{{ path('app_homePage') }}">
+        <img src="{{ asset('build/images/iboo-logo.svg') }}" alt="Iboo" class="logo-hiboo">
+    </a>
+</div>
+    {% if hideMenuRegister is not defined %}
+    <section id="header">
+        <div class="w-100 menu-primary" id="menu-primary">
+            <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+                <div class="container-fluid max-2000 m-auto">
+                    <a class="navbar-brand primary"  href="{{ path('app_homePage') }}">
+                        <img src="{{ asset('build/images/iboo-logo.svg') }}" alt="Hiboo" class="img-fluid logo-hiboo">
+                    </a>
+                    <button class="navbar-toggler navbar-toggler-right " type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="navbar-toggler-icon"></i>
+                    </button>
+                    <div class="collapse navbar-collapse pt-2" id="navbarResponsive">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('app_homePage') ~ '#guide' }}">Guide</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('app_homePage') ~ '#testmoniaux' }}">Testmoniaux</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('app_homePage') ~ '#mission' }}">Mission</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('app_homePage') ~ '#tarifs' }}">Tarifs</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('app_homePage') ~ '#partenaires' }}">Partenaires</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('app_contact') }}">Contact</a>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li class="w-100 nav-item sign">
+                                {% if app.user == null %}
+                                    <a class="btn  btn-lg login text-center" href="{{ path('app_login') }}">Se connecter</a>
+                                    <a class="btn btn-outline-danger btn-lg signin" href="{{ path('app_register') }}">Je m'inscris</a>
+                                {% else%}
+                                    <a class="btn  btn-sm login text-center" href="{{ path('app_logout') }}">Déconnexion</a>
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <a class="btn btn-outline-danger btn-sm signin" href="{{ path('app_espace_admin_dashbord') }}">Tableau de bord</a>
+                                    {% else %}
+                                        <a class="btn btn-outline-danger btn-sm signin" href="{{ path('app_espace_client_meeting_list') }}">Tableau de bord</a>
+                                    {% endif %}
 
-                            {% endif %}
-                        </li>
-                    </ul>
-                    <div class="row py-4 d-lg-none">
-                        <div class="col-9 text-left pt-2">
-                            <a class="footer-menu encart_home_body" href="#">FAQ</a>
-                            <a class="footer-menu encart_home_body" href="#">CGU</a>
-                            <a class="footer-menu encart_home_body" href="#">CGV</a>
-                        </div>
-                        
-                        <div class="col-3 text-right" href="#">
-                            <button class="btn navbar-closer" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                                <div class="navbar-closer-icon"></div>
-                            </button>
+                                {% endif %}
+                            </li>
+                        </ul>
+                        <div class="row py-4 d-lg-none">
+                            <div class="col-9 text-left pt-2">
+                                <a class="footer-menu encart_home_body" href="#">FAQ</a>
+                                <a class="footer-menu encart_home_body" href="#">CGU</a>
+                                <a class="footer-menu encart_home_body" href="#">CGV</a>
+                            </div>
+                            
+                            <div class="col-3 text-right" href="#">
+                                <button class="btn navbar-closer" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                                    <div class="navbar-closer-icon"></div>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
+        </div>
+    </section>
+    {% endif %}
+
+<section class="d-mobile d-none">
+    <div class="navbar-light home-navbar-light text-right mr-4">
+        <button class="home-navbar-toggler navbar-toggler navbar-toggler-right " type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <div class="home-navbar-toggler-icon"></div>
+        </button>
     </div>
 </section>
-{% endif %}
