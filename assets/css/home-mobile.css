@@ -323,3 +323,14 @@
         margin-top: -1rem;
     }
 }
+
+@media (max-width: 620px) {
+    .masthead #btn-reunion-email{
+        max-width: 100%;
+    }
+}
+@media (max-width: 575px) {
+    .masthead #btn-reunion-email{
+        max-width: 90%;
+    }
+}
