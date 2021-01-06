@@ -794,11 +794,7 @@ li  {
     position: absolute;
     z-index: 1;
     right: 0.5vw;
-    bottom: 35%;
-}
-/*** login page */
-.login-rs .rs-icons {
-    bottom: 20% !important;
+    bottom: 20%;
 }
 
 .rs-icons .icon{
