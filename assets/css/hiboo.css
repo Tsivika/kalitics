@@ -1384,3 +1384,13 @@ button.btn.circle-btn {
     top: 2px;
 }
 /** COOKIE **/
+
+.plane-trajectoire {
+    background-repeat:no-repeat;
+    background-position: center center;
+    background-image: url('../images/iboo-send-trajectoir.svg');
+    background-position-y: top;
+    background-position-x: center;
+    margin-top:150px;
+    padding-top: 50px;
+}

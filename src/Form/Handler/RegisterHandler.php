@@ -88,22 +88,7 @@ class RegisterHandler extends Handler
         $this->user->setLanguage('fr');
         $this->user->setSubscriptionUser($this->subscriptionManager->getFreeSubscription());
         $this->em->save($this->user);
-
-        // generate a signed url and email it to the user
-        $emailUser = $this->user->getEmail();
-        $this->emailVerifier->sendEmailConfirmation('app_verify_email', $this->user,
-            (new TemplatedEmail())
-                ->from(new Address($_ENV['CONTACT_MAIL'], 'Iboo la visio profeessionnelle'))
-                ->to($emailUser)
-                ->subject('Veuillez confirmer votre e-mail')
-                ->htmlTemplate('emails/registration/confirmation_email.html.twig')
-                ->context([
-                    'user_email' => $this->user->getEmail(),
-                    'signature' => EmailMeetingConstant::_SIGNATURE_,
-                ])
-        );
-
-        // TODO  send an email
+        $this->em->sendEmailConfirmation($this->user, $this->emailVerifier);
 
         return $this->guardHandler->authenticateUserAndHandleSuccess(
             $this->user,
