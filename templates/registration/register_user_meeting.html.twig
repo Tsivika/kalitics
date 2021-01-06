@@ -22,47 +22,40 @@
                     {{ form_start(form, { 'attr': {'onsubmit': 'return ajaxSubmitTunnel(this)'}}) }}
                         <input type="hidden" data-nbr_participant="{{ userSubscription ? userSubscription.numberParticipant : 0 }}" class="participants">
                         {# <p style="margin-bottom:30px ">#}
-                            <h2 class="encart_home_head pt-3 ml-2 black_hiboo">Utilisez <span class="text-green">Iboo</span> à plusieurs</h2>
-                            <span class="encart_home_body my-4 black_hiboo">
-                                Invitez vos collègues ou amis à votre réunion <strong>Iboo</strong>.
-                            </span>
+                        <h2 class="encart_home_head pt-3 ml-2 black_hiboo">Utilisez <span class="text-green">Iboo</span> à plusieurs</h2>
+                        <span class="encart_home_body my-4 black_hiboo">
+                            Invitez vos collègues ou amis à votre réunion <strong>Iboo</strong>.
+                        </span>
                         {#  </p>#}
 
-                        <div class="form-group col-lg-12 mx-auto" style="margin-top: 10px;">
+
+                        <div class="form-group mt-1">
                             <div class="participant-data-proto-wrapper "
                                 data-prototype="{{ form_widget(form.participants.vars.prototype)|e('html_attr') }}"
                                 data-index="{{ form.participants|length }}">
                             </div>
 
-                            <div class="row mt-1" style="margin-bottom: -10px">
-                                <div class="flex-column my-1 ml-1">
-                                    <div class="input-group participant-proto-wrapper">
-                                        <div class="mr-1 w-25"><input type="text" id="meeting_participant_participants_10_name" name="meeting_participant[participants][10][name]" class="form-control infoPlaceholder bg-white border-md encart_home_body px-2 pb-3 form-control" placeholder="Nom"></div>
-                                        <div><input type="email" id="meeting_participant_participants_10_email" name="meeting_participant[participants][10][email]" required="required" class="form-control infoPlaceholder bg-white border-md encart_home_body form-control px-5 pb-3" placeholder="nom@adresse.mail"></div>
-                                        <div><a class="remove_participant btn btn-danger ml-1 encart_home_body text-white small"><span class="fa fa-close"></span></a></div>
-                                    </div>
+                            <div>
+
+                                <div class="row participant-proto-wrapper mt-1">
+                                    <div class="col-4 pr-0"><input type="text" id="meeting_participant_participants_10_name" name="meeting_participant[participants][10][name]" class="form-control infoPlaceholder bg-white border-md encart_home_body px-2 pb-3 form-control" placeholder="Nom"></div>
+                                    <div class="col-6 pr-0 pl-1"><input type="email" id="meeting_participant_participants_10_email" name="meeting_participant[participants][10][email]" required="required" class="form-control infoPlaceholder bg-white border-md encart_home_body form-control px-5 pb-3" placeholder="nom@adresse.mail"></div>
+                                    <div class="col-2 pl-0"><a class="remove_participant btn btn-danger ml-1 encart_home_body text-white small"><span class="fa fa-close"></span></a></div>
                                 </div>
-                                <div class="flex-column my-1 ml-1">
-                                    <div class="input-group participant-proto-wrapper">
-                                        <div class="mr-1 w-25"><input type="text" id="meeting_participant_participants_11_name" name="meeting_participant[participants][11][name]" class="form-control infoPlaceholder bg-white border-md encart_home_body px-2 pb-3 form-control" placeholder="Nom"></div>
-                                        <div><input type="email" id="meeting_participant_participants_11_email" name="meeting_participant[participants][11][email]"  class="form-control infoPlaceholder bg-white border-md encart_home_body form-control px-5 pb-3" placeholder="nom@adresse.mail"></div>
-                                        <div><a class="remove_participant btn btn-danger ml-1 encart_home_body text-white small"><span class="fa fa-close"></span></a></div>
-                                    </div>
+
+
+                                <div class="row participant-proto-wrapper mt-2">
+                                    <div class="col-4 pr-0"><input type="text" id="meeting_participant_participants_11_name" name="meeting_participant[participants][11][name]" class="form-control infoPlaceholder bg-white border-md encart_home_body px-2 pb-3 form-control" placeholder="Nom"></div>
+                                    <div class="col-6 pr-0 pl-1"><input type="email" id="meeting_participant_participants_11_email" name="meeting_participant[participants][11][email]"  class="form-control infoPlaceholder bg-white border-md encart_home_body form-control px-5 pb-3" placeholder="nom@adresse.mail"></div>
+                                    <div class="col-2 pl-0"><a class="remove_participant btn btn-danger ml-1 encart_home_body text-white small"><span class="fa fa-close"></span></a></div>
                                 </div>
-                                <div class="flex-column my-1 ml-1">
-                                    <div class="input-group participant-proto-wrapper">
-                                        <div class="mr-1 w-25"><input type="text" id="meeting_participant_participants_12_name" name="meeting_participant[participants][12][name]" class="form-control infoPlaceholder bg-white border-md encart_home_body px-2 pb-3 form-control" placeholder="Nom"></div>
-                                        <div><input type="email" id="meeting_participant_participants_12_email" name="meeting_participant[participants][12][email]"  class="form-control infoPlaceholder bg-white border-md encart_home_body form-control px-5 pb-3" placeholder="nom@adresse.mail"></div>
-                                        <div><a class="remove_participant btn btn-danger ml-1 encart_home_body text-white small"><span class="fa fa-close"></span></a></div>
-                                    </div>
+
+                                <div class="row participant-proto-wrapper mt-2">
+                                    <div class="col-4 pr-0"><input type="text" id="meeting_participant_participants_12_name" name="meeting_participant[participants][12][name]" class="form-control infoPlaceholder bg-white border-md encart_home_body px-2 pb-3 form-control" placeholder="Nom"></div>
+                                    <div class="col-6 pr-0 pl-1"><input type="email" id="meeting_participant_participants_12_email" name="meeting_participant[participants][12][email]"  class="form-control infoPlaceholder bg-white border-md encart_home_body form-control px-5 pb-3" placeholder="nom@adresse.mail"></div>
+                                    <div class="col-2 pl-0"><a class="remove_participant btn btn-danger ml-1 encart_home_body text-white small"><span class="fa fa-close"></span></a></div>
                                 </div>
-                                {#<div class="flex-column my-1 ml-1">
-                                    <div class="input-group participant-proto-wrapper">
-                                        <div class="mr-1 w-25"><input type="text" id="meeting_participant_participants_13_name" name="meeting_participant[participants][13][name]" class="form-control infoPlaceholder bg-white border-md encart_home_body px-2 pb-3 form-control" placeholder="Nom"></div>
-                                        <div><input type="email" id="meeting_participant_participants_13_email" name="meeting_participant[participants][13][email]"  class="form-control infoPlaceholder bg-white border-md encart_home_body form-control px-5 pb-3" placeholder="nom@adresse.mail"></div>
-                                        <div><a class="remove_participant btn btn-danger ml-1 encart_home_body text-white small"><span class="fa fa-close"></span></a></div>
-                                    </div>
-                                </div>#}
+
                             </div>
 
                             <div class="row mb-5">
