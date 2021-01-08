@@ -47,7 +47,7 @@ class RegisterManager extends BaseManager
         $emailUser = $user->getEmail();
         $emailVerifier->sendEmailConfirmation('app_verify_email', $user,
             (new TemplatedEmail())
-                ->from(new Address($_ENV['CONTACT_MAIL'], 'Iboo la visio profeessionnelle'))
+                ->from(new Address($_ENV['CONTACT_MAIL'], 'Iboo la visio sécurisée'))
                 ->to($emailUser)
                 ->subject('Veuillez confirmer votre e-mail')
                 ->htmlTemplate('emails/registration/confirmation_email.html.twig')

@@ -76,6 +76,6 @@ class ContactManager extends BaseManager
             'address_email' => $data->getEmail(),
             'message' => $data->getMessage()
         ];
-        $this->emailService->sendEmail($_ENV['CONTACT_MAIL'], $_ENV['RECEIVER_CONTACT_MAIL'], 'Hiboo: Demande de contact client', $template, $context) ;
+        $this->emailService->sendEmail($_ENV['CONTACT_MAIL'], $_ENV['RECEIVER_CONTACT_MAIL'], 'Iboo: Demande de contact client', $template, $context) ;
     }
 }

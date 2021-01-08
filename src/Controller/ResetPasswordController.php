@@ -182,7 +182,7 @@ class ResetPasswordController extends AbstractController
             'name' => $user[0]->getName() . ' ' . $user[0]->getFirstName(),
             'signature' => EmailMeetingConstant::_SIGNATURE_,
         ];
-        $this->emailService->sendEmail($_ENV['CONTACT_MAIL'], $emailFormData, 'Hiboo: Réinitialisation mot de passe', $template, $context) ;
+        $this->emailService->sendEmail($_ENV['CONTACT_MAIL'], $emailFormData, 'Iboo: Réinitialisation mot de passe', $template, $context) ;
 
         return $this->redirectToRoute('app_check_email');
     }

@@ -51,7 +51,7 @@ class GuideController extends AbstractController
         $categories = $this->categEm->findAll();
 
         return $this->render('espace_client/guide/list.html.twig', [
-            'title' => 'Liste des guides d\'utilisation Hiboo',
+            'title' => 'Liste des guides d\'utilisation Iboo',
             'categories' => $categories,
         ]);
     }

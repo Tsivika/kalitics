@@ -37,7 +37,7 @@ class StripePayement
     {
         try {
             $customer = \Stripe\Customer::create([
-                'description' => 'Paiement abonnement sur Hiboo',
+                'description' => 'Paiement abonnement sur Iboo',
                 'email' => $userMail,
                 'source' => $stripeToken //$_post['stripeToken']
             ]);

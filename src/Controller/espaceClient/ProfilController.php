@@ -81,7 +81,7 @@ class ProfilController extends AbstractController
         $this->em->delete($user);
 
         return new JsonResponse([
-            'body' => "<p>Votre compte est bien supprimé sur Hiboo.</p>",
+            'body' => "<p>Votre compte est bien supprimé sur Iboo.</p>",
             'footer' => '<span>Consulter notre <a href="" class="text-green"> Politique de confidentialité</a></span>',
             'success' => true,
         ]);
