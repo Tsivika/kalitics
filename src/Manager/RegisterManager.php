@@ -6,7 +6,6 @@ namespace App\Manager;
 use App\Entity\User;
 use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mime\Address;
@@ -22,7 +21,7 @@ class RegisterManager extends BaseManager
     /**
      * @var UserManager
      */
-    private UserManager $userManager;
+    private $userManager;
 
     /**
      * RegisterManager constructor.
@@ -30,8 +29,11 @@ class RegisterManager extends BaseManager
      * @param EntityManagerInterface $em
      * @param ValidatorInterface $validator
      */
-    public function __construct(EntityManagerInterface $em, ValidatorInterface $validator, UserManager $userManager)
-    {
+    public function __construct(
+        EntityManagerInterface $em,
+        ValidatorInterface $validator,
+        UserManager $userManager
+    ) {
         parent::__construct($em, User::class, $validator);
         $this->em = $em;
         $this->userManager = $userManager;
