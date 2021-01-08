@@ -19,6 +19,10 @@ class RegisterManager extends BaseManager
      * @var EntityManagerInterface
      */
     private $em;
+    /**
+     * @var UserManager
+     */
+    private UserManager $userManager;
 
     /**
      * RegisterManager constructor.
@@ -26,10 +30,11 @@ class RegisterManager extends BaseManager
      * @param EntityManagerInterface $em
      * @param ValidatorInterface $validator
      */
-    public function __construct(EntityManagerInterface $em, ValidatorInterface $validator)
+    public function __construct(EntityManagerInterface $em, ValidatorInterface $validator, UserManager $userManager)
     {
         parent::__construct($em, User::class, $validator);
         $this->em = $em;
+        $this->userManager = $userManager;
     }
 
     /**
@@ -50,4 +55,10 @@ class RegisterManager extends BaseManager
                 ])
         );
     }
+
+    /*public function deleteUserNotVerified()
+    {
+        $user = $this->userManager->deleteUserNotVerified();
+        dd($user);
+    }*/
 }

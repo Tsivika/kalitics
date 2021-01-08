@@ -99,6 +99,9 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         return $query;
     }
 
+    /**
+     * @return int|mixed|string
+     */
     public function getUserNotDeleted()
     {
         return $this->createQueryBuilder('u')
@@ -109,6 +112,9 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ;
     }
 
+    /**
+     * @return \Doctrine\ORM\Query
+     */
     public function updateUser()
     {
         $updateUser = $this->createQueryBuilder('u')
@@ -119,5 +125,26 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $updateUser->execute();
 
         return $updateUser;
+    }
+
+    /**
+     * @return \Doctrine\ORM\Query
+     * @throws \Exception
+     */
+    public function deleteUserNotVerified()
+    {
+        $date = new \DateTime("today");
+        $delay = $_ENV['EXPIRE_EMAIL'];
+        $date->sub(new \DateInterval("PT".$delay."H" ));
+
+        $delete = $this->createQueryBuilder('u')
+            ->delete(User::class, 'u')
+            ->andWhere('u.isVerified = 0')
+            ->andWhere('u.createdAt < :date')
+            ->setParameter('date', $date)
+            ->getQuery();
+        $delete->execute();
+
+        return $delete;
     }
 }

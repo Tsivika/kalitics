@@ -35,6 +35,7 @@ use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
+use DateTime;
 
 /**
  * Class RegistrationController
@@ -351,7 +352,7 @@ class RegistrationController extends AbstractController
         try {
             $this->emailVerifier->handleEmailConfirmation($request, $this->getUser());
         } catch (VerifyEmailExceptionInterface $exception) {
-            $this->addFlash('verify_email_error', $exception->getReason());
+            $this->addFlash('verify_email_error', 'Le lien pour vérifier votre e-mail a expiré. Merci de remplir le formulaire pour vous inscrire.');
 
             return $this->redirectToRoute('app_register');
         }

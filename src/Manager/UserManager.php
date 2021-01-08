@@ -172,4 +172,12 @@ class UserManager extends BaseManager
 
         return true;
     }
+
+    /**
+     * @return mixed
+     */
+    public function deleteUserNotVerified()
+    {
+        return $this->repository->deleteUserNotVerified();
+    }
 }
