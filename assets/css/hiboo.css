@@ -900,12 +900,16 @@ li  {
     color:#FFFFFF !important;
     border:solid 1px #FFFFFF;
 }
-.card-tarif .btn, .btn {
+.btn {
     font-family: 'CenturyGothic';
-    padding: 5px 30px;
     letter-spacing: 0;
     opacity: 1;
 }
+
+.card-tarif .btn {
+    padding: 5px 30px;
+}
+
 .home-icon{
     padding-top: 0px;
     cursor: pointer;
