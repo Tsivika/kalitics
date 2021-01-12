@@ -49,7 +49,7 @@
                         {% if row.mode == 'paying' %}
                             {% set path_destination = path('app_espace_client_profil_subscription_pre_payment', {'id':row.id}) %}
                         {% endif %}
-                        <a role="button" href="{{ path_destination }}" class="btn {{ btn_start }} encart_home_body pb-2">Démarrer</a>
+                        <a role="button" href="{{ path_destination }}" class="btn {{ btn_start }} pb-2">Démarrer</a>
                     </div>
                 </div>
             </div>
@@ -58,6 +58,6 @@
 </div>
 <div class="row abonnement" >
     <div class="col-lg-12 col-md-10 mx-auto text-center">
-        <a href="{{ path('app_espace_client_meeting_list') }}" role="button" class="btn start col-lg-3 encart_home_body" style="padding-bottom: 10px"> Essayer Iboo</a>
+        <a href="{{ path('app_espace_client_meeting_list') }}" role="button" class="btn start col-lg-3" style="padding-bottom: 10px"> Essayer Iboo</a>
     </div>
 </div>

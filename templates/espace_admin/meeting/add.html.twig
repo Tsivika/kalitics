@@ -7,7 +7,7 @@
     <div class="flex-column my-1 ml-1">
         <div class="input-group participant-proto-wrapper">
             {{ form_widget(participant.email) }}
-            <a class="remove_participant btn btn-danger ml-1 encart_home_body text-white small"><span class="fa fa-close"></span></a>
+            <a class="remove_participant btn btn-danger ml-1 text-white small"><span class="fa fa-close"></span></a>
         </div>
     </div>
 {% endmacro %}
@@ -76,19 +76,19 @@
                     </div>
                 </div>
             </div>
-           
+
 
             <div class="mt-5">
                  <h5 class="encart_home_head mb-4">Réunion publique ou privée</h5>
             </div>
-            <div class="row mt-4 pb-4">  
+            <div class="row mt-4 pb-4">
                 <div class="col-sm-12 pt-2">
                     {{form_label(form.password)}}
                 </div>
                 <div class="col-sm-12">{{ form_widget(form.password) }}</div>
             </div>
-            
-            
+
+
             <div class="mt-5">
                 <h5 class="encart_home_head mb-4">Inviter des participants</h5>
             </div>
@@ -105,7 +105,7 @@
                 </div>
                 <div class="col-12 pt-2 text-center">
                     <button class="btn btn-success pt-1 pb-2 mt-2" id="add_participant" title="Ajouter participant">
-                        <span class="btn-icon-right encart_home_body"><i class="fa fa-plus"></i> Ajouter participant </span>
+                        <span class="btn-icon-right"><i class="fa fa-plus"></i> Ajouter participant </span>
                     </button>
                 </div>
             </div>
@@ -121,7 +121,7 @@
             </div>
         {{ form_end(form) }}
     </div>
-    
+
 
 
 {% endblock %}
