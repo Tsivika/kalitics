@@ -190,11 +190,34 @@ div#registration_form_password {
 
 #navbarResponsive .btn-outline-danger:hover,
 #navbarResponsive .btn-outline-danger:focus,
-#navbarResponsive .btn-outline-danger.active
+#navbarResponsive .btn-outline-danger.active,
+
+.pwd-meeting .btn-danger-iboo:hover,
+.pwd-meeting .btn-danger-iboo:focus,
+.pwd-meeting .btn-danger-iboo:active
 {
     color: #ffffff !important;
     background-color: #FF5A5F !important;
-    border-color: #FF5A5F !important; /*set the color you want here*/
+    border-color: #FF5A5F !important;
+}
+.meeting_duration .btn-info,
+.meeting_duration .btn-info:hover,
+.meeting_duration .btn-info:focus,
+.meeting_duration .btn-info:active
+{
+    color: #ffffff !important;
+    background-color: #062944 !important;
+    border-color: #062944 !important;
+}
+
+.meeting_duration .input-group-text,
+.meeting_duration .input-group-text:hover,
+.meeting_duration .input-group-text:focus,
+.meeting_duration .input-group-text:active
+{
+    color: #ffffff !important;
+    background-color: #FF5A5F !important;
+    border-color: #FF5A5F !important;
 }
 
 .remove_participant.btn-danger {
@@ -249,7 +272,7 @@ div#registration_form_password {
 }
 .background-red:hover{
     color: #ffffff !important;
-    background-color: #e01117;
+    background-color: #E05760;
 }
 
 a.link { color: rgba(0,201,174,1) !important; }
@@ -1050,7 +1073,7 @@ section {
 .line_step_active{
     width: 100px;
     text-align: right;
-    border-top:solid 2px #FF5A5F;
+    border-top:solid 4px #FF5A5F;
     margin-left: 25px;
 }
 
@@ -1482,4 +1505,28 @@ button.btn.circle-btn {
     background-position-x: center;
     margin-top:150px;
     padding-top: 50px;
+}
+
+/** override  datepicker **/
+.dtp > .dtp-content > .dtp-date-view > header.dtp-header {
+    background: #27B09E !important;
+    color: #fff;
+    text-align: center;
+    padding: 0.3em;
+}
+
+.dtp div.dtp-date, .dtp div.dtp-time {
+    background: #00C9AE !important;
+    text-align: center;
+    color: #fff;
+    padding: 10px;
+}
+.dtp table.dtp-picker-days tr > td > a.selected {
+    background: #00C9AE !important;
+    color: #fff;
+}
+
+.dtp .p10 > a {
+    color: #FFFFFF !important;
+    text-decoration: none;
 }

@@ -3,7 +3,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark" id="mainNav">
             <div class="container-fluid max-1700">
                 <a class="navbar-brand" href="{{ path('app_homePage') }}">
-                     <img src="{{ asset('build/images/iboo-logo.svg') }}" alt="Hiboo" class="img-fluid w-100" style="width: 196px; height: 61px">
+                     <img src="{{ asset('build/images/iboo-logo.svg') }}" alt="Hiboo" class="logo-hiboo">
                 </a>
                 <button class="navbar-toggler navbar-toggler-right " type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
@@ -31,12 +31,12 @@
                         </li>
                     </ul>
                     <ul>
-                        <li class="w-100 nav-item sign">
+                        <li class="w-100 nav-item sign d-flex flex-nowrap">
                             {% if app.user == null %}
-                                <a class="btn  btn-lg login" href="{{ path('app_login') }}">Se connecter</a>
+                                <a class="btn  btn-lg login mr-1" href="{{ path('app_login') }}">Se connecter</a>
                                 <a class="btn btn-outline-danger signin" href="{{ path('app_register') }}">Je m'inscris</a>
                             {% else%}
-                                <a class="btn  btn-sm login" href="{{ path('app_logout') }}">Déconnexion</a>
+                                <a class="btn  btn-sm login mr-1" href="{{ path('app_logout') }}">Déconnexion</a>
                                 {% if is_granted('ROLE_ADMIN') %}
                                     <a class="btn btn-outline-danger btn-sm signin" href="{{ path('app_espace_admin_dashbord') }}">Tableau de bord</a>
                                 {% else %}
@@ -131,9 +131,9 @@
                             <li class="nav-item  item-link {% if app.request.get('_route') == 'app_espace_client_profil_edit' %} active {% endif %}">
                                 <a href="{{ path('app_espace_client_profil_edit') }}">Profil</a>
                             </li>
-                            <li class="nav-item  item-link {% if app.request.get('_route') == 'app_espace_client_parameter_add' %} active {% endif %}">
+                            {#<li class="d-nnav-item  item-link {% if app.request.get('_route') == 'app_espace_client_parameter_add' %} active {% endif %}">
                                 <a href="{{ path('app_espace_client_parameter_add') }}">Paramètres</a>
-                            </li>
+                            </li>#}
                             <li class="nav-item  item-link {% if app.request.get('_route') == 'app_espace_client_guide_list' %} active {% endif %}">
                                 <a href="{{ path('app_espace_client_guide_list') }}">Guide</a>
                             </li>

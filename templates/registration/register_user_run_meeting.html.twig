@@ -32,11 +32,11 @@
                     </p>
 
                     <div class="form-group mx-auto">
-                        <div class="row">
-                            <div class="col-lg-5 col-md-6 col-sm-12">
-                                <a class="btn  btn-large py-2 login btn-login" href="{{ link }}">Lancer la réunion</a>
+                        <div class="row ">
+                            <div class="col-lg-6 col-md-6 col-sm-12 ">
+                                <a class="btn login btn-lg" href="{{ link }}" style="padding-bottom: 14px">Lancer la réunion</a>
                             </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="col-lg-6 col-md-6 col-sm-12 ">
                                 <a class="btn btn-outline-danger btn-lg signin" style="padding-bottom: 14px" href="{{ path('app_espace_client_meeting_list') }}">Voir mon compte</a>
                             </div>
                         </div>
@@ -48,7 +48,7 @@
 
     <div class="login-rs">
         {% include "shared/social-network-icons.html.twig" %}
-    <div>
+    </div>
 
     <div class="world-globe">
         {% include 'shared/partenaire.html.twig' %}

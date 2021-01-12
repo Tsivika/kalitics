@@ -27,23 +27,23 @@ class RegistrationFormType extends AbstractType
                 'attr' => [
                     'class' => 'form-control bg-white infoPlaceholder border-md encart_home_body pl-3 pr-5',
                     'placeholder' => 'Nom de famille',
-                    'style' => 'padding-bottom: 13px;'
+                    'style' => 'padding-bottom: 11px;'
                 ]
             ])
             ->add('firstname', TextType::class, [
                 'label' => false,
                 'attr' => [
-                    'class' => 'form-control bg-white infoPlaceholder border-md encart_home_body pb-3 pr-5',
+                    'class' => 'form-control bg-white infoPlaceholder border-md encart_home_body pr-5',
                     'placeholder' => 'Prénom',
-                    'style' => 'padding-bottom: 13px;'
+                    'style' => 'padding-bottom: 11px;'
                 ]
             ])
             ->add('email', EmailType::class, [
                 'label' => false,
                 'attr' => [
-                    'class' => 'form-control bg-white infoPlaceholder border-md encart_home_body pb-3 pr-5',
+                    'class' => 'form-control bg-white infoPlaceholder border-md encart_home_body pr-5',
                     'placeholder' => 'Adresse mail',
-                    'style' => 'padding-bottom: 13px;'
+                    'style' => 'padding-bottom: 11px;'
                 ]
             ])
             ->add('agreeTerms', CheckboxType::class, [
@@ -75,11 +75,11 @@ class RegistrationFormType extends AbstractType
                 'first_options'  => ['label' => false, 'attr' => [
                     'placeholder' => 'Mot de passe',
                     'class' => 'form-control bg-white border-md infoPlaceholder encart_home_body pr-5',
-                    'style' => 'padding-bottom: 13px;'
+                    'style' => 'padding-bottom: 11px;'
                     ]],
                 'second_options' => ['label' => false, 'attr' => ['placeholder' => 'Confirmer votre mot de passe',
                     'class' => 'form-control bg-white border-md infoPlaceholder encart_home_body pr-5',
-                    'style' => 'padding-bottom: 13px;'
+                    'style' => 'padding-bottom: 11px;'
                     ]],
             ])
             /*->add('language', ChoiceType::class,

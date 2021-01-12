@@ -52,9 +52,9 @@
                 <div class="col-3">{{ form_label(form.date) }}</div>
                 <div class="col-9">
                     <div class="input-group mb-2">
-                        <div class="input-group-prepend">
+                        <div class="input-group-prepend meeting_duration">
                             <div class="input-group-text">
-                                <i class="fa fa-calendar text-danger" aria-hidden="true"></i>
+                                <i class="fa fa-calendar" style="color: #FFFFFF" aria-hidden="true"></i>
                             </div>
                         </div>
                         {{ form_widget(form.date) }}
@@ -76,13 +76,13 @@
                             {% else %}
                                 {{ form_widget(form.durationH) }}
                             {% endif %}
-                            <div class="input-group-append">
+                            <div class="input-group-append meeting_duration">
                                 <span class="btn btn-info">h</span>
                             </div>
                         </div>
                         <div class="col-2 input-group">
                             {{ form_widget(form.durationM) }}
-                            <div class="input-group-append">
+                            <div class="input-group-append meeting_duration">
                                 <span class="btn btn-info" type="submit">min</span>
                             </div>
                         </div>
@@ -128,8 +128,8 @@
                     {% for participant in form.participants %}
                         {{ formMacros.printParticipantsRow(participant) }}
                     {% endfor %}
-                    <div class="w-100 m-4 text-center pt-2">
-                        <button class="btn  btn-large py-2 pb-3 login" id="add_participant" title="Ajouter participant">
+                    <div class="w-100 m-4 text-center pt-2" >
+                        <button class="btn  btn-large login" id="add_participant" title="Ajouter participant" style="padding-bottom: 14px">
                             Ajouter
                         </button>
                     </div>
@@ -137,10 +137,10 @@
             </div>
             <hr>
             <div class="form-group col-lg-12 mx-auto form-add" style="margin-top: 20px">
-                <button type="submit" class="btn  btn-large py-2 login pb-3">
+                <button type="submit" class="btn btn-large login " style="padding-bottom: 14px">
                     <span class="font-weight-bold">{{title}}</span>
                 </button>
-                <button type="reset" class="btn btn-outline-danger py-2 px-5 pb-3 btn-outline-danger signin">
+                <button type="reset" class="btn btn-outline-danger px-5 btn-outline-danger signin" style="padding-bottom: 12px">
                     <span class="font-weight-bold ">Annuler</span>
                 </button>
             </div>
