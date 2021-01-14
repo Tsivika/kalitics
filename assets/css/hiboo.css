@@ -1513,6 +1513,14 @@ button.btn.circle-btn {
     padding-top: 50px;
 }
 
+.bg-expired-meeting {
+    background-repeat:no-repeat;
+    background-image: url('../images/Iboo-Expired.svg');
+    margin-top: 25px;
+    padding-top: 125px;
+    padding-bottom: 280px;
+}
+
 /** override  datepicker **/
 .dtp > .dtp-content > .dtp-date-view > header.dtp-header {
     background: #27B09E !important;

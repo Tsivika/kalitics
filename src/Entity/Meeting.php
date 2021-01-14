@@ -89,6 +89,11 @@ class Meeting
     private $state;
 
     /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $startDateTime;
+
+    /**
      * Meeting constructor.
      */
     public function __construct()
@@ -352,6 +357,18 @@ class Meeting
     public function setState(?int $state): self
     {
         $this->state = $state;
+
+        return $this;
+    }
+
+    public function getStartDateTime(): ?\DateTimeInterface
+    {
+        return $this->startDateTime;
+    }
+
+    public function setStartDateTime(?\DateTimeInterface $startDateTime): self
+    {
+        $this->startDateTime = $startDateTime;
 
         return $this;
     }

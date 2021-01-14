@@ -127,6 +127,17 @@ class MeetingLaunchController extends AbstractController
             $this->addFlash('error', 'La date de la réunion est déjà passée.');
             $this->redirectToRoute('app_espace_client_meeting_list');
         } else {
+            if ($meeting->getUser()->getSubscriptionUser()->getMode() == 'free') {
+                $expireMeeting = $this->meetingManager->getInfoMeetingBeforeRunning($meeting, $participant);
+                if ($expireMeeting['expire'] === 2) {
+
+                    return $this->render('meeting/expired_meeting.html.twig', [
+                        'post' => $expireMeeting['post'],
+                        'partners' => $this->partners,
+                    ]);
+                }
+            }
+
             $url = $this->meetingManager->generateLinkMeet(
                 $meeting,
                 $this->parameterManager,
@@ -138,5 +149,17 @@ class MeetingLaunchController extends AbstractController
         }
 
         return $this->redirectToRoute('app_espace_client_meeting_list');
+    }
+
+    /**
+     * @Route("/expired-meeting", name="expiredMeeting")
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function expireMeeting()
+    {
+        return $this->render('meeting/expired_meeting.html.twig', [
+            'partners' => $this->partners,
+        ]);
     }
 }

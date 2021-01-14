@@ -3,6 +3,7 @@
 
 namespace App\Manager;
 
+use DateTime;
 use App\Constants\EmailMeetingConstant;
 use App\Entity\Meeting;
 use App\Entity\Participant;
@@ -25,9 +26,21 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class MeetingManager extends BaseManager
 {
+    /**
+     *
+     */
     const CUSTOM_CSS_FIELD_NAME = 'userdata-bbb_custom_style';
+    /**
+     *
+     */
     const CUSTOM_AUTO_SWAP_LAYOUT = 'userdata-autoSwapLayout';
+    /**
+     *
+     */
     const DEFAULT_NAME = 'Réunion';
+    /**
+     *
+     */
     const DEFAULT_PARTICIPANT_NAME = 'Iboo participant';
     
     /**
@@ -289,9 +302,6 @@ class MeetingManager extends BaseManager
      * State = 0 => en attente, State = 1 => en cours State = 2 => terminé
      *
      * @param Meeting $meeting
-     * @param         $url
-     * @param         $secret
-     *
      * @return string
      */
     public function getInfoMeeting(Meeting $meeting)
@@ -316,6 +326,40 @@ class MeetingManager extends BaseManager
         }
 
         return $state;
+    }
+
+    /**
+     * @param Meeting $meeting
+     * @param $participant
+     * @return bool|int
+     */
+    public function getInfoMeetingBeforeRunning(Meeting $meeting, $participant)
+    {
+        $startDate = $meeting->getStartDateTime();
+        if ($startDate === null) {
+            $now = new DateTime('NOW');
+            $meeting->setStartDateTime($now);
+            $this->saveOrUpdate($meeting);
+            $d = [
+                'expire' => 1,
+                'post' => ''
+            ];
+
+            return $d;
+        } else {
+            $stateMeeting = $this->getInfoMeeting($meeting);
+            if ($stateMeeting === 2) { // meeting already over => expired
+                return [
+                    'expire' => 2,
+                    'post' => $participant->getType(),
+                ];
+            } else {
+                return [
+                    'expire' => 1,
+                    'post' => '',
+                ];
+            }
+        }
     }
 
     /**
@@ -444,6 +488,9 @@ class MeetingManager extends BaseManager
         }
     }
 
+    /**
+     * @param ParticipantRepository $participantRepos
+     */
     public function notificationParticipant(ParticipantRepository $participantRepos)
     {
         $participants = $participantRepos->getParticipantsMeeting();
