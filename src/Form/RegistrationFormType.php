@@ -25,25 +25,22 @@ class RegistrationFormType extends AbstractType
             ->add('name', TextType::class, [
                 'label' => false,
                 'attr' => [
-                    'class' => 'form-control bg-white infoPlaceholder border-md encart_home_body pl-3 pr-5',
+                    'class' => 'form-control bg-white infoPlaceholder border-md pl-3 pr-5',
                     'placeholder' => 'Nom de famille',
-                    'style' => 'padding-bottom: 11px;'
                 ]
             ])
             ->add('firstname', TextType::class, [
                 'label' => false,
                 'attr' => [
-                    'class' => 'form-control bg-white infoPlaceholder border-md encart_home_body pr-5',
+                    'class' => 'form-control bg-white infoPlaceholder border-md pr-5',
                     'placeholder' => 'Prénom',
-                    'style' => 'padding-bottom: 11px;'
                 ]
             ])
             ->add('email', EmailType::class, [
                 'label' => false,
                 'attr' => [
-                    'class' => 'form-control bg-white infoPlaceholder border-md encart_home_body pr-5',
+                    'class' => 'form-control bg-white infoPlaceholder border-md pr-5',
                     'placeholder' => 'Adresse mail',
-                    'style' => 'padding-bottom: 11px;'
                 ]
             ])
             ->add('agreeTerms', CheckboxType::class, [
@@ -70,16 +67,14 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
                 'invalid_message' => 'Les 2 mots de passe ne sont pas identiques.',
-                'options' => ['attr' => ['class' => 'form-control bg-white border-md encart_home_body']],
+                'options' => ['attr' => ['class' => 'form-control bg-white border-md']],
                 'required' => true,
                 'first_options'  => ['label' => false, 'attr' => [
                     'placeholder' => 'Mot de passe',
-                    'class' => 'form-control bg-white border-md infoPlaceholder encart_home_body pr-5',
-                    'style' => 'padding-bottom: 11px;'
+                    'class' => 'form-control bg-white border-md infoPlaceholder pr-5',
                     ]],
                 'second_options' => ['label' => false, 'attr' => ['placeholder' => 'Confirmer votre mot de passe',
-                    'class' => 'form-control bg-white border-md infoPlaceholder encart_home_body pr-5',
-                    'style' => 'padding-bottom: 11px;'
+                    'class' => 'form-control bg-white border-md infoPlaceholder pr-5',
                     ]],
             ])
             /*->add('language', ChoiceType::class,
@@ -90,7 +85,7 @@ class RegistrationFormType extends AbstractType
                     'expanded' => false,
                     'placeholder' => ':. Choix Langue .:',
                     'attr' => [
-                        'class' => 'form-control bg-white border-md encart_home_body',
+                        'class' => 'form-control bg-white border-md',
                     ],
                     'constraints' => [
                         new NotBlank([

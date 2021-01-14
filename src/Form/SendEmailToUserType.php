@@ -15,14 +15,14 @@ class SendEmailToUserType extends AbstractType
         $builder
             ->add('subject', TextType::class, [
                 'attr' => [
-                    'class' => 'form-control bg-white encart_home_body ',
+                    'class' => 'form-control bg-white ',
                     'placeholder' => 'Sujet'
                 ]
             ])
             ->add('message', TextareaType::class, [
                 'required' => false,
                 'attr' => [
-                    'class' => 'form-control bg-white encart_home_body ',
+                    'class' => 'form-control bg-white ',
                     'placeholder' => 'Message',
                 ]
             ])

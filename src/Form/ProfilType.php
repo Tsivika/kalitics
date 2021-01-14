@@ -24,21 +24,21 @@ class ProfilType extends AbstractType
             ->add('name', TextType::class, [
                 'label' => 'Nom',
                 'attr' => [
-                    'class' => 'form-control bg-white border-0 encart_home_body',
+                    'class' => 'form-control bg-white border-0',
                     'placeholder' => 'Nom de famille',
                 ]
             ])
             ->add('firstname', TextType::class, [
                 'label' => 'Prénom',
                 'attr' => [
-                    'class' => 'form-control bg-white border-0 encart_home_body',
+                    'class' => 'form-control bg-white border-0',
                     'placeholder' => 'Prénom',
                 ]
             ])
             ->add('email', EmailType::class, [
                 'label' => 'Adresse email',
                 'attr' => [
-                    'class' => 'form-control bg-white border-0 encart_home_body',
+                    'class' => 'form-control bg-white border-0',
                     'placeholder' => 'Adresse mail',
                 ]
             ])
@@ -50,7 +50,7 @@ class ProfilType extends AbstractType
                     'expanded' => false,
                     'placeholder' => ':. Choix Langue .:',
                     'attr' => [
-                        'class' => 'form-control bg-white border-0 encart_home_body',
+                        'class' => 'form-control bg-white border-0',
                     ],
                     'constraints' => [
                         new NotBlank([
@@ -61,7 +61,7 @@ class ProfilType extends AbstractType
             ->add('password', PasswordType::class, [
                 'label' => 'Mot de passe',
                 'attr' => [
-                    'class' => 'form-control bg-white border-0 encart_home_body',
+                    'class' => 'form-control bg-white border-0',
                     'placeholder' => '************',
                 ],
                 'constraints' => [

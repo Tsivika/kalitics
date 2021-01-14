@@ -30,8 +30,8 @@ class CheckMeetingPasswordType extends AbstractType
                 'label' => false,
                 'attr' => [
                     'placeholder' => 'Mot de passe',
-                    'class' => 'bg-white border-md infoPlaceholder encart_home_body pr-5 w-50',
-                    'style' => 'padding-bottom:15px; display:initial'
+                    'class' => 'bg-white border-md infoPlaceholder pr-5 w-50',
+                    'style' => 'display:initial'
                 ]
             ])
         ;

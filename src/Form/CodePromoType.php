@@ -19,13 +19,13 @@ class CodePromoType extends AbstractType
             ->add('name', null, [
                 'attr' => [
                     'placeholder' => 'Titre',
-                    'class' => 'form-control bg-white encart_home_body',
+                    'class' => 'form-control bg-white',
                 ],
             ])
             ->add('reduction', null, [
                 'attr' => [
                     'placeholder' => 'Reduction (%)',
-                    'class' => 'form-control bg-white encart_home_body',
+                    'class' => 'form-control bg-white',
                 ],
             ])
             ->add('status', null, [
@@ -34,7 +34,7 @@ class CodePromoType extends AbstractType
             ->add('code', null, [
                 'attr' => [
                     'placeholder' => 'Code',
-                    'class' => 'form-control bg-white encart_home_body',
+                    'class' => 'form-control bg-white',
                 ],
             ])
         ;

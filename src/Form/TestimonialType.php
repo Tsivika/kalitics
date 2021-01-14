@@ -20,14 +20,14 @@ class TestimonialType extends AbstractType
             ->add('name', TextType::class, [
                 'label' => 'Nom',
                 'attr' => [
-                    'class' => 'form-control bg-white encart_home_body',
+                    'class' => 'form-control bg-white',
                     'placeholder' => 'Nom',
                 ]
             ])
             ->add('score', IntegerType::class, [
                 'label' => 'Note',
                 'attr' => [
-                    'class' => 'form-control bg-white encart_home_body',
+                    'class' => 'form-control bg-white',
                     'placeholder' => 'Note',
                 ]
             ])
@@ -35,7 +35,7 @@ class TestimonialType extends AbstractType
                 'label' => 'Contenu',
                 'required' => false,
                 'attr' => [
-                    'class' => 'form-control bg-white encart_home_body ',
+                    'class' => 'form-control bg-white ',
                     'placeholder' => 'Avis (maxi : 200 caractères)',
                 ]
             ])
