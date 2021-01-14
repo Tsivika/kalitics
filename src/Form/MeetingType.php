@@ -23,7 +23,7 @@ class MeetingType extends AbstractType
                 'required' => true,
                 'attr' => [
                     'placeholder' => 'Sujet',
-                    'class' => 'bg-white encart_home_body input_grey pb-3',
+                    'class' => 'bg-white input_grey pb-3',
                     'style' => 'max-width:465px',
                 ]
             ])
@@ -32,7 +32,7 @@ class MeetingType extends AbstractType
                 'required' => false,
                 'attr' => [
                     'placeholder' => 'Veuillez saisir la description de votre réunion',
-                    'class' => 'bg-white encart_home_body',
+                    'class' => 'bg-white',
                     'rows' => 3,
                     'cols' => 20,
                     'style' => 'max-width:465px',
@@ -44,7 +44,7 @@ class MeetingType extends AbstractType
                 'format' => 'dd/MM/yyyy HH:mm',
                 'attr' => [
                     'placeholder' => '00/00/0000',
-                    'class' => 'bg-white encart_home_body pb-2',
+                    'class' => 'bg-white pb-2',
                     'style' => 'max-width:150px',
                 ],
             ])
@@ -52,7 +52,7 @@ class MeetingType extends AbstractType
                 'label' => 'h',
                 'required' => false,
                 'attr' => [
-                    'class' => 'bg-white encart_home_body pb-2',
+                    'class' => 'bg-white pb-2',
                     'placeholder' => '00',
                 ]
             ])
@@ -60,7 +60,7 @@ class MeetingType extends AbstractType
                 'label' => 'min',
                 'required' => false,
                 'attr' => [
-                    'class' => 'bg-white encart_home_body pb-2',
+                    'class' => 'bg-white pb-2',
                     'placeholder' => '00',
                 ]
             ])
@@ -69,7 +69,7 @@ class MeetingType extends AbstractType
                 'required' => true,
                 'attr' => [
                     'placeholder' => 'Mot de passe',
-                    'class' => 'bg-white encart_home_body pb-3',
+                    'class' => 'bg-white pb-3',
                     'style' => 'max-width:250px',
                 ]
             ])

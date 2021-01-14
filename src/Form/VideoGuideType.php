@@ -18,14 +18,14 @@ class VideoGuideType extends AbstractType
             ->add('titre', TextType::class, [
                 'label' => 'Titre',
                 'attr' => [
-                    'class' => 'form-control bg-white encart_home_body',
+                    'class' => 'form-control bg-white',
                     'placeholder' => 'Titre',
                 ]
             ])
             ->add('url', TextType::class, [
                 'label' => 'Vidéo',
                 'attr' => [
-                    'class' => 'form-control bg-white encart_home_body',
+                    'class' => 'form-control bg-white',
                     'placeholder' => 'Lien (ex: <iframe width=...)',
                     'required' => true,
                 ]

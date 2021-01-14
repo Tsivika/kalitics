@@ -503,7 +503,7 @@ textarea {
     padding: 10px 12px 10px 12px;
     border: 1px solid lightgrey;
     border-radius: 2px;
-
+    font-family: 'CenturyGothic';
 }
 
 input:focus,
@@ -620,6 +620,7 @@ a {
 select.form-control {
     height: 52px;
     padding-left: 0.5rem;
+    font-family: 'CenturyGothic';
 }
 
 .form-control::placeholder {

@@ -18,14 +18,14 @@ class PartnerType extends AbstractType
             ->add('name', TextType::class, [
                 'label' => 'Nom',
                 'attr' => [
-                    'class' => 'form-control bg-white encart_home_body',
+                    'class' => 'form-control bg-white',
                     'placeholder' => 'Nom'
                 ]
             ])
             ->add('webSite', TextType::class, [
                 'label' => 'Site web',
                 'attr' => [
-                    'class' => 'form-control bg-white encart_home_body',
+                    'class' => 'form-control bg-white',
                     'placeholder' => 'Site web (ex: http://google.com)'
                 ]
             ])

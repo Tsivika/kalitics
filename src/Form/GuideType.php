@@ -21,7 +21,7 @@ class GuideType extends AbstractType
                 'required' => true,
                 'attr' => [
                     'placeholder' => 'Question ',
-                    'class' => 'form-control bg-white encart_home_body',
+                    'class' => 'form-control bg-white',
                     'style' => 'width:350px',
                 ]
             ])
@@ -29,7 +29,7 @@ class GuideType extends AbstractType
                 'required' => false,
                 'attr' => [
                     'placeholder' => 'Réponse',
-                    'class' => 'form-control bg-white encart_home_body',
+                    'class' => 'form-control bg-white',
                 ]
             ])
             ->add('category', EntityType::class, [

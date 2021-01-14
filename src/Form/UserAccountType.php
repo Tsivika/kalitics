@@ -35,7 +35,7 @@ class UserAccountType extends AbstractType
             ])
             ->add('email', EmailType::class, [
                 'attr' => [
-                    'class' => 'form-control bg-white encart_home_body',
+                    'class' => 'form-control bg-white',
                     'placeholder' => 'Email',
                 ]
             ])
@@ -44,34 +44,34 @@ class UserAccountType extends AbstractType
                 'required' => false,
                 'mapped' => false,
                 'attr' => [
-                    'class' => 'form-control bg-white encart_home_body',
+                    'class' => 'form-control bg-white',
                     'style' => "padding-bottom:13px;"
                 ]
             ])
             ->add('name', TextType::class, [
                 'attr' => [
-                    'class' => 'form-control bg-white encart_home_body',
+                    'class' => 'form-control bg-white',
                     'placeholder' => 'Nom',
                     'style' => "padding-bottom:13px;"
                 ]
             ])
             ->add('firstname', TextType::class, [
                 'attr' => [
-                    'class' => 'form-control bg-white encart_home_body',
+                    'class' => 'form-control bg-white',
                     'placeholder' => 'Prénom',
                     'style' => "padding-bottom:13px;"
                 ]
             ])
             ->add('address', TextType::class, [
                 'attr' => [
-                    'class' => 'form-control bg-white encart_home_body',
+                    'class' => 'form-control bg-white',
                     'placeholder' => 'Adresse',
                     'style' => "padding-bottom:13px;"
                 ]
             ])
             ->add('entreprise', TextType::class, [
                 'attr' => [
-                    'class' => 'form-control bg-white encart_home_body',
+                    'class' => 'form-control bg-white',
                     'placeholder' => 'Entreprise',
                     'style' => "padding-bottom:13px;"
                 ]

@@ -18,7 +18,7 @@ class SubscriptionAdminType extends AbstractType
             ->add('title', TextType::class, [
                 'label' => 'Nom abonnement',
                 'attr' => [
-                    'class' => 'form-control bg-white encart_home_body',
+                    'class' => 'form-control bg-white',
                 ],
             ])
             ->add('duration', ChoiceType::class, [
@@ -36,14 +36,14 @@ class SubscriptionAdminType extends AbstractType
             ->add('duration_meeting', TextType::class, [
                 'label' => 'Durée de la réunion',
                 'attr' => [
-                    'class' => 'form-control bg-white encart_home_body',
+                    'class' => 'form-control bg-white',
                 ],
             ])
             ->add('numberParticipant', TextType::class, [
                 'label' => 'Nombre de participants',
                 'required' => false,
                 'attr' => [
-                    'class' => 'form-control bg-white encart_home_body',
+                    'class' => 'form-control bg-white',
                 ],
             ])
             ->add('messagingInstant', null, [
@@ -62,7 +62,7 @@ class SubscriptionAdminType extends AbstractType
                 'label' => 'Prix abonnement',
                 'required' => false,
                 'attr' => [
-                    'class' => 'form-control bg-white encart_home_body',
+                    'class' => 'form-control bg-white',
                 ],
             ])
         ;

@@ -17,7 +17,7 @@ class CategoryGuideType extends AbstractType
                 'required' => true,
                 'attr' => [
                     'placeholder' => 'Nom du catégorie',
-                    'class' => 'form-control bg-white encart_home_body',
+                    'class' => 'form-control bg-white',
                 ]
             ])
         ;
