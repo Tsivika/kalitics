@@ -27,7 +27,6 @@ class RegistrationFormType extends AbstractType
                 'attr' => [
                     'class' => 'form-control bg-white infoPlaceholder border-md pl-3 pr-5',
                     'placeholder' => 'Nom de famille',
-                    'style' => 'padding-bottom: 11px;'
                 ]
             ])
             ->add('firstname', TextType::class, [
@@ -35,7 +34,6 @@ class RegistrationFormType extends AbstractType
                 'attr' => [
                     'class' => 'form-control bg-white infoPlaceholder border-md pr-5',
                     'placeholder' => 'Prénom',
-                    'style' => 'padding-bottom: 11px;'
                 ]
             ])
             ->add('email', EmailType::class, [
@@ -43,7 +41,6 @@ class RegistrationFormType extends AbstractType
                 'attr' => [
                     'class' => 'form-control bg-white infoPlaceholder border-md pr-5',
                     'placeholder' => 'Adresse mail',
-                    'style' => 'padding-bottom: 11px;'
                 ]
             ])
             ->add('agreeTerms', CheckboxType::class, [
@@ -75,11 +72,9 @@ class RegistrationFormType extends AbstractType
                 'first_options'  => ['label' => false, 'attr' => [
                     'placeholder' => 'Mot de passe',
                     'class' => 'form-control bg-white border-md infoPlaceholder pr-5',
-                    'style' => 'padding-bottom: 11px;'
                     ]],
                 'second_options' => ['label' => false, 'attr' => ['placeholder' => 'Confirmer votre mot de passe',
                     'class' => 'form-control bg-white border-md infoPlaceholder pr-5',
-                    'style' => 'padding-bottom: 11px;'
                     ]],
             ])
             /*->add('language', ChoiceType::class,
