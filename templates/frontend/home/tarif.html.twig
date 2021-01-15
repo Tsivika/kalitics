@@ -32,14 +32,14 @@
                     {% if row.reminderMeeting %}
                         <p class="text-justify encart_home_body"><i class="fa fa-check-circle" aria-hidden="true"></i> Rappel automatique des réunions par mail  </p>
                     {% endif %}
-                    <h5 class="" style="font-family: CenturyGothic">
+                    <h5 class="font-weight-bold" style="font-family: CenturyGothic">
                         {% if row.price|length > 0 %}
                             {% if key == 1 %}
                                 <del style="color: #FFFFFF">99.00€</del>
                             {% elseif key == 2 %}
                                 <s style="color: #00C9AE">359.00€</s>
                             {% endif %}
-                            <span class="font-weight-bold">{{ row.price }} €</span>
+                            <span>{{ row.price }} €</span>
                         {% else %}
                             Gratuit
                         {% endif %}
