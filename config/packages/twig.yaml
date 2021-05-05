@@ -8,4 +8,3 @@ twig:
         assets/images: images
     globals:
         twig_asset_image_directory: '%asset_image_directory%'
-        stripe_publishable_key: '%env(resolve:STRIPE_PUBLIC_KEY)%'

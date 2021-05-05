@@ -1,9 +1,0 @@
-{% extends 'baseEmail.html.twig' %}
-
-{% block content %}
-    <p class="encart_home_head"><h1>Nouveau mail de {{ name }}:</h1></p>
-    <p class="encart_home_head"><h2>Email:<span class="encart_home_body">{{ address_email }}</span></h2> </p>
-    <p><h2 class="encart_home_head">Voici son message</h2>
-        <h3 class="encart_home_body" >{{ message|nl2br }}</h3>
-    </p>
-{% endblock %}

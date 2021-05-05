@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block body %}
+    <div class="jumbotron text-center">
+        <h2>{{ title }}</h2>
+    </div>
+    <div class="m-5">
+        <div class="col-12 text-center ">
+            {% include 'shared/flash_alert/index.html.twig' %}
+        </div>
+        <div class="text-right mb-3">
+            <a href="{{ path('create_chantier') }}" class="btn btn-info" role="button" >Nouveau chantier</a>
+        </div>
+        {% if chantiers is defined %}
+            <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Nom chantier</th>
+                    <th scope="col">Adresse chantier</th>
+                    <th scope="col">Date début</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for row in chantiers %}
+                    <tr>
+                        <th scope="row">{{ row.name }}</th>
+                        <td>{{ row.address }}</td>
+                        <td>{{ row.startDate|date("d/m/Y") }}</td>
+                        <td>
+                            <div class="float-left mr-4"><a href="{{ path('update_chantier', {'chantier':row.id}) }}" class="text-info">Modifier</a></div>
+                            <div class="float-left mr-4"><a href="{{ path('detail_chantier', {'chantier':row.id}) }}" class="text-success">Détail</a></div>
+                            <div class="float-left"><a href="{{ path('delete_chantier', {'chantier':row.id}) }}" class="text-danger">Supprimer</a></div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="text-center m-5">Pas de chantier</div>
+        {% endif %}
+    </div>
+
+{% endblock %}

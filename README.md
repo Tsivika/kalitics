@@ -1,59 +1,49 @@
-Hiboo Docker Orchestrator
+Test Kalitics
 ==========================
 
-Docker global deployment
-------------------------
-Build and Run:
-
-```bash
-$ docker-compose up -d
-```
-
-Backend configuration
+Install project
 ---------------------
-Install symfony vendors:
+Needs:
+- php 7.4.3
+- mysql 5.7
+- node.js V10.19.0
+- npm 6.14.4
+- yarn 1.22.10
 
+Installation of the various components:
 ```bash
-$ docker-compose exec engine composer install
+$ composer install
+$ yarn install
 ```
-
-Then, update db schema:
+Configuration
 ```bash
-$ docker-compose exec engine bin/console doctrine:schema:update --force
+The configuration is in env.dist to copy in your .env file
 ```
 
-Frontend configuration
-----------------------
-Launch install :
+Create database:
 ```bash
-$ docker-compose exec engine yarn install
+$ php bin/console doctrine:database:create
 ```
 
-Build encore webpack app, execute:
-
+Make migration
 ```bash
-$ docker-compose exec engine yarn encore dev
+$ php bin/console doctrine:migrations:migrate
 ```
 
-For prod env :
+Launch server symfony :
 ```bash
-$ docker-compose exec engine yarn encore production
+$ php -S localhost:8000 -t public
 ```
-Chmod upload :
+
+Launch Webpack encore :
 ```bash
-docker-compose exec engine chmod 777 -R uploads/
+$ yarn encore dev --watch
 ```
 
-### Mise en place de CRON
-Rajouter cette ligne dans le Crontab : `crontab -e`
-
+Different pages :
+```bash
+localhost:8000/user/list => Users list
+localhost:8000/chantier/list => Chantiers list
+localhost:8000/chantier/detail => Chantier detail
+localhost:8000/pointing/list => Chantiers list
 ```
-#NOTIFY PARTICIPANTS
-*/5 * * * * /usr/local/bin/docker-compose -f /var/www/hiboo/docker-compose.yaml exec -d engine php bin/console app:notify-participants --env=prod
-```
-
-Maquette XD : 
-https://xd.adobe.com/view/35a7b46b-6eca-4bbb-b660-04ea32a610df-60f4/grid	
-
-Preprod : 
-http://212.47.251.160/	

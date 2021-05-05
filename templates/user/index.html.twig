@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block body %}
+    <div class="jumbotron text-center">
+        <h2>{{ title }}</h2>
+    </div>
+    <div class="m-5">
+        <div class="col-12 text-center ">
+            {% include 'shared/flash_alert/index.html.twig' %}
+        </div>
+        <div class="text-right mb-3">
+            <a href="{{ path('create_user') }}" class="btn btn-info" role="button" >Nouveau utilisateur</a>
+        </div>
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Matricule</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Prénom</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for row in users %}
+                <tr>
+                    <th scope="row">{{ row.registerNumber }}</th>
+                    <td>{{ row.lastname }}</td>
+                    <td>{{ row.firstname }}</td>
+                    <td>
+                        <div class="float-left mr-4"><a href="{{ path('update_user', {'user':row.id}) }}" class="text-info">Modifier</a></div>
+                        <div class="float-left mr-4"><a href="{{ path('detail_user', {'user':row.id}) }}" class="text-success">Détail</a></div>
+                        <div class="float-left"><a href="{{ path('delete_user', {'user':row.id}) }}" class="text-danger">Supprimer</a></div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

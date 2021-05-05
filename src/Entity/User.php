@@ -7,136 +7,51 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @UniqueEntity(fields={"email"}, message="Il existe déjà un compte avec cet e-mail")
+ * @UniqueEntity(fields={"registerNumber"}, message="Il existe déjà un compte avec cette matricule")
  */
-class User implements UserInterface
+class User
 {
-    Use TimestampableEntityTrait;
-
     /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
+     * @ORM\Id
+     * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=180, unique=true)
-     */
-    private $email;
-
-    /**
-     * @ORM\Column(type="json")
-     */
-    private $roles = [];
-
-    /**
-     * @var string The hashed password
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $password;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $isVerified = false;
-
-    /**
-     * @ORM\Column(type="string", length=150)
-     */
-    private $name;
-
-    /**
-     * @ORM\Column(type="string", length=150)
+     * @ORM\Column(type="string", length=255)
      */
     private $firstname;
 
     /**
-     * @ORM\OneToOne(targetEntity=Media::class, cascade={"persist", "remove"})
+     * @ORM\Column(type="string", length=255)
      */
-    private $images;
+    private $lastname;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="integer", unique=true)
      */
-    private $language;
-
-
-    /**
-     * @ORM\OneToOne(targetEntity=Subscription::class, cascade={"persist", "remove"})
-     */
-    private $subscription;
+    private $registerNumber;
 
     /**
-     * @ORM\OneToMany(targetEntity=Meeting::class, mappedBy="user", cascade={"remove"})
+     * @ORM\ManyToOne(targetEntity=Chantier::class, inversedBy="users")
      */
-    private $meetings;
+    private $chantier;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\OneToMany(targetEntity=Pointing::class, mappedBy="user")
      */
-    private $pdp;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Subscription::class, inversedBy="users")
-     */
-    private $subscriptionUser;
-
-    /**
-     * @ORM\OneToMany(targetEntity=UserSubscription::class, mappedBy="user")
-     */
-    private $userSubscriptions;
-
-    /**
-     * @ORM\OneToMany(targetEntity=CodePromo::class, mappedBy="user")
-     */
-    private $codePromos;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $address;
-
-    /**
-     * @ORM\Column(type="string", length=150, nullable=true)
-     */
-    private $entreprise;
-
-    /**
-     * @ORM\Column(type="string", length=100, nullable=true)
-     */
-    private $stripeToken;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Parameter::class, mappedBy="user")
-     */
-    private $parameters;
-
-    /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $deleted;
-
-    /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $active;
+    private $pointings;
 
     /**
      * User constructor.
      */
     public function __construct()
     {
-        $this->meetings = new ArrayCollection();
-        $this->userSubscriptions = new ArrayCollection();
-        $this->codePromos = new ArrayCollection();
-        $this->parameters = new ArrayCollection();
-        $this->deleted = false;
-        $this->active = true;
+        $this->pointings = new ArrayCollection();
     }
 
     /**
@@ -150,137 +65,6 @@ class User implements UserInterface
     /**
      * @return string|null
      */
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    /**
-     * @param string $email
-     *
-     * @return $this
-     */
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
-    public function getUsername(): string
-    {
-        return (string) $this->email;
-    }
-
-    /**
-     * @see UserInterface
-     */
-    public function getRoles(): array
-    {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
-    }
-
-    /**
-     * @param array $roles
-     *
-     * @return $this
-     */
-    public function setRoles(array $roles): self
-    {
-        $this->roles = $roles;
-
-        return $this;
-    }
-
-    /**
-     * @see UserInterface
-     */
-    public function getPassword(): ?string
-    {
-        return (string) $this->password;
-    }
-
-    /**
-     * @param string $password
-     *
-     * @return $this
-     */
-    public function setPassword(?string $password): self
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    /**
-     * @see UserInterface
-     */
-    public function getSalt()
-    {
-        // not needed when using the "bcrypt" algorithm in security.yaml
-    }
-
-    /**
-     * @see UserInterface
-     */
-    public function eraseCredentials()
-    {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isVerified(): bool
-    {
-        return $this->isVerified;
-    }
-
-    /**
-     * @param bool $isVerified
-     *
-     * @return $this
-     */
-    public function setIsVerified(bool $isVerified): self
-    {
-        $this->isVerified = $isVerified;
-
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return $this
-     */
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
     public function getFirstname(): ?string
     {
         return $this->firstname;
@@ -288,7 +72,6 @@ class User implements UserInterface
 
     /**
      * @param string $firstname
-     *
      * @return $this
      */
     public function setFirstname(string $firstname): self
@@ -299,345 +82,96 @@ class User implements UserInterface
     }
 
     /**
-     * @return Media|null
-     */
-    public function getImages(): ?Media
-    {
-        return $this->images;
-    }
-
-    /**
-     * @param Media|null $images
-     *
-     * @return $this
-     */
-    public function setImages(?Media $images): self
-    {
-        $this->images = $images;
-
-        return $this;
-    }
-
-    /**
      * @return string|null
      */
-    public function getLanguage(): ?string
+    public function getLastname(): ?string
     {
-        return $this->language;
+        return $this->lastname;
     }
 
     /**
-     * @param string $language
-     *
+     * @param string $lastname
      * @return $this
      */
-    public function setLanguage(?string $language): self
+    public function setLastname(string $lastname): self
     {
-        $this->language = $language;
+        $this->lastname = $lastname;
 
         return $this;
     }
 
     /**
-     * @return Subscription|null
+     * @return int|null
      */
-    public function getSubscription(): ?Subscription
+    public function getRegisterNumber(): ?int
     {
-        return $this->subscription;
+        return $this->registerNumber;
     }
 
     /**
-     * @param Subscription|null $subscription
-     *
+     * @param int $registerNumber
      * @return $this
      */
-    public function setSubscription(?Subscription $subscription): self
+    public function setRegisterNumber(int $registerNumber): self
     {
-        $this->subscription = $subscription;
+        $this->registerNumber = $registerNumber;
 
         return $this;
     }
 
     /**
-     * @return Collection|Meeting[]
+     * @return Chantier|null
      */
-    public function getMeetings(): Collection
+    public function getChantier(): ?Chantier
     {
-        return $this->meetings;
+        return $this->chantier;
     }
 
     /**
-     * @param Meeting $meeting
-     *
+     * @param Chantier|null $chantier
      * @return $this
      */
-    public function addMeeting(Meeting $meeting): self
+    public function setChantier(?Chantier $chantier): self
     {
-        if (!$this->meetings->contains($meeting)) {
-            $this->meetings[] = $meeting;
-            $meeting->setUser($this);
+        $this->chantier = $chantier;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Pointing[]
+     */
+    public function getPointings(): Collection
+    {
+        return $this->pointings;
+    }
+
+    /**
+     * @param Pointing $pointing
+     * @return $this
+     */
+    public function addPointing(Pointing $pointing): self
+    {
+        if (!$this->pointings->contains($pointing)) {
+            $this->pointings[] = $pointing;
+            $pointing->setUser($this);
         }
 
         return $this;
     }
 
     /**
-     * @param Meeting $meeting
-     *
+     * @param Pointing $pointing
      * @return $this
      */
-    public function removeMeeting(Meeting $meeting): self
+    public function removePointing(Pointing $pointing): self
     {
-        if ($this->meetings->contains($meeting)) {
-            $this->meetings->removeElement($meeting);
+        if ($this->pointings->removeElement($pointing)) {
             // set the owning side to null (unless already changed)
-            if ($meeting->getUser() === $this) {
-                $meeting->setUser(null);
+            if ($pointing->getUser() === $this) {
+                $pointing->setUser(null);
             }
         }
-
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getPdp(): ?string
-    {
-        return $this->pdp;
-    }
-
-    /**
-     * @param string|null $pdp
-     * @return $this
-     */
-    public function setPdp(?string $pdp): self
-    {
-        $this->pdp = $pdp;
-
-        return $this;
-    }
-
-    /**
-     * @return Subscription|null
-     */
-    public function getSubscriptionUser(): ?Subscription
-    {
-        return $this->subscriptionUser;
-    }
-
-    /**
-     * @param Subscription|null $subscriptionUser
-     * @return $this
-     */
-    public function setSubscriptionUser(?Subscription $subscriptionUser): self
-    {
-        $this->subscriptionUser = $subscriptionUser;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|UserSubscription[]
-     */
-    public function getUserSubscriptions(): Collection
-    {
-        return $this->userSubscriptions;
-    }
-
-    /**
-     * @param UserSubscription $userSubscription
-     * @return $this
-     */
-    public function addUserSubscription(UserSubscription $userSubscription): self
-    {
-        if (!$this->userSubscriptions->contains($userSubscription)) {
-            $this->userSubscriptions[] = $userSubscription;
-            $userSubscription->setUser($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param UserSubscription $userSubscription
-     * @return $this
-     */
-    public function removeUserSubscription(UserSubscription $userSubscription): self
-    {
-        if ($this->userSubscriptions->contains($userSubscription)) {
-            $this->userSubscriptions->removeElement($userSubscription);
-            // set the owning side to null (unless already changed)
-            if ($userSubscription->getUser() === $this) {
-                $userSubscription->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|CodePromo[]
-     */
-    public function getCodePromos(): Collection
-    {
-        return $this->codePromos;
-    }
-
-    /**
-     * @param CodePromo $codePromo
-     * @return $this
-     */
-    public function addCodePromo(CodePromo $codePromo): self
-    {
-        if (!$this->codePromos->contains($codePromo)) {
-            $this->codePromos[] = $codePromo;
-            $codePromo->setUser($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param CodePromo $codePromo
-     * @return $this
-     */
-    public function removeCodePromo(CodePromo $codePromo): self
-    {
-        if ($this->codePromos->contains($codePromo)) {
-            $this->codePromos->removeElement($codePromo);
-            // set the owning side to null (unless already changed)
-            if ($codePromo->getUser() === $this) {
-                $codePromo->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getAddress(): ?string
-    {
-        return $this->address;
-    }
-
-    /**
-     * @param string|null $address
-     * @return $this
-     */
-    public function setAddress(?string $address): self
-    {
-        $this->address = $address;
-
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getEntreprise(): ?string
-    {
-        return $this->entreprise;
-    }
-
-    /**
-     * @param string|null $entreprise
-     * @return $this
-     */
-    public function setEntreprise(?string $entreprise): self
-    {
-        $this->entreprise = $entreprise;
-
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getStripeToken(): ?string
-    {
-        return $this->stripeToken;
-    }
-
-    /**
-     * @param string|null $stripeToken
-     * @return $this
-     */
-    public function setStripeToken(?string $stripeToken): self
-    {
-        $this->stripeToken = $stripeToken;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Parameter[]
-     */
-    public function getParameters(): Collection
-    {
-        return $this->parameters;
-    }
-
-    /**
-     * @param Parameter $parameter
-     * @return $this
-     */
-    public function addParameter(Parameter $parameter): self
-    {
-        if (!$this->parameters->contains($parameter)) {
-            $this->parameters[] = $parameter;
-            $parameter->setUser($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param Parameter $parameter
-     * @return $this
-     */
-    public function removeParameter(Parameter $parameter): self
-    {
-        if ($this->parameters->contains($parameter)) {
-            $this->parameters->removeElement($parameter);
-            // set the owning side to null (unless already changed)
-            if ($parameter->getUser() === $this) {
-                $parameter->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return bool|null
-     */
-    public function getDeleted(): ?bool
-    {
-        return $this->deleted;
-    }
-
-    /**
-     * @param bool|null $deleted
-     * @return $this
-     */
-    public function setDeleted(?bool $deleted): self
-    {
-        $this->deleted = $deleted;
-
-        return $this;
-    }
-
-    public function getActive(): ?bool
-    {
-        return $this->active;
-    }
-
-    public function setActive(?bool $active): self
-    {
-        $this->active = $active;
 
         return $this;
     }

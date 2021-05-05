@@ -14,18 +14,7 @@ Encore
     .setPublicPath('/build')
     // only needed for CDN's or sub-directory deploy
     //.setManifestKeyPrefix('build/')
-    .addPlugin(new CopyWebpackPlugin({
-        patterns: [
-            // Copy the skins from tinymce to the build/skins directory
-            { from: 'node_modules/tinymce/skins', to: 'skins' },
-        ],
-    }))
-    .addPlugin(new CopyWebpackPlugin({
-        patterns: [
-            // Copy the skins from tinymce to the build/skins directory
-            { from: 'node_modules/tinymce/icons', to: 'icons' },
-        ],
-    }))
+
     /*
      * ENTRY CONFIG
      *
@@ -36,8 +25,6 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/js/app.js')
-    .addEntry('espaceClient', './assets/js/espace-client.js')
-    .addEntry('subscriptionPayement', './assets/js/subscription_payement.js')
     .copyFiles({
         from: './assets/js',
         to: '/js/[path][name].[ext]'
@@ -48,11 +35,6 @@ Encore
     })
 
     .cleanupOutputBeforeBuild()
-
-    .copyFiles({
-        from: './assets/images',
-        to: 'images/[path][name].[hash:8].[ext]'
-    })
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()

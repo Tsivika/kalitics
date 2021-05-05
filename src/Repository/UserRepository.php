@@ -4,10 +4,8 @@ namespace App\Repository;
 
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
-use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
@@ -15,7 +13,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @method User[]    findAll()
  * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
+class UserRepository extends ServiceEntityRepository
 {
     /**
      * UserRepository constructor.
@@ -27,124 +25,20 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
     /**
-     * Used to upgrade (rehash) the user's password automatically over time.
+     * @param User $user
+     * @return int|mixed|string|null
+     * @throws NonUniqueResultException
      */
-    public function upgradePassword(UserInterface $user, string $newEncodedPassword): void
+    public function totalHourUser(User $user)
     {
-        if (!$user instanceof User) {
-            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', \get_class($user)));
-        }
-
-        $user->setPassword($newEncodedPassword);
-        $this->_em->persist($user);
-        $this->_em->flush();
-    }
-
-    /**
-     * selects users registered over the last 03 months
-     *
-     * @return int|mixed|string
-     */
-    public function lastRegistered()
-    {
-        $now = new \DateTime("today");
-        $date = new \DateTime("today");
-        $date->sub(new \DateInterval("P90D" ));
-
         $query = $this->createQueryBuilder('u');
-        $query = $query
-            ->select('count(u.id) as nbr', 'u.createdAt')
-            ->andWhere('u.createdAt >= :date1')
-            ->andWhere('u.createdAt <= :date2')
-            ->setParameter('date1', $date)
-            ->setParameter('date2', $now)
-            ->groupBy('u.createdAt')
-            ->orderBy('u.createdAt', 'ASC' )
-        ;
+        $query->select('SUM(p.duration) as totalHour')
+            ->join('u.pointings', 'p')
+            ->andWhere('p.user = :user')
+            ->setParameter('user', $user);
 
-        $query = $query
+        return $query
             ->getQuery()
-            ->getResult()
-        ;
-
-        return $query;
-    }
-
-    /**
-     * @return int|mixed|string
-     */
-    public function statUserSubscription()
-    {
-        $now = new \DateTime("today");
-        $date = new \DateTime("today");
-        $date->sub(new \DateInterval("P90D" ));
-
-        $query = $this->createQueryBuilder('u');
-        $query = $query
-            ->select('count(u.id) as nbr', 's.title')
-            ->leftJoin('u.subscriptionUser', 's')
-            ->andWhere('s.id = u.subscriptionUser')
-            ->andWhere('u.createdAt >= :date1')
-            ->andWhere('u.createdAt <= :date2')
-            ->setParameter('date1', $date)
-            ->setParameter('date2', $now)
-            ->groupBy( 's.title')
-        ;
-
-        $query = $query
-            ->getQuery()
-            ->getResult()
-        ;
-
-        return $query;
-    }
-
-    /**
-     * @return int|mixed|string
-     */
-    public function getUserNotDeleted()
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.deleted = 0')
-            ->orderBy('u.id', 'ASC')
-            ->getQuery()
-            ->getResult()
-            ;
-    }
-
-    /**
-     * @return \Doctrine\ORM\Query
-     */
-    public function updateUser()
-    {
-        $updateUser = $this->createQueryBuilder('u')
-            ->update(User::class, 'u')
-            ->set('u.deleted', 0)
-            ->set('u.active', 1)
-            ->getQuery();
-        $updateUser->execute();
-
-        return $updateUser;
-    }
-
-    /**
-     * @return \Doctrine\ORM\Query
-     * @throws \Exception
-     */
-    public function deleteUserNotVerified()
-    {
-        $date = new \DateTime("today");
-        $delay = $_ENV['EXPIRE_EMAIL'];
-        $date->sub(new \DateInterval("PT".$delay."H" ));
-
-        $delete = $this->createQueryBuilder('u')
-            ->delete(User::class, 'u')
-            ->andWhere('u.isVerified = 0')
-            ->andWhere('u.createdAt < :date')
-            ->setParameter('date', $date)
-            ->getQuery();
-        $delete->execute();
-
-        return $delete;
+            ->getOneOrNullResult();
     }
 }
