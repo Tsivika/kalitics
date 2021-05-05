@@ -1,8 +1,8 @@
 Test Kalitics
-==========================
-
+========================== 
+ 
 Install project
----------------------
+--------------------- 
 Needs:
 - php 7.4.3
 - mysql 5.7
@@ -11,35 +11,35 @@ Needs:
 - yarn 1.22.10
 
 Installation of the various components:
-```bash
+```bash 
 $ composer install
 $ yarn install
-```
+``` 
 Configuration
-```bash
+```bash 
 The configuration is in env.dist to copy in your .env file
-```
-
+``` 
+ 
 Create database:
-```bash
+```bash 
 $ php bin/console doctrine:database:create
 $ php bin/console doctrine:schema:update --force
-```
-
+``` 
+ 
 Launch server symfony :
-```bash
+```bash 
 $ php -S localhost:8000 -t public
-```
+``` 
 
 Launch Webpack encore :
-```bash
+```bash 
 $ yarn encore dev --watch
-```
-
+``` 
+ 
 Different pages :
-```bash
+```bash 
 localhost:8000/user/list => Users list
 localhost:8000/chantier/list => Chantiers list
 localhost:8000/chantier/detail => Chantier detail
 localhost:8000/pointing/list => Chantiers list
-```
+``` 
