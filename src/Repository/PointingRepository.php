@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Pointing;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,32 +20,28 @@ class PointingRepository extends ServiceEntityRepository
         parent::__construct($registry, Pointing::class);
     }
 
-    // /**
-    //  * @return Pointing[] Returns an array of Pointing objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function maxHourPerWeekUser(User $user, $dates)
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $dateBegin = $dates['startDate'];
+        $dateEnd = $dates['endDate'];
 
-    /*
-    public function findOneBySomeField($value): ?Pointing
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
+        $query = $this->createQueryBuilder('p');
+        $query = $query
+            ->select('sum(p.duration) as totalHour')
+            ->andWhere('p.date >= :begin')
+            ->andWhere('p.date <= :end')
+            ->andWhere('p.user = :user')
+            ->setParameter('begin', $dateBegin)
+            ->setParameter('end', $dateEnd)
+            ->setParameter('user', $user)
+            ->groupBy('p.user')
+        ;
+
+        $query = $query
             ->getQuery()
             ->getOneOrNullResult()
         ;
+
+        return $query;
     }
-    */
 }

@@ -4,6 +4,10 @@ namespace App\Services;
 
 class DateConverter
 {
+    /**
+     * @param $date
+     * @return false|string
+     */
     public function DateFR2DateSQL ($date)
     {
         $day    = substr($date,0,2);

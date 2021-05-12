@@ -12,6 +12,7 @@ Needs:
 
 Installation of the various components:
 ```bash 
+$ composer require symfony/mailer
 $ composer install
 $ yarn install
 ``` 
@@ -25,7 +26,12 @@ Create database:
 $ php bin/console doctrine:database:create
 $ php bin/console doctrine:schema:update --force
 ``` 
- 
+
+Generate the different ajax routes :
+```bash 
+$ php bin/console fos:js-routing:dump --format=json --target=public/js/fos_js_routes.json
+``` 
+
 Launch server symfony :
 ```bash 
 $ php -S localhost:8000 -t public
@@ -40,6 +46,6 @@ Different pages :
 ```bash 
 localhost:8000/user/list => Users list
 localhost:8000/chantier/list => Chantiers list
-localhost:8000/chantier/detail => Chantier detail
+localhost:8000/chantier/detail/{idChantier} => Chantier detail
 localhost:8000/pointing/list => Chantiers list
 ``` 

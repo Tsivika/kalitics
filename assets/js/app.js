@@ -57,18 +57,20 @@ Routing.setRoutingData(routes);
             e.preventDefault();
             var user = $('#pointing_user').val();
             var duration = $('#pointing_duration').val();
+            var date = $('#pointing_date').val();
 
             axios.post(Routing.generate('weekly_user_pointing'),  {
                 user: user,
-                duration: duration
+                duration: duration,
+                date: date
             })
                 .then(function (response) {
-                    /*if (response.data.body !== '') {
+                    if (response.data.body !== '') {
                         simpleSwalAlert(response.data.title, response.data.body, response.data.footer);
                         document.getElementById("submit_form").disabled = true;
                     } else {
                         document.getElementById("submit_form").disabled = false;
-                    }*/
+                    }
                 })
                 .catch(function (error) {
                     simpleSwalAlert(error, 'Erreur');

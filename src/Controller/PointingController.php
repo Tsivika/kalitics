@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Form\PointingType;
 use App\Manager\PointingManager;
 use App\Manager\UserManager;
+use App\Services\DateActions;
 use App\Services\DateConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -122,16 +123,20 @@ class PointingController extends AbstractController
      *
      * @param Request $request
      * @param UserManager $userManager
+     * @param DateActions $dateActions
      * @return JsonResponse|Response
      */
-    public function weeklyUser(Request $request, UserManager $userManager)
+    public function weeklyUser(Request $request, UserManager $userManager, DateActions $dateActions)
     {
         $data = json_decode($request->getContent(), true);
-        $totalHour = $userManager->getTotalHour(6);
+        $message = $this->em->weeklyUser($data, $userManager, $dateActions);
 
-//        if ($dailyUser > 0) {
-//            $message = 'Utilisateur déjà pointé pour ce chantier pour cette date!';
-//        }
+        return new JsonResponse([
+            'title' => 'Validation',
+            'body' => $message,
+            'footer' => '',
+            'success' => true,
+        ]) ;
 
     }
 }
